@@ -5,20 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70fc63dc-d615-4f18-82bf-8fa8e14c7ca0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oop/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oop/PrimaryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/oop/SecondaryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/oop/fxml.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/module-info.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/oop/App.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/oop/PrimaryController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/oop/SecondaryController.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/oop/fxml.fxml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/src/main/java/tubes/overloading/kerajaan/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/src/main/java/tubes/overloading/kerajaan/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/backend-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/backend-1.0-SNAPSHOT.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/classes/person/Person.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/classes/tubes/overloading/kerajaan/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/surefire-reports/TEST-tubes.overloading.kerajaan.AppTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/surefire-reports/tubes.overloading.kerajaan.AppTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/test-classes/tubes/overloading/kerajaan/AppTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/frontend/target/frontend-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/remidi-kelola-kerajaan/frontend/target/frontend-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/frontend/target/frontend-1.0-SNAPSHOT.jar" beforeDir="false" afterPath="$PROJECT_DIR$/remidi-kelola-kerajaan/frontend/target/frontend-1.0-SNAPSHOT.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/target/remidi-kelola-kerajaan-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" afterPath="$PROJECT_DIR$/remidi-kelola-kerajaan/target/remidi-kelola-kerajaan-1.0-SNAPSHOT-jar-with-dependencies.jar" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,28 +29,28 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 7
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 7
+}</component>
   <component name="ProjectId" id="2gE6si5qlFAEjHKJf8pt5ZHVDkh" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "modularity",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Kuliah/OOP/Tubes/Tubes2/IF2210_TugasBesar2_TubesOverloading/remidi-kelola-kerajaan",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;modularity&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Kuliah/OOP/Tubes/Tubes2/IF2210_TugasBesar2_TubesOverloading/remidi-kelola-kerajaan&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -67,6 +68,7 @@
       <option name="presentableId" value="Default" />
       <updated>1715250597808</updated>
       <workItem from="1715250598889" duration="460000" />
+      <workItem from="1715252135320" duration="1114000" />
     </task>
     <servers />
   </component>
