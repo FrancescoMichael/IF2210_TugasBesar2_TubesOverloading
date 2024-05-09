@@ -1,0 +1,4 @@
+.root {
+    -fx-background-image: url("../assets/bg_toko.png");
+    -fx-background-size: cover; /* Adjust as needed */
+}
