@@ -1,22 +1,21 @@
 package grid;
 
 import java.util.ArrayList;
-import card.*;
 
-// class Card{
+class Card{
 
-// }
-// class Creatures extends Card {
-//     public void harvest() {
+}
+class Creatures extends Card {
+    public void harvest() {
 
-//     }
-//     public void eat() {
+    }
+    public void eat() {
 
-//     }
-//     public void grow() {
+    }
+    public void grow() {
 
-//     }
-// }
+    }
+}
 
 interface activeCreature {
     public void eat();
@@ -25,17 +24,17 @@ interface passiveCreature {
     public void grow();
 }
 
-// class Animal extends Creatures implements activeCreature{
-//     public void eat() {
-//         System.out.println("Makann");
-//     }
-// }
+class Animal extends Creatures implements activeCreature{
+    public void eat() {
+        System.out.println("Makann");
+    }
+}
 
-// class Plant extends Creatures implements passiveCreature{
-//     public void grow() {
-//         System.out.println("Tumbuhh");
-//     }
-// }
+class Plant extends Creatures implements passiveCreature{
+    public void grow() {
+        System.out.println("Tumbuhh");
+    }
+}
 
 public class Grid {
     private int row;
@@ -46,21 +45,21 @@ public class Grid {
     }
     public void getElement() {
     }
-    public String toString(){
+        public String toString(){
         return "BISA MAS";
         }
 }
 
 class Field extends Grid {
     //private list kartu
-    private ArrayList<Creature> listOfCreatures;
-    public void set(int row, int col, Creature creature) {
+    private ArrayList<Creatures> listOfCreatures;
+    public void set(int row, int col, Creatures creature) {
         listOfCreatures.set(row * col, creature);
     }
     public void remove(int row, int col) {
         listOfCreatures.remove(row*col);
     }
-    public Creature getElement(int row, int col) {
+    public Creatures getElement(int row, int col) {
         return listOfCreatures.get(row * col);
     }
     public void harvestCreature(int row, int col) {
@@ -76,7 +75,10 @@ class Field extends Grid {
         getElement(row, col).eat();
         
     }
-
+    public String toString(){
+        return "BISA MAS";
+        }
+    
 }
 
 class ActiveDeck extends Grid {
