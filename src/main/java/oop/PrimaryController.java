@@ -1,0 +1,17 @@
+package oop;
+
+import java.io.IOException;
+import javafx.fxml.FXML;
+import javafx.scene.input.RotateEvent;
+
+public class PrimaryController {
+
+    @FXML
+    private void switchToSecondary() throws IOException {
+        App.setRoot("secondary");
+    }
+    @FXML
+    void trvvt(RotateEvent event) {
+
+    }
+}
