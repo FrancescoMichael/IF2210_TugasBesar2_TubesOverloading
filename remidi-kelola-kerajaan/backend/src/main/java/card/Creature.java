@@ -7,6 +7,10 @@ public class Creature extends Card{
     private int harvestedWeightRequirement;
     
     // constructor
+
+    public Creature(){
+        super();
+    }
     public Creature(String name, int price, String pathToImg){
         super(name,price,pathToImg);
         this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);

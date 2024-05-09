@@ -5,9 +5,6 @@ public class Card {
     private int price;
     private String pathToImg;
 
-
-
-
     // contructor
     public Card(){
         this.name = "";
@@ -19,7 +16,6 @@ public class Card {
         this.name = name;
         this.price = price; 
         this.pathToImg = pathToImg;
-    
     }
 
     // getters
