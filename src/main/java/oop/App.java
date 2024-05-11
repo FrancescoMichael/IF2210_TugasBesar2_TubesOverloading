@@ -25,10 +25,10 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("fxml.fxml"));
+            root = FXMLLoader.load(getClass().getResource("Field.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
-            primaryStage.setTitle("Wordladder Solver");
+            primaryStage.setTitle("");
             primaryStage.setResizable(false);
             primaryStage.show();
         } catch (IOException e) {
