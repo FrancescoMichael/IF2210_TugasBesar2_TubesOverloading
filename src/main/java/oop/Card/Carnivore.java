@@ -12,7 +12,8 @@ public class Carnivore extends Creature implements Animal {
 
     }
 
-    public void harvest() {
+    @Override
+    void harvest() {
         System.out.println("Panenn");
     }
 

@@ -11,7 +11,8 @@ public class Omnivore extends Creature implements Animal {
         return this.getHarvestProgress();
     }
 
-    public void harvest() {
+    @Override
+    void harvest() {
         System.out.println("Panenn");
     }
 
