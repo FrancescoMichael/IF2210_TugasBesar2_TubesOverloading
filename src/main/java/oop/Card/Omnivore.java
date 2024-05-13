@@ -1,17 +1,14 @@
 package oop.Card;
 
-public class Omnivore extends Creature implements Animal {
-
-    private int weight;
+public class Omnivore extends Creature implements Animal { 
 
     // pas dibikin weight masi 0
     public Omnivore(String pathToImg, String name, int harvestGoal) {
-        super(pathToImg, name, harvestGoal);
-        this.weight = 0;
+        super(pathToImg, name, harvestGoal, 0);
     }
 
     public int getWeight() {
-        return weight;
+        return this.getHarvestProgress();
     }
 
     public void harvest() {

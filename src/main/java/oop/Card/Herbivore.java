@@ -2,16 +2,13 @@ package oop.Card;
 
 public class Herbivore extends Creature implements Animal {
 
-    private int weight;
-
     // pas dibikin weight masi 0
     public Herbivore(String pathToImg, String name, int harvestGoal) {
-        super(pathToImg, name, harvestGoal);
-        this.weight = 0;
+        super(pathToImg, name, harvestGoal, 0);
     }
 
     public int getWeight() {
-        return weight;
+        return this.getHarvestProgress();
     }
 
     public void harvest() {

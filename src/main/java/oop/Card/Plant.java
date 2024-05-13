@@ -1,17 +1,14 @@
 package oop.Card;
 
 public class Plant extends Creature {
-    
-    private int age;
 
     // pas dibikin agenya masi 0
     public Plant(String pathToImg, String name, int harvestGoal) {
-        super(pathToImg, name, harvestGoal);
-        this.age = 0;
+        super(pathToImg, name, harvestGoal, 0);
     }
 
     public int getAge() {
-        return age;
+        return this.getHarvestProgress();
     }
 
     public void harvest() {
