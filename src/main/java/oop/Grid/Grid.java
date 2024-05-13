@@ -1,4 +1,4 @@
-package oop.grid;
+package oop.Grid;
 
 import java.util.ArrayList;
 
