@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -47,12 +47,11 @@
             <Image url="@../assets/OOP%202/OOP%202/grid/menu_di_ladang.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="52.0" fitWidth="159.0" layoutX="745.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="nextTurnBtn" fitHeight="52.0" fitWidth="159.0" layoutX="745.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/button/next.png" />
          </image>
       </ImageView>
-      <Button layoutX="758.0" layoutY="385.0" mnemonicParsing="false" opacity="0.0" prefHeight="46.0" prefWidth="114.0" />
       <ImageView fitHeight="26.0" fitWidth="150.0" layoutX="606.0" layoutY="631.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/misc/deck_logo.png" />
@@ -113,7 +112,7 @@
             <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="grid23" fitHeight="75.0" fitWidth="60.0" layoutX="247.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="grid23" fitHeight="75.0" fitWidth="60.0" layoutX="246.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
          </image>
@@ -138,7 +137,7 @@
             <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="grid33" fitHeight="75.0" fitWidth="60.0" layoutX="248.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="grid33" fitHeight="75.0" fitWidth="60.0" layoutX="246.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
          </image>
@@ -163,7 +162,7 @@
             <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="grid43" fitHeight="75.0" fitWidth="60.0" layoutX="249.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="grid43" fitHeight="75.0" fitWidth="60.0" layoutX="246.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
          </image>
@@ -219,5 +218,6 @@
             <Image url="@../assets/OOP%202/OOP%202/cards/2.png" />
          </image>
       </ImageView>
+      <Label layoutX="610.0" layoutY="614.0" prefHeight="18.0" prefWidth="130.0" text="Label" textFill="WHITE" />
    </children>
 </AnchorPane>

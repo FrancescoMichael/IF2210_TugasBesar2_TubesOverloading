@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.fxml.Initializable;
@@ -93,6 +94,9 @@ public class FieldController implements Initializable{
 
     @FXML
     private ImageView activeCard1;
+
+    @FXML
+    private ImageView nextTurnBtn;
     
     void setGridtoShark() {
         String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/2.png").toExternalForm();
@@ -105,10 +109,17 @@ public class FieldController implements Initializable{
     }
 
     DraggableMaker draggableMaker = new DraggableMaker();
+    GlowButtonMaker glowButtonMaker = new GlowButtonMaker();
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setGridtoShark();
+
+        glowButtonMaker.setGlow(nextTurnBtn);
+
+        // nextTurnBtn.setOnAction(event -> {
+        //     System.out.println("Button clicked!");
+        // });
 
         ImageView[][] matrix_grid = new ImageView[][] {
             {grid11, grid12, grid13, grid14, grid15},
