@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.fxml.Initializable;
 
@@ -89,6 +90,9 @@ public class FieldController implements Initializable{
 
     @FXML
     private ImageView card11;
+
+    @FXML
+    private ImageView activeCard1;
     
     void setGridtoShark() {
         String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/2.png").toExternalForm();
@@ -102,10 +106,17 @@ public class FieldController implements Initializable{
 
     DraggableMaker draggableMaker = new DraggableMaker();
 
-
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         setGridtoShark();
-        draggableMaker.makeDraggable(grid55);
+
+        ImageView[][] matrix_grid = new ImageView[][] {
+            {grid11, grid12, grid13, grid14, grid15},
+            {grid21, grid22, grid23, grid24, grid25},
+            {grid31, grid32, grid33, grid34, grid35},
+            {grid41, grid42, grid43, grid44, grid55}
+        };
+        
+        draggableMaker.makeDraggable(activeCard1, matrix_grid);
     }
 }

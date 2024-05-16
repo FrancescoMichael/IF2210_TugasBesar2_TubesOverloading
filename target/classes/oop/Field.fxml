@@ -208,6 +208,16 @@
             <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="card11" fitHeight="75.0" fitWidth="60.0" layoutX="48.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="card11" fitHeight="89.0" fitWidth="76.0" layoutX="40.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/cards/2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="89.0" fitWidth="76.0" layoutX="51.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="activeCard1" fitHeight="104.0" fitWidth="97.0" layoutX="42.0" layoutY="497.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/cards/2.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
