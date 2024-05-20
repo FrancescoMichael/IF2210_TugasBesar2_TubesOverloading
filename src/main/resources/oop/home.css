@@ -1,4 +1,4 @@
 .root {
     -fx-background-image: url("../assets/home.png");
-    -fx-background-size: cover; /* Adjust as needed */
+    -fx-background-size: cover;
 }

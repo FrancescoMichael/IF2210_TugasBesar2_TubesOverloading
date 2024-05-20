@@ -25,7 +25,7 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         Parent root;
         try {
-            root = FXMLLoader.load(getClass().getResource("fxml.fxml"));
+            root = FXMLLoader.load(getClass().getResource("toko-card.fxml"));
             Scene scene = new Scene(root);
             primaryStage.setScene(scene);
             primaryStage.setTitle("Wordladder Solver");

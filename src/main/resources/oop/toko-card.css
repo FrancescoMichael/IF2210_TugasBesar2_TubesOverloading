@@ -1,0 +1,9 @@
+@font-face {
+    font-family: "ARCADE_N";
+    src: url("../assets/ARCADE_N.ttf")
+}
+
+.root {
+    -fx-font-family: 'ARCADE_N';
+    -fx-font-size: 16px;
+}
