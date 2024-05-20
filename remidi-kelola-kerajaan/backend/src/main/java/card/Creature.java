@@ -2,7 +2,7 @@ package card;
 import java.util.*;
 
 import player.Player;
-public class Creature extends Card{
+public class Creature extends Card implements Harvestable{
     private static Map<String, Product> allHarvestedProduct ;
     private static Map<String, Integer> allHarvestedWeightRequirement;
     private Product harvestedProduct;
@@ -26,17 +26,20 @@ public class Creature extends Card{
         this.weight = 0;
         this.weight_after_effect = 0;
         this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
+        this.setHarvestedProduct(Creature.allHarvestedProduct.get(name) );
     }
 
     // getter
     @Override
     public Product getHarvestedProduct(){
+
         return this.harvestedProduct;
     }
 
     // setter
     public void setHarvestedProduct(Product copyProduct){
         this.harvestedProduct = new Product(copyProduct);
+        this.harvestedProduct.setOwner(getOwner());
     }
 
     public int getHarvestedWeightRequirement(){
