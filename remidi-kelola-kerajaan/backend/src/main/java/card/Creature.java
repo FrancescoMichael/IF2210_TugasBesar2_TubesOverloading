@@ -71,21 +71,6 @@ public class Creature extends Card{
 
     }
 
-    // harvesting
-
-
-    // @Override
-    // public void useCard(Card targetcard, int row, int col) throws Exception{
-    //     if (card.getName().compareTo("") != 0){
-    //         throw new Exception("Cannot throw card to a non blank spot");
-    //     }
-    //     else{
-    //         // taro card ke ladang  
-    //         targetcard.getOwner().deleteCardAtGrid()
-    //     }
-
-    // }
-
 
     
 }
