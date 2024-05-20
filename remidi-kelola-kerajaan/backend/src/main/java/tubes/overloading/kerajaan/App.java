@@ -1,8 +1,10 @@
 package tubes.overloading.kerajaan;
 
-import person.Person;
+
+import java.util.ArrayList;
+
 import card.*;
-import grid.*;
+import card.creature.*;
 import player.*;
 
 /**
@@ -13,16 +15,20 @@ public class App
 {
     public static void main( String[] args )
     {
-        Person person = new Person("Marvel");
-        Item what  = new Item();
-        Grid what2 = new Grid();
-        System.out.println(what);
-        System.out.println(what2);
-        System.out.println(person.getName());
-        Player player = new Player("Marvel");
-        System.out.println(player.getName());
-        player.addCardToActiveDeck(what);
-        // player.useItemCard(0);
-        System.out.println(player.getName());
+        Creature.initializeAllCreatureStaticVariables();
+        Card what = new Creature("Hiu Darat",400,"",new Player("Marvel"));
+
+        ArrayList<Creature> card = new ArrayList<>();
+        if (what instanceof Creature){
+            card.add(  (Creature)what);
+        }
+        Product whatProduct  = card.get(0).getHarvestedProduct();
+        System.out.println("INI NAMANYA");
+        System.out.println(whatProduct.getName());
+
+
+
+
+    
     }
 }

@@ -1,4 +1,7 @@
-package card;
+package card.creature;
+
+import card.food.*;
+
 
 public class Herbivore extends Creature implements Animals {
     public void eat(CarnivoreFood food) {

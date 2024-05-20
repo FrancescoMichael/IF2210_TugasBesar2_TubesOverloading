@@ -6,6 +6,10 @@ public class Player {
     private String name;
     private ArrayList<Card> activeDeck;
 
+    public Player(){
+        this.name = "";
+        this.activeDeck = new ArrayList<>();
+    }
     public Player(String name) {
         this.name = name;
         this.activeDeck = new ArrayList<>();
@@ -23,9 +27,4 @@ public class Player {
     public void addCardToActiveDeck(Card card){
         this.activeDeck.add(card);
     }
-
-    // public void useItemCard(int index, Creature creature, Player enPlayer){
-    //     ((Item)this.activeDeck.get(index)).useEffect(this, enPlayer);
-
-    // }
 }

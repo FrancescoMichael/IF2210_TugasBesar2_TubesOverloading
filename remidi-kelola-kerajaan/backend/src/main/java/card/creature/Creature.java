@@ -1,16 +1,23 @@
-package card;
+package card.creature;
 
 import java.util.*;
 
+import card.Card;
+import card.Product;
+import card.food.CarnivoreFood;
+import card.food.HerbivoreFood;
 import player.Player;
+import exceptionkerajaan.*;
 
-public class Creature extends Card implements Harvestable {
+
+// creature includes plants and animals
+public class Creature extends Card {
     private static Map<String, Product> allHarvestedProduct;
     private static Map<String, Integer> allHarvestedWeightRequirement;
     private Product harvestedProduct;
     private int harvestedWeightRequirement;
     private int weight;
-    private int weight_after_effect;
+    private int weightAfterEffect;
     // effect attribute ?
 
     // constructor
@@ -27,13 +34,12 @@ public class Creature extends Card implements Harvestable {
         this.harvestedProduct = new Product(Creature.allHarvestedProduct.get(name));
         this.harvestedProduct.setOwner(owner);
         this.weight = 0;
-        this.weight_after_effect = 0;
+        this.weightAfterEffect = 0;
         this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
         this.setHarvestedProduct(Creature.allHarvestedProduct.get(name));
     }
 
     // getter
-    @Override
     public Product getHarvestedProduct() {
         return this.harvestedProduct;
     }
@@ -53,7 +59,7 @@ public class Creature extends Card implements Harvestable {
     }
 
     public int getWeightAfterEffect() {
-        return this.weight_after_effect;
+        return this.weightAfterEffect;
     }
 
     // other functions
@@ -82,4 +88,20 @@ public class Creature extends Card implements Harvestable {
 
     }
 
+    public void increaseWeight(int additionalWeight){
+        this.weight += additionalWeight;
+        this.weightAfterEffect += additionalWeight;
+    }
+
+
+    public void placeCardtoGrid(Card targetCard, int row, int col) throws BaseException{
+        if (targetCard.getName() == "" && targetCard.getOwner() == this.getOwner() ){
+            // place card to grid at row and col
+
+        } else {
+            throw new InvalidCardPlacementException();
+        }
+    }
+
+    
 }

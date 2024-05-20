@@ -1,5 +1,7 @@
-package card;
+package card.food;
 
+import card.Product;
+import card.creature.Animals;
 import player.Player;
 
 public class CarnivoreFood extends Product implements Food {

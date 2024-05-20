@@ -1,5 +1,11 @@
 package card;
+import card.creature.Animals;
+import card.creature.Creature;
+import card.item.Item;
+import exceptionkerajaan.BaseException;
+import exceptionkerajaan.InvalidCardPlacementException;
 import player.*;
+import card.food.Food;
 public class Card {
     private String name;
     private int price;
@@ -75,13 +81,24 @@ public class Card {
     }
 
     // using card
-    public void useCard(Card targetCard) throws Exception{
+    public void useCard(Card targetCard, int row, int col) throws BaseException{
         // use strategy design pattern
-        throw new Exception("Invalid use of card");
 
+        if (this instanceof Creature){
+            // do something
+            ((Creature) this).placeCardtoGrid(targetCard, row, col);
+        } else if (this instanceof Item){
+            // do something
+            if (targetCard instanceof Creature){
+                ((Item) this).useEffect( (Creature)targetCard, row, col);
+            } else {
+                throw new InvalidCardPlacementException();
+            }
+        } else if (this instanceof Product){
+            if (targetCard instanceof Animals)
+            ((Food) this).beEaten( (Animals)targetCard) ;
+        }
     }
 
-    public Product getHarvestedProduct() throws  Exception{
-        throw new Exception("Card cannot be harvested !");
-    }
+
 }
