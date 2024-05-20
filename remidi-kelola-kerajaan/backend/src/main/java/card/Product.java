@@ -1,5 +1,5 @@
 package card;
-
+import player.*;
 public class Product extends Card{
     private String type;
     private int additionalWeight;
@@ -8,14 +8,19 @@ public class Product extends Card{
     public Product(){
         super();
     }
-    public Product(String name, int price, String pathToImg, String type, int additionalWeight){
+    public Product(String name, int price, String pathToImg, Player owner,String type, int additionalWeight){
+        super(name,price,pathToImg, owner);
+        this.type = type;
+        this.additionalWeight = additionalWeight;
+    }
+    public Product(String name, int price, String pathToImg,String type, int additionalWeight){
         super(name,price,pathToImg);
         this.type = type;
         this.additionalWeight = additionalWeight;
     }
 
     public Product(Product copyProduct){
-        super(copyProduct.getName(),copyProduct.getPrice(),copyProduct.getType());
+        super(copyProduct.getName(),copyProduct.getPrice(),copyProduct.getType(), copyProduct.getOwner());
         this.type = copyProduct.getType();
     }
 

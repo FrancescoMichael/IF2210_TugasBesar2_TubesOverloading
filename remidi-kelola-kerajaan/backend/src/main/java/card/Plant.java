@@ -1,5 +1,7 @@
 package card;
 
+import player.Player;
+
 public class Plant extends Card{
     private int incrementAge;
 
@@ -8,18 +10,15 @@ public class Plant extends Card{
         this.incrementAge = 0;
     }
 
-    public Plant(String name, int price, String pathToImg, int incrementAge){
-        super(name,price,pathToImg);
+    public Plant(String name, int price, String pathToImg, Player owner,int incrementAge){
+        super(name,price,pathToImg,owner);
         this.incrementAge = incrementAge;
     }
 
-
     // getters
-
     public int getIncrementAge(){
         return this.incrementAge;
     }
-
 
     // setter
     public void setIncrementAge(int incrementAge){
