@@ -3,53 +3,85 @@ package card.creature;
 import java.util.*;
 
 import card.Card;
+import card.UsableCard;
 import card.product.CarnivoreFood;
 import card.product.HerbivoreFood;
 import card.product.Product;
 import player.Player;
 import exceptionkerajaan.*;
+import card.item.Item;
 
 
 
 // creature includes plants and animals
-public class Creature extends Card {
+public class Creature extends Card implements UsableCard {
     private static Map<String, Product> allHarvestedProduct;
     private static Map<String, Integer> allHarvestedWeightRequirement;
-    private Product harvestedProduct;
+    // private Product harvestedProduct;
     private int harvestedWeightRequirement;
     private int weight;
     private int weightAfterEffect;
+    private List<Item> itemEffects;
     // effect attribute ?
 
     // constructor
 
     public Creature() {
         super();
+        this.harvestedWeightRequirement = 0;
+        this.weight = 0;
+        this.weightAfterEffect = 0;
+        this.itemEffects = new ArrayList<>();
     }
 
-    public Creature(String name, int price, String pathToImg, Player owner) {
-        super(name, price, pathToImg, owner);
+    public Creature(String name, String pathToImg, Player owner) {
+
+        super(name, pathToImg, owner);
+
         this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
 
         // Possibility of null value, be careful
-        this.harvestedProduct = new Product(Creature.allHarvestedProduct.get(name));
-        this.harvestedProduct.setOwner(owner);
+        // this.harvestedProduct.setOwner(owner);
         this.weight = 0;
         this.weightAfterEffect = 0;
         this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
-        this.harvestedProduct = Creature.allHarvestedProduct.get(name);
+        // this.harvestedProduct = Creature.allHarvestedProduct.get(name);
+    }
+
+    public Creature(String name, String pathToImg) {
+
+        super(name, pathToImg);
+
+        this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
+
+        // Possibility of null value, be careful
+        // this.harvestedProduct.setOwner(owner);
+        this.weight = 0;
+        this.weightAfterEffect = 0;
+        this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
+        // this.harvestedProduct = Creature.allHarvestedProduct.get(name);
     }
 
     // getter
     public Product getHarvestedProduct() {
-        return this.harvestedProduct;
-    }
+        
+        Product pTemp = Creature.allHarvestedProduct.get(this.getName());
+        if (pTemp instanceof CarnivoreFood){
+            pTemp = new CarnivoreFood( (CarnivoreFood)pTemp);
 
-    // setter
-    public void setHarvestedProduct(Product copyProduct) {
-        this.harvestedProduct = new Product(copyProduct);
-        this.harvestedProduct.setOwner(getOwner());
+        } else if (pTemp instanceof HerbivoreFood){
+            pTemp = new HerbivoreFood( (HerbivoreFood)pTemp);
+        }
+        pTemp.setOwner(this.owner);
+        return pTemp;
+        
     }
+    
+    // setter
+    // public void setHarvestedProduct(Product copyProduct) {
+    //     this.harvestedProduct = new Product(copyProduct);
+    //     this.harvestedProduct.setOwner(getOwner());
+    // }
 
     public int getHarvestedWeightRequirement() {
         return this.harvestedWeightRequirement;
@@ -94,6 +126,19 @@ public class Creature extends Card {
         this.weightAfterEffect += additionalWeight;
     }
 
+    public void increasweightAfterEffect(int additionalWeight){
+        this.weightAfterEffect += additionalWeight;
+    }
+
+    public void addEffect(Item effect){
+        this.itemEffects.add(effect);
+    }
+
+    // public boolean isProtected(){
+
+    // }
+
+
 
     public void placeCardtoGrid(Card targetCard, int row, int col) throws BaseException{
         if (targetCard.getName() == "" && targetCard.getOwner() == this.getOwner() ){
@@ -103,6 +148,15 @@ public class Creature extends Card {
             throw new InvalidCardPlacementException();
         }
     }
+
+    @Override
+    public void useCard(Card targetCard, int row, int col) throws BaseException{
+        if (targetCard.getName() == "" && this.getOwner() == targetCard.getOwner()){
+            this.getOwner().addCardToGrid(this, row, col);
+        }
+    }
+
+
 
     
 }

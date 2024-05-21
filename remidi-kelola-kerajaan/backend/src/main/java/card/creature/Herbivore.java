@@ -1,5 +1,4 @@
 package card.creature;
-import card.UsableCard;
 import card.product.CarnivoreFood;
 import card.product.HerbivoreFood;
 import exceptionkerajaan.BaseException;
@@ -8,14 +7,14 @@ import player.*;
 import card.*;
 
 
-public class Herbivore extends Creature implements Animals,UsableCard {
+public class Herbivore extends Creature implements Animals{
     
     public Herbivore() {
         super();
     }
 
-    public Herbivore(String name, int price, String pathToImg, Player owner) {
-        super(name, price, pathToImg, owner);
+    public Herbivore(String name, String pathToImg, Player owner) {
+        super(name, pathToImg, owner);
     }
     
     public void eat(CarnivoreFood food) throws BaseException{

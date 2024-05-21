@@ -3,11 +3,11 @@ package tubes.overloading.kerajaan;
 
 import java.util.ArrayList;
 
-import card.*;
 import exceptionkerajaan.BaseException;
 import player.*;
 import card.creature.*;
 import card.product.Food;
+import card.Card;
 
 /**
  * Hello world!
@@ -21,8 +21,8 @@ public class App {
         ArrayList<Card> activeDeck = new ArrayList<>();
 
         // simulasikan active deck dimana dia hanya List of Card
-        Card animal = new Carnivore("Hiu Darat", 400, "", new Player("Marvel"));
-        Card plant = new Plant("Biji Stroberi",400, "", new Player(""));
+        Card animal = new Carnivore("Hiu Darat", "", new Player("Marvel"));
+        Card plant = new Plant("Biji Stroberi", "", new Player("Marve"));
 
         // Simulasikan Grid dimana terdiri atas list of Creature
 
@@ -51,6 +51,9 @@ public class App {
             if (activeDeck.get(0) instanceof Food){
                 // Hiu makan sirip hiu
                 ((Food)activeDeck.get(0)).beEaten( (Animals)grid.get(0));
+                System.out.println(activeDeck.get(0)   );
+                System.out.println(activeDeck.get(1)   );
+                System.out.println(grid.get(0)   );
             }
             if (activeDeck.get(1) instanceof Food){
 

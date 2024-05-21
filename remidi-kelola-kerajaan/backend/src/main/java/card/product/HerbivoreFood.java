@@ -21,14 +21,26 @@ public class HerbivoreFood extends Product implements Food, UsableCard {
         super(name, price, pathToImg, owner, type, additionalWeight);
     }
 
+    public HerbivoreFood(HerbivoreFood copyFood){
+        this.name = copyFood.name;
+        this.price = copyFood.price;
+        this.pathToImg = copyFood.pathToImg;
+        this.owner = copyFood.owner;
+        this.type = copyFood.type;
+        this.additionalWeight = copyFood.additionalWeight;
+    }
+
+
     // other methods
     public void beEaten(Animals creature) throws BaseException{
         creature.eat(this);
     }
 
+    @Override
     public void useCard(Card targetCard,int row, int col) throws BaseException{
         
     }
+
 
 
 }
