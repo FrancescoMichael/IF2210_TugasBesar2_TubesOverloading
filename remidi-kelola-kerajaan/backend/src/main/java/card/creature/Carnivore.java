@@ -1,4 +1,6 @@
-package card;
+package card.creature;
+import card.food.CarnivoreFood;
+import card.food.HerbivoreFood;
 import exceptionkerajaan.*;
 import player.*;
 

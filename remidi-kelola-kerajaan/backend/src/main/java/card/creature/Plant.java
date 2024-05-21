@@ -1,4 +1,4 @@
-package card;
+package card.creature;
 import player.Player;
 
 public class Plant extends Creature {
