@@ -51,7 +51,7 @@ public class DraggableMaker {
             node.setEffect(null);
         }
     }
-    
+
     public void makeDraggable(Node node, ImageView[][] grid, ArrayList<String> activeDeckName) {
         this.activeDeckName = activeDeckName;
 
@@ -72,8 +72,8 @@ public class DraggableMaker {
         });
 
         node.setOnMouseDragged(mouseEvent -> {
-            int col = ((int)(mouseEvent.getSceneX() - 34.4) / 100) + 1;
-            int row = ((int)(mouseEvent.getSceneY() - 70) / 110) + 1;
+            int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
+            int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
 
             if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
                 ImageView currentCell = grid[row - 1][col - 1];
@@ -112,9 +112,6 @@ public class DraggableMaker {
                     ImageView card = (ImageView) node;
                     card.setFitWidth(lastGlowingCell.getFitWidth());
                     card.setFitHeight(lastGlowingCell.getFitHeight());
-                    if (cardUpdateListener != null) {
-                        cardUpdateListener.onCardUpdated(card);
-                    }
 
                     // print active deck name content
                     for (String name : activeDeckName) {
@@ -129,13 +126,16 @@ public class DraggableMaker {
                     System.out.println(index);
 
                     // Update the fieldList with the card position
-                    int col = ((int)(mouseEvent.getSceneX() - 34.4) / 100) + 1;
-                    int row = ((int)(mouseEvent.getSceneY() - 70) / 110) + 1;
-                    
+                    int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
+                    int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
+
                     fieldList[row - 1][col - 1] = activeDeckName.get(index);
 
                     activeDeckName.set(index, "");
 
+                    if (cardUpdateListener != null) {
+                        cardUpdateListener.onCardUpdated(card);
+                    }
                     // Print the matrix
                     printMatrix();
                 }
@@ -162,8 +162,7 @@ public class DraggableMaker {
             System.out.println();
         }
     }
-    
-    
+
     class Delta {
         double x, y;
     }
@@ -178,7 +177,6 @@ public class DraggableMaker {
             node.setStyle(null);
         }
     }
-    
 
     public void setRedGlowOnRandomGroup(Pane[][] grid, int rows, int cols) {
         if (timer != null) {

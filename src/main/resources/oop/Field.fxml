@@ -19,34 +19,29 @@
             <Image url="@../assets/OOP%202/OOP%202/grid/turn.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="601.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="LoadState" fitHeight="150.0" fitWidth="200.0" layoutX="828.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/OOP%202/OOP%202/grid/menu_di_ladang.png" />
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2015.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="828.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="LoadPlugin" fitHeight="150.0" fitWidth="200.0" layoutX="828.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/OOP%202/OOP%202/grid/menu_di_ladang.png" />
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2016.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="828.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="toToko" fitHeight="150.0" fitWidth="200.0" layoutX="828.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/OOP%202/OOP%202/grid/menu_di_ladang.png" />
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2012.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="828.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="SaveState" fitHeight="150.0" fitWidth="200.0" layoutX="601.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/OOP%202/OOP%202/grid/menu_di_ladang.png" />
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2014.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="601.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="toLadangLawan" fitHeight="150.0" fitWidth="200.0" layoutX="601.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/OOP%202/OOP%202/grid/menu_di_ladang.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="601.0" layoutY="222.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/grid/menu_di_ladang.png" />
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2013.png" />
          </image>
       </ImageView>
       <ImageView fx:id="nextTurnBtn" fitHeight="52.0" fitWidth="159.0" layoutX="745.0" layoutY="382.0" pickOnBounds="true" preserveRatio="true">
@@ -209,11 +204,6 @@
             <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="card11" fitHeight="89.0" fitWidth="76.0" layoutX="40.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/cards/2.png" />
-         </image>
-      </ImageView>
       <ImageView fitHeight="89.0" fitWidth="76.0" layoutX="51.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="activeCard1" fitHeight="89.0" fitWidth="78.0" layoutX="51.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true">
          <image>
@@ -240,11 +230,12 @@
             <Image url="@../assets/OOP%202/OOP%202/cards/stroberi.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="activeCard6" fitHeight="85.0" fitWidth="83.0" layoutX="625.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="activeCard6" fitHeight="85.0" fitWidth="83.0" layoutX="626.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/cards/stroberi.png" />
          </image>
       </ImageView>
+      
       <Button fx:id="bearAttackButton" layoutX="750.0" layoutY="450.0" text="Bear Attack" />
       <Label fx:id="timerLabel" layoutX="750.0" layoutY="500.0" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 18px;" text="Timer: 30" textFill="RED" />
       <Label layoutX="610.0" layoutY="614.0" prefHeight="18.0" prefWidth="130.0" text="Label" textFill="WHITE" />
@@ -268,5 +259,83 @@
       <Pane fx:id="plane44" layoutX="346.0" layoutY="385.0" prefHeight="73.0" prefWidth="60.0" />
       <Pane fx:id="plane43" layoutX="246.0" layoutY="385.0" prefHeight="73.0" prefWidth="60.0" />
       <Pane fx:id="plane45" layoutX="445.0" layoutY="386.0" prefHeight="73.0" prefWidth="60.0" />
+      <ImageView fx:id="toLadangku" fitHeight="52.0" fitWidth="215.0" layoutX="602.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2011.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="LoadState1" fitHeight="150.0" fitWidth="200.0" layoutX="828.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2021.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="LoadPlugin1" fitHeight="150.0" fitWidth="200.0" layoutX="828.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2022.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toToko1" fitHeight="150.0" fitWidth="200.0" layoutX="828.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2019.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="SaveState1" fitHeight="150.0" fitWidth="200.0" layoutX="600.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2020.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toLadangLawan1" fitHeight="150.0" fitWidth="200.0" layoutX="601.0" layoutY="221.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2018.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toLadangku1" fitHeight="52.0" fitWidth="215.0" layoutX="602.0" layoutY="141.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/Group%2017.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ContainerPanen" fitHeight="406.0" fitWidth="805.0" layoutX="195.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/grid/preview.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="AnimalImage" fitHeight="173.0" fitWidth="209.0" layoutX="630.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+      <Label fx:id="AnimalName" layoutX="537.0" layoutY="182.0" text="Label" textFill="WHITE" visible="false" />
+      <ImageView fx:id="CloseBtn" fitHeight="23.0" fitWidth="28.0" layoutX="852.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/close_button.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="PanenBtn" fitHeight="52.0" fitWidth="150.0" layoutX="495.0" layoutY="461.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/button/panen.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="label1" layoutX="281.0" layoutY="253.0" text="Label" textFill="WHITE" visible="false" />
+      <Label fx:id="label2" layoutX="281.0" layoutY="283.0" text="Label" textFill="WHITE" visible="false" />
+      <Label fx:id="label3" layoutX="281.0" layoutY="323.0" text="Label" textFill="WHITE" visible="false" />
+      <Label fx:id="label4" layoutX="281.0" layoutY="374.0" text="Label" textFill="WHITE" visible="false" />
+      <Label fx:id="label5" layoutX="281.0" layoutY="397.0" text="Label" textFill="WHITE" visible="false" />
+      <Label fx:id="label6" layoutX="281.0" layoutY="423.0" text="Label" textFill="WHITE" visible="false" />
+      <ImageView fx:id="kosong11" fitHeight="73.0" fitWidth="60.0" layoutX="47.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong12" fitHeight="73.0" fitWidth="60.0" layoutX="144.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong13" fitHeight="73.0" fitWidth="60.0" layoutX="246.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong14" fitHeight="73.0" fitWidth="60.0" layoutX="343.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong15" fitHeight="73.0" fitWidth="60.0" layoutX="442.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong21" fitHeight="73.0" fitWidth="60.0" layoutX="48.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong22" fitHeight="73.0" fitWidth="60.0" layoutX="145.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong23" fitHeight="73.0" fitWidth="60.0" layoutX="247.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong24" fitHeight="73.0" fitWidth="60.0" layoutX="344.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong25" fitHeight="73.0" fitWidth="60.0" layoutX="443.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong31" fitHeight="73.0" fitWidth="60.0" layoutX="48.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong32" fitHeight="73.0" fitWidth="60.0" layoutX="145.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong33" fitHeight="73.0" fitWidth="60.0" layoutX="246.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong34" fitHeight="73.0" fitWidth="60.0" layoutX="345.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong35" fitHeight="73.0" fitWidth="60.0" layoutX="444.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong41" fitHeight="73.0" fitWidth="60.0" layoutX="51.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong42" fitHeight="73.0" fitWidth="60.0" layoutX="147.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong43" fitHeight="73.0" fitWidth="60.0" layoutX="246.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong44" fitHeight="73.0" fitWidth="60.0" layoutX="346.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong45" fitHeight="73.0" fitWidth="60.0" layoutX="445.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>
