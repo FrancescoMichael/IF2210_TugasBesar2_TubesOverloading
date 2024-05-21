@@ -320,11 +320,13 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     // String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/hiu_darat.png").toExternalForm();
 
     GlowButtonMaker glowButtonMaker = new GlowButtonMaker();
-    DraggableMaker draggableMaker = new DraggableMaker();
+    DraggableMaker draggableMaker;
     ImageView[][] matrix_grid;
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        draggableMaker = new DraggableMaker(this);
+
         String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/beruang.png").toExternalForm();
         String imagePath2 = getClass().getResource("/assets/OOP 2/OOP 2/cards/stroberi.png").toExternalForm();
         grid11.setStyle("-fx-image: url('" + imagePath2 + "');");
@@ -439,6 +441,32 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
                 System.out.print(updatedFieldList[row][col] + " ");
             }
             System.out.println();
+        }
+    }
+
+    public ImageView getImageViewById(String id) {
+        switch (id) {
+            case "kosong11": return kosong11;
+            case "kosong12": return kosong12;
+            case "kosong13": return kosong13;
+            case "kosong14": return kosong14;
+            case "kosong15": return kosong15;
+            case "kosong21": return kosong21;
+            case "kosong22": return kosong22;
+            case "kosong23": return kosong23;
+            case "kosong24": return kosong24;
+            case "kosong25": return kosong25;
+            case "kosong31": return kosong31;
+            case "kosong32": return kosong32;
+            case "kosong33": return kosong33;
+            case "kosong34": return kosong34;
+            case "kosong35": return kosong35;
+            case "kosong41": return kosong41;
+            case "kosong42": return kosong42;
+            case "kosong43": return kosong43;
+            case "kosong44": return kosong44;
+            case "kosong45": return kosong45;
+            default: return null;
         }
     }
 

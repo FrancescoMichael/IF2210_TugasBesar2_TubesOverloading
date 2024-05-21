@@ -8,6 +8,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -20,6 +21,8 @@ public class DraggableMaker {
 
     private String[][] fieldList;
     private ArrayList<String> activeDeckName;
+
+    private FieldController fieldController;
 
     public String[][] getFieldList() {
         return fieldList;
@@ -34,6 +37,10 @@ public class DraggableMaker {
     }
 
     private CardUpdateListener cardUpdateListener;
+
+    public DraggableMaker(FieldController fieldController) {
+        this.fieldController = fieldController;
+    }
 
     public void setCardUpdateListener(CardUpdateListener listener) {
         this.cardUpdateListener = listener;
@@ -129,15 +136,34 @@ public class DraggableMaker {
                     int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
                     int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
 
-                    fieldList[row - 1][col - 1] = activeDeckName.get(index);
+                    if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
+                        ImageView targetImageView = fieldController.getImageViewById("kosong" + row + col);
 
-                    activeDeckName.set(index, "");
+                        if (targetImageView != null) {
+                            // Set the target image URL to the source image URL
+                            String sourceImageUrl = ((ImageView) node).getImage().getUrl();
+                            targetImageView.setImage(new Image(sourceImageUrl));
 
-                    if (cardUpdateListener != null) {
-                        cardUpdateListener.onCardUpdated(card);
+                            // Clear the source image URL
+                            ((ImageView) node).setImage(null);
+
+                            // Print debug information
+                            System.out.println("Source image URL: " + sourceImageUrl);
+                            System.out.println("Target cell: " + "kosong" + row + col + " set to source image.");
+                            System.out.println("Source cell cleared.");
+                            
+                            fieldList[row - 1][col - 1] = activeDeckName.get(index);
+        
+                            activeDeckName.set(index, "");
+        
+                            if (cardUpdateListener != null) {
+                                cardUpdateListener.onCardUpdated(card);
+                            }
+                            // Print the matrix
+                            printMatrix();
+                        }
                     }
-                    // Print the matrix
-                    printMatrix();
+
                 }
 
                 // Disable dragging
