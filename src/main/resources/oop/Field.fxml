@@ -5,6 +5,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.FieldController">
    <children>
@@ -222,5 +223,25 @@
       <Button fx:id="bearAttackButton" layoutX="750.0" layoutY="450.0" text="Bear Attack" />
       <Label fx:id="timerLabel" layoutX="750.0" layoutY="500.0" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 18px;" text="Timer: 30" textFill="RED" />
       <Label layoutX="610.0" layoutY="614.0" prefHeight="18.0" prefWidth="130.0" text="Label" textFill="WHITE" />
+      <Pane fx:id="plane11" layoutX="48.0" layoutY="44.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane12" layoutX="144.0" layoutY="45.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane14" layoutX="343.0" layoutY="45.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane13" layoutX="246.0" layoutY="44.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane15" layoutX="442.0" layoutY="45.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane21" layoutX="49.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane22" layoutX="145.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane24" layoutX="344.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane23" layoutX="246.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane25" layoutX="443.0" layoutY="156.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane31" layoutX="50.0" layoutY="273.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane32" layoutX="146.0" layoutY="275.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane34" layoutX="345.0" layoutY="275.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane33" layoutX="246.0" layoutY="274.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane35" layoutX="444.0" layoutY="273.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane41" layoutX="51.0" layoutY="385.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane42" layoutX="147.0" layoutY="386.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane44" layoutX="346.0" layoutY="385.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane43" layoutX="246.0" layoutY="385.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane45" layoutX="445.0" layoutY="386.0" prefHeight="73.0" prefWidth="60.0" />
    </children>
 </AnchorPane>

@@ -9,18 +9,16 @@ import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
 public class DraggableMaker {
     private ImageView lastGlowingCell = null;
-    private int previousRow;
-    private int previousCol;
-    private boolean[][] redMatrix = new boolean[4][5];
-    private List<ImageView> glowingCells = new ArrayList<>();
+    private List<Pane> glowingCells = new ArrayList<>();
     private Timeline timer;
 
-    private void setGlow(Node node, boolean glow, boolean isred) {
+    private void setGlow(Node node, boolean glow) {
         if (glow) {
             DropShadow dropShadow = new DropShadow();
             dropShadow.setColor(Color.YELLOW); // Glow color
@@ -29,11 +27,7 @@ public class DraggableMaker {
             dropShadow.setBlurType(javafx.scene.effect.BlurType.GAUSSIAN);
             node.setEffect(dropShadow);
         } else {
-            if (!isred){
-                node.setEffect(null);
-            } else {
-                setRedGlow(node, true);
-            }
+            node.setEffect(null);
         }
     }
 
@@ -59,11 +53,9 @@ public class DraggableMaker {
                 // Only change the glow if the cell has changed
                 if (lastGlowingCell != currentCell) {
                     if (lastGlowingCell != null) {
-                        previousRow = (int) ((lastGlowingCell.getLayoutY() - 70) / 110);
-                        previousCol = (int) ((lastGlowingCell.getLayoutX() - 34.4) / 100);
-                        setGlow(lastGlowingCell, false, redMatrix[previousRow][previousCol]);
+                        setGlow(lastGlowingCell, false);
                     }
-                    setGlow(currentCell, true, false);
+                    setGlow(currentCell, true);
                     lastGlowingCell = currentCell;
                 }
             } else {
@@ -78,7 +70,7 @@ public class DraggableMaker {
                     //     }
                     // }
 
-                    setGlow(lastGlowingCell, false, false);
+                    setGlow(lastGlowingCell, false);
                     lastGlowingCell = null;
                 }
             }
@@ -89,9 +81,7 @@ public class DraggableMaker {
 
         node.setOnMouseReleased(mouseEvent -> {
             if (lastGlowingCell != null) {
-                previousRow = (int) ((lastGlowingCell.getLayoutY() - 70) / 110);
-                previousCol = (int) ((lastGlowingCell.getLayoutX() - 34.4) / 100);
-                setGlow(lastGlowingCell, false, redMatrix[previousRow][previousCol]);
+                setGlow(lastGlowingCell, false);
                 lastGlowingCell = null;
             }
             node.setTranslateX(0);
@@ -105,22 +95,23 @@ public class DraggableMaker {
 
     public void setRedGlow(Node node, boolean glow) {
         if (glow) {
-            DropShadow dropShadow = new DropShadow();
-            dropShadow.setColor(Color.RED); // Glow color
-            dropShadow.setRadius(20);
-            dropShadow.setSpread(0.5);
-            dropShadow.setBlurType(javafx.scene.effect.BlurType.GAUSSIAN);
-            node.setEffect(dropShadow);
+            // DropShadow dropShadow = new DropShadow();
+            // dropShadow.setColor(Color.RED); // Glow color
+            // dropShadow.setRadius(20);
+            // dropShadow.setSpread(0.5);
+            // dropShadow.setBlurType(javafx.scene.effect.BlurType.GAUSSIAN);
+            // node.setEffect(dropShadow);
+            node.setStyle("-fx-border-color: red; -fx-border-width: 5;");
         } else {
-            node.setEffect(null);
+            node.setStyle(null);
+            // node.setEffect(null);
         }
     }
 
-    public void setRedGlowOnRandomGroup(ImageView[][] grid, int rows, int cols) {
+    public void setRedGlowOnRandomGroup(Pane[][] grid, int rows, int cols) {
         if (timer != null) {
             timer.stop();
-            redMatrix = new boolean[4][5];
-            for (ImageView cell : glowingCells) {
+            for (Pane cell : glowingCells) {
                 setRedGlow(cell, false);
             }
             glowingCells.clear();
@@ -138,16 +129,14 @@ public class DraggableMaker {
         // Add the cards in the chosen 2x3 area to the list
         for (int i = startRow; i < startRow + rows; i++) {
             for (int j = startCol; j < startCol + cols; j++) {
-                ImageView cell = grid[i][j];
-                redMatrix[i][j] = true;
+                Pane cell = grid[i][j];
                 glowingCells.add(cell);
                 setRedGlow(cell, true);
             }
         }
 
         timer = new Timeline(new KeyFrame(Duration.seconds(30), event -> {
-            redMatrix = new boolean[4][5];
-            for (ImageView cell : glowingCells) {
+            for (Pane cell : glowingCells) {
                 setRedGlow(cell, false);
             }
             glowingCells.clear();
