@@ -1,15 +1,31 @@
 package card.creature;
+import card.product.CarnivoreFood;
+import card.product.HerbivoreFood;
+import exceptionkerajaan.*;
+import player.*;
 
-import card.food.CarnivoreFood;
-import card.food.HerbivoreFood;
+public class Carnivore extends Creature implements Animals{
 
-public class Carnivore extends Creature implements Animals {
+    // Constructors
+    public Carnivore() {
+        super();
+    }
+    // with owner
+    public Carnivore(String name, String pathToImg, Player owner) {
+        super(name, pathToImg, owner);
+    }
+
+    // without owner
+    public Carnivore(String name, String pathToImg) {
+        super(name, pathToImg);
+    }
+    
     public void eat(CarnivoreFood food) {
-        
+        System.out.println("Eating ..."); 
+        this.increaseWeight(food.getAdditionalWeight()); 
     }
 
-    public void eat(HerbivoreFood food) {
-
+    public void eat(HerbivoreFood food) throws BaseException {
+            throw new FoodException(this);
     }
-
 }
