@@ -1,6 +1,6 @@
 package card;
 import player.Player;
-import exceptionkerajaan.*;
+
 public class Card {
     private String name;
     private int price;
@@ -75,25 +75,8 @@ public class Card {
         return temp;
     }
 
-    // using card
-    public void useCard(Card targetCard, int row, int col) throws BaseException{
-        // use strategy design pattern
 
-        if (this instanceof Creature){
-            // do something
-            ((Creature) this).placeCardtoGrid(targetCard, row, col);
-        } else if (this instanceof Item){
-            // do something
-            if (targetCard instanceof Creature){
-                ((Item) this).useEffect( (Creature)targetCard, row, col);
-            } else {
-                throw new InvalidCardPlacementException();
-            }
-        } else if (this instanceof Product){
-            if (targetCard instanceof Animals)
-            ((Food) this).beEaten( (Animals)targetCard) ;
-        }
-    }
+
 
 
 }

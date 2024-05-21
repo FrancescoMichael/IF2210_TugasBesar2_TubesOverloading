@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import card.*;
 import exceptionkerajaan.BaseException;
 import player.*;
+import card.creature.*;
 
 /**
  * Hello world!
@@ -13,27 +14,52 @@ import player.*;
  */
 public class App {
     public static void main(String[] args) {
+
         Creature.initializeAllCreatureStaticVariables();
-        Card what = new Carnivore("Hiu Darat", 400, "", new Player("Marvel"));
+        ArrayList<Creature> grid = new ArrayList<>();
+        ArrayList<Card> activeDeck = new ArrayList<>();
 
-        ArrayList<Creature> card = new ArrayList<>();
-        if (what instanceof Creature) {
-            card.add((Creature) what);
+        // simulasikan active deck dimana dia hanya List of Card
+        Card animal = new Carnivore("Hiu Darat", 400, "", new Player("Marvel"));
+        Card plant = new Plant("Biji Stroberi",400, "", new Player(""));
+
+        // Simulasikan Grid dimana terdiri atas list of Creature
+
+        
+        // Simulasi active deck
+        activeDeck.add(animal);
+        activeDeck.add(plant);
+
+        // semisal nge drag animal ke grid
+        if (animal instanceof Creature){
+            grid.add((Creature)animal);
         }
+        if (plant instanceof Creature){
+            grid.add((Creature)plant);
+        }
+        activeDeck.remove(animal);
+        activeDeck.remove(plant);
 
-        System.out.println("DISINI");
+        // Contoh saja, ada product di dalam active deck
+        activeDeck.add( grid.get(0).getHarvestedProduct() );
+        activeDeck.add(grid.get(1).getHarvestedProduct());
 
-        Product whatProduct = card.get(0).getHarvestedProduct();
-        System.out.println(whatProduct.getName());
 
+        // Contoh kasih makan 
         try {
-            if (whatProduct instanceof CarnivoreFood) {
-                ((CarnivoreFood) whatProduct).beEaten((Animals) card.get(0));
-            } else if (whatProduct instanceof HerbivoreFood) {
-                ((HerbivoreFood) whatProduct).beEaten((Animals) card.get(0));
-            } else {
-                System.out.println("Unknown product type.");
+            if (activeDeck.get(0) instanceof Food){
+                // Hiu makan sirip hiu
+                ((Food)activeDeck.get(0)).beEaten( (Animals)grid.get(0));
             }
+            if (activeDeck.get(1) instanceof Food){
+
+                // Hiu makan stroberi
+                ((Food)activeDeck.get(1)).beEaten( (Animals)grid.get(0));
+            }
+
+
+
+
         } catch (BaseException e) {
             System.out.println("DAMNNNN");
             System.out.println(e.getMessage());
