@@ -220,6 +220,31 @@
             <Image url="@../assets/OOP%202/OOP%202/cards/beruang.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="activeCard2" fitHeight="85.0" fitWidth="83.0" layoutX="167.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/cards/stroberi.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="activeCard3" fitHeight="85.0" fitWidth="83.0" layoutX="281.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/cards/beruang.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="activeCard4" fitHeight="85.0" fitWidth="83.0" layoutX="396.0" layoutY="506.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/cards/stroberi.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="activeCard5" fitHeight="85.0" fitWidth="83.0" layoutX="514.0" layoutY="506.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/cards/stroberi.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="activeCard6" fitHeight="85.0" fitWidth="83.0" layoutX="625.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/cards/stroberi.png" />
+         </image>
+      </ImageView>
       <Button fx:id="bearAttackButton" layoutX="750.0" layoutY="450.0" text="Bear Attack" />
       <Label fx:id="timerLabel" layoutX="750.0" layoutY="500.0" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 18px;" text="Timer: 30" textFill="RED" />
       <Label layoutX="610.0" layoutY="614.0" prefHeight="18.0" prefWidth="130.0" text="Label" textFill="WHITE" />
