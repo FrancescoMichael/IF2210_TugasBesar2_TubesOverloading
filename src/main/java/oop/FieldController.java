@@ -96,9 +96,6 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     private ImageView grid55;
 
     @FXML
-    private ImageView card11;
-
-    @FXML
     private Pane plane11;
 
     @FXML
@@ -162,6 +159,21 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     private ImageView activeCard1;
 
     @FXML
+    private ImageView activeCard2;
+
+    @FXML
+    private ImageView activeCard3;
+
+    @FXML
+    private ImageView activeCard4;
+
+    @FXML
+    private ImageView activeCard5;
+
+    @FXML
+    private ImageView activeCard6;
+
+    @FXML
     private ImageView nextTurnBtn;
 
     @FXML
@@ -169,38 +181,224 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
 
     @FXML
     private Label timerLabel;
+
+    @FXML
+    private ImageView LoadPlugin;
+
+    @FXML
+    private ImageView LoadState;
+
+    @FXML
+    private ImageView SaveState;
+
+    @FXML
+    private ImageView toLadangLawan;
+
+    @FXML
+    private ImageView toLadangku;
+
+    @FXML
+    private ImageView LoadPlugin1;
+
+    @FXML
+    private ImageView LoadState1;
+
+    @FXML
+    private ImageView SaveState1;
+
+    @FXML
+    private ImageView toLadangLawan1;
+
+    @FXML
+    private ImageView toLadangku1;
+
+    @FXML
+    private ImageView toToko;
+
+    @FXML
+    private ImageView toToko1;
+
+    @FXML
+    private ImageView PanenBtn;
+    
+    @FXML
+    private ImageView AnimalImage;
+
+    @FXML
+    private Label AnimalName;
+
+    @FXML
+    private ImageView ContainerPanen;
+
+    @FXML
+    private Label label1;
+
+    @FXML
+    private Label label2;
+
+    @FXML
+    private Label label3;
+
+    @FXML
+    private Label label4;
+
+    @FXML
+    private Label label5;
+
+    @FXML
+    private Label label6;
+    @FXML
+    private ImageView kosong11;
+
+    @FXML
+    private ImageView kosong12;
+
+    @FXML
+    private ImageView kosong13;
+
+    @FXML
+    private ImageView kosong14;
+
+    @FXML
+    private ImageView kosong15;
+
+    @FXML
+    private ImageView kosong21;
+
+    @FXML
+    private ImageView kosong22;
+
+    @FXML
+    private ImageView kosong23;
+
+    @FXML
+    private ImageView kosong24;
+
+    @FXML
+    private ImageView kosong25;
+
+    @FXML
+    private ImageView kosong31;
+
+    @FXML
+    private ImageView kosong32;
+
+    @FXML
+    private ImageView kosong33;
+
+    @FXML
+    private ImageView kosong34;
+
+    @FXML
+    private ImageView kosong35;
+
+    @FXML
+    private ImageView kosong41;
+
+    @FXML
+    private ImageView kosong42;
+
+    @FXML
+    private ImageView kosong43;
+
+    @FXML
+    private ImageView kosong44;
+
+    @FXML
+    private ImageView kosong45;
+
+    @FXML
+    private ImageView CloseBtn;
+ 
+    @FXML
+    private ImageView clickableGrid11;
     
     private Timeline countdownTimeline;
 
     private ArrayList<String> activeDeckName = new ArrayList<>();
-    private ArrayList<ArrayList<String>> LadangName = new ArrayList<>();
     
-    void setGridtoShark() {
-        String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/hiu_darat.png").toExternalForm();
-        card11.setStyle("-fx-image: url('" + imagePath + "');");
-        card11.setVisible(true);
-    }
+    // String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/hiu_darat.png").toExternalForm();
 
-    DraggableMaker draggableMaker = new DraggableMaker();
     GlowButtonMaker glowButtonMaker = new GlowButtonMaker();
-
+    DraggableMaker draggableMaker = new DraggableMaker();
+    ImageView[][] matrix_grid;
+    
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        setGridtoShark();
-
+        String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/beruang.png").toExternalForm();
+        String imagePath2 = getClass().getResource("/assets/OOP 2/OOP 2/cards/stroberi.png").toExternalForm();
+        grid11.setStyle("-fx-image: url('" + imagePath2 + "');");
+        grid22.setStyle("-fx-image: url('" + imagePath + "');");
+        // setPanenPageVisibility(false);
+        glowButtonMaker.setGlow(CloseBtn);
+        
+        CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false));
+        PanenBtn.setOnMouseClicked(null);
+        
         glowButtonMaker.setGlow(nextTurnBtn);
+        glowButtonMaker.setGlow(toLadangLawan);
+        toLadangLawan.setOnMouseClicked(event -> {
+            toLadangLawan1.setVisible(true);
+            toLadangku1.setVisible(false);
+            toToko1.setVisible(false);
+            SaveState1.setVisible(false);
+            LoadPlugin1.setVisible(false);
+            LoadState1.setVisible(false);
+        });
+        glowButtonMaker.setGlow(toLadangku);
+        toLadangku.setOnMouseClicked(event -> {
+            toLadangku1.setVisible(true);
+            toLadangLawan1.setVisible(false);
+            toToko1.setVisible(false);
+            SaveState1.setVisible(false);
+            LoadPlugin1.setVisible(false);
+            LoadState1.setVisible(false);
+        });
+        glowButtonMaker.setGlow(toToko);
+        toToko.setOnMouseClicked(event -> {
+            toToko1.setVisible(true);
+            toLadangLawan1.setVisible(false);
+            toLadangku1.setVisible(false);
+            SaveState1.setVisible(false);
+            LoadPlugin1.setVisible(false);
+            LoadState1.setVisible(false);
+        });
+        glowButtonMaker.setGlow(SaveState);
+        SaveState.setOnMouseClicked(event -> {
+            SaveState1.setVisible(true);
+            toToko1.setVisible(false);
+            toLadangLawan1.setVisible(false);
+            toLadangku1.setVisible(false);
+            LoadPlugin1.setVisible(false);
+            LoadState1.setVisible(false);
+        });
+        glowButtonMaker.setGlow(LoadPlugin);
+        LoadPlugin.setOnMouseClicked(event -> {
+            LoadPlugin1.setVisible(true);
+            toToko1.setVisible(false);
+            toLadangLawan1.setVisible(false);
+            toLadangku1.setVisible(false);
+            SaveState1.setVisible(false);
+            LoadState1.setVisible(false);
+        });
+        glowButtonMaker.setGlow(LoadState);
+        LoadState.setOnMouseClicked(event -> {
+            LoadState1.setVisible(true);
+            toToko1.setVisible(false);
+            toLadangLawan1.setVisible(false);
+            toLadangku1.setVisible(false);
+            SaveState1.setVisible(false);
+            LoadPlugin1.setVisible(false);
+        });
 
-        // nextTurnBtn.setOnAction(event -> {
-        //     System.out.println("Button clicked!");
-        // });
-        activeDeckName.add("hiu_darat");
         activeDeckName.add("beruang");
-        activeDeckName.add("biji_labu");
-        activeDeckName.add("domba");
-        activeDeckName.add("biji_jagung");
-        activeDeckName.add("biji_stroberi");
-
-        ImageView[][] matrix_grid = new ImageView[][] {
+        activeDeckName.add("stroberi");
+        activeDeckName.add("beruang");
+        activeDeckName.add("stroberi");
+        activeDeckName.add("stroberi");
+        activeDeckName.add("stroberi");
+        
+        matrix_grid = new ImageView[][] {
             {grid11, grid12, grid13, grid14, grid15},
             {grid21, grid22, grid23, grid24, grid25},
             {grid31, grid32, grid33, grid34, grid35},
@@ -208,8 +406,12 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
         };
         
         draggableMaker.setCardUpdateListener(this);
-        draggableMaker.makeDraggable(grid12, matrix_grid);
-        draggableMaker.makeDraggable(activeCard1, matrix_grid);
+        draggableMaker.makeDraggable(activeCard1, matrix_grid, activeDeckName);
+        draggableMaker.makeDraggable(activeCard2, matrix_grid, activeDeckName);
+        draggableMaker.makeDraggable(activeCard3, matrix_grid, activeDeckName);
+        draggableMaker.makeDraggable(activeCard4, matrix_grid, activeDeckName);
+        draggableMaker.makeDraggable(activeCard5, matrix_grid, activeDeckName);
+        draggableMaker.makeDraggable(activeCard6, matrix_grid, activeDeckName);
 
         // bearAttackButton.setOnAction(event -> applyBearAttackEffect(card11));
         bearAttackButton.setOnAction(event -> simulateBearAttack());
@@ -217,8 +419,27 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
 
     @Override
     public void onCardUpdated(ImageView card) {
+        // clickableGrid11.setOnMouseClicked(event -> System.out.println("click"));
+        // card.setOnMouseClicked(event -> System.out.println("click"));
+        // draggableMaker.makeDraggable(card, matrix_grid, null);
+        clickableGrid11.setOnMouseClicked(event -> setPanenPageVisibility(true));
         // Handle the updated card
         System.out.println("Card updated: " + card);
+        // Access updated activeDeckName and fieldList
+        ArrayList<String> updatedDeckNames = draggableMaker.getActiveDeckName();
+        String[][] updatedFieldList = draggableMaker.getFieldList();
+        
+        // Print updated activeDeckName
+        System.out.println("Updated Active Deck Names: " + updatedDeckNames);
+        
+        // Print the updated fieldList
+        System.out.println("Updated Field List:");
+        for (int row = 0; row < updatedFieldList.length; row++) {
+            for (int col = 0; col < updatedFieldList[row].length; col++) {
+                System.out.print(updatedFieldList[row][col] + " ");
+            }
+            System.out.println();
+        }
     }
 
     @FXML
@@ -241,7 +462,20 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
         draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
         startCountdown();
     }
-    
+
+    private void setPanenPageVisibility(boolean bool) {
+        label1.setVisible(bool);
+        label2.setVisible(bool);
+        label3.setVisible(bool);
+        label4.setVisible(bool);
+        label5.setVisible(bool);
+        label6.setVisible(bool);
+        ContainerPanen.setVisible(bool);
+        CloseBtn.setVisible(bool);
+        PanenBtn.setVisible(bool);
+        AnimalImage.setVisible(bool);
+        AnimalName.setVisible(bool);
+    }
 
     private void startCountdown() {
         if (countdownTimeline != null) {
