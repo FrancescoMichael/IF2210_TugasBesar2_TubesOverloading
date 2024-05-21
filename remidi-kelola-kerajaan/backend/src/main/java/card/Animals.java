@@ -1,7 +1,4 @@
-package card.creature;
-
-import card.food.CarnivoreFood;
-import card.food.HerbivoreFood;
+package card;
 import exceptionkerajaan.BaseException;
 
 public interface Animals {

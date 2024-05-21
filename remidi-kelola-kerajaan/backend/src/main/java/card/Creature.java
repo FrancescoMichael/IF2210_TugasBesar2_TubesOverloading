@@ -1,14 +1,10 @@
-package card.creature;
+package card;
 
 import java.util.*;
 
-import card.Card;
-import card.Product;
-import card.food.CarnivoreFood;
-import card.food.HerbivoreFood;
 import player.Player;
 import exceptionkerajaan.*;
-import card.food.*;
+
 
 
 // creature includes plants and animals

@@ -1,6 +1,5 @@
-package card.item;
+package card;
 
-import card.creature.Creature;
 
 public interface Item {
     public void useEffect(Creature creature, int row, int col);

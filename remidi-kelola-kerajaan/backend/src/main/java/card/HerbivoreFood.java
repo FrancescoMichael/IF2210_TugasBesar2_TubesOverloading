@@ -1,7 +1,5 @@
-package card.food;
+package card;
 
-import card.Product;
-import card.creature.Animals;
 import exceptionkerajaan.BaseException;
 import player.Player;
 

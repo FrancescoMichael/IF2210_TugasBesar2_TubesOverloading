@@ -1,7 +1,6 @@
 package exceptionkerajaan;
 
-import card.creature.Animals;
-
+import card.*;
 
 public class FoodException extends BaseException{
     public FoodException(Animals creature){

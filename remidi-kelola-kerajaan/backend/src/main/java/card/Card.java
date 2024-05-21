@@ -1,11 +1,6 @@
 package card;
-import card.creature.Animals;
-import card.creature.Creature;
-import card.item.Item;
-import exceptionkerajaan.BaseException;
-import exceptionkerajaan.InvalidCardPlacementException;
-import player.*;
-import card.food.Food;
+import player.Player;
+import exceptionkerajaan.*;
 public class Card {
     private String name;
     private int price;

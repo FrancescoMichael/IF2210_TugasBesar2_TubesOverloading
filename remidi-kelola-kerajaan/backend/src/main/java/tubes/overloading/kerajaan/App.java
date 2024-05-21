@@ -4,10 +4,8 @@ package tubes.overloading.kerajaan;
 import java.util.ArrayList;
 
 import card.*;
-import card.creature.*;
 import exceptionkerajaan.BaseException;
 import player.*;
-import card.food.*;
 
 /**
  * Hello world!
@@ -16,7 +14,7 @@ import card.food.*;
 public class App {
     public static void main(String[] args) {
         Creature.initializeAllCreatureStaticVariables();
-        Card what = new Creature("Hiu Darat", 400, "", new Player("Marvel"));
+        Card what = new Carnivore("Hiu Darat", 400, "", new Player("Marvel"));
 
         ArrayList<Creature> card = new ArrayList<>();
         if (what instanceof Creature) {
@@ -37,6 +35,7 @@ public class App {
                 System.out.println("Unknown product type.");
             }
         } catch (BaseException e) {
+            System.out.println("DAMNNNN");
             System.out.println(e.getMessage());
         }
     }

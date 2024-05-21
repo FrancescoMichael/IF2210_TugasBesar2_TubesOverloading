@@ -1,9 +1,7 @@
-package card.food;
+package card;
 
-import card.Product;
-import card.creature.Animals;
-import exceptionkerajaan.BaseException;
 import player.Player;
+import exceptionkerajaan.*;
 
 public class CarnivoreFood extends Product implements Food {
 

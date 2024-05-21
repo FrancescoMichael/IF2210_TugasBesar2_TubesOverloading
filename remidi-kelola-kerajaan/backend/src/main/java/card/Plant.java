@@ -1,5 +1,4 @@
 package card;
-import card.creature.*;
 import player.Player;
 
 public class Plant extends Creature {
