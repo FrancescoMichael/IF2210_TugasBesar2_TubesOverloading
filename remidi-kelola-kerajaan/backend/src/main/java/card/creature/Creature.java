@@ -8,6 +8,7 @@ import card.food.CarnivoreFood;
 import card.food.HerbivoreFood;
 import player.Player;
 import exceptionkerajaan.*;
+import card.food.*;
 
 
 // creature includes plants and animals
@@ -36,7 +37,7 @@ public class Creature extends Card {
         this.weight = 0;
         this.weightAfterEffect = 0;
         this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
-        this.setHarvestedProduct(Creature.allHarvestedProduct.get(name));
+        this.harvestedProduct = Creature.allHarvestedProduct.get(name);
     }
 
     // getter

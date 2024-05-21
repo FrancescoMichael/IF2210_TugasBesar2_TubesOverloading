@@ -1,37 +1,37 @@
 package grid;
 
 public class Grid {
-    private int row;
-    private int col;
+//     private int row;
+//     private int col;
 
-
-    // constructors
-    public Grid(){
-        this.row = 0;
-        this.col = 0;
-    }
-    public Grid(int row, int col){
-        this.row = row;
-        this.col = col;
-    }
+// }
+//     // constructors
+//     public Grid(){
+//         this.row = 0;
+//         this.col = 0;
+//     }
+//     public Grid(int row, int col){
+//         this.row = row;
+//         this.col = col;
+//     }
     
 
-    // getters
-    // public
+//     // getters
+//     // public
 
 
-    // setters
+//     // setters
 
     
-    // public void set() {
-    // }
-    // public void remove() {
-    // }
-    // public void getElement() {
-    // }
-    //     public String toString(){
-    //     return "BISA MAS";
-    //     }
+//     // public void set() {
+//     // }
+//     // public void remove() {
+//     // }
+//     // public void getElement() {
+//     // }
+//     //     public String toString(){
+//     //     return "BISA MAS";
+//     //     }
 }
 
 // class Field extends Grid {

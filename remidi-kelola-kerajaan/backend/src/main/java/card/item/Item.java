@@ -1,6 +1,5 @@
 package card.item;
 
-import card.Card;
 import card.creature.Creature;
 
 public interface Item {

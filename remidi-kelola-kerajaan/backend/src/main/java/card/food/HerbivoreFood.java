@@ -2,6 +2,7 @@ package card.food;
 
 import card.Product;
 import card.creature.Animals;
+import exceptionkerajaan.BaseException;
 import player.Player;
 
 public class HerbivoreFood extends Product implements Food {
@@ -21,7 +22,7 @@ public class HerbivoreFood extends Product implements Food {
     }
 
     // other methods
-    public void beEaten(Animals creature) {
+    public void beEaten(Animals creature) throws BaseException{
         creature.eat(this);
     }
 
