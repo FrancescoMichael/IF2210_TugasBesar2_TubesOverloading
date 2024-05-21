@@ -64,4 +64,8 @@ public class Card {
         return temp;
     }
 
+
+    public boolean isEmpty(){
+        return this.name.compareTo("") == 0;
+    }
 }

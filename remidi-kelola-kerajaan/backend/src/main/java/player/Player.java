@@ -46,7 +46,7 @@ public class Player {
         this.gulden = gulden;
     }
 
-    public void addCardToActiveDeck(Card card, int col) throws BaseException {
+    public void addCardToActiveDeck(Card card) throws BaseException {
         if (this.activeDeck.size() == 6) {
             throw new ActiveDeckFullException();
         }
