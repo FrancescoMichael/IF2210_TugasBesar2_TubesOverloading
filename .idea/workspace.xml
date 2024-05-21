@@ -6,27 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="70fc63dc-d615-4f18-82bf-8fa8e14c7ca0" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/.idea/compiler.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/.idea/encodings.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/.idea/jarRepositories.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/.idea/misc.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/src/main/java/card/Card.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/src/main/java/card/Creature.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/src/main/java/card/Item.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/src/main/java/card/Plant.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/src/main/java/card/Product.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/src/main/java/person/Person.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/src/main/java/tubes/overloading/kerajaan/App.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/src/test/java/tubes/overloading/kerajaan/AppTest.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/backend/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/frontend/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/frontend/target/frontend-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/frontend/target/frontend-1.0-SNAPSHOT.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/pom.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/remidi-kelola-kerajaan/target/remidi-kelola-kerajaan-1.0-SNAPSHOT-jar-with-dependencies.jar" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,21 +23,21 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "javafx",
-    "jdk.selected.JAVA_MODULE": "21",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/Kuliah/OOP/Tubes/Tubes2/IF2210_TugasBesar2_TubesOverloading/kerajaan",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;muat&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Kuliah/OOP/Tubes/Tubes2new/IF2210_TugasBesar2_TubesOverloading&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="oop2" />
@@ -94,6 +73,9 @@
       <workItem from="1715252135320" duration="2666000" />
       <workItem from="1715273235263" duration="120000" />
       <workItem from="1715274205083" duration="50000" />
+      <workItem from="1716276232789" duration="1413000" />
+      <workItem from="1716285351765" duration="40000" />
+      <workItem from="1716286162614" duration="441000" />
     </task>
     <servers />
   </component>
