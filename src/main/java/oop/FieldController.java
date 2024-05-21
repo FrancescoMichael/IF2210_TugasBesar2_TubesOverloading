@@ -10,10 +10,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.fxml.Initializable;
 import javafx.util.Duration;
 
-public class FieldController implements Initializable{
+public class FieldController implements Initializable, DraggableMaker.CardUpdateListener{
 
     @FXML
     private ImageView ActiveDeck1;
@@ -97,6 +98,66 @@ public class FieldController implements Initializable{
     private ImageView card11;
 
     @FXML
+    private Pane plane11;
+
+    @FXML
+    private Pane plane12;
+
+    @FXML
+    private Pane plane13;
+
+    @FXML
+    private Pane plane14;
+
+    @FXML
+    private Pane plane15;
+
+    @FXML
+    private Pane plane21;
+
+    @FXML
+    private Pane plane22;
+
+    @FXML
+    private Pane plane23;
+
+    @FXML
+    private Pane plane24;
+
+    @FXML
+    private Pane plane25;
+
+    @FXML
+    private Pane plane31;
+
+    @FXML
+    private Pane plane32;
+
+    @FXML
+    private Pane plane33;
+
+    @FXML
+    private Pane plane34;
+
+    @FXML
+    private Pane plane35;
+
+    @FXML
+    private Pane plane41;
+
+    @FXML
+    private Pane plane42;
+
+    @FXML
+    private Pane plane43;
+
+    @FXML
+    private Pane plane44;
+
+    @FXML
+    private Pane plane45;
+
+    @FXML
     private ImageView activeCard1;
 
     @FXML
@@ -140,27 +201,41 @@ public class FieldController implements Initializable{
             {grid41, grid42, grid43, grid44, grid55}
         };
         
+        draggableMaker.setCardUpdateListener(this);
+        draggableMaker.makeDraggable(grid12, matrix_grid);
         draggableMaker.makeDraggable(activeCard1, matrix_grid);
 
         // bearAttackButton.setOnAction(event -> applyBearAttackEffect(card11));
         bearAttackButton.setOnAction(event -> simulateBearAttack());
     }
 
-    public void applyBearAttackEffect(ImageView card) {
-        draggableMaker.setRedGlow(card, true);
+    @Override
+    public void onCardUpdated(ImageView card) {
+        // Handle the updated card
+        System.out.println("Card updated: " + card);
     }
 
     @FXML
     private void simulateBearAttack() {
-        ImageView[][] matrix_grid = new ImageView[][] {
-            {grid11, grid12, grid13, grid14, grid15},
-            {grid21, grid22, grid23, grid24, grid25},
-            {grid31, grid32, grid33, grid34, grid35},
-            {grid41, grid42, grid43, grid44, grid55}
+        Pane[][] matrix_pane = new Pane[][] {
+            {plane11, plane12, plane13, plane14, plane15},
+            {plane21, plane22, plane23, plane24, plane25},
+            {plane31, plane32, plane33, plane34, plane35},
+            {plane41, plane42, plane43, plane44, plane45}
         };
-        draggableMaker.setRedGlowOnRandomGroup(matrix_grid, 2, 3);
+    
+        for (Pane[] row : matrix_pane) {
+            for (Pane pane : row) {
+                if (pane == null) {
+                    System.err.println("Pane is null in matrix_pane");
+                }
+            }
+        }
+    
+        draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
         startCountdown();
     }
+    
 
     private void startCountdown() {
         if (countdownTimeline != null) {

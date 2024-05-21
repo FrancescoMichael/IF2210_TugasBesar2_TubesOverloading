@@ -37,28 +37,19 @@ class Plant extends Creatures implements passiveCreature{
     }
 }
 
-public class Grid {
+class Field {
     private int row;
     private int col;
-    public void set() {
-    }
-    public void remove() {
-    }
-    public void getElement() {
-    }
-}
-
-class Field extends Grid {
     //private list kartu
-    private ArrayList<Creatures> listOfCreatures;
+    private ArrayList<ArrayList<Creatures>> listOfCreatures;
     public void set(int row, int col, Creatures creature) {
-        listOfCreatures.set(row * col, creature);
+        listOfCreatures.get(row).set(col, creature);
     }
     public void remove(int row, int col) {
-        listOfCreatures.remove(row*col);
+        listOfCreatures.get(row).remove(col);
     }
     public Creatures getElement(int row, int col) {
-        return listOfCreatures.get(row * col);
+        return listOfCreatures.get(row).get(col);
     }
     public void harvestCreature(int row, int col) {
         getElement(row, col).harvest();
@@ -76,10 +67,12 @@ class Field extends Grid {
     
 }
 
-class ActiveDeck extends Grid {
+class ActiveDeck {
     //private list kartu
+    private int row;
+    private int col;
     public void useCard() {
-
+        
     }
 
 }
