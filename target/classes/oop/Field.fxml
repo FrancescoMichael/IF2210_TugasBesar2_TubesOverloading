@@ -215,9 +215,9 @@
          </image>
       </ImageView>
       <ImageView fitHeight="89.0" fitWidth="76.0" layoutX="51.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="activeCard1" fitHeight="104.0" fitWidth="97.0" layoutX="42.0" layoutY="497.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="activeCard1" fitHeight="89.0" fitWidth="78.0" layoutX="51.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/OOP%202/OOP%202/cards/2.png" />
+            <Image url="@../assets/OOP%202/OOP%202/cards/beruang.png" />
          </image>
       </ImageView>
       <Button fx:id="bearAttackButton" layoutX="750.0" layoutY="450.0" text="Bear Attack" />
