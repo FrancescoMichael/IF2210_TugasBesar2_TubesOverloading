@@ -1,12 +1,16 @@
 package oop;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 
 public class DraggableMaker {
     private ImageView lastGlowingCell = null;
+    private Timeline timer;
 
     private void setGlow(Node node, boolean glow) {
         if (glow) {
@@ -71,5 +75,27 @@ public class DraggableMaker {
 
     class Delta {
         double x, y;
+    }
+
+    public void setRedGlow(Node node, boolean glow) {
+        if (glow) {
+            DropShadow dropShadow = new DropShadow();
+            dropShadow.setColor(Color.RED); // Glow color
+            dropShadow.setRadius(20);
+            dropShadow.setSpread(0.5);
+            dropShadow.setBlurType(javafx.scene.effect.BlurType.GAUSSIAN);
+            node.setEffect(dropShadow);
+
+            if (timer != null) {
+                timer.stop();
+            }
+
+            timer = new Timeline(new KeyFrame(Duration.seconds(30), event -> setRedGlow(node, false)));
+            timer.setCycleCount(1);
+            timer.play();
+
+        } else {
+            node.setEffect(null);
+        }
     }
 }

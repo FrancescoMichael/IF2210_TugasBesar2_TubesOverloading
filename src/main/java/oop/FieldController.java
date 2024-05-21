@@ -97,6 +97,9 @@ public class FieldController implements Initializable{
 
     @FXML
     private ImageView nextTurnBtn;
+
+    @FXML
+    private Button bearAttackButton;
     
     void setGridtoShark() {
         String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/2.png").toExternalForm();
@@ -129,5 +132,16 @@ public class FieldController implements Initializable{
         };
         
         draggableMaker.makeDraggable(activeCard1, matrix_grid);
+
+        bearAttackButton.setOnAction(event -> applyBearAttackEffect(card11));
+    }
+
+    public void applyBearAttackEffect(ImageView card) {
+        draggableMaker.setRedGlow(card, true);
+    }
+
+    @FXML
+    private void simulateBearAttack() {
+        applyBearAttackEffect(grid11); // Replace grid11 with the actual card being attacked
     }
 }
