@@ -7,7 +7,7 @@ import card.*;
 import exceptionkerajaan.BaseException;
 import player.*;
 import card.creature.*;
-import card.food.Food;
+import card.product.Food;
 
 /**
  * Hello world!

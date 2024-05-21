@@ -1,12 +1,14 @@
 package card.creature;
-import card.food.CarnivoreFood;
-import card.food.HerbivoreFood;
+import card.UsableCard;
+import card.product.CarnivoreFood;
+import card.product.HerbivoreFood;
 import exceptionkerajaan.BaseException;
 import exceptionkerajaan.FoodException;
 import player.*;
+import card.*;
 
 
-public class Herbivore extends Creature implements Animals {
+public class Herbivore extends Creature implements Animals,UsableCard {
     
     public Herbivore() {
         super();
@@ -24,5 +26,10 @@ public class Herbivore extends Creature implements Animals {
         System.out.println("Eating..");
         
     }
+
+    public void useCard(Card targetCard,int row, int col) throws BaseException{
+        
+    }
+
 
 }

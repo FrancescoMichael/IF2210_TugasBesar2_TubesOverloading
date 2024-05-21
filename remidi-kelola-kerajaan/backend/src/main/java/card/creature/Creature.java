@@ -3,9 +3,9 @@ package card.creature;
 import java.util.*;
 
 import card.Card;
-import card.Product;
-import card.food.CarnivoreFood;
-import card.food.HerbivoreFood;
+import card.product.CarnivoreFood;
+import card.product.HerbivoreFood;
+import card.product.Product;
 import player.Player;
 import exceptionkerajaan.*;
 

@@ -1,11 +1,12 @@
-package card.food;
+package card.product;
 
 import player.Player;
-import card.Product;
+import card.UsableCard;
 import card.creature.Animals;
 import exceptionkerajaan.*;
+import card.Card;
 
-public class CarnivoreFood extends Product implements Food {
+public class CarnivoreFood extends Product implements Food, UsableCard {
 
     //// contructors
     public CarnivoreFood() {
@@ -26,5 +27,10 @@ public class CarnivoreFood extends Product implements Food {
     public void beEaten(Animals creature) throws BaseException{
         creature.eat(this);
     }
+
+    public void useCard(Card targetCard,int row, int col) throws BaseException{
+        
+    }
+
 
 }

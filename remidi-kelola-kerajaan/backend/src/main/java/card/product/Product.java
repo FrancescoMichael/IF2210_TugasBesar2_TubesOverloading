@@ -1,4 +1,5 @@
-package card;
+package card.product;
+import card.Card;
 import player.*;
 public class Product extends Card{
     private String type;

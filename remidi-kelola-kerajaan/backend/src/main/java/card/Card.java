@@ -75,8 +75,4 @@ public class Card {
         return temp;
     }
 
-
-
-
-
 }

@@ -1,4 +1,4 @@
-package card.food;
+package card.product;
 import card.creature.Animals;
 import exceptionkerajaan.BaseException;
 public interface Food {
