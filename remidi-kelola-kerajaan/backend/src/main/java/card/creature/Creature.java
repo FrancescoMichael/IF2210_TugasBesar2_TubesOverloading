@@ -22,6 +22,8 @@ public class Creature extends Card implements UsableCard {
     protected int weight;
     protected int weightAfterEffect;
     protected List<Item> itemEffects;
+    protected boolean trap;
+    protected boolean protect;
     // effect attribute ?
 
     // constructor
@@ -32,6 +34,8 @@ public class Creature extends Card implements UsableCard {
         this.weight = 0;
         this.weightAfterEffect = 0;
         this.itemEffects = new ArrayList<>();
+        this.trap = false;
+        this.protect = false;
     }
 
     public Creature(String name, String pathToImg, Player owner) {
@@ -76,12 +80,6 @@ public class Creature extends Card implements UsableCard {
         return pTemp;
         
     }
-    
-    // setter
-    // public void setHarvestedProduct(Product copyProduct) {
-    //     this.harvestedProduct = new Product(copyProduct);
-    //     this.harvestedProduct.setOwner(getOwner());
-    // }
 
     public int getHarvestedWeightRequirement() {
         return this.harvestedWeightRequirement;
@@ -93,6 +91,43 @@ public class Creature extends Card implements UsableCard {
 
     public int getWeightAfterEffect() {
         return this.weightAfterEffect;
+    }
+
+    public List<Item> getItemEffects(){
+        return this.itemEffects;
+    }
+
+    public boolean isTrap(){
+        return this.trap;
+    }
+
+    public boolean isProtected(){
+        return this.protect;
+    }
+
+    // Setter
+    public void setHarvestedWeightRequirement(int harvestedWeightRequirement) {
+        this.harvestedWeightRequirement = harvestedWeightRequirement;
+    }
+
+    public void setWeight(int weight) {
+        this.weight = weight;
+    }
+
+    public void setWeightAfterEffect(int weightAfterEffect) {
+        this.weightAfterEffect = weightAfterEffect;
+    }
+
+    public void setItemEffects(List<Item> item){
+        this.itemEffects = item;
+    }
+
+    public void setTrap(boolean trap){
+        this.trap = trap;
+    }
+
+    public void setProtected(boolean protect){
+        this.protect = protect;
     }
 
     // other functions
@@ -134,9 +169,6 @@ public class Creature extends Card implements UsableCard {
         this.itemEffects.add(effect);
     }
 
-    // public boolean isProtected(){
-
-    // }
 
 
 

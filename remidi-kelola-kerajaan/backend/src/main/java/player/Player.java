@@ -62,4 +62,8 @@ public class Player {
         int arrayIDX = row * 5 + col;
         this.grid.add(arrayIDX, new Creature());
     }
+
+    public boolean isActiveDeckFull(){
+        return (this.activeDeck.size() >= 6);
+    }
 }
