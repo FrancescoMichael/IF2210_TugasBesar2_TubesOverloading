@@ -220,6 +220,7 @@
          </image>
       </ImageView>
       <Button fx:id="bearAttackButton" layoutX="750.0" layoutY="450.0" text="Bear Attack" />
+      <Label fx:id="timerLabel" layoutX="750.0" layoutY="500.0" prefHeight="30.0" prefWidth="200.0" text="Timer: 30" textFill="RED" style="-fx-font-size: 18px;" />
       <Label layoutX="610.0" layoutY="614.0" prefHeight="18.0" prefWidth="130.0" text="Label" textFill="WHITE" />
    </children>
 </AnchorPane>
