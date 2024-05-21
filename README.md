@@ -66,7 +66,7 @@ Include areas you believe need improvement / could be improved. Also add TODOs f
 
 Room for improvement:
 - Improvement to be done 1
-- Improvement to be done 2
+
 
 To do:
 - Feature to be added 1
