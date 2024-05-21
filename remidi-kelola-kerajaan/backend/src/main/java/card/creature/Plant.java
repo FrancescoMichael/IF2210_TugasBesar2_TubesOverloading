@@ -8,10 +8,13 @@ public class Plant extends Creature {
     public Plant() {
         super();
     }
+
+    // with owner
     public Plant(String name, String pathToImg, Player owner) {
         super(name, pathToImg, owner);
     }
 
+    // without owner
     public Plant(String name, String pathToImg) {
         super(name, pathToImg);
     }

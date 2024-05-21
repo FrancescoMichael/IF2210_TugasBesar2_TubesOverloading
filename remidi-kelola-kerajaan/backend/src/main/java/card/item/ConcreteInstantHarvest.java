@@ -6,7 +6,7 @@ import exceptionkerajaan.*;
 public class ConcreteInstantHarvest implements ItemEffect{
 
     @Override
-    public void useEffect(Creature currentCard,Creature cardTarget, int row, int col) throws BaseException{
+    public void useEffect(Item currentCard,Creature cardTarget, int row, int col) throws BaseException{
         // Asumsikan hanya dapat digunakan pada kartu sendiri
 
         // check if the same owner

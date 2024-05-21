@@ -4,7 +4,7 @@ import exceptionkerajaan.*;
 
 public class ConcreteDelay implements ItemEffect {
 
-    public void useEffect(Creature currentCard,Creature cardTarget, int row, int col) throws BaseException{
+    public void useEffect(Item currentCard,Creature cardTarget, int row, int col) throws BaseException{
         if (cardTarget instanceof Animals){
             // increase age of animals
             cardTarget.increasweightAfterEffect(-5);

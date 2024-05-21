@@ -15,8 +15,28 @@ import card.item.Item;
 
 // creature includes plants and animals
 public class Creature extends Card implements UsableCard {
-    protected static Map<String, Product> allHarvestedProduct;
-    protected static Map<String, Integer> allHarvestedWeightRequirement;
+    protected static Map<String, Product> allHarvestedProduct =  Map.of(
+        "Hiu Darat", new CarnivoreFood("Sirip Hiu", 500, "dummy.img", "Carnivore", 12),
+        "Sapi", new CarnivoreFood("Susu", 100, "dummy.img", "Carnivore", 4),
+        "Domba", new CarnivoreFood("Daging Domba", 120, "dummy.img", "Carnivore", 6),
+        "Kuda", new CarnivoreFood("Daging Kuda", 150, "dummy.img", "Carnivore", 8),
+        "Ayam", new CarnivoreFood("Telur", 50, "dummy.img", "Carnivore", 2),
+        "Beruang", new CarnivoreFood("Daging Beruang", 500, "dummy.img", "Carnivore", 12),
+        "Biji Jagung", new HerbivoreFood("Jagung", 150, "dummy.img", "Herbivore", 3),
+        "Biji Labu", new HerbivoreFood("Labu", 500, "dummy.img", "Herbivore", 10),
+        "Biji Stroberi", new HerbivoreFood("Stroberi", 350, "dummy.img", "Herbivore", 5));
+
+    protected static Map<String, Integer> allHarvestedWeightRequirement = Map.of(
+        "Hiu Darat", 20,
+        "Sapi", 10,
+        "Domba", 12,
+        "Kuda", 14,
+        "Ayam", 5,
+        "Beruang", 25,
+        "Biji Jagung", 3,
+        "Biji Labu", 5,
+        "Biji Stroberi", 4);
+
     // private Product harvestedProduct;
     protected int harvestedWeightRequirement;
     protected int weight;
@@ -38,6 +58,7 @@ public class Creature extends Card implements UsableCard {
         this.protect = false;
     }
 
+    // creature with owner
     public Creature(String name, String pathToImg, Player owner) {
 
         super(name, pathToImg, owner);
@@ -52,6 +73,8 @@ public class Creature extends Card implements UsableCard {
         // this.harvestedProduct = Creature.allHarvestedProduct.get(name);
     }
 
+
+    // creature without owner
     public Creature(String name, String pathToImg) {
 
         super(name, pathToImg);
@@ -105,6 +128,17 @@ public class Creature extends Card implements UsableCard {
         return this.protect;
     }
 
+    public static  Map<String, Product> getAllHarvestedProduct(){
+        return Creature.allHarvestedProduct;
+    }
+
+    public static  Map<String, Integer> getallHarvestedWeightRequirement(){
+        return Creature.allHarvestedWeightRequirement;
+    }
+
+    
+
+    
     // Setter
     public void setHarvestedWeightRequirement(int harvestedWeightRequirement) {
         this.harvestedWeightRequirement = harvestedWeightRequirement;
@@ -131,30 +165,6 @@ public class Creature extends Card implements UsableCard {
     }
 
     // other functions
-    public static void initializeAllCreatureStaticVariables() {
-        allHarvestedProduct = Map.of(
-                "Hiu Darat", new CarnivoreFood("Sirip Hiu", 500, "dummy.img", "Carnivore", 12),
-                "Sapi", new CarnivoreFood("Susu", 100, "dummy.img", "Carnivore", 4),
-                "Domba", new CarnivoreFood("Daging Domba", 120, "dummy.img", "Carnivore", 6),
-                "Kuda", new CarnivoreFood("Daging Kuda", 150, "dummy.img", "Carnivore", 8),
-                "Ayam", new CarnivoreFood("Telur", 50, "dummy.img", "Carnivore", 2),
-                "Beruang", new CarnivoreFood("Daging Beruang", 500, "dummy.img", "Carnivore", 12),
-                "Biji Jagung", new HerbivoreFood("Jagung", 150, "dummy.img", "Herbivore", 3),
-                "Biji Labu", new HerbivoreFood("Labu", 500, "dummy.img", "Herbivore", 10),
-                "Biji Stroberi", new HerbivoreFood("Stroberi", 350, "dummy.img", "Herbivore", 5));
-
-        allHarvestedWeightRequirement = Map.of(
-                "Hiu Darat", 20,
-                "Sapi", 10,
-                "Domba", 12,
-                "Kuda", 14,
-                "Ayam", 5,
-                "Beruang", 25,
-                "Biji Jagung", 3,
-                "Biji Labu", 5,
-                "Biji Stroberi", 4);
-
-    }
 
     public void increaseWeight(int additionalWeight){
         this.weight += additionalWeight;
@@ -185,6 +195,20 @@ public class Creature extends Card implements UsableCard {
     public void useCard(Card targetCard, int row, int col) throws BaseException{
         if (targetCard.isEmpty() && this.getOwner() == targetCard.getOwner()){
             this.getOwner().addCardToGrid(this, row, col);
+        }
+    }
+
+    // get harvested product from Creature
+
+    public void harvestCreature(int row, int col) throws BaseException{
+        if (this.getWeightAfterEffect() > this.getHarvestedWeightRequirement()  ){
+             // remove creature from grid, add product in active deck
+             // addCardToActiveDeck already checks if activeDeck is full
+            this.getOwner().addCardToActiveDeck( this.getHarvestedProduct() );
+            this.getOwner().setBlankOnGrid(row, col);
+
+        } else {
+            throw new NotReadyToHarvest();
         }
     }
 

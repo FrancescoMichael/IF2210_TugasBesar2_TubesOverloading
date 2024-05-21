@@ -12,7 +12,7 @@ public class Card {
         this.name = "";
 
         this.pathToImg = "";
-        this.owner = new Player("");
+        
     }
 
     public Card(String name,String pathToImg, Player owner){

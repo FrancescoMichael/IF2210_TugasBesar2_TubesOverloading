@@ -5,7 +5,6 @@ import card.*;
 import exceptionkerajaan.*;
 
 import card.creature.*;
-import exceptionkerajaan.ActiveDeckFullException;
 
 public class Player {
     private String name;
@@ -13,6 +12,8 @@ public class Player {
     private ArrayList<Card> activeDeck;
     private ArrayList<Creature> grid;
 
+
+    // Constructor
     public Player() {
         this.name = "";
         this.activeDeck = new ArrayList<>();
@@ -25,31 +26,38 @@ public class Player {
     }
 
     public Player(String name) {
-        super();
-        this.name = name;
+      this();
+      this.name = name;
+
     }
 
+    // getter
+    public String getName() {
+        return name;
+        
+    }
+    public int getGulden() {
+        return this.gulden;
+    }
+
+
+    // setter
     public void setName(String name) {
         this.name = name;
 
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getGulden() {
-        return this.gulden;
     }
 
     public void setGulden(int gulden) {
         this.gulden = gulden;
     }
 
+    // other methods
+
     public void addCardToActiveDeck(Card card) throws BaseException {
         if (this.activeDeck.size() == 6) {
             throw new ActiveDeckFullException();
         }
+        card.setOwner(this);
         this.activeDeck.add(card);
     }
 
@@ -66,4 +74,53 @@ public class Player {
     public boolean isActiveDeckFull(){
         return (this.activeDeck.size() >= 6);
     }
+
+
+    // main methods for grid and activeDeck
+    public Card getCardActiveDeck(int index)throws BaseException{
+        if (index < 0 || index >= this.activeDeck.size()  ){
+            throw new ActiveDeckOutOfBoundsException();
+        }
+        return this.activeDeck.get(index);
+    }
+
+    public Creature getCardGrid(int row, int col)throws BaseException{
+        int arrayIDX = row * 5 + col;
+        if (arrayIDX > 20 || arrayIDX < 0){
+            throw new GridOutOfBoundsException();
+        }
+        return this.grid.get(arrayIDX);
+
+    }
+
+    public long getNumberOfCardsInGrid(){
+
+        return this.grid.stream().filter(card -> !card.isEmpty()).count();
+    }
+
+    public String toString(){
+        String temp = "";
+        temp = "Name: " + this.name + "\n";
+        temp = temp + "Gulden: " + this.gulden + "\n";
+        temp = temp + "Number of cards in active deck: " + this.activeDeck.size() + "\n";
+        temp = temp + "Number of cards not blank in grid: " + this.getNumberOfCardsInGrid() + "\n"; 
+        return temp;
+    }
+
+
+    public void printGridTest() throws BaseException{
+        for (int row = 0 ; row < 4 ; row++){
+            for (int col = 0 ; col < 5 ; col++){
+                if (this.getCardGrid(row, col).isEmpty() ){
+                    System.out.print("EMPTY ");
+                } else {
+                    System.out.print(this.getCardGrid(row, col).getName());
+                }
+                
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+
 }
