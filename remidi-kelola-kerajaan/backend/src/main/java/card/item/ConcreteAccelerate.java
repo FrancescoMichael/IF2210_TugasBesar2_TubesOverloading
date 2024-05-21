@@ -1,5 +1,6 @@
 package card.item;
-// import card.Card;
+import card.creature.*;
+import exceptionkerajaan.*;
 // import card.UsableCard;
 // import card.creature.Animals;
 // import card.creature.Creature;
@@ -18,6 +19,7 @@ package card.item;
 //             throw new InvalidCardPlacementException();
 //         }
 //     }
+import exceptionkerajaan.InvalidCardPlacementException;
 
 
 
@@ -30,3 +32,19 @@ package card.item;
 //     }
     
 // }
+
+
+
+public class ConcreteAccelerate implements ItemEffect {
+    public void useEffect(Creature currentCard,Creature cardTarget, int row, int col) throws BaseException{
+        if (cardTarget instanceof Animals){
+            // increase age of animals
+            cardTarget.increasweightAfterEffect(8);
+        } else if (cardTarget instanceof Plant){
+            // increase age of plant
+            cardTarget.increaseWeight(2);
+        } else {
+            throw new InvalidCardPlacementException();
+        }
+    }
+}

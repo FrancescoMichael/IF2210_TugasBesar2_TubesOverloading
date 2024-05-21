@@ -19,6 +19,5 @@ public class Carnivore extends Creature implements Animals{
 
     public void eat(HerbivoreFood food) throws BaseException {
             throw new FoodException(this);
-
     }
 }

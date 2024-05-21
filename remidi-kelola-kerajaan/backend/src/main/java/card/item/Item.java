@@ -14,14 +14,17 @@ public class Item extends Card implements UsableCard {
         super();
     }
 
+    // constructor with owner
     public Item(String name,String pathToImg, Player owner){
         super(name, pathToImg, owner);
     }
 
+    // constructor without owner
     public Item(String name , String pathToImg){
         super(name, pathToImg);
     }
 
+    @Override
     public void useCard(Card targetCard, int row, int col){
 
     }

@@ -15,13 +15,13 @@ import card.item.Item;
 
 // creature includes plants and animals
 public class Creature extends Card implements UsableCard {
-    private static Map<String, Product> allHarvestedProduct;
-    private static Map<String, Integer> allHarvestedWeightRequirement;
+    protected static Map<String, Product> allHarvestedProduct;
+    protected static Map<String, Integer> allHarvestedWeightRequirement;
     // private Product harvestedProduct;
-    private int harvestedWeightRequirement;
-    private int weight;
-    private int weightAfterEffect;
-    private List<Item> itemEffects;
+    protected int harvestedWeightRequirement;
+    protected int weight;
+    protected int weightAfterEffect;
+    protected List<Item> itemEffects;
     // effect attribute ?
 
     // constructor
