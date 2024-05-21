@@ -76,6 +76,8 @@ public class DraggableMaker {
             // record a delta distance for the drag and drop operation.
             dragDelta.x = node.getTranslateX() - mouseEvent.getSceneX();
             dragDelta.y = node.getTranslateY() - mouseEvent.getSceneY();
+            // node.setTranslateX(0);
+            // node.setTranslateY(0);
         });
 
         node.setOnMouseDragged(mouseEvent -> {
@@ -140,27 +142,40 @@ public class DraggableMaker {
                         ImageView targetImageView = fieldController.getImageViewById("kosong" + row + col);
 
                         if (targetImageView != null) {
-                            // Set the target image URL to the source image URL
-                            String sourceImageUrl = ((ImageView) node).getImage().getUrl();
-                            targetImageView.setImage(new Image(sourceImageUrl));
+                            // Check if the target cell is empty
+                            if (targetImageView.getImage() == null) {
+                                ImageView sourceImageView = (ImageView) node;
+                                if (sourceImageView.getImage() != null) {
+                                    String sourceImageUrl = sourceImageView.getImage().getUrl();
+                                    targetImageView.setImage(new Image(sourceImageUrl));
 
-                            // Clear the source image URL
-                            ((ImageView) node).setImage(null);
+                                    // Clear the source image URL
+                                    sourceImageView.setImage(null);
 
-                            // Print debug information
-                            System.out.println("Source image URL: " + sourceImageUrl);
-                            System.out.println("Target cell: " + "kosong" + row + col + " set to source image.");
-                            System.out.println("Source cell cleared.");
-                            
-                            fieldList[row - 1][col - 1] = activeDeckName.get(index);
-        
-                            activeDeckName.set(index, "");
-        
-                            if (cardUpdateListener != null) {
-                                cardUpdateListener.onCardUpdated(card);
+                                    System.out.println("Source image URL: " + sourceImageUrl);
+                                    System.out.println("Target cell: " + "kosong" + row + col + " set to source image.");
+                                    System.out.println("Source cell cleared.");
+
+                                    fieldList[row - 1][col - 1] = activeDeckName.get(index);
+                                    activeDeckName.set(index, "");
+
+                                    if (cardUpdateListener != null) {
+                                        cardUpdateListener.onCardUpdated(card);
+                                    }
+
+                                    printMatrix();
+
+                                    // make redraggable
+                                    makeDraggable(targetImageView, grid, activeDeckName);
+                                } else {
+                                    System.err.println("Error: Source image is null.");
+                                }
+                            } else {
+                                // If the target cell is not empty, show an error message
+                                System.err.println("Error: Target cell 'kosong" + row + col + "' is not empty.");
                             }
-                            // Print the matrix
-                            printMatrix();
+                        } else {
+                            System.err.println("Target ImageView is null for ID: " + "kosong" + row + col);
                         }
                     }
 
