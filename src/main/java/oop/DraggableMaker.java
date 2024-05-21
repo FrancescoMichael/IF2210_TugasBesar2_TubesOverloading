@@ -46,26 +46,22 @@ public class DraggableMaker {
         final Delta initialPosition = new Delta();
         initialPosition.x = node.getLayoutX();
         initialPosition.y = node.getLayoutY();
-
-        // custom size
-        final double customWidth = 73;
-        final double customHeight = 120;
-
-        final double yOffset = 18;
-
+    
+        final double yOffset = 19;
+    
         node.setOnMousePressed(mouseEvent -> {
             // record a delta distance for the drag and drop operation.
             dragDelta.x = node.getTranslateX() - mouseEvent.getSceneX();
             dragDelta.y = node.getTranslateY() - mouseEvent.getSceneY();
         });
-
+    
         node.setOnMouseDragged(mouseEvent -> {
             int col = ((int)(mouseEvent.getSceneX() - 34.4) / 100) + 1;
             int row = ((int)(mouseEvent.getSceneY() - 70) / 110) + 1;
-
+    
             if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
                 ImageView currentCell = grid[row - 1][col - 1];
-
+    
                 // Only change the glow if the cell has changed
                 if (lastGlowingCell != currentCell) {
                     if (lastGlowingCell != null) {
@@ -76,52 +72,36 @@ public class DraggableMaker {
                 }
             } else {
                 if (lastGlowingCell != null) {
-                    // previousRow = (int) ((lastGlowingCell.getLayoutY() - 70) / 110) + 1;
-                    // previousCol = (int) ((lastGlowingCell.getLayoutX() - 34.4) / 100) + 1;
-
-                    // if (previousRow >= 0 && previousRow < redMatrix.length && previousCol >= 0 && previousCol < redMatrix[0].length) {
-                    //     if (redMatrix[previousRow][previousCol]) {
-                    //         System.out.println("masukk2");
-                    //         setRedGlow(grid[previousRow][previousCol], true);
-                    //     }
-                    // }
-
                     setGlow(lastGlowingCell, false);
                     lastGlowingCell = null;
                 }
             }
-
+    
             node.setTranslateX(mouseEvent.getSceneX() + dragDelta.x);
             node.setTranslateY(mouseEvent.getSceneY() + dragDelta.y);
         });
-
+    
         node.setOnMouseReleased(mouseEvent -> {
             if (lastGlowingCell != null) {
                 setGlow(lastGlowingCell, false);
-
+    
                 // Snap the card to the grid cell
-                double cellCenterX = lastGlowingCell.getLayoutX() + lastGlowingCell.getFitWidth() / 2;
-                double cellCenterY = lastGlowingCell.getLayoutY() + lastGlowingCell.getFitHeight() / 2;
-                node.setLayoutX(cellCenterX - customWidth / 2);
-                node.setLayoutY(cellCenterY - customHeight / 2 + yOffset);
+                node.setLayoutX(lastGlowingCell.getLayoutX());
+                node.setLayoutY(lastGlowingCell.getLayoutY());
                 node.setTranslateX(0);
                 node.setTranslateY(0);
-
-                // Set custom size for the card
+    
+                // Set the card size to match the grid cell
                 if (node instanceof ImageView) {
                     ImageView card = (ImageView) node;
-                    card.setFitWidth(customWidth);
-                    card.setFitHeight(customHeight);
+                    card.setFitWidth(lastGlowingCell.getFitWidth());
+                    card.setFitHeight(lastGlowingCell.getFitHeight());
                     if (cardUpdateListener != null) {
                         cardUpdateListener.onCardUpdated(card);
                     }
                 }
-
+    
                 // Disable dragging
-                node.setOnMousePressed(null);
-                node.setOnMouseDragged(null);
-                node.setOnMouseReleased(null);
-
                 lastGlowingCell = null;
             } else {
                 // If not over a grid cell, reset to the initial position
@@ -130,6 +110,7 @@ public class DraggableMaker {
             }
         });
     }
+    
     
     class Delta {
         double x, y;

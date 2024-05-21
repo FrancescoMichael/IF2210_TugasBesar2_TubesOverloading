@@ -1,6 +1,7 @@
 package oop;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
@@ -170,15 +171,14 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     private Label timerLabel;
     
     private Timeline countdownTimeline;
+
+    private ArrayList<String> activeDeckName = new ArrayList<>();
+    private ArrayList<ArrayList<String>> LadangName = new ArrayList<>();
     
     void setGridtoShark() {
-        String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/2.png").toExternalForm();
-        card11.setStyle("-fx-image: url('" + imagePath + "');");
-        card11.setFitWidth(76);
-        card11.setFitHeight(89);
-        card11.setLayoutX(40);
-        card11.setLayoutY(40);
-        card11.setVisible(true);
+        // String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/hiu_darat.png").toExternalForm();
+        // card11.setStyle("-fx-image: url('" + imagePath + "');");
+        // card11.setVisible(true);
     }
 
     DraggableMaker draggableMaker = new DraggableMaker();
@@ -193,6 +193,12 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
         // nextTurnBtn.setOnAction(event -> {
         //     System.out.println("Button clicked!");
         // });
+        activeDeckName.add("hiu_darat");
+        activeDeckName.add("beruang");
+        activeDeckName.add("biji_labu");
+        activeDeckName.add("domba");
+        activeDeckName.add("biji_jagung");
+        activeDeckName.add("biji_stroberi");
 
         ImageView[][] matrix_grid = new ImageView[][] {
             {grid11, grid12, grid13, grid14, grid15},
