@@ -422,7 +422,7 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
         // clickableGrid11.setOnMouseClicked(event -> System.out.println("click"));
         // card.setOnMouseClicked(event -> System.out.println("click"));
         // draggableMaker.makeDraggable(card, matrix_grid, null);
-        clickableGrid11.setOnMouseClicked(event -> setPanenPageVisibility(true));
+        // clickableGrid11.setOnMouseClicked(event -> setPanenPageVisibility(true));
         // Handle the updated card
         System.out.println("Card updated: " + card);
         // Access updated activeDeckName and fieldList
