@@ -63,29 +63,31 @@ public class Creature extends Card implements UsableCard {
 
         super(name, pathToImg, owner);
 
-        this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
+
 
         // Possibility of null value, be careful
         // this.harvestedProduct.setOwner(owner);
         this.weight = 0;
         this.weightAfterEffect = 0;
-        this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
+        if (Creature.allHarvestedProduct.containsKey(name)){
+            this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
+        }
+
         // this.harvestedProduct = Creature.allHarvestedProduct.get(name);
     }
 
 
     // creature without owner
     public Creature(String name, String pathToImg) {
-
         super(name, pathToImg);
-
-        this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
-
         // Possibility of null value, be careful
         // this.harvestedProduct.setOwner(owner);
         this.weight = 0;
         this.weightAfterEffect = 0;
-        this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
+        if (Creature.allHarvestedProduct.containsKey(name)){
+            this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
+        }
+
         // this.harvestedProduct = Creature.allHarvestedProduct.get(name);
     }
 
@@ -193,8 +195,13 @@ public class Creature extends Card implements UsableCard {
 
     @Override
     public void useCard(Card targetCard, int row, int col) throws BaseException{
+
         if (targetCard.isEmpty() && this.getOwner() == targetCard.getOwner()){
+
             this.getOwner().addCardToGrid(this, row, col);
+            
+        } else {
+            throw new InvalidCardPlacementException();
         }
     }
 
@@ -210,6 +217,14 @@ public class Creature extends Card implements UsableCard {
         } else {
             throw new NotReadyToHarvest();
         }
+    }
+
+    @Override
+    public String toString(){
+        String temp = super.toString();
+        temp = temp + "Weight: " +  this.getWeight() + "\n" + "Weight after effect: " +  this.getWeightAfterEffect() + "\n";
+        return temp;
+
     }
 
 

@@ -55,4 +55,5 @@ public class Product extends Card{
     public void setPrice(int price){
         this.price = price;
     }
+
 }

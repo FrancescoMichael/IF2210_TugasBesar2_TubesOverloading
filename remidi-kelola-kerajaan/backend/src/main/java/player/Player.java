@@ -21,13 +21,14 @@ public class Player {
         this.gulden = 0;
 
         for (int i = 0; i < 20; i++) {
-            this.grid.add(new Creature());
+            this.grid.add(new Creature("","",this)  ) ;
         }
     }
 
     public Player(String name) {
       this();
       this.name = name;
+
 
     }
 
@@ -68,7 +69,13 @@ public class Player {
 
     public void setBlankOnGrid(int row, int col) {
         int arrayIDX = row * 5 + col;
-        this.grid.add(arrayIDX, new Creature());
+        this.grid.add(arrayIDX, new Creature("","",this));
+    }
+
+    public void removeCardAtActiveDeck(int index){
+        if (index >= 0 && index < this.activeDeck.size()){
+            this.activeDeck.remove(index);
+        }
     }
 
     public boolean isActiveDeckFull(){
@@ -108,19 +115,28 @@ public class Player {
     }
 
 
-    public void printGridTest() throws BaseException{
+    public void printGridActiveDeckTest() throws BaseException{
+        System.out.println(this);
+        System.out.println("GRID");
         for (int row = 0 ; row < 4 ; row++){
             for (int col = 0 ; col < 5 ; col++){
                 if (this.getCardGrid(row, col).isEmpty() ){
                     System.out.print("EMPTY ");
                 } else {
-                    System.out.print(this.getCardGrid(row, col).getName());
+                    System.out.print(this.getCardGrid(row, col).getName() + " ");
                 }
                 
             }
             System.out.println();
         }
         System.out.println();
+        System.out.println("ACTIVE DECK");
+        for (Card card : activeDeck){
+            System.out.print(card.getName() +" ");
+        }
+        System.out.println("\n");
+        System.out.println("=================================");
+        
     }
 
 }

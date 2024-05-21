@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import card.creature.Animals;
 import card.creature.Carnivore;
 import card.creature.Creature;
 import card.creature.Herbivore;
@@ -12,6 +13,7 @@ import card.creature.Plant;
 import exceptionkerajaan.BaseException;
 import player.Player;
 
+import card.*;
     // Creature.initializeAllCreatureStaticVariables();
     // ArrayList<Creature> grid = new ArrayList<>();
     // ArrayList<Card> activeDeck = new ArrayList<>();
@@ -70,6 +72,8 @@ import player.Player;
 /**
  * Unit test for simple App.
  */
+
+
 public class AppTest 
 {
     /**
@@ -121,28 +125,41 @@ public class AppTest
 
 
             // STARTING WITH EMPTY GRID
-            System.out.println(player1);
-            System.out.println(player2);
-            
-            System.out.println("Player1 grid");
-            player1.printGridTest();
+            System.out.println(" FIRST INITIALIZING");
 
-            System.out.println("Player2 grid");
-            player1.printGridTest();
+            player1.printGridActiveDeckTest();
+            player2.printGridActiveDeckTest();
 
 
             // adding to grid, adding all creature to grid
             // Player1
-            // in this example, the 0'th index of activeDeck, which is "hiu darat" is being dragged to grid at row 1, col 1,
+            // in this example, the 0'th index of activeDeck, which is "hiu darat" is being dragged to grid at row 1, col 2
+            System.out.println("ADD HIU DARAT IN ROW 1 COL 2");
+            ((UsableCard) player1.getCardActiveDeck(0) ).useCard( player1.getCardGrid(1, 2) , 1, 2);
+
+            // Jika berhasil maka GUI akan menghapus deck pada active deck
+            player1.removeCardAtActiveDeck(0);
+
+            player1.printGridActiveDeckTest();
+
+            assertTrue("FAIL LINE 153",  (player1.getCardGrid(1, 2) instanceof Animals) && (player1.getCardGrid(1, 2) instanceof Carnivore) );
+            
+            // TRYING TO FEED CARNIVORE at grid 1 - 2 (row - col)  , index 4 of active deck
+            ((UsableCard) player1.getCardActiveDeck(4)).useCard( player1.getCardGrid(1, 2), 0, 0);
+            
+            // GUI will remove card at index 4 of active index
+            player1.removeCardAtActiveDeck(4);
+            System.out.println(player1.getCardGrid(1, 2));
+            player1.printGridActiveDeckTest();
+
+
 
 
         }catch(BaseException e){
             System.out.println(e.getMessage());
         }
 
-
-
-
-
     }
+
+
 }

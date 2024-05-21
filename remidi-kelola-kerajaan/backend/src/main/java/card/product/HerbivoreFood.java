@@ -2,7 +2,9 @@ package card.product;
 
 import card.UsableCard;
 import card.creature.Animals;
+
 import exceptionkerajaan.BaseException;
+import exceptionkerajaan.InvalidCardPlacementException;
 import player.Player;
 import card.Card;
 public class HerbivoreFood extends Product implements Food, UsableCard {
@@ -38,7 +40,11 @@ public class HerbivoreFood extends Product implements Food, UsableCard {
 
     @Override
     public void useCard(Card targetCard,int row, int col) throws BaseException{
-        
+        if (targetCard instanceof Animals){
+            this.beEaten((Animals)targetCard  );
+        } else {
+            throw new InvalidCardPlacementException();
+        }
     }
 
 

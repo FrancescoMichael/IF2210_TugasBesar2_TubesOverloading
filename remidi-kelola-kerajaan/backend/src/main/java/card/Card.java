@@ -24,7 +24,6 @@ public class Card {
     public Card(String name , String pathToImg){
         this.name = name;
         this.pathToImg = pathToImg;
-        this.owner = new Player("");
     }
 
     // getters
@@ -60,6 +59,7 @@ public class Card {
         String temp  = "";
         temp = temp + "name: " + this.name +"\n";
         temp = temp + "Owner: " + this.owner.getName() + "\n";
+        temp = temp + "pathToImg: " + this.pathToImg + "\n";
         
         return temp;
     }
@@ -68,4 +68,5 @@ public class Card {
     public boolean isEmpty(){
         return this.name.compareTo("") == 0;
     }
+
 }

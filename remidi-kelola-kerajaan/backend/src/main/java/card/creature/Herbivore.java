@@ -4,7 +4,6 @@ import card.product.HerbivoreFood;
 import exceptionkerajaan.BaseException;
 import exceptionkerajaan.FoodException;
 import player.*;
-import card.*;
 
 
 public class Herbivore extends Creature implements Animals{
@@ -30,12 +29,8 @@ public class Herbivore extends Creature implements Animals{
 
     public void eat(HerbivoreFood food) {
         System.out.println("Eating..");
+        this.increaseWeight(food.getAdditionalWeight());
         
     }
-
-    public void useCard(Card targetCard,int row, int col) throws BaseException{
-        
-    }
-
 
 }
