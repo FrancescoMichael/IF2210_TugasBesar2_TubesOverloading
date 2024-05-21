@@ -50,7 +50,7 @@ public class Player {
         if (this.activeDeck.size() == 6) {
             throw new ActiveDeckFullException();
         }
-        this.activeDeck.add(col, card);
+        this.activeDeck.add(card);
     }
 
     public void addCardToGrid(Creature card, int row, int col) throws BaseException {
