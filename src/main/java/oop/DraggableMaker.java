@@ -29,12 +29,18 @@ public class DraggableMaker {
             node.setEffect(null);
         }
     }
-
+    
     public void makeDraggable(Node node, ImageView[][] grid) {
         final Delta dragDelta = new Delta();
         final Delta initialPosition = new Delta();
         initialPosition.x = node.getLayoutX();
         initialPosition.y = node.getLayoutY();
+    
+        // custom size
+        final double customWidth = 73; 
+        final double customHeight = 120; 
+    
+        final double yOffset = 18;
     
         node.setOnMousePressed(mouseEvent -> {
             // record a delta distance for the drag and drop operation.
@@ -43,12 +49,16 @@ public class DraggableMaker {
         });
     
         node.setOnMouseDragged(mouseEvent -> {
-            int col = ((int)(mouseEvent.getSceneX() - 34.4) / 100) + 1;
-            int row = ((int)(mouseEvent.getSceneY() - 70) / 110) + 1;
-
-            if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
-                ImageView currentCell = grid[row - 1][col - 1];
-
+            node.setTranslateX(mouseEvent.getSceneX() + dragDelta.x);
+            node.setTranslateY(mouseEvent.getSceneY() + dragDelta.y);
+    
+            // Calculate grid position
+            int col = (int) ((mouseEvent.getSceneX() - 48) / 100);
+            int row = (int) ((mouseEvent.getSceneY() - 45) / 110);
+    
+            if (col >= 0 && col < grid[0].length && row >= 0 && row < grid.length) {
+                ImageView currentCell = grid[row][col];
+    
                 // Only change the glow if the cell has changed
                 if (lastGlowingCell != currentCell) {
                     if (lastGlowingCell != null) {
@@ -63,21 +73,41 @@ public class DraggableMaker {
                     lastGlowingCell = null;
                 }
             }
-
-            node.setTranslateX(mouseEvent.getSceneX() + dragDelta.x);
-            node.setTranslateY(mouseEvent.getSceneY() + dragDelta.y);
         });
-
+    
         node.setOnMouseReleased(mouseEvent -> {
             if (lastGlowingCell != null) {
                 setGlow(lastGlowingCell, false);
+    
+                // Snap the card to the grid cell
+                double cellCenterX = lastGlowingCell.getLayoutX() + lastGlowingCell.getFitWidth() / 2;
+                double cellCenterY = lastGlowingCell.getLayoutY() + lastGlowingCell.getFitHeight() / 2;
+                node.setLayoutX(cellCenterX - customWidth / 2);
+                node.setLayoutY(cellCenterY - customHeight / 2 + yOffset);
+                node.setTranslateX(0);
+                node.setTranslateY(0);
+    
+                // Set custom size for the card
+                if (node instanceof ImageView) {
+                    ImageView card = (ImageView) node;
+                    card.setFitWidth(customWidth);
+                    card.setFitHeight(customHeight);
+                }
+    
+                // Disable dragging
+                node.setOnMousePressed(null);
+                node.setOnMouseDragged(null);
+                node.setOnMouseReleased(null);
+    
                 lastGlowingCell = null;
+            } else {
+                // If not over a grid cell, reset to the initial position
+                node.setTranslateX(0);
+                node.setTranslateY(0);
             }
-            node.setTranslateX(0);
-            node.setTranslateY(0);
         });
     }
-
+    
     class Delta {
         double x, y;
     }
