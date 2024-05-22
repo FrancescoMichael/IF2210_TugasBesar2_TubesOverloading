@@ -1,5 +1,6 @@
 package oop;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -7,17 +8,26 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 import javafx.fxml.Initializable;
 import javafx.util.Duration;
 import oop.player.Player;
 import oop.*;
 
 public class FieldController implements Initializable, DraggableMaker.CardUpdateListener{
+
+    @FXML
+    private void switchToSecondary() throws IOException {
+        App.setRoot("SaveLoadPlugin");
+    }
 
     @FXML
     private ImageView ActiveDeck1;
@@ -401,6 +411,30 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
             LoadPlugin1.setVisible(false);
         });
 
+        LoadPlugin.setOnMouseClicked(event -> {
+            try {
+                switchToSecondary("LoadPlugin");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        LoadState.setOnMouseClicked(event -> {
+            try {
+                switchToSecondary("LoadState");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        SaveState.setOnMouseClicked(event -> {
+            try {
+                switchToSecondary("SaveState");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
         activeDeckName.add("beruang");
         activeDeckName.add("stroberi");
         activeDeckName.add("beruang");
@@ -427,6 +461,16 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
         bearAttackButton.setOnAction(event -> simulateBearAttack());
     }
 
+    private void switchToSecondary(String state) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("SaveLoadPlugin.fxml"));
+        Parent root = loader.load();
+        SecondaryController secondaryController = loader.getController();
+        secondaryController.setState(state);
+        Stage stage = (Stage) LoadPlugin.getScene().getWindow(); // Assuming LoadPlugin is in the current scene
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
+    
     @Override
     public void onCardUpdated(ImageView card) {
         // clickableGrid11.setOnMouseClicked(event -> System.out.println("click"));
