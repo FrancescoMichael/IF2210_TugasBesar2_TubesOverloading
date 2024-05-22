@@ -61,7 +61,8 @@ public class DefaultTest {
             // player1.printGridActiveDeckTest();
             System.out.println(player1.getCardActiveDeck(4));
             player1.invokeCard(4, 0, 0, player1);
-            // player1.removeCardAtActiveDeck(4);
+            player1.removeCardAtActiveDeck(4);
+            player1.printGridActiveDeckTest();
             // player1.printGridActiveDeckTest();
 
 
