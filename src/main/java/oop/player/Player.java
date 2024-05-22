@@ -41,6 +41,10 @@ public class Player {
 
     }
 
+    public ArrayList<Creature> getGrid() {
+        return this.grid;
+    }
+
     public int getGulden() {
         return this.gulden;
     }

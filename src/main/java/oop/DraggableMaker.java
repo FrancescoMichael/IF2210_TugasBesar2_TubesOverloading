@@ -10,6 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import oop.exceptionkerajaan.BaseException;
+import oop.gamemaster.*;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
@@ -21,6 +24,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import oop.player.Player;
 
 public class DraggableMaker {
     private ImageView lastGlowingCell = null;
@@ -65,131 +69,118 @@ public class DraggableMaker {
     }
 
     public void makeDraggable(ImageView sourceImageView, ImageView[][] grid, ArrayList<String> activeDeckName,
-            boolean isActive) {
-        if (isActive) {
+            GameMaster gameMaster) {
+        this.activeDeckName = activeDeckName;
 
-            this.activeDeckName = activeDeckName;
+        final Delta dragDelta = new Delta();
+        final Delta initialPosition = new Delta();
+        initialPosition.x = sourceImageView.getLayoutX();
+        initialPosition.y = sourceImageView.getLayoutY();
 
-            final Delta dragDelta = new Delta();
-            final Delta initialPosition = new Delta();
-            initialPosition.x = sourceImageView.getLayoutX();
-            initialPosition.y = sourceImageView.getLayoutY();
+        final double yOffset = 19;
 
-            final double yOffset = 19;
+        // Initialize the fieldList with the same dimensions as the grid
 
-            // Initialize the fieldList with the same dimensions as the grid
+        sourceImageView.setOnMousePressed(mouseEvent -> {
+            // record a delta distance for the drag and drop operation.
+            dragDelta.x = sourceImageView.getTranslateX() - mouseEvent.getSceneX();
+            dragDelta.y = sourceImageView.getTranslateY() - mouseEvent.getSceneY();
+        });
 
-            sourceImageView.setOnMousePressed(mouseEvent -> {
-                // record a delta distance for the drag and drop operation.
-                dragDelta.x = sourceImageView.getTranslateX() - mouseEvent.getSceneX();
-                dragDelta.y = sourceImageView.getTranslateY() - mouseEvent.getSceneY();
-            });
+        sourceImageView.setOnMouseDragged(mouseEvent -> {
+            int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
+            int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
 
-            sourceImageView.setOnMouseDragged(mouseEvent -> {
-                int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
-                int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
+            if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
+                ImageView currentCell = grid[row - 1][col - 1];
 
-                if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
-                    ImageView currentCell = grid[row - 1][col - 1];
-
-                    // Only change the glow if the cell has changed
-                    if (lastGlowingCell != currentCell) {
-                        if (lastGlowingCell != null) {
-                            setGlow(lastGlowingCell, false);
-                        }
-                        setGlow(currentCell, true);
-                        lastGlowingCell = currentCell;
-                    }
-                } else {
+                // Only change the glow if the cell has changed
+                if (lastGlowingCell != currentCell) {
                     if (lastGlowingCell != null) {
                         setGlow(lastGlowingCell, false);
-                        lastGlowingCell = null;
                     }
+                    setGlow(currentCell, true);
+                    lastGlowingCell = currentCell;
                 }
-
-                sourceImageView.setTranslateX(mouseEvent.getSceneX() + dragDelta.x);
-                sourceImageView.setTranslateY(mouseEvent.getSceneY() + dragDelta.y);
-            });
-
-            sourceImageView.setOnMouseReleased(mouseEvent -> {
+            } else {
                 if (lastGlowingCell != null) {
-
                     setGlow(lastGlowingCell, false);
+                    lastGlowingCell = null;
+                }
+            }
 
-                    // Set the card size to match the grid cell
-                    if (sourceImageView instanceof ImageView) {
-                        int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
-                        int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
+            sourceImageView.setTranslateX(mouseEvent.getSceneX() + dragDelta.x);
+            sourceImageView.setTranslateY(mouseEvent.getSceneY() + dragDelta.y);
+        });
 
-                        String className = sourceImageView.getId();
-                        char lastChar = className.charAt(className.length() - 1);
+        sourceImageView.setOnMouseReleased(mouseEvent -> {
+            if (lastGlowingCell != null) {
 
-                        // Convert the last character to an integer
-                        int index = Character.getNumericValue(lastChar) - 1;
+                setGlow(lastGlowingCell, false);
 
-                        // Update the fieldList with the card position
+                // Set the card size to match the grid cell
+                if (sourceImageView instanceof ImageView) {
+                    int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
+                    int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
 
-                        if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
-                            ImageView targetImageView = fieldController.getImageViewById("kosong" + (row) + (col));
+                    String idSourceImage = sourceImageView.getId();
 
-                            if (targetImageView != null) {
-                                // Check if the target cell is empty
-                                if (targetImageView.getImage() == null) {
-                                    String idSourceImage = sourceImageView.getId();
-                                    // System.out.println("Source: " + idSourceImage);
-                                    // System.out.println("Target: " + targetImageView.getId());
+                    int rowSource = (int) idSourceImage.charAt(idSourceImage.length() - 2) - '0';
+                    int colSource = (int) idSourceImage.charAt(idSourceImage.length() - 1) - '0';
 
-                                    int rowSource = (int) idSourceImage.charAt(idSourceImage.length() - 2) - '0';
-                                    int colSource = (int) idSourceImage.charAt(idSourceImage.length() - 1) - '0';
-                                    System.out.println(rowSource);
-                                    System.out.println(colSource);
-                                    if (sourceImageView.getImage() != null) {
-                                        String sourceImageUrl = sourceImageView.getImage().getUrl();
-                                        targetImageView.setImage(new Image(sourceImageUrl));
-                                        sourceImageView.setImage(targetImageView.getImage());
-                                        sourceImageView.setImage(null);
+                    String className = sourceImageView.getId();
+                    char lastChar = className.charAt(className.length() - 1);
 
-                                        if (idSourceImage.charAt(0) != 'k') {
-                                            this.fieldList[row - 1][col - 1] = activeDeckName.get(index);
-                                            activeDeckName.set(index, "");
-                                        } else {
-                                            this.fieldList[row - 1][col - 1] = this.fieldList[rowSource - 1][colSource
-                                                    - 1];
-                                            this.fieldList[rowSource - 1][colSource - 1] = null;
-                                        }
+                    // Convert the last character to an integer
+                    int index = Character.getNumericValue(lastChar) - 1;
 
-                                        fieldController.onCardUpdated(targetImageView);
-                                        makeDraggable(targetImageView, grid, activeDeckName, true);
-                                        String sourceXY = "Source XY: "
-                                                + (((int) (sourceImageView.getLayoutY() - 70) / 110) + 1)
-                                                + (((int) (sourceImageView.getLayoutX() - 34.4) / 100) + 1);
-                                        System.out.println(sourceXY);
-                                    } else {
-                                        System.err.println("Error: Source image is null.");
+                    // Update the fieldList with the card position
+
+                    if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
+                        ImageView targetImageView = fieldController.getImageViewById("kosong" + (row) + (col));
+
+                        // Check if the target cell is empty
+                        if (targetImageView.getImage() == null) {
+                            Player CurrentPLayer = gameMaster.getCurrentPlayer();
+                            System.out.println(rowSource);
+                            System.out.println(colSource);
+                            if (sourceImageView.getImage() != null) {
+                                String sourceImageUrl = sourceImageView.getImage().getUrl();
+                                targetImageView.setImage(new Image(sourceImageUrl));
+                                sourceImageView.setImage(targetImageView.getImage());
+                                sourceImageView.setImage(null);
+
+                                if (idSourceImage.charAt(0) != 'k') {
+                                    try {
+                                        CurrentPLayer.invokeCard(index, row, col, gameMaster.getCurrentFieldPlayer());
+                                        CurrentPLayer.removeCardAtActiveDeck(index);
+                                        // this.fieldList[row - 1][col - 1] = activeDeckName.get(index);
+                                        // activeDeckName.set(index, "");
+                                        // fieldController.onCardUpdated(targetImageView);
+                                        makeDraggable(targetImageView, grid, activeDeckName, gameMaster);
+                                    } catch(BaseException e) {
+
                                     }
                                 }
+
                             } else {
-                                System.err.println("Target ImageView is null for ID: " + "kosong" + row + col);
+                                System.err.println("Error: Source image is null.");
                             }
                         }
-
                     }
 
-                    // Disable dragging
-                    lastGlowingCell = null;
-                    sourceImageView.setTranslateX(0);
-                    sourceImageView.setTranslateY(0);
-                } else {
-                    sourceImageView.setTranslateX(0);
-                    sourceImageView.setTranslateY(0);
-                    // If not over a grid cell, reset to the initial position
                 }
-            });
-        } else {
-            sourceImageView.setOnMousePressed(null);
-            sourceImageView.setOnMouseDragged(null);
-            sourceImageView.setOnMouseReleased(null);
-        }
+
+                // Disable dragging
+                lastGlowingCell = null;
+                sourceImageView.setTranslateX(0);
+                sourceImageView.setTranslateY(0);
+            } else {
+                sourceImageView.setTranslateX(0);
+                sourceImageView.setTranslateY(0);
+                // If not over a grid cell, reset to the initial position
+            }
+        });
     }
 
     private void printMatrix() {

@@ -15,8 +15,11 @@ import oop.card.item.ItemEffect;;
 
 public class GameMaster {
     private List<Player> listPlayers;
+    private Player currentFieldPlayer;
     private int currentTurn;
     private PlantService plantService;
+
+    
 
     public int getCurrentTurn() {
         return currentTurn;
@@ -24,6 +27,10 @@ public class GameMaster {
 
     public Player getCurrentPlayer() {
         return this.listPlayers.get(this.currentTurn % 2);
+    }
+
+    public Player getCurrentFieldPlayer() {
+        return currentFieldPlayer;
     }
 
     public void next() {

@@ -19,8 +19,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Pane;
 import javafx.fxml.Initializable;
 import javafx.util.Duration;
+import oop.gamemaster.GameMaster;
 
-public class FieldController implements Initializable, DraggableMaker.CardUpdateListener{
 public class FieldController implements Initializable, DraggableMaker.CardUpdateListener{
 
     @FXML
@@ -180,21 +180,6 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     private ImageView activeCard6;
 
     @FXML
-    private ImageView activeCard2;
-
-    @FXML
-    private ImageView activeCard3;
-
-    @FXML
-    private ImageView activeCard4;
-
-    @FXML
-    private ImageView activeCard5;
-
-    @FXML
-    private ImageView activeCard6;
-
-    @FXML
     private ImageView nextTurnBtn;
 
     @FXML
@@ -337,7 +322,8 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     private Timeline countdownTimeline;
 
     private ArrayList<String> activeDeckName = new ArrayList<>();
-    private String[][] fieldList;
+
+    private GameMaster gameMaster;
     
     // String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/hiu_darat.png").toExternalForm();
 
@@ -429,7 +415,6 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
             {grid41, grid42, grid43, grid44, grid45}
         };
         draggableMaker = new DraggableMaker(this);
-        fieldList = new String[matrix_grid.length][matrix_grid[0].length];
         
         matrix_card_in_ladang = new ImageView[][] {
             {kosong11, kosong12, kosong13, kosong14, kosong15},
@@ -438,12 +423,12 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
             {kosong41, kosong42, kosong43, kosong44, kosong45}
         };
         
-        draggableMaker.makeDraggable(activeCard1, matrix_grid, activeDeckName, true);
-        draggableMaker.makeDraggable(activeCard2, matrix_grid, activeDeckName, true);
-        draggableMaker.makeDraggable(activeCard3, matrix_grid, activeDeckName, true);
-        draggableMaker.makeDraggable(activeCard4, matrix_grid, activeDeckName, true);
-        draggableMaker.makeDraggable(activeCard5, matrix_grid, activeDeckName, true);
-        draggableMaker.makeDraggable(activeCard6, matrix_grid, activeDeckName, true);
+        draggableMaker.makeDraggable(activeCard1, matrix_grid, activeDeckName, gameMaster);
+        draggableMaker.makeDraggable(activeCard2, matrix_grid, activeDeckName, gameMaster);
+        draggableMaker.makeDraggable(activeCard3, matrix_grid, activeDeckName, gameMaster);
+        draggableMaker.makeDraggable(activeCard4, matrix_grid, activeDeckName, gameMaster);
+        draggableMaker.makeDraggable(activeCard5, matrix_grid, activeDeckName, gameMaster);
+        draggableMaker.makeDraggable(activeCard6, matrix_grid, activeDeckName, gameMaster);
         
         // bearAttackButton.setOnAction(event -> applyBearAttackEffect(card11));
         bearAttackButton.setOnAction(event -> simulateBearAttack());
