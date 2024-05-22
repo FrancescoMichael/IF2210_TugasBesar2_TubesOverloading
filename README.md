@@ -1,3 +1,7 @@
+# HOW TO RUN
+mvn clean install
+java -jar target/oop2-0.0.1.jar
+
 # Project Name
 > Outline a brief description of your project.
 > Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
@@ -66,7 +70,7 @@ Include areas you believe need improvement / could be improved. Also add TODOs f
 
 Room for improvement:
 - Improvement to be done 1
-- Improvement to be done 2
+
 
 To do:
 - Feature to be added 1

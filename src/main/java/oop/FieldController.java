@@ -2,19 +2,25 @@ package oop;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Pane;
 import javafx.fxml.Initializable;
 import javafx.util.Duration;
 
+public class FieldController implements Initializable, DraggableMaker.CardUpdateListener{
 public class FieldController implements Initializable, DraggableMaker.CardUpdateListener{
 
     @FXML
@@ -157,6 +163,21 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
 
     @FXML
     private ImageView activeCard1;
+
+    @FXML
+    private ImageView activeCard2;
+
+    @FXML
+    private ImageView activeCard3;
+
+    @FXML
+    private ImageView activeCard4;
+
+    @FXML
+    private ImageView activeCard5;
+
+    @FXML
+    private ImageView activeCard6;
 
     @FXML
     private ImageView activeCard2;
