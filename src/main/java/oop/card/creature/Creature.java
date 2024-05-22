@@ -214,7 +214,8 @@ public class Creature extends Card implements UsableCard {
         if (this.getWeightAfterEffect() >= this.getHarvestedWeightRequirement()  ){
              // remove creature from grid, add product in active deck
              // addCardToActiveDeck already checks if activeDeck is full
-            this.getOwner().addCardToActiveDeck( this.getHarvestedProduct() );
+             
+            this.getOwner().addCardToActiveDeckFirstEmpty(this.getHarvestedProduct());
             this.getOwner().setBlankOnGrid(row, col);
 
         } else {

@@ -47,7 +47,7 @@ public class Shop {
                 }
                 pTemp.setOwner(currentPlayer);
                 
-                currentPlayer.addCardToActiveDeck(pTemp);  
+                currentPlayer.addCardToActiveDeckFirstEmpty(pTemp);  
             } else {
                 System.out.println("Stok habis atau uang tidak cukup");
             }

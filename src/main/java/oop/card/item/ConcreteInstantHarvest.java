@@ -19,7 +19,7 @@ public class ConcreteInstantHarvest implements ItemEffect{
             } else {
 
                 // Product finalHarvest, add to active deck
-                currentCard.getOwner().addCardToActiveDeck( cardTarget.getHarvestedProduct()); // 
+                currentCard.getOwner().addCardToActiveDeckFirstEmpty(cardTarget); // 
                 currentCard.getOwner().setBlankOnGrid(row, col); // set blank on target at grid row and col
             }
         } else {

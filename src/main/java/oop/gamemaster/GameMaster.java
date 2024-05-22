@@ -3,8 +3,11 @@ package oop.gamemaster;
 import java.util.*;
 
 import oop.player.*;
-
+import oop.card.creature.Carnivore;
+import oop.card.creature.Herbivore;
+import oop.card.creature.Omnivore;
 import oop.observer.*;
+import oop.card.creature.*;;
 
 public class GameMaster {
     private List<Player> listPlayers;
@@ -24,4 +27,34 @@ public class GameMaster {
         this.plantService.increaseAgeOfPlants();
 
     }
+
+
+
+    // Random Creature
+
+    // random
+    // public Carnivore generateRandomCarnivore(){
+
+    // }
+    // public Omnivore generateRandomOmnivore(){
+
+    // }
+    // public Herbivore generateRandomHerbivore(){
+
+    // }
+    // public Plant generateRandomPlant(){
+        
+    // }
+    
+
+    // // Random ITEM
+    // public Item generateRandomItem(){
+        
+    // }
+
+    // Random product
+    // CarnivoreFood, HerbivoreFood
+
+
+
 }
