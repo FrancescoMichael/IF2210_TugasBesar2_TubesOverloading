@@ -4,6 +4,7 @@ import java.util.*;
 import oop.card.*;
 import oop.exceptionkerajaan.*;
 import oop.card.creature.Creature;
+import oop.card.creature.*;
 
 public class Player {
     private String name;
@@ -199,6 +200,16 @@ public class Player {
 
     public void increaseCardDeckLeft(int additionalCardDeck){
         this.cardDeckLeft += additionalCardDeck;
+    }
+
+    public ArrayList<Plant> getAllPlantsInGrid(){
+        ArrayList<Plant> temp = new ArrayList<>();
+        for (int i = 0 ; i < 20 ; i++){
+            if (this.grid.get(i) instanceof Plant && !this.grid.get(i).isEmpty()){
+                temp.add( (Plant)grid.get(i));
+            }
+        }
+        return temp;
     }
 
 }
