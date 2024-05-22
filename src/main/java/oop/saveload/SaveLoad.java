@@ -4,7 +4,6 @@ import oop.plugin.PluginInterface;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import oop.plugin.*;
 
 import oop.player.*;
 
@@ -34,7 +33,7 @@ public class SaveLoad {
             }
         }
     }
-
+    
     public void savePlayer(String filename, Player player, String type) throws Exception {
         for (PluginInterface plugin : this.saveLoaders) {
             if (type.equals(plugin.getType())) {

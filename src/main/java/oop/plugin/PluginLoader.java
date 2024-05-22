@@ -54,7 +54,7 @@ public class PluginLoader {
         ArrayList<String> classNames = getClassNamesFromJar(filePath);
         File f = new File(filePath);
 
-        URLClassLoader classLoader = new URLClassLoader(new URL[]{f.toURI().toURL()});
+        URLClassLoader classLoader = new URLClassLoader(new URL[] { f.toURI().toURL() });
         for (String className : classNames) {
             try {
                 Class<?> cc = classLoader.loadClass(className);
@@ -84,9 +84,6 @@ public class PluginLoader {
                         Constructor<?> constructor = c.getDeclaredConstructor();
                         PluginInterface plugin = (PluginInterface) constructor.newInstance();
 
-                        // Test the plugin methods
-                        plugin.saveData();
-                        plugin.loadData();
                     } else {
                         System.out.println("The plugin does not have the required methods.");
                     }

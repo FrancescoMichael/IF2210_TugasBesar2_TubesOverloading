@@ -2,7 +2,8 @@ package oop.plugin;
 
 import java.io.IOException;
 import java.util.Map;
-import oop.player.Player;
+
+import oop.player.*;
 
 public interface PluginInterface {
     void saveGame(String filename, Map<String, Integer> stocks, int currentTurn) throws IOException;
