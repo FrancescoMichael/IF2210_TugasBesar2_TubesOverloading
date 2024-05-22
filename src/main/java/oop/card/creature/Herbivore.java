@@ -1,9 +1,9 @@
-package card.creature;
-import card.product.CarnivoreFood;
-import card.product.HerbivoreFood;
-import exceptionkerajaan.BaseException;
-import exceptionkerajaan.FoodException;
-import player.*;
+package oop.card.creature;
+import oop.card.product.CarnivoreFood;
+import oop.card.product.HerbivoreFood;
+import oop.exceptionkerajaan.BaseException;
+import oop.exceptionkerajaan.FoodException;
+import oop.player.*;
 
 
 public class Herbivore extends Creature implements Animals{

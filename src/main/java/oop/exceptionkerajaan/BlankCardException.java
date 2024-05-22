@@ -1,4 +1,4 @@
-package exceptionkerajaan;
+package oop.exceptionkerajaan;
 
 public class BlankCardException extends BaseException {
     public BlankCardException(){

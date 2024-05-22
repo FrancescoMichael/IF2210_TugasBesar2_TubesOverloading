@@ -1,8 +1,8 @@
-package card.item;
+package oop.card.item;
 
-import card.creature.*;
-import exceptionkerajaan.BaseException;
-import exceptionkerajaan.InvalidCardPlacementException;;
+import oop.card.creature.*;
+import oop.exceptionkerajaan.BaseException;
+import oop.exceptionkerajaan.InvalidCardPlacementException;;
 
 public class ConcreteTrap implements ItemEffect{
     @Override

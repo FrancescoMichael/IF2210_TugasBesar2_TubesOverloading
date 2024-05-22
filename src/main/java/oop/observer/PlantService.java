@@ -1,6 +1,6 @@
-package observer;
+package oop.observer;
 
-import card.creature.*;
+import oop.card.creature.*;
 
 import java.util.*;
 

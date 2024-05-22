@@ -1,8 +1,8 @@
-package card.item;
-import card.creature.*;
-import exceptionkerajaan.*;
+package oop.card.item;
+import oop.card.creature.*;
+import oop.exceptionkerajaan.*;
 
-import exceptionkerajaan.InvalidCardPlacementException;
+import oop.exceptionkerajaan.InvalidCardPlacementException;
 
 
 public class ConcreteAccelerate implements ItemEffect {

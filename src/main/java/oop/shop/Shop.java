@@ -1,13 +1,13 @@
-package shop;
+package oop.shop;
 
 import java.util.*;
 
-import card.Card;
-import card.product.Product;
-import card.product.CarnivoreFood;
-import card.product.HerbivoreFood;
-import player.Player;
-import exceptionkerajaan.*;
+import oop.card.Card;
+import oop.card.product.Product;
+import oop.card.product.CarnivoreFood;
+import oop.card.product.HerbivoreFood;
+import oop.player.Player;
+import oop.exceptionkerajaan.*;
 
 public class Shop {
     public Map<String, Integer> stock;

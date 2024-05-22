@@ -1,12 +1,12 @@
-package card.item;
+package oop.card.item;
 
 import java.util.Map;
 
-import card.Card;
-import card.UsableCard;
-import card.creature.Creature;
-import exceptionkerajaan.*;
-import player.Player;
+import oop.card.Card;
+import oop.card.UsableCard;
+import oop.card.creature.Creature;
+import oop.exceptionkerajaan.*;
+import oop.player.Player;
 
 
 

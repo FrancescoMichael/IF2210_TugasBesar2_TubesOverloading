@@ -1,6 +1,6 @@
-package card.product;
-import card.Card;
-import player.*;
+package oop.card.product;
+import oop.card.Card;
+import oop.player.*;
 public class Product extends Card{
     protected String type;
     protected int price;

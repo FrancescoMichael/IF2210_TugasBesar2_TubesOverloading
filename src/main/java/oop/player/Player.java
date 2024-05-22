@@ -1,10 +1,11 @@
-package player;
+package oop.player;
 
 import java.util.*;
-import card.*;
-import exceptionkerajaan.*;
+import oop.card.*;
+import oop.exceptionkerajaan.*;
 
-import card.creature.*;
+import oop.card.creature.*;
+import oop.card.creature.Creature;
 
 public class Player {
     private String name;

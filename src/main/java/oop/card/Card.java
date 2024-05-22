@@ -1,7 +1,7 @@
-package card;
+package oop.card;
 
 
-import player.Player;
+import oop.player.Player;
 
 public class Card{
     protected String name;

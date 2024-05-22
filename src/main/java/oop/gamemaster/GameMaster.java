@@ -1,10 +1,10 @@
-package gamemaster;
+package oop.gamemaster;
 
 import java.util.*;
 
-import player.*;
+import oop.player.*;
 
-import observer.*;
+import oop.observer.*;
 
 public class GameMaster {
     private List<Player> listPlayers;

@@ -1,6 +1,6 @@
-package card.item;
-import card.creature.Creature;
-import exceptionkerajaan.*;
+package oop.card.item;
+import oop.card.creature.Creature;
+import oop.exceptionkerajaan.*;
 public class ConcreteProtect implements ItemEffect {
 
     @Override

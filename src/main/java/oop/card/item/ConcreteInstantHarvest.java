@@ -1,6 +1,6 @@
-package card.item;
-import card.creature.*;
-import exceptionkerajaan.*;
+package oop.card.item;
+import oop.card.creature.*;
+import oop.exceptionkerajaan.*;
 
 
 public class ConcreteInstantHarvest implements ItemEffect{

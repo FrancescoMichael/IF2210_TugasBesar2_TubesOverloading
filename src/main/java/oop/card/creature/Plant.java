@@ -1,6 +1,6 @@
-package card.creature;
-import card.product.Product;
-import player.Player;
+package oop.card.creature;
+import oop.card.product.Product;
+import oop.player.Player;
 
 public class Plant extends Creature {
     private String pathImgOriginal;

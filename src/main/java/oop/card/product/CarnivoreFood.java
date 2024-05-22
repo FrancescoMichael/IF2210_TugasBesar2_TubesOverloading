@@ -1,10 +1,10 @@
-package card.product;
+package oop.card.product;
 
-import player.Player;
-import card.UsableCard;
-import card.creature.Animals;
-import exceptionkerajaan.*;
-import card.Card;
+import oop.player.Player;
+import oop.card.UsableCard;
+import oop.card.creature.Animals;
+import oop.exceptionkerajaan.*;
+import oop.card.Card;
 
 public class CarnivoreFood extends Product implements Food, UsableCard {
 

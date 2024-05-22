@@ -1,12 +1,12 @@
-package card.product;
+package oop.card.product;
 
-import card.UsableCard;
-import card.creature.Animals;
+import oop.card.UsableCard;
+import oop.card.creature.Animals;
 
-import exceptionkerajaan.BaseException;
-import exceptionkerajaan.InvalidCardPlacementException;
-import player.Player;
-import card.Card;
+import oop.exceptionkerajaan.BaseException;
+import oop.exceptionkerajaan.InvalidCardPlacementException;
+import oop.player.Player;
+import oop.card.Card;
 public class HerbivoreFood extends Product implements Food, UsableCard {
     //// contructors
     public HerbivoreFood() {

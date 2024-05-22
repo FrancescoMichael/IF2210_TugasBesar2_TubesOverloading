@@ -1,15 +1,15 @@
-package card.creature;
+package oop.card.creature;
 
 import java.util.*;
 
-import card.Card;
-import card.UsableCard;
-import card.product.CarnivoreFood;
-import card.product.HerbivoreFood;
-import card.product.Product;
-import player.Player;
-import exceptionkerajaan.*;
-import card.item.Item;
+import oop.card.Card;
+import oop.card.UsableCard;
+import oop.card.product.CarnivoreFood;
+import oop.card.product.HerbivoreFood;
+import oop.card.product.Product;
+import oop.player.Player;
+import oop.exceptionkerajaan.*;
+import oop.card.item.Item;
 
 
 

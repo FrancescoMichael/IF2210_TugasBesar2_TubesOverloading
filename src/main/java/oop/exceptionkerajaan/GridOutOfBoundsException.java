@@ -1,4 +1,4 @@
-package exceptionkerajaan;
+package oop.exceptionkerajaan;
 
 public class GridOutOfBoundsException extends BaseException {
     public GridOutOfBoundsException(){
