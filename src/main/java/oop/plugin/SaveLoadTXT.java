@@ -88,23 +88,41 @@ public class SaveLoadTXT implements PluginInterface {
         return turn;
     }
 
+    public static int coordinateToIndex(String coordinate) {
+        char letter = coordinate.charAt(0);
+        String digits = coordinate.substring(1);
+
+        int col = letter - 'A' + 1;
+        int row = Integer.parseInt(digits);
+
+        return (row - 1) * 5 + col;
+    }
+
     @Override
     public Player loadPlayer(String filename) throws IOException {
+        Player loadedPlayer = new Player();
         BufferedReader reader = new BufferedReader(new FileReader(filename));
 
         int gulden = Integer.parseInt(reader.readLine().trim());
-        int totalDeck = Integer.parseInt(reader.readLine().trim());
-        int activeDeckCount = Integer.parseInt(reader.readLine().trim());
+        loadedPlayer.setGulden(gulden);
+        int cardDeckLeft = Integer.parseInt(reader.readLine().trim()); // sisa deck
+        loadedPlayer.setCardDeckLeft(cardDeckLeft);
 
+        int activeDeckCount = Integer.parseInt(reader.readLine().trim()); 
         List<Card> activeDeck = new ArrayList<>();
         for (int i = 0; i < activeDeckCount; i++) {
             String[] parts = reader.readLine().split(" ");
+            int gridIndex = coordinateToIndex(parts[0]);
+            
             activeDeck.add(new DeckCard(parts[0], parts[1]));
         }
 
+        // jumlah kartu ladang
+
         int totalField = Integer.parseInt(reader.readLine().trim());
 
-        List<FieldCard> fieldCards = new ArrayList<>();
+        // masukkin kartu ladanag
+        List<Card> fieldCards = new ArrayList<>();
         for (int i = 0; i < totalField; i++) {
             String[] parts = reader.readLine().split(" ");
             String location = parts[0];

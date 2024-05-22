@@ -1,18 +1,19 @@
 package oop.plugin;
 
 import java.io.IOException;
-import java.util.Map;
+import java.util.*;
 
 import oop.player.*;
 
 public interface PluginInterface {
-    void saveGame(String filename, Map<String, Integer> stocks, int currentTurn) throws IOException;
+    void saveGame(String filename, int currTurn, List<String> shopItems) throws IOException;
 
-    void savePlayer(String filename, Player player) throws IOException;
+    void savePlayer(String filename, int currGulden, int cardDeckLeft) throws IOException;
 
-    int loadGame(String filename, Map<String, Integer> stock) throws IOException;
+    int loadGame(String filename, List<String> shopItems) throws IOException;
 
-    Player loadPlayer(String filename) throws IOException;
+    List<Integer> loadPlayer(String filename, List<String> playerStatus, List<String> activeDeckString,
+            List<String> gridString) throws IOException;
 
     String getType();
 }

@@ -25,18 +25,22 @@ public class SaveLoad {
         return this.saveLoaders;
     }
 
-    public void saveData(String filename, Map<String, Integer> stock, int currentTurn, String type) throws Exception {
+    public void saveData(String filename, String type) throws Exception {
         for (PluginInterface plugin : this.saveLoaders) {
             if (type.equals(plugin.getType())) {
-                plugin.saveGame(filename, stock, currentTurn);
+                plugin.saveGame(filename);
             }
+
         }
     }
 
-    public void loadData(String filename, Map<String, Integer> stock, String type) throws Exception {
+    // INI YANG PENTING
+    public void loadDataGame(String filename, String type) throws Exception {
         for (PluginInterface plugin : this.saveLoaders) {
+            int currTurn;
+            List<String> currentShopItems = new ArrayList<>();
             if (type.equals(plugin.getType())) {
-                plugin.loadGame(filename, stock);
+                currTurn = plugin.loadGame(filename, currentShopItems);
             }
         }
     }
@@ -51,8 +55,11 @@ public class SaveLoad {
 
     public void loadPlayer(String filename, String type) throws Exception {
         for (PluginInterface plugin : this.saveLoaders) {
+            List<Integer> playerStatus = new ArrayList<>();
+            List<String> activeDeckString = new ArrayList<>();
+            List<String> gridString = new ArrayList<>();
             if (type.equals(plugin.getType())) {
-                plugin.loadPlayer(filename);
+                plugin.loadPlayer(filename, playerStatus, activeDeckString, gridString);
             }
         }
     }
