@@ -14,6 +14,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.fxml.Initializable;
 import javafx.util.Duration;
+import oop.player.Player;
+import oop.*;
 
 public class FieldController implements Initializable, DraggableMaker.CardUpdateListener{
 
@@ -314,6 +316,12 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     private ImageView clickableGrid11;
     
     private Timeline countdownTimeline;
+
+    private Player currentPlayer;
+
+    private Player nextPlayer;
+
+    private Player currentFieldPlayer;
 
     private ArrayList<String> activeDeckName = new ArrayList<>();
     

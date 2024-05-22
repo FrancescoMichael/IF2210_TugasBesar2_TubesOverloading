@@ -13,6 +13,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
+import oop.exceptionkerajaan.BaseException;
+import oop.*;
 
 public class DraggableMaker {
     private ImageView lastGlowingCell = null;
@@ -155,6 +157,12 @@ public class DraggableMaker {
                                     System.out.println("Source image URL: " + sourceImageUrl);
                                     System.out.println("Target cell: " + "kosong" + row + col + " set to source image.");
                                     System.out.println("Source cell cleared.");
+                                    // try{
+                                    // //     currentPlayer.invokeCard( 3,  1, 2, currentField  ) //invokeCard
+                                    // // }catch (BaseException e){
+                                    // //     e.getMessage() // harvesr nerima row dan col
+                                    // // }
+  
 
                                     fieldList[row - 1][col - 1] = activeDeckName.get(index);
                                     activeDeckName.set(index, "");
