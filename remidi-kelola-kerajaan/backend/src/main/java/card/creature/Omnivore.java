@@ -2,35 +2,34 @@ package card.creature;
 import card.product.CarnivoreFood;
 import card.product.HerbivoreFood;
 import exceptionkerajaan.BaseException;
-import exceptionkerajaan.FoodException;
 import player.*;
 
 
-public class Herbivore extends Creature implements Animals{
+
+public class Omnivore extends Creature implements Animals{
     
-    // default constructor
-    public Herbivore() {
+    public Omnivore() {
         super();
     }
-    // constructor with owner
-    public Herbivore(String name, String pathToImg, Player owner) {
+
+    public Omnivore(String name, String pathToImg, Player owner) {
         super(name, pathToImg, owner);
     }
-
+    
     // without owner
-    public Herbivore(String name, String pathToImg) {
+    public Omnivore(String name, String pathToImg) {
         super(name, pathToImg);
     }
-
-    // other methods
     public void eat(CarnivoreFood food) throws BaseException{
-        throw new FoodException(this);
+        System.out.println("Eating " + food.getName() + "..." );
+        this.increaseWeight(food.getAdditionalWeight());
     }
 
-    public void eat(HerbivoreFood food) {
+    public void eat(HerbivoreFood food) throws BaseException{
         System.out.println("Eating " + food.getName() + "..." );
         this.increaseWeight(food.getAdditionalWeight());
         
     }
+
 
 }

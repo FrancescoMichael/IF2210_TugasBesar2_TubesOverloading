@@ -3,11 +3,11 @@ package tubes.overloading.kerajaan;
 
 import java.util.ArrayList;
 
-import card.*;
 import exceptionkerajaan.BaseException;
 import player.*;
 import card.creature.*;
 import card.product.Food;
+import card.Card;
 
 /**
  * Hello world!
@@ -15,55 +15,43 @@ import card.product.Food;
  */
 public class App {
     public static void main(String[] args) {
+        // Player player1 = new Player("Marvel Pangondian");
+        // Player player2 = new Player("Maximilian");
 
-        Creature.initializeAllCreatureStaticVariables();
-        ArrayList<Creature> grid = new ArrayList<>();
-        ArrayList<Card> activeDeck = new ArrayList<>();
+        // try catch
+        // try{
+        //     // INI ADALAH TESTING !!!!!!
+        //     // Creature Testing
+        //     // 2 PLAYER
 
-        // simulasikan active deck dimana dia hanya List of Card
-        Card animal = new Carnivore("Hiu Darat", 400, "", new Player("Marvel"));
-        Card plant = new Plant("Biji Stroberi",400, "", new Player(""));
+            
+        //     // generate di active deck 6 Kartu untuk masing masing player
+        //     // player 1
 
-        // Simulasikan Grid dimana terdiri atas list of Creature
+        //     // one carnivore, one herbivore, one omnivore, one plant 
+        //     // addCardToActiveDexk otomatis set card owner ke dirinya sendiri
+        //     player1.addCardToActiveDeck( new Carnivore("Hiu Darat","damn.png") );
+        //     player1.addCardToActiveDeck(new Herbivore("Sapi","what.png"));
+        //     player1.addCardToActiveDeck(new Omnivore("Ayam","ayam.png"));
+        //     player1.addCardToActiveDeck(new Plant("Biji Jagung","Biji jagung.png"));
+            
+        //     player1.addCardToActiveDeck(  ((Creature)player1.getCardActiveDeck(0)).getHarvestedProduct() );
+        //     player1.addCardToActiveDeck(  ((Creature)player1.getCardActiveDeck(1)).getHarvestedProduct()    );
 
+        //     // add one more, out of bounds exception
+        //     player1.addCardToActiveDeck(  ((Creature)player1.getCardActiveDeck(1)).getHarvestedProduct()    );
         
-        // Simulasi active deck
-        activeDeck.add(animal);
-        activeDeck.add(plant);
-
-        // semisal nge drag animal ke grid
-        if (animal instanceof Creature){
-            grid.add((Creature)animal);
-        }
-        if (plant instanceof Creature){
-            grid.add((Creature)plant);
-        }
-        activeDeck.remove(animal);
-        activeDeck.remove(plant);
-
-        // Contoh saja, ada product di dalam active deck
-        activeDeck.add( grid.get(0).getHarvestedProduct() );
-        activeDeck.add(grid.get(1).getHarvestedProduct());
 
 
-        // Contoh kasih makan 
-        try {
-            if (activeDeck.get(0) instanceof Food){
-                // Hiu makan sirip hiu
-                ((Food)activeDeck.get(0)).beEaten( (Animals)grid.get(0));
-            }
-            if (activeDeck.get(1) instanceof Food){
-
-                // Hiu makan stroberi
-                ((Food)activeDeck.get(1)).beEaten( (Animals)grid.get(0));
-            }
+        // }catch(BaseException e){
+        //     System.out.println(e.getMessage());
+        // }
 
 
 
 
-        } catch (BaseException e) {
-            System.out.println("DAMNNNN");
-            System.out.println(e.getMessage());
-        }
+
+
+        /// INI TESTING
     }
 }

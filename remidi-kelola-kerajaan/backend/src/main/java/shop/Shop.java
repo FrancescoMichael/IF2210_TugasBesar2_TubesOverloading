@@ -3,11 +3,11 @@ package shop;
 import java.util.*;
 
 import card.Card;
-import card.creature.Creature;
 import card.product.Product;
 import card.product.CarnivoreFood;
 import card.product.HerbivoreFood;
 import player.Player;
+import exceptionkerajaan.*;
 
 public class Shop {
     public Map<String, Integer> stock;
@@ -27,16 +27,16 @@ public class Shop {
             "Stroberi", new HerbivoreFood("Stroberi", 350, "dummy.img", "Herbivore", 5));
     }
 
-    public void Buy(Player currentPlayer, Card selectedCard) {
+    public void Buy(Player currentPlayer, Card selectedCard)throws BaseException {
         if(selectedCard instanceof Product) {
-            if(currentPlayer.getGulden() >= selectedCard.getPrice() && !currentPlayer.isFullActiveDeck()) {
+            if(currentPlayer.getGulden() >= ((Product)selectedCard).getPrice() && !currentPlayer.isActiveDeckFull()) {
                 // pembalian bisa dilakukan
                 // stock.get(selectedCard.getName());
                 String cardName = selectedCard.getName();
                 int currentStock = stock.get(cardName);
                 stock.put(cardName, currentStock - 1);
 
-                currentPlayer.setGulden(currentPlayer.getGulden() - selectedCard.getPrice());
+                currentPlayer.setGulden(currentPlayer.getGulden() - ((Product)selectedCard).getPrice());
 
                 Product pTemp = this.allHarvestedProduct.get(selectedCard.getName());
                 if (pTemp instanceof CarnivoreFood){
@@ -59,7 +59,7 @@ public class Shop {
     public void Sell(Player currentPlayer, Card selectedCard) {
         if(selectedCard instanceof Product) {
             // pembelian bisa dilakukan
-            currentPlayer.setGulden(currentPlayer.getGulden() + selectedCard.getPrice());
+            currentPlayer.setGulden(currentPlayer.getGulden() + ((Product)selectedCard).getPrice());
             String cardName = selectedCard.getName();
             int currentStock = stock.get(cardName);
             stock.put(cardName, currentStock + 1);

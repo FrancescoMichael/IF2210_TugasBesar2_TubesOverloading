@@ -1,5 +1,8 @@
 package exceptionkerajaan;
 
-public class GridIsFullException {
+public class GridIsFullException extends BaseException{
+    public GridIsFullException(){
+        super("active deck is full !");
+    }
     
 }

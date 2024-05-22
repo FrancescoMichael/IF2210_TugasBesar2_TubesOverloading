@@ -1,23 +1,45 @@
 package card.creature;
-import card.UsableCard;
-import exceptionkerajaan.BaseException;
+import card.product.Product;
 import player.Player;
-import card.Card;
 
-public class Plant extends Creature implements UsableCard {
+public class Plant extends Creature {
 
     // constructors
     public Plant() {
+        super();
+    }
+
+    // with owner
+    public Plant(String name, String pathToImg, Player owner) {
+        super(name, pathToImg, owner);
+    }
+
+    // without owner
+    public Plant(String name, String pathToImg) {
+        super(name, pathToImg);
+    }
+
+    
+    @Override
+    public void increaseWeight(int weight){
+        super.increaseWeight(weight);
+        if ( this.weightAfterEffect >  this.harvestedWeightRequirement){
+            Product tmp  = this.getHarvestedProduct();
+            // Update picture
+            this.setPathToImg(tmp.getPathToImg());
+        }
+
 
     }
 
-    public Plant(String name, int price, String pathToImg, Player owner) {
-        super(name, price, pathToImg, owner);
+    @Override
+    public void increaseWeightAfterEffect(int additionalWeight){
+        super.increaseWeightAfterEffect(additionalWeight);
+        if ( this.weightAfterEffect >  this.harvestedWeightRequirement){
+            Product tmp  = this.getHarvestedProduct();
+            // Update picture
+            this.setPathToImg(tmp.getPathToImg());
+        }
+
     }
-
-    public void useCard(Card targetCard,int row, int col) throws BaseException{
-        
-    }
-
-
 }
