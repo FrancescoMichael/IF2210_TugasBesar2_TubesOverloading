@@ -93,7 +93,7 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     private ImageView grid44;
 
     @FXML
-    private ImageView grid55;
+    private ImageView grid45;
 
     @FXML
     private Pane plane11;
@@ -248,7 +248,7 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     @FXML
     private Label label6;
     @FXML
-    private ImageView kosong11;
+    public ImageView kosong11;
 
     @FXML
     private ImageView kosong12;
@@ -316,15 +316,18 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     private Timeline countdownTimeline;
 
     private ArrayList<String> activeDeckName = new ArrayList<>();
+    private String[][] fieldList;
     
     // String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/hiu_darat.png").toExternalForm();
 
     GlowButtonMaker glowButtonMaker = new GlowButtonMaker();
-    DraggableMaker draggableMaker = new DraggableMaker();
+    DraggableMaker draggableMaker;
     ImageView[][] matrix_grid;
+    ImageView[][] matrix_card_in_ladang;
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        
         String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/beruang.png").toExternalForm();
         String imagePath2 = getClass().getResource("/assets/OOP 2/OOP 2/cards/stroberi.png").toExternalForm();
         grid11.setStyle("-fx-image: url('" + imagePath2 + "');");
@@ -390,7 +393,7 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
             SaveState1.setVisible(false);
             LoadPlugin1.setVisible(false);
         });
-
+        
         activeDeckName.add("beruang");
         activeDeckName.add("stroberi");
         activeDeckName.add("beruang");
@@ -402,22 +405,29 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
             {grid11, grid12, grid13, grid14, grid15},
             {grid21, grid22, grid23, grid24, grid25},
             {grid31, grid32, grid33, grid34, grid35},
-            {grid41, grid42, grid43, grid44, grid55}
+            {grid41, grid42, grid43, grid44, grid45}
+        };
+        draggableMaker = new DraggableMaker(this);
+        fieldList = new String[matrix_grid.length][matrix_grid[0].length];
+        
+        matrix_card_in_ladang = new ImageView[][] {
+            {kosong11, kosong12, kosong13, kosong14, kosong15},
+            {kosong21, kosong22, kosong23, kosong24, kosong25},
+            {kosong31, kosong32, kosong33, kosong34, kosong35},
+            {kosong41, kosong42, kosong43, kosong44, kosong45}
         };
         
-        draggableMaker.setCardUpdateListener(this);
-        draggableMaker.makeDraggable(activeCard1, matrix_grid, activeDeckName);
-        draggableMaker.makeDraggable(activeCard2, matrix_grid, activeDeckName);
-        draggableMaker.makeDraggable(activeCard3, matrix_grid, activeDeckName);
-        draggableMaker.makeDraggable(activeCard4, matrix_grid, activeDeckName);
-        draggableMaker.makeDraggable(activeCard5, matrix_grid, activeDeckName);
-        draggableMaker.makeDraggable(activeCard6, matrix_grid, activeDeckName);
-
+        draggableMaker.makeDraggable(activeCard1, matrix_grid, activeDeckName, true);
+        draggableMaker.makeDraggable(activeCard2, matrix_grid, activeDeckName, true);
+        draggableMaker.makeDraggable(activeCard3, matrix_grid, activeDeckName, true);
+        draggableMaker.makeDraggable(activeCard4, matrix_grid, activeDeckName, true);
+        draggableMaker.makeDraggable(activeCard5, matrix_grid, activeDeckName, true);
+        draggableMaker.makeDraggable(activeCard6, matrix_grid, activeDeckName, true);
+        
         // bearAttackButton.setOnAction(event -> applyBearAttackEffect(card11));
         bearAttackButton.setOnAction(event -> simulateBearAttack());
     }
-
-    @Override
+    
     public void onCardUpdated(ImageView card) {
         // clickableGrid11.setOnMouseClicked(event -> System.out.println("click"));
         // card.setOnMouseClicked(event -> System.out.println("click"));
@@ -428,6 +438,7 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
         // Access updated activeDeckName and fieldList
         ArrayList<String> updatedDeckNames = draggableMaker.getActiveDeckName();
         String[][] updatedFieldList = draggableMaker.getFieldList();
+        // draggableMaker.makeDraggable(card, matrix_grid, updatedDeckNames);
         
         // Print updated activeDeckName
         System.out.println("Updated Active Deck Names: " + updatedDeckNames);
@@ -439,6 +450,32 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
                 System.out.print(updatedFieldList[row][col] + " ");
             }
             System.out.println();
+        }
+    }
+
+    public ImageView getImageViewById(String id) {
+        switch (id) {
+            case "kosong11": return kosong11;
+            case "kosong12": return kosong12;
+            case "kosong13": return kosong13;
+            case "kosong14": return kosong14;
+            case "kosong15": return kosong15;
+            case "kosong21": return kosong21;
+            case "kosong22": return kosong22;
+            case "kosong23": return kosong23;
+            case "kosong24": return kosong24;
+            case "kosong25": return kosong25;
+            case "kosong31": return kosong31;
+            case "kosong32": return kosong32;
+            case "kosong33": return kosong33;
+            case "kosong34": return kosong34;
+            case "kosong35": return kosong35;
+            case "kosong41": return kosong41;
+            case "kosong42": return kosong42;
+            case "kosong43": return kosong43;
+            case "kosong44": return kosong44;
+            case "kosong45": return kosong45;
+            default: return null;
         }
     }
 

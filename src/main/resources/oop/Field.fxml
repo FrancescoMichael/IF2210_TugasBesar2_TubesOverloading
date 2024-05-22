@@ -169,7 +169,7 @@
             <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="grid55" fitHeight="75.0" fitWidth="60.0" layoutX="445.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="grid45" fitHeight="75.0" fitWidth="60.0" layoutX="445.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
          </image>

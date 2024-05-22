@@ -8,6 +8,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -20,6 +21,8 @@ public class DraggableMaker {
 
     private String[][] fieldList;
     private ArrayList<String> activeDeckName;
+
+    private FieldController fieldController;
 
     public String[][] getFieldList() {
         return fieldList;
@@ -35,119 +38,146 @@ public class DraggableMaker {
 
     private CardUpdateListener cardUpdateListener;
 
-    public void setCardUpdateListener(CardUpdateListener listener) {
-        this.cardUpdateListener = listener;
+    public DraggableMaker(FieldController fieldController) {
+        this.fieldController = fieldController;
+        this.fieldList = new String[fieldController.matrix_grid.length][fieldController.matrix_grid[0].length];
     }
 
-    private void setGlow(Node node, boolean glow) {
+    private void setGlow(ImageView sourceImageView, boolean glow) {
         if (glow) {
             DropShadow dropShadow = new DropShadow();
             dropShadow.setColor(Color.YELLOW); // Glow color
             dropShadow.setRadius(20);
             dropShadow.setSpread(0.5);
             dropShadow.setBlurType(javafx.scene.effect.BlurType.GAUSSIAN);
-            node.setEffect(dropShadow);
+            sourceImageView.setEffect(dropShadow);
         } else {
-            node.setEffect(null);
+            sourceImageView.setEffect(null);
         }
     }
 
-    public void makeDraggable(Node node, ImageView[][] grid, ArrayList<String> activeDeckName) {
-        this.activeDeckName = activeDeckName;
+    public void makeDraggable(ImageView sourceImageView, ImageView[][] grid, ArrayList<String> activeDeckName, boolean isActive) {
+        if (isActive){
 
-        final Delta dragDelta = new Delta();
-        final Delta initialPosition = new Delta();
-        initialPosition.x = node.getLayoutX();
-        initialPosition.y = node.getLayoutY();
-
-        final double yOffset = 19;
-
-        // Initialize the fieldList with the same dimensions as the grid
-        fieldList = new String[grid.length][grid[0].length];
-
-        node.setOnMousePressed(mouseEvent -> {
-            // record a delta distance for the drag and drop operation.
-            dragDelta.x = node.getTranslateX() - mouseEvent.getSceneX();
-            dragDelta.y = node.getTranslateY() - mouseEvent.getSceneY();
-        });
-
-        node.setOnMouseDragged(mouseEvent -> {
-            int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
-            int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
-
-            if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
-                ImageView currentCell = grid[row - 1][col - 1];
-
-                // Only change the glow if the cell has changed
-                if (lastGlowingCell != currentCell) {
+            this.activeDeckName = activeDeckName;
+    
+            final Delta dragDelta = new Delta();
+            final Delta initialPosition = new Delta();
+            initialPosition.x = sourceImageView.getLayoutX();
+            initialPosition.y = sourceImageView.getLayoutY();
+    
+            final double yOffset = 19;
+    
+            // Initialize the fieldList with the same dimensions as the grid
+    
+            sourceImageView.setOnMousePressed(mouseEvent -> {
+                // record a delta distance for the drag and drop operation.
+                dragDelta.x = sourceImageView.getTranslateX() - mouseEvent.getSceneX();
+                dragDelta.y = sourceImageView.getTranslateY() - mouseEvent.getSceneY();
+            });
+    
+            sourceImageView.setOnMouseDragged(mouseEvent -> {
+                int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
+                int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
+    
+                if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
+                    ImageView currentCell = grid[row - 1][col - 1];
+    
+                    // Only change the glow if the cell has changed
+                    if (lastGlowingCell != currentCell) {
+                        if (lastGlowingCell != null) {
+                            setGlow(lastGlowingCell, false);
+                        }
+                        setGlow(currentCell, true);
+                        lastGlowingCell = currentCell;
+                    }
+                } else {
                     if (lastGlowingCell != null) {
                         setGlow(lastGlowingCell, false);
+                        lastGlowingCell = null;
                     }
-                    setGlow(currentCell, true);
-                    lastGlowingCell = currentCell;
                 }
-            } else {
+    
+                sourceImageView.setTranslateX(mouseEvent.getSceneX() + dragDelta.x);
+                sourceImageView.setTranslateY(mouseEvent.getSceneY() + dragDelta.y);
+            });
+    
+            sourceImageView.setOnMouseReleased(mouseEvent -> {
                 if (lastGlowingCell != null) {
+    
                     setGlow(lastGlowingCell, false);
+    
+                    // Set the card size to match the grid cell
+                    if (sourceImageView instanceof ImageView) {
+                        int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
+                        int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
+    
+                        String className = sourceImageView.getId();
+                        char lastChar = className.charAt(className.length() - 1);
+    
+                        // Convert the last character to an integer
+                        int index = Character.getNumericValue(lastChar) - 1;
+    
+                        // Update the fieldList with the card position
+    
+                        if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
+                            ImageView targetImageView = fieldController.getImageViewById("kosong" + (row) + (col));
+                            
+                            if (targetImageView != null) {
+                                // Check if the target cell is empty
+                                if (targetImageView.getImage() == null) {
+                                    String idSourceImage = sourceImageView.getId();
+                                    // System.out.println("Source: " + idSourceImage);
+                                    // System.out.println("Target: " + targetImageView.getId());
+    
+                                    int rowSource = (int)idSourceImage.charAt(idSourceImage.length() - 2) - '0';
+                                    int colSource = (int)idSourceImage.charAt(idSourceImage.length() - 1) - '0';
+                                    System.out.println(rowSource);
+                                    System.out.println(colSource);
+                                    if (sourceImageView.getImage() != null) {
+                                        String sourceImageUrl = sourceImageView.getImage().getUrl();
+                                        targetImageView.setImage(new Image(sourceImageUrl));
+                                        sourceImageView.setImage(targetImageView.getImage());
+                                        sourceImageView.setImage(null);
+    
+                                        if (idSourceImage.charAt(0) != 'k') {
+                                            this.fieldList[row - 1][col - 1] = activeDeckName.get(index);
+                                            activeDeckName.set(index, "");
+                                        } else {
+                                            this.fieldList[row - 1][col - 1] = this.fieldList[rowSource - 1][colSource - 1];
+                                            this.fieldList[rowSource - 1][colSource - 1] = null;
+                                        }
+    
+                                        fieldController.onCardUpdated(targetImageView);
+                                        makeDraggable(targetImageView, grid, activeDeckName, true);
+                                        String sourceXY = "Source XY: " + (((int) (sourceImageView.getLayoutY() - 70) / 110) + 1) + (((int) (sourceImageView.getLayoutX() - 34.4) / 100) + 1);
+                                        System.out.println(sourceXY);
+                                    } else {
+                                        System.err.println("Error: Source image is null.");
+                                    }
+                                }
+                            } else {
+                                System.err.println("Target ImageView is null for ID: " + "kosong" + row + col);
+                            }
+                        }
+    
+                    }
+    
+                    // Disable dragging
                     lastGlowingCell = null;
+                    sourceImageView.setTranslateX(0);
+                    sourceImageView.setTranslateY(0);
+                } else {
+                    sourceImageView.setTranslateX(0);
+                    sourceImageView.setTranslateY(0);
+                    // If not over a grid cell, reset to the initial position
                 }
-            }
-
-            node.setTranslateX(mouseEvent.getSceneX() + dragDelta.x);
-            node.setTranslateY(mouseEvent.getSceneY() + dragDelta.y);
-        });
-
-        node.setOnMouseReleased(mouseEvent -> {
-            if (lastGlowingCell != null) {
-                setGlow(lastGlowingCell, false);
-
-                // Snap the card to the grid cell
-                node.setLayoutX(lastGlowingCell.getLayoutX());
-                node.setLayoutY(lastGlowingCell.getLayoutY());
-                node.setTranslateX(0);
-                node.setTranslateY(0);
-
-                // Set the card size to match the grid cell
-                if (node instanceof ImageView) {
-                    ImageView card = (ImageView) node;
-                    card.setFitWidth(lastGlowingCell.getFitWidth());
-                    card.setFitHeight(lastGlowingCell.getFitHeight());
-
-                    // print active deck name content
-                    for (String name : activeDeckName) {
-                        System.out.println(name);
-                    }
-
-                    String className = node.getId();
-                    char lastChar = className.charAt(className.length() - 1);
-
-                    // Convert the last character to an integer
-                    int index = Character.getNumericValue(lastChar) - 1;
-                    System.out.println(index);
-
-                    // Update the fieldList with the card position
-                    int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
-                    int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
-
-                    fieldList[row - 1][col - 1] = activeDeckName.get(index);
-
-                    activeDeckName.set(index, "");
-
-                    if (cardUpdateListener != null) {
-                        cardUpdateListener.onCardUpdated(card);
-                    }
-                    // Print the matrix
-                    printMatrix();
-                }
-
-                // Disable dragging
-                lastGlowingCell = null;
-            } else {
-                // If not over a grid cell, reset to the initial position
-                node.setTranslateX(0);
-                node.setTranslateY(0);
-            }
-        });
+            });
+        } else {
+            sourceImageView.setOnMousePressed(null);
+            sourceImageView.setOnMouseDragged(null);
+            sourceImageView.setOnMouseReleased(null);
+        }
     }
 
     private void printMatrix() {
@@ -167,14 +197,14 @@ public class DraggableMaker {
         double x, y;
     }
 
-    public void setRedGlow(Node node, boolean glow) {
-        if (node == null) {
+    public void setRedGlow(Node sourceImageView, boolean glow) {
+        if (sourceImageView == null) {
             return; // or throw an exception or log an error
         }
         if (glow) {
-            node.setStyle("-fx-border-color: red; -fx-border-width: 5;");
+            sourceImageView.setStyle("-fx-border-color: red; -fx-border-width: 5;");
         } else {
-            node.setStyle(null);
+            sourceImageView.setStyle(null);
         }
     }
 
