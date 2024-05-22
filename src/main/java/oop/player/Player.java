@@ -10,8 +10,8 @@ public class Player {
     private int gulden;
     private Card[] activeDeck = new Card[6];
     private ArrayList<Creature> grid;
-    private Creature emptyCreature = new Creature("", "", this);
-    private Card emptyCard = new Card("", "", this);
+    private Creature emptyCreature = new Creature("", this);
+    private Card emptyCard = new Card("", this);
     private int cardDeckLeft;
 
     // Constructor
@@ -75,7 +75,7 @@ public class Player {
         return -1;
     }
 
-    // 
+    //
     public void addCardToActiveDeckFirstEmpty(Card card) throws BaseException {
         if (this.isActiveDeckFull()) {
             throw new ActiveDeckFullException();
@@ -84,12 +84,13 @@ public class Player {
         this.activeDeck[this.firstEmptyActiveDeck()] = card;
     }
 
-        // 
+    //
     public void addCardToActiveDeck(Card card, int index) throws BaseException {
+        card.setOwner(this);
         this.activeDeck[index] = card;
-   
+
     }
-    
+
     public void addCardToGrid(Creature card, int row, int col) throws BaseException {
         int arrayIDX = row * 5 + col;
         this.grid.add(arrayIDX, card);
@@ -101,8 +102,8 @@ public class Player {
         this.grid.set(arrayIDX, this.emptyCreature);
     }
 
-    public void removeCardAtActiveDeck(int index) throws BaseException{
-        if (index < 0 || index >= 6){
+    public void removeCardAtActiveDeck(int index) throws BaseException {
+        if (index < 0 || index >= 6) {
             throw new ActiveDeckFullException();
         }
         this.activeDeck[index] = this.emptyCard;
@@ -197,7 +198,7 @@ public class Player {
         return this.grid.stream().filter(card -> !card.isEmpty()).count();
     }
 
-    public void increaseCardDeckLeft(int additionalCardDeck){
+    public void increaseCardDeckLeft(int additionalCardDeck) {
         this.cardDeckLeft += additionalCardDeck;
     }
 
