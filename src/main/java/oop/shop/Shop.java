@@ -57,7 +57,14 @@ public class Shop {
         }
     }
 
-    public void Sell(Player currentPlayer, Card selectedCard) {
+    public void Sell(Player currentPlayer, Integer indexSelected) throws BaseException {
+        Card selectedCard;
+        try {
+            selectedCard = currentPlayer.getCardActiveDeck(indexSelected);
+        } catch(Exception e) {
+            throw new BaseException();
+        }
+
         if (selectedCard instanceof Product) {
             // pembelian bisa dilakukan
             currentPlayer.setGulden(currentPlayer.getGulden() + ((Product) selectedCard).getPrice());

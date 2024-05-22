@@ -14,6 +14,7 @@ import oop.card.item.ConcreteTrap;
 import oop.card.item.ItemEffect;;
 
 public class GameMaster {
+    private final Random random = new Random();
     private List<Player> listPlayers;
     private int currentTurn;
     private PlantService plantService;
@@ -29,7 +30,9 @@ public class GameMaster {
     public void next() {
         this.currentTurn++;
         this.plantService.increaseAgeOfPlants();
-
+        if(random.nextBoolean()) {
+//            bearAttack();
+        }
     }
 
     // Random Creature
