@@ -1,11 +1,9 @@
 // File: src/main/java/main/Plugin/PluginLoader.java
 package oop.plugin;
 
-import oop.plugin.PluginInterface;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
 import java.net.URL;

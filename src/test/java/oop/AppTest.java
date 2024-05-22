@@ -129,9 +129,9 @@ public class AppTest {
             player1.printGridActiveDeckTest();
 
             player1.invokeCard(0, 3, 4, player1);
-
-
             System.out.println(player1.getCardGrid(3, 4));
+
+            player1.invokeCard(3, 0, 0, player1);
 
 
         }catch(BaseException e){

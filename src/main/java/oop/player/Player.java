@@ -192,7 +192,6 @@ public class Player {
     public void invokeCard(int activeCardIndex, int rowTarget, int colTarget, Player targetGridPlayer)
             throws BaseException {
         Card currCard = this.getCardActiveDeck(activeCardIndex);
-
         // check if usable and not a blank card
         if (currCard instanceof UsableCard && !currCard.isEmpty()) {
             Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
