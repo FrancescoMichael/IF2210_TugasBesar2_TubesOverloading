@@ -1,3 +1,7 @@
+# HOW TO RUN
+mvn clean install
+java -jar target/oop2-0.0.1.jar
+
 # Project Name
 > Outline a brief description of your project.
 > Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
