@@ -464,8 +464,8 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     private void switchToSecondary(String state) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SaveLoadPlugin.fxml"));
         Parent root = loader.load();
-        SecondaryController secondaryController = loader.getController();
-        secondaryController.setState(state);
+        // SecondaryController secondaryController = loader.getController();
+        // secondaryController.setState(state);
         Stage stage = (Stage) LoadPlugin.getScene().getWindow(); // Assuming LoadPlugin is in the current scene
         stage.setScene(new Scene(root));
         stage.show();

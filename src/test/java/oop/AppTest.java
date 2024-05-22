@@ -16,7 +16,6 @@ import oop.exceptionkerajaan.BaseException;
 import oop.player.Player;
 
 public class AppTest {
-    @Test
     public void test(){
           assertTrue( true );
         // System.out.println("HELLO");
@@ -84,16 +83,16 @@ public class AppTest {
             // TRYING TO FEED CARNIVORE at grid 1 - 2 (row - col)  , index 4 of active deck
             System.out.println("HEREEEE");
             // System.out.println(player1.getCardActiveDeck(1));
-            ((UsableCard) player1.getCardActiveDeck(3)).useCard( player1.getCardGrid(1, 2), 1, 2);
+            ((UsableCard) player1.getCardActiveDeck(4)).useCard( player1.getCardGrid(1, 2), 1, 2);
             
             // GUI will remove card at index 3 of active index, card 3 is carnivore food Sirip Hiu
-            player1.removeCardAtActiveDeck(3);
+            player1.removeCardAtActiveDeck(4);
             player1.printGridActiveDeckTest();
 
 
             // Trying to feed carnivore at grid 1,2 with AD index 3 susu
-            ((UsableCard) player1.getCardActiveDeck(3)).useCard( player1.getCardGrid(1, 2), 1, 2);
-            player1.removeCardAtActiveDeck(3);
+            ((UsableCard) player1.getCardActiveDeck(5)).useCard( player1.getCardGrid(1, 2), 1, 2);
+            player1.removeCardAtActiveDeck(5);
             System.out.println(player1.getCardGrid(1, 2));
             
             player1.addCardToActiveDeckFirstEmpty( new CarnivoreFood("Susu", 100, "Carnivore", 4));
@@ -101,8 +100,8 @@ public class AppTest {
 
             player1.printGridActiveDeckTest();
 
-            ((UsableCard) player1.getCardActiveDeck(3)).useCard( player1.getCardGrid(1, 2), 1, 2);
-            player1.removeCardAtActiveDeck(3);
+            ((UsableCard) player1.getCardActiveDeck(0)).useCard( player1.getCardGrid(1, 2), 1, 2);
+            player1.removeCardAtActiveDeck(0);
             player1.getCardGrid(1, 2).harvestCreature(1, 2); /// Row dan col adalah lokasi hewan tersebut pada grid, tujuannya untuk menghapus hewan dari grid setelagh 
             player1.printGridActiveDeckTest();
 
@@ -114,20 +113,24 @@ public class AppTest {
             player1.printGridActiveDeckTest( );
 
             //use item card
-            ( (UsableCard)player1.getCardActiveDeck(4) ).useCard( player1.getCardGrid(3, 4), 3, 4); 
-            player1.removeCardAtActiveDeck(4);
-            ( (UsableCard)player1.getCardActiveDeck(4) ).useCard( player1.getCardGrid(3, 4), 3, 4);
-            player1.removeCardAtActiveDeck(4);
+            ( (UsableCard)player1.getCardActiveDeck(5) ).useCard( player1.getCardGrid(3, 4), 3, 4); 
+            player1.removeCardAtActiveDeck(5);
+            ( (UsableCard)player1.getCardActiveDeck(2) ).useCard( player1.getCardGrid(3, 4), 3, 4);
+            player1.removeCardAtActiveDeck(2);
             System.out.println(player1.getCardGrid(3, 4));
 
             player1.addCardToActiveDeckFirstEmpty(new Item("Delay"));
             player1.addCardToActiveDeckFirstEmpty(new Item("Delay"));
 
-            ( (UsableCard)player1.getCardActiveDeck(4) ).useCard( player1.getCardGrid(3, 4), 3, 4); 
-            player1.removeCardAtActiveDeck(4);
-            ( (UsableCard)player1.getCardActiveDeck(4) ).useCard( player1.getCardGrid(3, 4), 3, 4);
-            player1.removeCardAtActiveDeck(4);
+            ( (UsableCard)player1.getCardActiveDeck(2) ).useCard( player1.getCardGrid(3, 4), 3, 4); 
+            player1.removeCardAtActiveDeck(2);
+            ( (UsableCard)player1.getCardActiveDeck(5) ).useCard( player1.getCardGrid(3, 4), 3, 4);
+            player1.removeCardAtActiveDeck(5);
             player1.printGridActiveDeckTest();
+
+            player1.invokeCard(0, 3, 4, player1);
+
+
             System.out.println(player1.getCardGrid(3, 4));
 
 

@@ -11,7 +11,7 @@ public class ConcreteInstantHarvest implements ItemEffect{
 
         // check if the same owner
         // check if target card is a plant
-        if (currentCard.getOwner() == cardTarget.getOwner() && (cardTarget instanceof Plant)){
+        if (currentCard.getOwner() == cardTarget.getOwner() && (cardTarget instanceof Creature) && !cardTarget.isEmpty()){
 
             // check if owner active deck is full
             if (currentCard.getOwner().isActiveDeckFull() ){

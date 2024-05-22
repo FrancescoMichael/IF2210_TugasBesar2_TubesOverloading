@@ -16,7 +16,7 @@ public class Item extends Card implements UsableCard {
     protected static Map<String, ItemEffect> allEffectMap = Map.of(
             "Accelerate", new ConcreteAccelerate(),
             "Delay", new ConcreteDelay(),
-            "Instant harvest", new ConcreteInstantHarvest(),
+            "Instant Harvest", new ConcreteInstantHarvest(),
             "Destroy", new ConcreteDestroy(),
             "Protect", new ConcreteProtect(),
             "Trap", new ConcreteTrap());

@@ -94,6 +94,7 @@ public class Player {
 
     public void addCardToGrid(Creature card, int row, int col) throws BaseException {
         int arrayIDX = row * 5 + col;
+        card.setOwner(this);
         this.grid.add(arrayIDX, card);
     }
 
