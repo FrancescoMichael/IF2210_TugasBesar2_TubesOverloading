@@ -4,6 +4,7 @@ import java.util.*;
 import oop.card.*;
 import oop.exceptionkerajaan.*;
 import oop.card.creature.Creature;
+import oop.card.creature.Plant;
 
 public class Player {
     private String name;
@@ -67,6 +68,8 @@ public class Player {
         this.cardDeckLeft = cardDeckLeft;
     }
 
+    public void setCardGrid(Creature card, int row, int col) {}
+
     // other methods
 
     // find the index firstEmpty in active deck
@@ -89,15 +92,14 @@ public class Player {
     }
 
     //
-    public void addCardToActiveDeck(Card card, int index) throws BaseException {
+    public void addCardToActiveDeck(Card card, int index){
         card.setOwner(this);
         this.activeDeck[index] = card;
-
     }
 
     public void addCardToGrid(Creature card, int row, int col) throws BaseException {
-        int arrayIDX = row * 5 + col;
-        this.grid.add(arrayIDX, card);
+        int arrayIDX = (row * 5) + col;
+        this.grid.set(arrayIDX, card);
     }
 
     public void setBlankOnGrid(int row, int col) {
@@ -125,11 +127,8 @@ public class Player {
         return this.activeDeck[index];
     }
 
-    public Creature getCardGrid(int row, int col) throws BaseException {
+    public Creature getCardGrid(int row, int col)  {
         int arrayIDX = row * 5 + col;
-        if (arrayIDX > 20 || arrayIDX < 0) {
-            throw new GridOutOfBoundsException();
-        }
         return this.grid.get(arrayIDX);
 
     }
@@ -187,6 +186,21 @@ public class Player {
 
     }
 
+    public void invokeCardGridtoGrid(int rowSource, int colSource, int rowTarget, int colTarget, Player targetGridPlayer)
+            throws BaseException {
+        Creature currCard = targetGridPlayer.getCardGrid(rowSource, colSource);
+        
+        // check if usable and not a blank card
+        if (currCard instanceof UsableCard && !currCard.isEmpty()) {
+            Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
+            ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
+
+        } else {
+            throw new InvalidCardPlacementException();
+        }
+
+    }
+
     public void harvestCard(int rowCardGrid, int colCardGrid, Player targetGridPlayer) throws BaseException {
         Creature currCreature = this.getCardGrid(rowCardGrid, colCardGrid);
         if (this != targetGridPlayer) {
@@ -204,6 +218,16 @@ public class Player {
 
     public void increaseCardDeckLeft(int additionalCardDeck) {
         this.cardDeckLeft += additionalCardDeck;
+    }
+
+    public ArrayList<Plant> getAllPlantsInGrid() {
+        ArrayList<Plant> temp = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            if (this.grid.get(i) instanceof Plant && !this.grid.get(i).isEmpty()) {
+                temp.add((Plant) grid.get(i));
+            }
+        }
+        return temp;
     }
 
 }

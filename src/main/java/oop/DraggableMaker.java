@@ -30,6 +30,7 @@ public class DraggableMaker {
     private ImageView lastGlowingCell = null;
     private List<Pane> glowingCells = new ArrayList<>();
     private Timeline timer;
+    private boolean wasDragged;
 
     private String[][] fieldList;
     private ArrayList<String> activeDeckName;
@@ -56,20 +57,22 @@ public class DraggableMaker {
     }
 
     private void setGlow(ImageView sourceImageView, boolean glow) {
-        if (glow) {
-            DropShadow dropShadow = new DropShadow();
-            dropShadow.setColor(Color.YELLOW); // Glow color
-            dropShadow.setRadius(20);
-            dropShadow.setSpread(0.5);
-            dropShadow.setBlurType(javafx.scene.effect.BlurType.GAUSSIAN);
-            sourceImageView.setEffect(dropShadow);
-        } else {
-            sourceImageView.setEffect(null);
+        if (sourceImageView != null) {
+            if (glow) {
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setColor(Color.YELLOW); // Glow color
+                dropShadow.setRadius(20);
+                dropShadow.setSpread(0.5);
+                dropShadow.setBlurType(javafx.scene.effect.BlurType.GAUSSIAN);
+                sourceImageView.setEffect(dropShadow);
+            } else {
+                sourceImageView.setEffect(null);
+            }
         }
     }
 
-    public void makeDraggable(ImageView sourceImageView, ImageView[][] grid, ArrayList<String> activeDeckName,
-            GameMaster gameMaster) {
+    public void makeDraggable(ImageView sourceImageView, ImageView[][] matrix_grid, ArrayList<String> activeDeckName,
+            GameMaster gameMaster, boolean isInField) {
         this.activeDeckName = activeDeckName;
 
         final Delta dragDelta = new Delta();
@@ -77,22 +80,30 @@ public class DraggableMaker {
         initialPosition.x = sourceImageView.getLayoutX();
         initialPosition.y = sourceImageView.getLayoutY();
 
-        final double yOffset = 19;
-
-        // Initialize the fieldList with the same dimensions as the grid
-
         sourceImageView.setOnMousePressed(mouseEvent -> {
             // record a delta distance for the drag and drop operation.
             dragDelta.x = sourceImageView.getTranslateX() - mouseEvent.getSceneX();
             dragDelta.y = sourceImageView.getTranslateY() - mouseEvent.getSceneY();
         });
-
+        
+        if (isInField) {
+            // fieldController.glowButtonMaker.setGlow(sourceImageView);
+            sourceImageView.setOnMouseClicked(event -> {
+                if (!wasDragged) {
+                    fieldController.getAnimalImage().setImage(sourceImageView.getImage());
+                    fieldController.setPanenPageVisibility(true);
+                }
+                wasDragged = false;
+            });
+        }
+        
         sourceImageView.setOnMouseDragged(mouseEvent -> {
+            wasDragged = true;
             int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
-            int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
+            int row = ((int) (mouseEvent.getSceneY() - 70) / 100) + 1;
 
-            if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
-                ImageView currentCell = grid[row - 1][col - 1];
+            if (col > 0 && col <= matrix_grid[0].length && row > 0 && row <= matrix_grid.length) {
+                ImageView currentCell = matrix_grid[row - 1][col - 1];
 
                 // Only change the glow if the cell has changed
                 if (lastGlowingCell != currentCell) {
@@ -120,8 +131,8 @@ public class DraggableMaker {
 
                 // Set the card size to match the grid cell
                 if (sourceImageView instanceof ImageView) {
+                    int row = ((int) (mouseEvent.getSceneY() - 34.4) / 100) + 1;
                     int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
-                    int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
 
                     String idSourceImage = sourceImageView.getId();
 
@@ -134,16 +145,12 @@ public class DraggableMaker {
                     // Convert the last character to an integer
                     int index = Character.getNumericValue(lastChar) - 1;
 
-                    // Update the fieldList with the card position
-
-                    if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
+                    if (col > 0 && col <= matrix_grid[0].length && row > 0 && row <= matrix_grid.length) {
                         ImageView targetImageView = fieldController.getImageViewById("kosong" + (row) + (col));
 
                         // Check if the target cell is empty
                         if (targetImageView.getImage() == null) {
                             Player CurrentPLayer = gameMaster.getCurrentPlayer();
-                            System.out.println(rowSource);
-                            System.out.println(colSource);
                             if (sourceImageView.getImage() != null) {
                                 String sourceImageUrl = sourceImageView.getImage().getUrl();
                                 targetImageView.setImage(new Image(sourceImageUrl));
@@ -152,15 +159,22 @@ public class DraggableMaker {
 
                                 if (idSourceImage.charAt(0) != 'k') {
                                     try {
-                                        CurrentPLayer.invokeCard(index, row, col, gameMaster.getCurrentFieldPlayer());
+                                        CurrentPLayer.invokeCard(index, row - 1, col - 1,
+                                        gameMaster.getCurrentFieldPlayer());
                                         CurrentPLayer.removeCardAtActiveDeck(index);
-                                        // this.fieldList[row - 1][col - 1] = activeDeckName.get(index);
-                                        // activeDeckName.set(index, "");
-                                        // fieldController.onCardUpdated(targetImageView);
-                                        makeDraggable(targetImageView, grid, activeDeckName, gameMaster);
-                                    } catch(BaseException e) {
-
+                                        makeDraggable(targetImageView, matrix_grid, activeDeckName, gameMaster, true);
+                                    } catch (BaseException e) {
+                                        System.out.println(e.getMessage());
                                     }
+                                } else {
+                                    try {
+                                        CurrentPLayer.invokeCardGridtoGrid(rowSource - 1, colSource - 1, row - 1, col - 1, gameMaster.getCurrentFieldPlayer());
+                                        CurrentPLayer.setBlankOnGrid(rowSource - 1, colSource - 1);
+                                        makeDraggable(targetImageView, matrix_grid, activeDeckName, gameMaster, true);
+                                    } catch (BaseException e) {
+                                        System.out.println(e.getMessage());
+                                    }
+
                                 }
 
                             } else {

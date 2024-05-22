@@ -239,26 +239,6 @@
       <Button fx:id="bearAttackButton" layoutX="750.0" layoutY="450.0" text="Bear Attack" />
       <Label fx:id="timerLabel" layoutX="750.0" layoutY="500.0" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 18px;" text="Timer: 30" textFill="RED" />
       <Label layoutX="610.0" layoutY="614.0" prefHeight="18.0" prefWidth="130.0" text="Label" textFill="WHITE" />
-      <Pane fx:id="plane11" layoutX="48.0" layoutY="44.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane12" layoutX="144.0" layoutY="45.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane14" layoutX="343.0" layoutY="45.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane13" layoutX="246.0" layoutY="44.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane15" layoutX="442.0" layoutY="45.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane21" layoutX="49.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane22" layoutX="145.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane24" layoutX="344.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane23" layoutX="246.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane25" layoutX="443.0" layoutY="156.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane31" layoutX="50.0" layoutY="273.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane32" layoutX="146.0" layoutY="275.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane34" layoutX="345.0" layoutY="275.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane33" layoutX="246.0" layoutY="274.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane35" layoutX="444.0" layoutY="273.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane41" layoutX="51.0" layoutY="385.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane42" layoutX="147.0" layoutY="386.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane44" layoutX="346.0" layoutY="385.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane43" layoutX="246.0" layoutY="385.0" prefHeight="73.0" prefWidth="60.0" />
-      <Pane fx:id="plane45" layoutX="445.0" layoutY="386.0" prefHeight="73.0" prefWidth="60.0" />
       <ImageView fx:id="toLadangku" fitHeight="52.0" fitWidth="215.0" layoutX="602.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/title/Group%2011.png" />
@@ -294,6 +274,46 @@
             <Image url="@../assets/OOP%202/OOP%202/title/Group%2017.png" />
          </image>
       </ImageView>
+      <Pane fx:id="plane11" layoutX="48.0" layoutY="44.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane12" layoutX="144.0" layoutY="45.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane14" layoutX="343.0" layoutY="45.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane13" layoutX="246.0" layoutY="44.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane15" layoutX="442.0" layoutY="45.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane21" layoutX="49.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane22" layoutX="145.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane24" layoutX="344.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane23" layoutX="246.0" layoutY="157.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane25" layoutX="443.0" layoutY="156.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane31" layoutX="50.0" layoutY="273.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane32" layoutX="146.0" layoutY="275.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane34" layoutX="345.0" layoutY="275.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane33" layoutX="246.0" layoutY="274.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane35" layoutX="444.0" layoutY="273.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane41" layoutX="51.0" layoutY="385.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane42" layoutX="147.0" layoutY="386.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane44" layoutX="346.0" layoutY="385.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane43" layoutX="246.0" layoutY="385.0" prefHeight="73.0" prefWidth="60.0" />
+      <Pane fx:id="plane45" layoutX="445.0" layoutY="386.0" prefHeight="73.0" prefWidth="60.0" />
+      <ImageView fx:id="kosong11" fitHeight="73.0" fitWidth="60.0" layoutX="47.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong12" fitHeight="73.0" fitWidth="60.0" layoutX="144.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong13" fitHeight="73.0" fitWidth="60.0" layoutX="246.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong14" fitHeight="73.0" fitWidth="60.0" layoutX="343.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong15" fitHeight="73.0" fitWidth="60.0" layoutX="442.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong21" fitHeight="73.0" fitWidth="60.0" layoutX="48.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong22" fitHeight="73.0" fitWidth="60.0" layoutX="145.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong23" fitHeight="73.0" fitWidth="60.0" layoutX="247.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong24" fitHeight="73.0" fitWidth="60.0" layoutX="344.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong25" fitHeight="73.0" fitWidth="60.0" layoutX="443.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong31" fitHeight="73.0" fitWidth="60.0" layoutX="48.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong32" fitHeight="73.0" fitWidth="60.0" layoutX="145.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong33" fitHeight="73.0" fitWidth="60.0" layoutX="246.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong34" fitHeight="73.0" fitWidth="60.0" layoutX="345.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong35" fitHeight="73.0" fitWidth="60.0" layoutX="444.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong41" fitHeight="73.0" fitWidth="60.0" layoutX="51.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong42" fitHeight="73.0" fitWidth="60.0" layoutX="147.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong43" fitHeight="73.0" fitWidth="60.0" layoutX="246.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong44" fitHeight="73.0" fitWidth="60.0" layoutX="346.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="kosong45" fitHeight="73.0" fitWidth="60.0" layoutX="445.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="ContainerPanen" fitHeight="406.0" fitWidth="805.0" layoutX="195.0" layoutY="146.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/grid/preview.png" />
@@ -317,25 +337,5 @@
       <Label fx:id="label4" layoutX="281.0" layoutY="374.0" text="Label" textFill="WHITE" visible="false" />
       <Label fx:id="label5" layoutX="281.0" layoutY="397.0" text="Label" textFill="WHITE" visible="false" />
       <Label fx:id="label6" layoutX="281.0" layoutY="423.0" text="Label" textFill="WHITE" visible="false" />
-      <ImageView fx:id="kosong11" fitHeight="73.0" fitWidth="60.0" layoutX="47.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong12" fitHeight="73.0" fitWidth="60.0" layoutX="144.0" layoutY="46.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong13" fitHeight="73.0" fitWidth="60.0" layoutX="246.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong14" fitHeight="73.0" fitWidth="60.0" layoutX="343.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong15" fitHeight="73.0" fitWidth="60.0" layoutX="442.0" layoutY="45.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong21" fitHeight="73.0" fitWidth="60.0" layoutX="48.0" layoutY="156.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong22" fitHeight="73.0" fitWidth="60.0" layoutX="145.0" layoutY="158.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong23" fitHeight="73.0" fitWidth="60.0" layoutX="247.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong24" fitHeight="73.0" fitWidth="60.0" layoutX="344.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong25" fitHeight="73.0" fitWidth="60.0" layoutX="443.0" layoutY="157.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong31" fitHeight="73.0" fitWidth="60.0" layoutX="48.0" layoutY="273.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong32" fitHeight="73.0" fitWidth="60.0" layoutX="145.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong33" fitHeight="73.0" fitWidth="60.0" layoutX="246.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong34" fitHeight="73.0" fitWidth="60.0" layoutX="345.0" layoutY="275.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong35" fitHeight="73.0" fitWidth="60.0" layoutX="444.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong41" fitHeight="73.0" fitWidth="60.0" layoutX="51.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong42" fitHeight="73.0" fitWidth="60.0" layoutX="147.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong43" fitHeight="73.0" fitWidth="60.0" layoutX="246.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong44" fitHeight="73.0" fitWidth="60.0" layoutX="346.0" layoutY="386.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="kosong45" fitHeight="73.0" fitWidth="60.0" layoutX="445.0" layoutY="385.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

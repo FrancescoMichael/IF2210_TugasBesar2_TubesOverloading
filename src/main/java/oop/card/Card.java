@@ -45,7 +45,7 @@ public class Card {
 
         this.name = "";
 
-        this.pathToImg = "asset/blank.jpg";
+        this.pathToImg = "/assets/OOP 2/OOP 2/cards/blank.png";
 
     }
 

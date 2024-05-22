@@ -2,6 +2,7 @@ package oop;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
@@ -19,7 +20,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Pane;
 import javafx.fxml.Initializable;
 import javafx.util.Duration;
+import oop.card.Card;
+import oop.card.creature.Creature;
 import oop.gamemaster.GameMaster;
+import oop.player.Player;
 
 public class FieldController implements Initializable, DraggableMaker.CardUpdateListener{
 
@@ -323,7 +327,7 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
 
     private ArrayList<String> activeDeckName = new ArrayList<>();
 
-    private GameMaster gameMaster;
+    private GameMaster gameMaster = new GameMaster();
     
     // String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/hiu_darat.png").toExternalForm();
 
@@ -334,18 +338,35 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        Player player1 = new Player("Player1");
+        player1.addCardToActiveDeck(new Creature("beruang"), 0);
+        player1.addCardToActiveDeck(new Creature("stroberi"), 1);
+        player1.addCardToActiveDeck(new Creature("beruang"), 2);
+        player1.addCardToActiveDeck(new Creature("stroberi"), 3);
+        player1.addCardToActiveDeck(new Creature("stroberi"), 4);
+        player1.addCardToActiveDeck(new Creature("stroberi"), 5);
+        Player player2 = new Player("Player2");
+        List<Player> listPlayer = new ArrayList<>();
+        listPlayer.add(player1);
+        listPlayer.add(player2);
+        gameMaster.setListPlayer(listPlayer);
+        gameMaster.setCurrentFieldPlayer(player1);
+        activeDeckName.add("beruang");
+        activeDeckName.add("stroberi");
+        activeDeckName.add("beruang");
+        activeDeckName.add("stroberi");
+        activeDeckName.add("stroberi");
+        activeDeckName.add("stroberi");
+
         
-        String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/beruang.png").toExternalForm();
-        String imagePath2 = getClass().getResource("/assets/OOP 2/OOP 2/cards/stroberi.png").toExternalForm();
-        grid11.setStyle("-fx-image: url('" + imagePath2 + "');");
-        grid22.setStyle("-fx-image: url('" + imagePath + "');");
-        // setPanenPageVisibility(false);
         glowButtonMaker.setGlow(CloseBtn);
-        
         CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false));
+        
+        glowButtonMaker.setGlow(PanenBtn);
         PanenBtn.setOnMouseClicked(null);
         
         glowButtonMaker.setGlow(nextTurnBtn);
+        nextTurnBtn.setOnMouseClicked(event -> gameMaster.next());
         glowButtonMaker.setGlow(toLadangLawan);
         toLadangLawan.setOnMouseClicked(event -> {
             toLadangLawan1.setVisible(true);
@@ -401,12 +422,6 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
             LoadPlugin1.setVisible(false);
         });
         
-        activeDeckName.add("beruang");
-        activeDeckName.add("stroberi");
-        activeDeckName.add("beruang");
-        activeDeckName.add("stroberi");
-        activeDeckName.add("stroberi");
-        activeDeckName.add("stroberi");
         
         matrix_grid = new ImageView[][] {
             {grid11, grid12, grid13, grid14, grid15},
@@ -423,12 +438,19 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
             {kosong41, kosong42, kosong43, kosong44, kosong45}
         };
         
-        draggableMaker.makeDraggable(activeCard1, matrix_grid, activeDeckName, gameMaster);
-        draggableMaker.makeDraggable(activeCard2, matrix_grid, activeDeckName, gameMaster);
-        draggableMaker.makeDraggable(activeCard3, matrix_grid, activeDeckName, gameMaster);
-        draggableMaker.makeDraggable(activeCard4, matrix_grid, activeDeckName, gameMaster);
-        draggableMaker.makeDraggable(activeCard5, matrix_grid, activeDeckName, gameMaster);
-        draggableMaker.makeDraggable(activeCard6, matrix_grid, activeDeckName, gameMaster);
+        matrix_card_in_ladang = new ImageView[][] {
+            {kosong11, kosong12, kosong13, kosong14, kosong15},
+            {kosong21, kosong22, kosong23, kosong24, kosong25},
+            {kosong31, kosong32, kosong33, kosong34, kosong35},
+            {kosong41, kosong42, kosong43, kosong44, kosong45}
+        };
+
+        draggableMaker.makeDraggable(activeCard1, matrix_grid, activeDeckName, gameMaster, false);
+        draggableMaker.makeDraggable(activeCard2, matrix_grid, activeDeckName, gameMaster, false);
+        draggableMaker.makeDraggable(activeCard3, matrix_grid, activeDeckName, gameMaster, false);
+        draggableMaker.makeDraggable(activeCard4, matrix_grid, activeDeckName, gameMaster, false);
+        draggableMaker.makeDraggable(activeCard5, matrix_grid, activeDeckName, gameMaster, false);
+        draggableMaker.makeDraggable(activeCard6, matrix_grid, activeDeckName, gameMaster, false);
         
         // bearAttackButton.setOnAction(event -> applyBearAttackEffect(card11));
         bearAttackButton.setOnAction(event -> simulateBearAttack());
@@ -506,7 +528,7 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
         startCountdown();
     }
 
-    private void setPanenPageVisibility(boolean bool) {
+    public void setPanenPageVisibility(boolean bool) {
         label1.setVisible(bool);
         label2.setVisible(bool);
         label3.setVisible(bool);
@@ -560,5 +582,9 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
         );
         countdownTimeline.setCycleCount(1);
         countdownTimeline.play();
+    }
+
+    public ImageView getAnimalImage() {
+        return AnimalImage;
     }
 }

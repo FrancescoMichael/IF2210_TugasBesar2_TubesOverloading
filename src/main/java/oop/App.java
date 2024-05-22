@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import oop.player.*;
+
 import java.io.IOException;
 
 /**
@@ -46,8 +46,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        Player wha = new Player("denis");
-        System.out.println(wha);
         launch();
     }
 
