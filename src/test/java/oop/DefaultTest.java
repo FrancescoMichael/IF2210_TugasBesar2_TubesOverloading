@@ -63,6 +63,14 @@ public class DefaultTest {
             player1.invokeCard(4, 0, 0, player1);
             player1.removeCardAtActiveDeck(4);
             player1.printGridActiveDeckTest();
+
+            player2.printGridActiveDeckTest();
+            player2.invokeCard(0, 0, 0, player2);
+            player2.invokeCard(5, 0, 1, player2);
+            player2.printGridActiveDeckTest();
+            player1.invokeCard(3, 0, 0, player2);
+            player1.removeCardAtActiveDeck(3);
+            player2.printGridActiveDeckTest();
             // player1.printGridActiveDeckTest();
 
 
