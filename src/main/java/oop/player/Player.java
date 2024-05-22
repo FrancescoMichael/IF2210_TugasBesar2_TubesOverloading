@@ -115,6 +115,20 @@ public class Player {
         return this.firstEmptyActiveDeck() == -1;
     }
 
+    public Card[] getActiveDeck() {
+        return this.activeDeck;
+    }
+
+    public int numOfActiveDeck() {
+        int num = 0;
+        for (Card card : this.activeDeck) {
+            if (!card.isEmpty()) {
+                num++;
+            }
+        }
+        return num;
+    }
+
     // main methods for grid and activeDeck
     public Card getCardActiveDeck(int index) throws BaseException {
         if (index < 0 || index >= 6) {
@@ -163,12 +177,12 @@ public class Player {
         System.out.println();
         System.out.println("ACTIVE DECK");
         for (Card card : this.activeDeck) {
-            if (!card.isEmpty()){
+            if (!card.isEmpty()) {
                 System.out.print(card.getName().replace(" ", "-") + " ");
             } else {
                 System.out.print("EMPTY ");
             }
-          
+
         }
         System.out.println("\n");
         System.out.println("=================================");
@@ -209,11 +223,11 @@ public class Player {
         this.cardDeckLeft += additionalCardDeck;
     }
 
-    public ArrayList<Plant> getAllPlantsInGrid(){
+    public ArrayList<Plant> getAllPlantsInGrid() {
         ArrayList<Plant> temp = new ArrayList<>();
-        for (int i = 0 ; i < 20 ; i++){
-            if (this.grid.get(i) instanceof Plant && !this.grid.get(i).isEmpty()){
-                temp.add( (Plant)grid.get(i));
+        for (int i = 0; i < 20; i++) {
+            if (this.grid.get(i) instanceof Plant && !this.grid.get(i).isEmpty()) {
+                temp.add((Plant) grid.get(i));
             }
         }
         return temp;

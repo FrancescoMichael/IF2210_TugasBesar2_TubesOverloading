@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import oop.player.*;
+import oop.card.*;
 
 public class SaveLoadTXT {
 
@@ -19,7 +20,7 @@ public class SaveLoadTXT {
         int totalDeck = Integer.parseInt(reader.readLine().trim());
         int activeDeck = Integer.parseInt(reader.readLine().trim());
 
-        List<DeckCard> deckCards = new ArrayList<>();
+        List<Card> deckCards = new ArrayList<>();
         for (int i = 0; i < activeDeck; i++) {
             String[] parts = reader.readLine().split(" ");
             deckCards.add(new DeckCard(parts[0], parts[1]));
@@ -27,7 +28,7 @@ public class SaveLoadTXT {
 
         int totalField = Integer.parseInt(reader.readLine().trim());
 
-        List<FieldCard> fieldCards = new ArrayList<>();
+        List<Card> fieldCards = new ArrayList<>();
         for (int i = 0; i < totalField; i++) {
             String[] parts = reader.readLine().split(" ");
             String location = parts[0];
@@ -82,7 +83,8 @@ public class SaveLoadTXT {
         writer.newLine();
 
         for (FieldCard card : player.getFieldCards()) {
-            writer.write(card.getLocation() + " " + card.getCardName() + " " + card.getAgeOrWeight() + " " + card.getActiveItems().size());
+            writer.write(card.getLocation() + " " + card.getCardName() + " " + card.getAgeOrWeight() + " "
+                    + card.getActiveItems().size());
             for (String item : card.getActiveItems()) {
                 writer.write(" " + item);
             }
