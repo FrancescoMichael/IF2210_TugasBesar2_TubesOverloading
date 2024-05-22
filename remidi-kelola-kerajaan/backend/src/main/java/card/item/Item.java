@@ -39,13 +39,19 @@ public class Item extends Card implements UsableCard {
     // constructor with owner 
     public Item(String name,String pathToImg, Player owner){
         super(name, pathToImg, owner);
-        this.effect = Item.allEffectMap.get(name);
+        if (Item.allEffectMap.containsKey(name)){
+            this.effect = Item.allEffectMap.get(name);
+        }
+
     }
 
     // constructor without owner
     public Item(String name , String pathToImg){
         super(name, pathToImg);
-        this.effect = Item.allEffectMap.get(name);
+        if (Item.allEffectMap.containsKey(name)){
+            this.effect = Item.allEffectMap.get(name);
+        }
+
     }
 
 

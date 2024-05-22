@@ -16,15 +16,15 @@ import card.item.Item;
 // creature includes plants and animals
 public class Creature extends Card implements UsableCard {
     protected static Map<String, Product> allHarvestedProduct =  Map.of(
-        "Hiu Darat", new CarnivoreFood("Sirip Hiu", 500, "dummy.img", "Carnivore", 12),
+        "Hiu Darat", new CarnivoreFood("Sirip Hiu", 500, "hiu.img", "Carnivore", 12),
         "Sapi", new CarnivoreFood("Susu", 100, "dummy.img", "Carnivore", 4),
         "Domba", new CarnivoreFood("Daging Domba", 120, "dummy.img", "Carnivore", 6),
         "Kuda", new CarnivoreFood("Daging Kuda", 150, "dummy.img", "Carnivore", 8),
         "Ayam", new CarnivoreFood("Telur", 50, "dummy.img", "Carnivore", 2),
         "Beruang", new CarnivoreFood("Daging Beruang", 500, "dummy.img", "Carnivore", 12),
-        "Biji Jagung", new HerbivoreFood("Jagung", 150, "dummy.img", "Herbivore", 3),
-        "Biji Labu", new HerbivoreFood("Labu", 500, "dummy.img", "Herbivore", 10),
-        "Biji Stroberi", new HerbivoreFood("Stroberi", 350, "dummy.img", "Herbivore", 5));
+        "Biji Jagung", new HerbivoreFood("Jagung", 150, "jagung.img", "Herbivore", 3),
+        "Biji Labu", new HerbivoreFood("Labu", 500, "labu.img", "Herbivore", 10),
+        "Biji Stroberi", new HerbivoreFood("Stroberi", 350, "stroberi.img", "Herbivore", 5));
 
     protected static Map<String, Integer> allHarvestedWeightRequirement = Map.of(
         "Hiu Darat", 20,
@@ -62,16 +62,16 @@ public class Creature extends Card implements UsableCard {
     public Creature(String name, String pathToImg, Player owner) {
 
         super(name, pathToImg, owner);
-
-
-
-        // Possibility of null value, be careful
-        // this.harvestedProduct.setOwner(owner);
         this.weight = 0;
         this.weightAfterEffect = 0;
         if (Creature.allHarvestedProduct.containsKey(name)){
             this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
+        } else {
+            this.harvestedWeightRequirement = 0;
         }
+        this.trap = false;
+        this.protect = false;
+        this.itemEffects = new ArrayList<>();
 
         // this.harvestedProduct = Creature.allHarvestedProduct.get(name);
     }
@@ -80,13 +80,16 @@ public class Creature extends Card implements UsableCard {
     // creature without owner
     public Creature(String name, String pathToImg) {
         super(name, pathToImg);
-        // Possibility of null value, be careful
-        // this.harvestedProduct.setOwner(owner);
         this.weight = 0;
         this.weightAfterEffect = 0;
         if (Creature.allHarvestedProduct.containsKey(name)){
             this.harvestedWeightRequirement = Creature.allHarvestedWeightRequirement.get(name);
+        } else {
+            this.harvestedWeightRequirement = 0;
         }
+        this.itemEffects = new ArrayList<>();
+        this.trap = false;
+        this.protect = false;
 
         // this.harvestedProduct = Creature.allHarvestedProduct.get(name);
     }
@@ -173,7 +176,7 @@ public class Creature extends Card implements UsableCard {
         this.weightAfterEffect += additionalWeight;
     }
 
-    public void increasweightAfterEffect(int additionalWeight){
+    public void increaseWeightAfterEffect(int additionalWeight){
         this.weightAfterEffect += additionalWeight;
     }
 
@@ -208,7 +211,7 @@ public class Creature extends Card implements UsableCard {
     // get harvested product from Creature
 
     public void harvestCreature(int row, int col) throws BaseException{
-        if (this.getWeightAfterEffect() > this.getHarvestedWeightRequirement()  ){
+        if (this.getWeightAfterEffect() >= this.getHarvestedWeightRequirement()  ){
              // remove creature from grid, add product in active deck
              // addCardToActiveDeck already checks if activeDeck is full
             this.getOwner().addCardToActiveDeck( this.getHarvestedProduct() );
@@ -222,7 +225,15 @@ public class Creature extends Card implements UsableCard {
     @Override
     public String toString(){
         String temp = super.toString();
-        temp = temp + "Weight: " +  this.getWeight() + "\n" + "Weight after effect: " +  this.getWeightAfterEffect() + "\n";
+        temp = temp + "Weight: " +  this.getWeight() + "\n" + "Weight after effect: " +  this.getWeightAfterEffect() + "\n" + "Weight Requirement: " + this.getHarvestedWeightRequirement() + "\n" + "All Effects: [";
+        for (int i = 0 ; i < this.itemEffects.size() ; i++){
+            temp += this.itemEffects.get(i).getName();
+            if (i + 1 != this.itemEffects.size()){
+                temp += ", ";
+            }
+        }
+
+        temp = temp + "]\n";
         return temp;
 
     }

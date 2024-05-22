@@ -28,7 +28,7 @@ public class Herbivore extends Creature implements Animals{
     }
 
     public void eat(HerbivoreFood food) {
-        System.out.println("Eating..");
+        System.out.println("Eating " + food.getName() + "..." );
         this.increaseWeight(food.getAdditionalWeight());
         
     }

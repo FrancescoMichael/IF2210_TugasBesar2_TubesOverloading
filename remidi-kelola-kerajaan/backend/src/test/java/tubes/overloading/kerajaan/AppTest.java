@@ -10,6 +10,8 @@ import card.creature.Creature;
 import card.creature.Herbivore;
 import card.creature.Omnivore;
 import card.creature.Plant;
+import card.item.Item;
+import card.product.CarnivoreFood;
 import exceptionkerajaan.BaseException;
 import player.Player;
 
@@ -120,8 +122,8 @@ public class AppTest
             player2.addCardToActiveDeck(new Omnivore("Ayam","ayam.png"));
             player2.addCardToActiveDeck(new Plant("Biji Jagung","Biji jagung.png"));
             
-            player2.addCardToActiveDeck(  ((Creature)player1.getCardActiveDeck(0)).getHarvestedProduct() );
-            player2.addCardToActiveDeck(  ((Creature)player1.getCardActiveDeck(1)).getHarvestedProduct()    );
+            player2.addCardToActiveDeck(  ((Creature)player2.getCardActiveDeck(0)).getHarvestedProduct() );
+            player2.addCardToActiveDeck(  ((Creature)player2.getCardActiveDeck(3)).getHarvestedProduct());
 
 
             // STARTING WITH EMPTY GRID
@@ -145,15 +147,39 @@ public class AppTest
             assertTrue("FAIL LINE 153",  (player1.getCardGrid(1, 2) instanceof Animals) && (player1.getCardGrid(1, 2) instanceof Carnivore) );
             
             // TRYING TO FEED CARNIVORE at grid 1 - 2 (row - col)  , index 4 of active deck
-            ((UsableCard) player1.getCardActiveDeck(4)).useCard( player1.getCardGrid(1, 2), 0, 0);
+            ((UsableCard) player1.getCardActiveDeck(3)).useCard( player1.getCardGrid(1, 2), 1, 2);
             
-            // GUI will remove card at index 4 of active index
-            player1.removeCardAtActiveDeck(4);
-            System.out.println(player1.getCardGrid(1, 2));
+            // GUI will remove card at index 3 of active index, card 3 is carnivore food Sirip Hiu
+            player1.removeCardAtActiveDeck(3);
             player1.printGridActiveDeckTest();
 
 
+            // Trying to feed carnivore at grid 1,2 with AD index 3 susu
+            ((UsableCard) player1.getCardActiveDeck(3)).useCard( player1.getCardGrid(1, 2), 1, 2);
+            player1.removeCardAtActiveDeck(3);
+            System.out.println(player1.getCardGrid(1, 2));
+            
+            player1.addCardToActiveDeck( new CarnivoreFood("Susu", 100, "dummy.img", "Carnivore", 4));
+            player1.addCardToActiveDeck( new CarnivoreFood("Susu", 100, "dummy.img", "Carnivore", 4));
 
+            player1.printGridActiveDeckTest();
+
+            ((UsableCard) player1.getCardActiveDeck(3)).useCard( player1.getCardGrid(1, 2), 1, 2);
+            player1.removeCardAtActiveDeck(3);
+            player1.getCardGrid(1, 2).harvestCreature(1, 2); /// Row dan col adalah lokasi hewan tersebut pada grid, tujuannya untuk menghapus hewan dari grid setelagh 
+            player1.printGridActiveDeckTest();
+
+            // test tumbuhan
+            ( (UsableCard)player1.getCardActiveDeck(2) ).useCard( player1.getCardGrid(3, 4), 3, 4); // taro tumbuhan\
+            player1.removeCardAtActiveDeck(2); // remove from active deck, GUI 
+            player1.addCardToActiveDeck(new Item("Accelerate","damn.img"));
+            player1.addCardToActiveDeck(new Item("Accelerate","damn.img"));
+            player1.printGridActiveDeckTest( );
+
+            //use item card
+            ( (UsableCard)player1.getCardActiveDeck(4) ).useCard( player1.getCardGrid(3, 4), 3, 4); 
+            ( (UsableCard)player1.getCardActiveDeck(4) ).useCard( player1.getCardGrid(3, 4), 3, 4);
+            System.out.println(player1.getCardGrid(3, 4));
 
         }catch(BaseException e){
             System.out.println(e.getMessage());

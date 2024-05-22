@@ -11,6 +11,7 @@ public class Player {
     private int gulden;
     private ArrayList<Card> activeDeck;
     private ArrayList<Creature> grid;
+    private Creature emptyCreature = new Creature("","",this);
 
 
     // Constructor
@@ -21,7 +22,7 @@ public class Player {
         this.gulden = 0;
 
         for (int i = 0; i < 20; i++) {
-            this.grid.add(new Creature("","",this)  ) ;
+            this.grid.add(this.emptyCreature  ) ;
         }
     }
 
@@ -69,11 +70,13 @@ public class Player {
 
     public void setBlankOnGrid(int row, int col) {
         int arrayIDX = row * 5 + col;
-        this.grid.add(arrayIDX, new Creature("","",this));
+        // this.grid.add(arrayIDX, new Creature("","",this));
+        this.grid.set(arrayIDX,  this.emptyCreature);
     }
 
     public void removeCardAtActiveDeck(int index){
         if (index >= 0 && index < this.activeDeck.size()){
+            System.out.println(this.activeDeck.get(index));
             this.activeDeck.remove(index);
         }
     }
@@ -123,7 +126,7 @@ public class Player {
                 if (this.getCardGrid(row, col).isEmpty() ){
                     System.out.print("EMPTY ");
                 } else {
-                    System.out.print(this.getCardGrid(row, col).getName() + " ");
+                    System.out.print(this.getCardGrid(row, col).getName().replace(" ", "-") + " ");
                 }
                 
             }
@@ -132,7 +135,7 @@ public class Player {
         System.out.println();
         System.out.println("ACTIVE DECK");
         for (Card card : activeDeck){
-            System.out.print(card.getName() +" ");
+            System.out.print(card.getName().replace(" ", "-") +" ");
         }
         System.out.println("\n");
         System.out.println("=================================");
