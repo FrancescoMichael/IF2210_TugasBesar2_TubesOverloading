@@ -39,19 +39,21 @@ public class SaveLoadTXT implements PluginInterface {
     }
 
     @Override
-    public void saveplayer(String filename, Player player) throws IOException {
+    public void savePlayer(String filename, Player player) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 
         writer.write(String.valueOf(player.getGulden()));
         writer.newLine();
         writer.write(String.valueOf(player.getCardDeckLeft()));
         writer.newLine();
-        writer.write(String.valueOf(player.getActiveDeck()));
+        writer.write(String.valueOf(player.numOfActiveDeck()));
         writer.newLine();
 
-        for (DeckCard card : player.getDeckCards()) {
-            writer.write(card.getLocation() + " " + card.getCardName());
-            writer.newLine();
+        for (Card card : player.getActiveDeck()) {
+            if (!card.isEmpty()) {
+                writer.write(card.getLocation() + " " + card.getCardName());
+                writer.newLine();
+            }
         }
 
         writer.write(String.valueOf(player.getTotalField()));
@@ -90,26 +92,27 @@ public class SaveLoadTXT implements PluginInterface {
     public Player loadPlayer(String filename) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
 
-        int gold = Integer.parseInt(reader.readLine().trim());
+        int gulden = Integer.parseInt(reader.readLine().trim());
         int totalDeck = Integer.parseInt(reader.readLine().trim());
-        int activeDeck = Integer.parseInt(reader.readLine().trim());
+        int activeDeckCount = Integer.parseInt(reader.readLine().trim());
 
-        List<Card> deckCards = new ArrayList<>();
-        for (int i = 0; i < activeDeck; i++) {
+        List<Card> activeDeck = new ArrayList<>();
+        for (int i = 0; i < activeDeckCount; i++) {
             String[] parts = reader.readLine().split(" ");
-            deckCards.add(new DeckCard(parts[0], parts[1]));
+            activeDeck.add(new DeckCard(parts[0], parts[1]));
         }
 
         int totalField = Integer.parseInt(reader.readLine().trim());
 
-        List<Card> fieldCards = new ArrayList<>();
+        List<FieldCard> fieldCards = new ArrayList<>();
         for (int i = 0; i < totalField; i++) {
             String[] parts = reader.readLine().split(" ");
             String location = parts[0];
             String cardName = parts[1];
             int ageOrWeight = Integer.parseInt(parts[2]);
+            int activeItemsCount = Integer.parseInt(parts[3]);
             List<String> activeItems = new ArrayList<>();
-            for (int j = 0; j < Integer.parseInt(parts[3]); j++) {
+            for (int j = 0; j < activeItemsCount; j++) {
                 activeItems.add(parts[4 + j]);
             }
             fieldCards.add(new FieldCard(location, cardName, ageOrWeight, activeItems));
@@ -117,7 +120,7 @@ public class SaveLoadTXT implements PluginInterface {
 
         reader.close();
 
-        return new Player(gold, totalDeck, activeDeck, deckCards, totalField, fieldCards);
+        return new Player(gulden, totalDeck, activeDeck, totalField, fieldCards);
     }
 
     @Override

@@ -44,7 +44,7 @@ public class SaveLoad {
     public void savePlayer(String filename, Player player, String type) throws Exception {
         for (PluginInterface plugin : this.saveLoaders) {
             if (type.equals(plugin.getType())) {
-                plugin.saveplayer(filename, player);
+                plugin.savePlayer(filename, player);
             }
         }
     }

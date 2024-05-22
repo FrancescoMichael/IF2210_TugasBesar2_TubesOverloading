@@ -8,7 +8,7 @@ import oop.player.*;
 public interface PluginInterface {
     void saveGame(String filename, Map<String, Integer> stocks, int currentTurn) throws IOException;
 
-    void saveplayer(String filename, Player player) throws IOException;
+    void savePlayer(String filename, Player player) throws IOException;
 
     int loadGame(String filename, Map<String, Integer> stock) throws IOException;
 
