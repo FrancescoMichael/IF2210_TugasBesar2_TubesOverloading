@@ -40,6 +40,7 @@ public class HerbivoreFood extends Product implements Food, UsableCard {
 
     @Override
     public void useCard(Card targetCard, int row, int col) throws BaseException {
+        System.out.println("SADASDASD");
         if (targetCard instanceof Animals) {
             this.beEaten((Animals) targetCard);
         } else {

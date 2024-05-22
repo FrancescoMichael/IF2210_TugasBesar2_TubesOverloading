@@ -8,33 +8,22 @@ import javafx.stage.Stage;
 import oop.player.*;
 import java.io.IOException;
 
-/**
- * JavaFX App
- */
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 public class App extends Application {
 
     private static Scene scene;
 
-    // @Override
-    // public void start(Stage stage) throws IOException {
-    //     scene = new Scene(loadFXML("fxml"), 640, 480);
-    //     stage.setScene(scene);
-    //     stage.show();
-    // }
-
-    public void start(Stage primaryStage) {
-        Parent root;
-        try {
-            root = FXMLLoader.load(getClass().getResource("Field.fxml"));
-            Scene scene = new Scene(root);
-            primaryStage.setScene(scene);
-            primaryStage.setTitle("");
-            primaryStage.setResizable(false);
-            primaryStage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-     }
+    @Override
+    public void start(Stage stage) throws IOException {
+        scene = new Scene(loadFXML("Field")); // Start with Field.fxml as the initial scene
+        stage.setScene(scene);
+        stage.show();
+    }
 
     static void setRoot(String fxml) throws IOException {
         scene.setRoot(loadFXML(fxml));
@@ -46,9 +35,6 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        Player wha = new Player("denis");
-        System.out.println(wha);
-        launch();
+        launch(args);
     }
-
 }

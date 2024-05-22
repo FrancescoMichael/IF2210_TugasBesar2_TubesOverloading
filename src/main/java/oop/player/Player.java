@@ -4,6 +4,7 @@ import java.util.*;
 import oop.card.*;
 import oop.exceptionkerajaan.*;
 import oop.card.creature.Creature;
+import oop.card.creature.*;
 
 public class Player {
     private String name;
@@ -160,8 +161,13 @@ public class Player {
         }
         System.out.println();
         System.out.println("ACTIVE DECK");
-        for (Card card : activeDeck) {
-            System.out.print(card.getName().replace(" ", "-") + " ");
+        for (Card card : this.activeDeck) {
+            if (!card.isEmpty()){
+                System.out.print(card.getName().replace(" ", "-") + " ");
+            } else {
+                System.out.print("EMPTY ");
+            }
+          
         }
         System.out.println("\n");
         System.out.println("=================================");
@@ -200,6 +206,16 @@ public class Player {
 
     public void increaseCardDeckLeft(int additionalCardDeck) {
         this.cardDeckLeft += additionalCardDeck;
+    }
+
+    public ArrayList<Plant> getAllPlantsInGrid(){
+        ArrayList<Plant> temp = new ArrayList<>();
+        for (int i = 0 ; i < 20 ; i++){
+            if (this.grid.get(i) instanceof Plant && !this.grid.get(i).isEmpty()){
+                temp.add( (Plant)grid.get(i));
+            }
+        }
+        return temp;
     }
 
 }
