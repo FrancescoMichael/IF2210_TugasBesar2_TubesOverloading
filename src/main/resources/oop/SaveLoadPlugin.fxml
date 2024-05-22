@@ -1,6 +1,126 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 
 
-<ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" />
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.SecondaryController">
+   <children>
+      <ImageView fx:id="background" fitHeight="761.0" fitWidth="1080.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/background/save-load-plugin.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_title" fitHeight="174.0" fitWidth="353.0" layoutX="71.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/load.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_folder" fitHeight="70.0" fitWidth="226.0" layoutX="363.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/folder.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_format" fitHeight="62.0" fitWidth="162.0" layoutX="364.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/format.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_format_field" fitHeight="82.0" fitWidth="484.0" layoutX="552.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%206.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_folder_field" fitHeight="82.0" fitWidth="484.0" layoutX="552.0" layoutY="358.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%206.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_button" fitHeight="62.0" fitWidth="163.0" layoutX="600.0" layoutY="488.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/button/load.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="save_title" fitHeight="184.0" fitWidth="373.0" layoutX="71.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/save.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="save_folder" fitHeight="70.0" fitWidth="226.0" layoutX="373.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/folder.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="save_format" fitHeight="62.0" fitWidth="162.0" layoutX="374.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/format.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="save_format_field" fitHeight="82.0" fitWidth="484.0" layoutX="562.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%206.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="save_folder_field" fitHeight="82.0" fitWidth="484.0" layoutX="562.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%206.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="save_button" fitHeight="59.0" fitWidth="159.0" layoutX="602.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/button/save.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_title1" fitHeight="174.0" fitWidth="353.0" layoutX="73.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/load.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_folder1" fitHeight="70.0" fitWidth="226.0" layoutX="365.0" layoutY="359.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/folder.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_format1" fitHeight="62.0" fitWidth="162.0" layoutX="366.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/format.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_format_field1" fitHeight="82.0" fitWidth="484.0" layoutX="554.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%206.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_folder_field1" fitHeight="82.0" fitWidth="484.0" layoutX="554.0" layoutY="359.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%206.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="load_button1" fitHeight="62.0" fitWidth="163.0" layoutX="602.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/button/load.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="plugin_title" fitHeight="184.0" fitWidth="373.0" layoutX="73.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/plugin.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="plugin_file" fitHeight="70.0" fitWidth="226.0" layoutX="352.0" layoutY="290.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/file.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="plugin_file_field" fitHeight="63.0" fitWidth="447.0" layoutX="601.0" layoutY="288.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%209.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="plugin_button" fitHeight="59.0" fitWidth="159.0" layoutX="604.0" layoutY="493.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/button/plugin.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
