@@ -72,36 +72,6 @@
             <Image url="@../assets/OOP%202/OOP%202/button/save.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="load_title1" fitHeight="174.0" fitWidth="353.0" layoutX="73.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/title/load.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="load_folder1" fitHeight="70.0" fitWidth="226.0" layoutX="365.0" layoutY="359.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/title/folder.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="load_format1" fitHeight="62.0" fitWidth="162.0" layoutX="366.0" layoutY="269.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/title/format.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="load_format_field1" fitHeight="82.0" fitWidth="484.0" layoutX="554.0" layoutY="270.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%206.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="load_folder_field1" fitHeight="82.0" fitWidth="484.0" layoutX="554.0" layoutY="359.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%206.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="load_button1" fitHeight="62.0" fitWidth="163.0" layoutX="602.0" layoutY="489.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/button/load.png" />
-         </image>
-      </ImageView>
       <ImageView fx:id="plugin_title" fitHeight="184.0" fitWidth="373.0" layoutX="73.0" layoutY="58.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/title/plugin.png" />
@@ -120,6 +90,11 @@
       <ImageView fx:id="plugin_button" fitHeight="59.0" fitWidth="159.0" layoutX="604.0" layoutY="493.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/button/plugin.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="close" fitHeight="25.0" fitWidth="35.0" layoutX="1006.0" layoutY="47.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/close_button.png" />
          </image>
       </ImageView>
    </children>
