@@ -1,22 +1,18 @@
 package oop.plugin;
 
 import oop.plugin.PluginInterface;
+import oop.saveload.*;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
         try {
             PluginLoader pluginLoader = new PluginLoader();
-            List<PluginInterface> plugins = pluginLoader.loadPlugins("path/to/your/plugin.jar");
+            SaveLoad saveLoad = new SaveLoad();
+            pluginLoader.loadPlugin("path/to/your/plugin.jar", saveLoad);
 
-            SaveLoadTXT saveLoad = new SaveLoad();
-            for (PluginInterface plugin : plugins) {
-                saveLoad.addSaveLoader(plugin);
-            }
+            saveLoad.loadPlayer("asep.txt", "txt");
 
-            // Example usage
-            saveLoad.saveData("gameData.dat", "gameType1");
-            saveLoad.loadData("gameData.dat", "gameType1");
         } catch (Exception e) {
             e.printStackTrace();
         }

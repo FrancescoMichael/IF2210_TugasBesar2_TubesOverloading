@@ -15,6 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarInputStream;
+import oop.saveload.*;
 
 public class PluginLoader {
     // Returns an array list of class names in a JarInputStream
@@ -72,7 +73,7 @@ public class PluginLoader {
         return availableClasses;
     }
 
-    public void loadPlugin(String pluginPath) throws Exception {
+    public void loadPlugin(String pluginPath, SaveLoad saveLoad) throws Exception {
         try {
             ArrayList<Class<?>> classes = loadJarFile(pluginPath);
             for (Class<?> c : classes) {
@@ -82,7 +83,8 @@ public class PluginLoader {
 
                     if (loadMethod != null && saveMethod != null) {
                         Constructor<?> constructor = c.getDeclaredConstructor();
-                        PluginInterface plugin = (PluginInterface) constructor.newInstance();
+                        PluginInterface pluginInstance = (PluginInterface) constructor.newInstance();
+                        saveLoad.addSaveLoader(pluginInstance);
 
                     } else {
                         System.out.println("The plugin does not have the required methods.");
