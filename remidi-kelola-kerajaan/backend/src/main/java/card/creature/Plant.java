@@ -3,7 +3,7 @@ import card.product.Product;
 import player.Player;
 
 public class Plant extends Creature {
-
+    private String pathImgOriginal;
     // constructors
     public Plant() {
         super();
@@ -12,11 +12,13 @@ public class Plant extends Creature {
     // with owner
     public Plant(String name, String pathToImg, Player owner) {
         super(name, pathToImg, owner);
+        this.pathImgOriginal = pathToImg;
     }
 
     // without owner
     public Plant(String name, String pathToImg) {
         super(name, pathToImg);
+        this.pathImgOriginal = pathToImg;
     }
 
     
@@ -27,6 +29,8 @@ public class Plant extends Creature {
             Product tmp  = this.getHarvestedProduct();
             // Update picture
             this.setPathToImg(tmp.getPathToImg());
+        } else {
+            this.setPathToImg(this.pathImgOriginal);
         }
 
 
@@ -39,6 +43,8 @@ public class Plant extends Creature {
             Product tmp  = this.getHarvestedProduct();
             // Update picture
             this.setPathToImg(tmp.getPathToImg());
+        } else {
+            setPathToImg(this.pathImgOriginal);
         }
 
     }

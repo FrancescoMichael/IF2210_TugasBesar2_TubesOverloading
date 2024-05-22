@@ -1,7 +1,9 @@
 package card;
+import javax.swing.text.html.ImageView;
+
 import player.Player;
 
-public class Card {
+public class Card{
     protected String name;
     protected String pathToImg;
     protected Player owner;
@@ -9,9 +11,10 @@ public class Card {
 
     // contructor
     public Card(){
+
         this.name = "";
 
-        this.pathToImg = "";
+        this.pathToImg = "asset/blank.jpg";
         
     }
 
