@@ -28,14 +28,14 @@ public class DefaultTest {
             Player player2 = new Player("Ray");
     
             // adding cards 
-            player1.addCardToActiveDeckFirstEmpty(new Carnivore("Hiu Darat","b.png"));
-            player1.addCardToActiveDeckFirstEmpty(new Herbivore("Sapi","j.png"));
+            player1.addCardToActiveDeckFirstEmpty(new Carnivore("Hiu Darat"));
+            player1.addCardToActiveDeckFirstEmpty(new Herbivore("Sapi"));
             player1.addCardToActiveDeckFirstEmpty(new Omnivore());
 
         }catch (BaseException e){
             System.out.println(e.getMessage());
         }
-        // Testing using invokeCard, harvest, etc
+        // Testing using invokeCard, harvest, etc=
 
 
     }

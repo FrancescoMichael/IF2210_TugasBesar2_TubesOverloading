@@ -161,8 +161,13 @@ public class Player {
         }
         System.out.println();
         System.out.println("ACTIVE DECK");
-        for (Card card : activeDeck) {
-            System.out.print(card.getName().replace(" ", "-") + " ");
+        for (Card card : this.activeDeck) {
+            if (!card.isEmpty()){
+                System.out.print(card.getName().replace(" ", "-") + " ");
+            } else {
+                System.out.print("EMPTY ");
+            }
+          
         }
         System.out.println("\n");
         System.out.println("=================================");
