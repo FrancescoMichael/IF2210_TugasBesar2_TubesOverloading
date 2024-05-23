@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javafx.util.Pair;
 import oop.exceptionkerajaan.BaseException;
 import oop.gamemaster.*;
 
@@ -249,7 +250,8 @@ public class DraggableMaker {
         }
     }
 
-    public void setRedGlowOnRandomGroup(Pane[][] grid, int rows, int cols) {
+    public Integer[] setRedGlowOnRandomGroup(Pane[][] grid, int rows, int cols) {
+        Integer temp[] = new Integer[2];
         if (timer != null) {
             timer.stop();
             for (Pane cell : glowingCells) {
@@ -275,14 +277,25 @@ public class DraggableMaker {
                 setRedGlow(cell, true);
             }
         }
+        temp[0] = startRow;
+        temp[1] = startCol;
 
-        timer = new Timeline(new KeyFrame(Duration.seconds(30), event -> {
-            for (Pane cell : glowingCells) {
-                setRedGlow(cell, false);
-            }
-            glowingCells.clear();
-        }));
-        timer.setCycleCount(1);
-        timer.play();
+        return temp;
+
+        // timer = new Timeline(new KeyFrame(Duration.seconds(30), event -> {
+        //     for (Pane cell : glowingCells) {
+        //         setRedGlow(cell, false);
+        //     }
+        //     glowingCells.clear();
+        // }));
+        // timer.setCycleCount(1);
+        // timer.play();
+    }
+
+    public void removeGlowAll(){
+        for (Pane cell : glowingCells) {
+            setRedGlow(cell, false);
+        }
+        glowingCells.clear();
     }
 }

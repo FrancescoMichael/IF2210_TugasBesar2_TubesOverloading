@@ -752,7 +752,7 @@ public class FieldController implements Initializable{
         draggableMaker.makeDraggable(activeCard5, matrixGrid, gameMaster, false);
         draggableMaker.makeDraggable(activeCard6, matrixGrid, gameMaster, false);
 
-        // bearAttackButton.setOnAction(event -> simulateBearAttack());
+        bearAttackButton.setOnAction(event -> simulateBearAttack( 0 , 0));
 
         LoadPlugin.setOnMouseClicked(event -> {
             setState("LoadPlugin");
@@ -1196,6 +1196,7 @@ public class FieldController implements Initializable{
             gameMaster.getCurrentPlayer().printGridActiveDeckTest();
             hideAll();
             loadGridActiveDeck();
+            loadOther();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1254,17 +1255,17 @@ public class FieldController implements Initializable{
         }
     }
 
-    private void switchToSecondary(String state) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SaveLoadPlugin.fxml"));
-        Parent root = loader.load();
-        SecondaryController secondaryController = loader.getController();
-        secondaryController.setState(state);
-        List<String> deckImageUrls = getActiveDeckImageUrls();
-        secondaryController.updateTokoDeckImages(deckImageUrls);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) LoadPlugin.getScene().getWindow(); // Assuming LoadPlugin is in the current scene
-        stage.setScene(scene);
-        stage.show();
+    public void loadOther() {
+        firstPlayerMoney.setText(gameMaster.getPlayer(0).getGulden() + "");
+        secondPlayerMoney.setText(gameMaster.getPlayer(1).getGulden() + "");
+        turn.setText(gameMaster.getCurrentTurn() + "");
+        if (gameMaster.getCurrentTurn() % 2 == 0) {
+            titleplayer1turn.setVisible(true);
+            titleplayer2turn.setVisible(false);
+        } else {
+            titleplayer1turn.setVisible(false);
+            titleplayer2turn.setVisible(true);
+        }
     }
     
     public void setAllLabel(int row, int col) {
@@ -1318,7 +1319,7 @@ public class FieldController implements Initializable{
     }
 
     @FXML
-    public Pane[][]  simulateBearAttack(int rowStart, int colstart) {
+    public Integer[] simulateBearAttack(int damn, int cuk) {
         Pane[][] matrix_pane = new Pane[][] {
                 { plane11, plane12, plane13, plane14, plane15 },
                 { plane21, plane22, plane23, plane24, plane25 },
@@ -1333,16 +1334,12 @@ public class FieldController implements Initializable{
                 }
             }
         }
-        // draggableMaker.setRedGlow(plane11, isInEnemyField());
 
-        // draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
-        for (int row = 0 ; row < rowStart ; row++){
-            for (int col = 0 ; col < colstart ; col++){
-                draggableMaker.setRedGlow(matrix_pane[row][col], true);
-            }
-        }
+
+
+
         // startCountdown();
-        return matrix_pane;
+        return draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
     }
     public void setPanenPageVisibility(boolean bool) {
         label1.setVisible(bool);
