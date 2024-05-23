@@ -29,6 +29,7 @@ public class GameMaster {
     private int currentTurn;
     private PlantService plantService;
     private Shop shop;
+    private SaveLoad saveLoad;
 
     protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
             "Sapi", () -> new Herbivore("Sapi"),
@@ -354,7 +355,6 @@ public class GameMaster {
     }
 
     public void load(String folderPath, String type) {
-        SaveLoad saveLoad = new SaveLoad();
         try {
             List<String> currentShopItems = new ArrayList<>();
             List<Integer> playerStatus1 = new ArrayList<>();
