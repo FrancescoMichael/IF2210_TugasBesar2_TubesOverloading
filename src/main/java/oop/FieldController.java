@@ -518,9 +518,6 @@ public class FieldController implements Initializable{
     private ImageView SellButton;
 
     @FXML
-    private TextField QuantityInput;
-
-    @FXML
     private Label AnimalNameToko;
     
     @FXML
@@ -531,6 +528,9 @@ public class FieldController implements Initializable{
 
     @FXML
     private Label LabelKuantitas;
+
+    @FXML
+    private Label Kuantitas;
     
     private Timeline countdownTimeline;
 
@@ -547,6 +547,8 @@ public class FieldController implements Initializable{
     ImageView[] listActiveDeck;
 
     int currentProduct;
+
+    String currentProductName;
 
     public DraggableMaker getDraggableMaker(){
         return this.draggableMaker;
@@ -572,6 +574,7 @@ public class FieldController implements Initializable{
         toko_back.setOnMouseClicked(event -> {
             hideAll();
             loadGridActiveDeck();
+            loadOther();
         });
 
         chooseFilePluginLabel.setOnMouseClicked(event -> {
@@ -787,11 +790,11 @@ public class FieldController implements Initializable{
             AnimalNameToko.setVisible(false);
             ClosePopUpToko.setVisible(false);
             Harga.setVisible(false);
-            QuantityInput.setVisible(false);
             BuyButton.setVisible(false);
             SellButton.setVisible(false);
             LabelHarga.setVisible(false);
             LabelKuantitas.setVisible(false);
+            Kuantitas.setVisible(false);
         });
     }
 
@@ -889,12 +892,13 @@ public class FieldController implements Initializable{
         toko_telur.setVisible(visible);
         toko_labu.setVisible(visible);
         toko_daging_beruang.setVisible(visible);
-
+        
         List<String> deckImageUrls = getActiveDeckImageUrls();
         List<String> deckImageNames = getActiveDeckImageName();
         updateTokoDeckImages(deckImageUrls);
 
         toko_daging_domba.setOnMouseClicked(event -> {
+            currentProductName = "Daging Domba";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_domba.png"));
             ImageToko.setVisible(visible);
@@ -904,9 +908,14 @@ public class FieldController implements Initializable{
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
+            Kuantitas.setVisible(visible);
+            Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
+            Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_jagung.setOnMouseClicked(event -> {
+            currentProductName = "Jagung";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/jagung.png"));
             ImageToko.setVisible(visible);
@@ -916,9 +925,14 @@ public class FieldController implements Initializable{
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
+            Kuantitas.setVisible(visible);
+            Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
+            Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_daging_kuda.setOnMouseClicked(event -> {
+            currentProductName = "Daging Kuda";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_kuda.png"));
             ImageToko.setVisible(visible);
@@ -928,9 +942,14 @@ public class FieldController implements Initializable{
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
+            Kuantitas.setVisible(visible);
+            Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
+            Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_sirip_hiu.setOnMouseClicked(event -> {
+            currentProductName = "Sirip Hiu";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/sirip_hiu.png"));
             ImageToko.setVisible(visible);
@@ -938,11 +957,16 @@ public class FieldController implements Initializable{
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
+            Kuantitas.setVisible(visible);
+            Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
+            Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_stroberi.setOnMouseClicked(event -> {
+            currentProductName = "Stroberi";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/stroberi.png"));
             ImageToko.setVisible(visible);
@@ -952,9 +976,14 @@ public class FieldController implements Initializable{
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
+            Kuantitas.setVisible(visible);
+            Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
+            Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_susu.setOnMouseClicked(event -> {
+            currentProductName = "Susu";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/susu.png"));
             ImageToko.setVisible(visible);
@@ -964,9 +993,14 @@ public class FieldController implements Initializable{
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
+            Kuantitas.setVisible(visible);
+            Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
+            Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_telur.setOnMouseClicked(event -> {
+            currentProductName = "Telur";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/telur.png"));
             ImageToko.setVisible(visible);
@@ -976,9 +1010,14 @@ public class FieldController implements Initializable{
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
+            Kuantitas.setVisible(visible);
+            Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
+            Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_labu.setOnMouseClicked(event -> {
+            currentProductName = "Labu";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/labu.png"));
             ImageToko.setVisible(visible);
@@ -988,9 +1027,14 @@ public class FieldController implements Initializable{
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
+            Kuantitas.setVisible(visible);
+            Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
+            Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_daging_beruang.setOnMouseClicked(event -> {
+            currentProductName = "Daging Beruang";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_beruang.png"));
             ImageToko.setVisible(visible);
@@ -1000,8 +1044,12 @@ public class FieldController implements Initializable{
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
+            Kuantitas.setVisible(visible);
+            Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
+            Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_deck7.setOnMouseClicked(event -> {
             currentProduct = 0;
             PopUpToko.setVisible(visible);
@@ -1012,10 +1060,15 @@ public class FieldController implements Initializable{
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
-            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
+            Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
+            if (currentCard instanceof Product) {
+                Harga.setText( ((Product) currentCard).getPrice() + "");
+            } else {
+                Harga.setText("Nan");
+            }
         });
-
+        
         toko_deck8.setOnMouseClicked(event -> {
             currentProduct = 1;
             PopUpToko.setVisible(visible);
@@ -1023,15 +1076,20 @@ public class FieldController implements Initializable{
             System.out.println(deckImageUrls.get(1));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText(deckImageNames.get(1));
-
+            
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
-            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
+            Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
+            if (currentCard instanceof Product) {
+                Harga.setText( ((Product) currentCard).getPrice() + "");
+            } else {
+                Harga.setText("Nan");
+            }
         });
-
+        
         toko_deck9.setOnMouseClicked(event -> {
             currentProduct = 2;
             PopUpToko.setVisible(visible);
@@ -1042,10 +1100,15 @@ public class FieldController implements Initializable{
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
-            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
+            Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
+            if (currentCard instanceof Product) {
+                Harga.setText( ((Product) currentCard).getPrice() + "");
+            } else {
+                Harga.setText("Nan");
+            }
         });
-
+        
         toko_deck10.setOnMouseClicked(event -> {
             currentProduct = 3;
             PopUpToko.setVisible(visible);
@@ -1057,10 +1120,15 @@ public class FieldController implements Initializable{
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
-            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
+            Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
+            if (currentCard instanceof Product) {
+                Harga.setText( ((Product) currentCard).getPrice() + "");
+            } else {
+                Harga.setText("Nan");
+            }
         });
-
+        
         toko_deck11.setOnMouseClicked(event -> {
             currentProduct = 4;
             PopUpToko.setVisible(visible);
@@ -1071,10 +1139,15 @@ public class FieldController implements Initializable{
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
-            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
+            Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
+            if (currentCard instanceof Product) {
+                Harga.setText( ((Product) currentCard).getPrice() + "");
+            } else {
+                Harga.setText("Nan");
+            }
         });
-
+        
         toko_deck12.setOnMouseClicked(event -> {
             currentProduct = 5;
             PopUpToko.setVisible(visible);
@@ -1085,13 +1158,17 @@ public class FieldController implements Initializable{
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
-            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
+            Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
+            if (currentCard instanceof Product) {
+                Harga.setText( ((Product) currentCard).getPrice() + "");
+            } else {
+                Harga.setText("Nan");
+            }
         });
-
+        
         SellButton.setOnMouseClicked(event -> {
             try {
-                System.out.println(currentProduct);
                 gameMaster.getShop().Sell(gameMaster.getCurrentPlayer(), currentProduct);
                 loadToko();
                 PopUpToko.setVisible(false);
@@ -1099,11 +1176,30 @@ public class FieldController implements Initializable{
                 AnimalNameToko.setVisible(false);
                 ClosePopUpToko.setVisible(false);
                 Harga.setVisible(false);
-                QuantityInput.setVisible(false);
                 BuyButton.setVisible(false);
                 SellButton.setVisible(false);
                 LabelHarga.setVisible(false);
                 LabelKuantitas.setVisible(false);
+                Kuantitas.setVisible(false);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        });
+
+        BuyButton.setOnMouseClicked(event -> {
+            try {
+                gameMaster.getShop().Buy(gameMaster.getCurrentPlayer(), currentProductName);
+                loadToko();
+                PopUpToko.setVisible(false);
+                ImageToko.setVisible(false);
+                AnimalNameToko.setVisible(false);
+                ClosePopUpToko.setVisible(false);
+                Harga.setVisible(false);
+                BuyButton.setVisible(false);
+                SellButton.setVisible(false);
+                LabelHarga.setVisible(false);
+                LabelKuantitas.setVisible(false);
+                Kuantitas.setVisible(false);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

@@ -37,18 +37,22 @@ public class Shop {
                 "Stroberi", new HerbivoreFood("Stroberi", 350, "Herbivore", 5));
     }
 
-    public void Buy(Player currentPlayer, String productName, Integer quantity) throws BaseException {
+    public Map<String, Product> getProducts() {
+        return this.allHarvestedProduct;
+    }
+
+    public void Buy(Player currentPlayer, String productName) throws BaseException {
         Product selectedProduct = allHarvestedProduct.get(productName);
         Integer currentStock = stock.get(productName);
 
         // check gulden, check deck, check stock
-        if (currentPlayer.getGulden() >= (selectedProduct.getPrice() * quantity)
-                && (currentPlayer.getCardDeckLeft() >= quantity) && (currentStock >= quantity)) {
+        if (currentPlayer.getGulden() >= (selectedProduct.getPrice())
+                && (currentPlayer.getCardDeckLeft() >= 1) && (currentStock >= 1)) {
             // Decrease player's gulden
-            currentPlayer.setGulden(currentPlayer.getGulden() - (selectedProduct.getPrice() * quantity));
+            currentPlayer.setGulden(currentPlayer.getGulden() - (selectedProduct.getPrice()));
 
             // Decrease stock
-            stock.put(productName, currentStock - quantity);
+            stock.put(productName, currentStock - 1);
 
             // Create a new product instance
             Product productTemp;
@@ -60,9 +64,7 @@ public class Shop {
             productTemp.setOwner(currentPlayer);
 
             // Add product to player's active deck
-            for (int i = 0; i < quantity; i++) {
-                currentPlayer.addCardToActiveDeckFirstEmpty(productTemp);
-            }
+            currentPlayer.addCardToActiveDeckFirstEmpty(productTemp);
         } else {
             throw new BaseException("Stock habis atau uang tidak cukup");
         }

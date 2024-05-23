@@ -265,9 +265,9 @@ public class GameMaster {
         this.plantService.increaseAgeOfPlants();
         if (random.nextBoolean()) {
 
-            this.bearAttack = true;
-            System.out.println("RUNNING TIMER BEAR");
-            this.bearAttackTimer(timeLabel,controller);
+            // this.bearAttack = true;
+            // System.out.println("RUNNING TIMER BEAR");
+            // this.bearAttackTimer(timeLabel,controller);
             // this.bearAttack = true;
 
             // this.bearAttackTimer(timeLabel,controller,startRow,startCol);

@@ -606,6 +606,7 @@
       <Label fx:id="LabelHarga" layoutX="382.0" layoutY="333.0" text="Harga" textFill="WHITE" visible="false" />
       <Label fx:id="Harga" layoutX="382.0" layoutY="357.0" text="Label" textFill="WHITE" visible="false" />
       <Label fx:id="LabelKuantitas" layoutX="382.0" layoutY="388.0" text="Kuantitas" textFill="WHITE" visible="false" />
+      <Label fx:id="Kuantitas" layoutX="382.0" layoutY="408.0" textFill="WHITE" prefHeight="26.0" prefWidth="66.0" visible="false" />
       <ImageView fx:id="BuyButton" fitHeight="38.0" fitWidth="122.0" layoutX="490.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/button/beli.png" />
@@ -616,7 +617,6 @@
             <Image url="@../assets/OOP%202/OOP%202/button/jual.png" />
          </image>
       </ImageView>
-      <TextField fx:id="QuantityInput" layoutX="375.0" layoutY="422.0" prefHeight="26.0" prefWidth="66.0" visible="false" />
       <Label fx:id="AnimalNameToko" layoutX="500.0" layoutY="290.0" text="Label" textFill="WHITE" visible="false" />
       <ImageView fx:id="ClosePopUpToko" fitHeight="18.0" fitWidth="20.0" layoutX="706.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
