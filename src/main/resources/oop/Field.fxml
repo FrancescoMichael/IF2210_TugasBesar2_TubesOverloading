@@ -512,9 +512,49 @@
             <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="toko_list_items" fitHeight="343.0" fitWidth="717.0" layoutX="205.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="toko_daging_domba" fitHeight="100.0" fitWidth="190.0" layoutX="207.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/OOP%202/OOP%202/misc/item.png" />
+            <Image url="@../assets/OOP%202/OOP%202/toko/daging_domba.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_jagung" fitHeight="100.0" fitWidth="190.0" layoutX="207.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/toko/jagung.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_daging_kuda" fitHeight="100.0" fitWidth="190.0" layoutX="207.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/toko/daging_kuda.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_sirip_hiu" fitHeight="100.0" fitWidth="190.0" layoutX="447.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/toko/sirip_hiu.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_stroberi" fitHeight="100.0" fitWidth="190.0" layoutX="447.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/toko/stroberi.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_susu" fitHeight="100.0" fitWidth="190.0" layoutX="447.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/toko/susu.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_telur" fitHeight="100.0" fitWidth="190.0" layoutX="687.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/toko/telur.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_labu" fitHeight="100.0" fitWidth="190.0" layoutX="687.0" layoutY="340.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/toko/labu.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_daging_beruang" fitHeight="100.0" fitWidth="190.0" layoutX="687.0" layoutY="460.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/toko/daging_beruang.png" />
          </image>
       </ImageView>
       <ImageView fx:id="toko_back" fitHeight="59.0" fitWidth="143.0" layoutX="469.0" layoutY="591.0" pickOnBounds="true" preserveRatio="true">
