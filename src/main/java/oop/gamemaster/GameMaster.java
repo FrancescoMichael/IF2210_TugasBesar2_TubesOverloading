@@ -161,7 +161,8 @@ public class GameMaster {
         }
 
         controller.getDraggableMaker().removeRedGlow(panes, row, col);
-        controller.loadGridActiveDeck();
+        System.out.println("DONE DISINI");
+        // controller.loadGridActiveDeck();
     
 
 
@@ -171,11 +172,10 @@ public class GameMaster {
         Pane[][] panes = controller.simulateBearAttack(row, col); // set red glow
 
 
-        final double[] timeLeft = {10.0};  // Time in seconds for the bear attack duration
+        final double[] timeLeft = {2.0};  // Time in seconds for the bear attack duration
         final Timeline[] timelineWrapper = new Timeline[1];  // Wrapper to hold the timeline
         timerLabel.setText("");
         timerLabel.setVisible(true);
-        controller.simulateBearAttack(row, col);
         timelineWrapper[0] = new Timeline(new KeyFrame(Duration.millis(100), event -> {
             timeLeft[0] -= 0.1;  // Decrement the time
             timerLabel.setText(String.format(" %.1f seconds", timeLeft[0]));
@@ -183,14 +183,16 @@ public class GameMaster {
             if (timeLeft[0] <= 0) {
                 timelineWrapper[0].stop();
                 timerLabel.setVisible(false);
+                bearAttackProcess(panes,controller, row, col);
+                // Platform.runLater(() -> {
+                //     try {
+                //         System.out.println(row + " col : " + col);
+                //         bearAttackProcess(panes,controller, row, col);
 
-                Platform.runLater(() -> {
-                    try {
-                        bearAttackProcess(panes,controller, row, col);
 
-                    } finally {
-                    }
-                });
+                //     } finally {
+                //     }
+                // });
             }
         }));
         
@@ -217,6 +219,10 @@ public class GameMaster {
 
     public void setPlantService(PlantService plantService) {
         this.plantService = plantService;
+    }
+
+    public SaveLoad getSaveLoad(){
+        return this.saveLoad;
     }
 
     // other functions
@@ -445,24 +451,32 @@ public class GameMaster {
             }
 
         }
+        
+        playerChange.emptyGrid();
         for (int i = 0; i < gridString.size(); i++) {
-            String[] parts = activeDeckString.get(i).split(" ");
+            String[] parts = gridString.get(i).split(" ");
+            System.out.println("Ini parts" + parts[0] + parts[1] + parts[2]);
             int index = coordinateToIndex(parts[0]);
-            if (index > 19) {
+            System.out.println("Ini index: " + index);
+            if (index <= 19) {
                 Card newCard = allCardMap.get(formatItemString(parts[1])).get();
                 Creature newCreature = (Creature) newCard;
                 newCreature.setWeight(Integer.parseInt(parts[2]));
                 newCreature.setWeightAfterEffect(Integer.parseInt(parts[2]));
                 int effectCount = Integer.parseInt(parts[3]);
+                System.out.println("ngasih effect mazeh");
                 for (int j = 0; j < effectCount; j++) {
                     Card newCardItem = allCardMap.get(formatItemString(parts[4 + j])).get();
                     Item newItem = (Item) newCardItem;
+                    System.out.println("dikasih effect mazeh");
                     try {
                         newItem.useCard(newCreature, 0, 0);
+                        System.out.println(" effect mazeh");
                     } catch (Exception e) {
 
                     }
                 }
+                System.out.println("masukkin effect mazeh");
                 try {
                     playerChange.addCardToGrid(newCreature, index / 5, index % 5);
 
@@ -485,7 +499,7 @@ public class GameMaster {
             List<String> gridString2 = new ArrayList<>();
             this.currentTurn = saveLoad.Load(folderPath, type, currentShopItems,
                     playerStatus1, activeDeckString1, gridString1,
-                    playerStatus2, activeDeckString2, gridString2);
+                    playerStatus2, activeDeckString2, gridString2) -1 ;
 
             this.shop.getStock().clear();
             for (int i = 0; i < currentShopItems.size(); i++) {
