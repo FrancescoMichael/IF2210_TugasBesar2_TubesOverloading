@@ -752,7 +752,7 @@ public class FieldController implements Initializable{
         draggableMaker.makeDraggable(activeCard5, matrixGrid, gameMaster, false);
         draggableMaker.makeDraggable(activeCard6, matrixGrid, gameMaster, false);
 
-        // bearAttackButton.setOnAction(event -> simulateBearAttack());
+        bearAttackButton.setOnAction(event -> simulateBearAttack( 0 , 0));
 
         LoadPlugin.setOnMouseClicked(event -> {
             setState("LoadPlugin");
@@ -877,6 +877,7 @@ public class FieldController implements Initializable{
         toko_daging_beruang.setVisible(visible);
 
         List<String> deckImageUrls = getActiveDeckImageUrls();
+        List<String> deckImageNames = getActiveDeckImageName();
         updateTokoDeckImages(deckImageUrls);
 
         toko_daging_domba.setOnMouseClicked(event -> {
@@ -980,9 +981,9 @@ public class FieldController implements Initializable{
 
         toko_deck7.setOnMouseClicked(event -> {
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(0)));
+            ImageToko.setImage(new Image(deckImageUrls.get(0).replace("cards", "icons")));
             ImageToko.setVisible(visible);
-            AnimalNameToko.setText("Card 1");
+            AnimalNameToko.setText(deckImageNames.get(0));
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             SellButton.setVisible(visible);
@@ -990,9 +991,11 @@ public class FieldController implements Initializable{
 
         toko_deck8.setOnMouseClicked(event -> {
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(1)));
+            ImageToko.setImage(new Image(deckImageUrls.get(1).replace("cards", "icons")));
+            System.out.println(deckImageUrls.get(1).replace("cards", "icons"));
             ImageToko.setVisible(visible);
-            AnimalNameToko.setText("Card 2");
+            AnimalNameToko.setText(deckImageNames.get(1));
+
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             SellButton.setVisible(visible);
@@ -1000,9 +1003,9 @@ public class FieldController implements Initializable{
 
         toko_deck9.setOnMouseClicked(event -> {
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(2)));
+            ImageToko.setImage(new Image(deckImageUrls.get(2).replace("cards", "icons")));
             ImageToko.setVisible(visible);
-            AnimalNameToko.setText("Card 3");
+            AnimalNameToko.setText(deckImageNames.get(2));
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             SellButton.setVisible(visible);
@@ -1010,9 +1013,10 @@ public class FieldController implements Initializable{
 
         toko_deck10.setOnMouseClicked(event -> {
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(3)));
+            ImageToko.setImage(new Image(deckImageUrls.get(3).replace("cards", "icons")));
+            System.out.println(deckImageUrls.get(3).replace("cards", "icons"));
             ImageToko.setVisible(visible);
-            AnimalNameToko.setText("Card 4");
+            AnimalNameToko.setText(deckImageNames.get(3));
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             SellButton.setVisible(visible);
@@ -1020,9 +1024,9 @@ public class FieldController implements Initializable{
 
         toko_deck11.setOnMouseClicked(event -> {
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(4)));
+            ImageToko.setImage(new Image(deckImageUrls.get(4).replace("cards", "icons")));
             ImageToko.setVisible(visible);
-            AnimalNameToko.setText("Card 5");
+            AnimalNameToko.setText(deckImageNames.get(4));
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             SellButton.setVisible(visible);
@@ -1030,9 +1034,9 @@ public class FieldController implements Initializable{
 
         toko_deck12.setOnMouseClicked(event -> {
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(5)));
+            ImageToko.setImage(new Image(deckImageUrls.get(5).replace("cards", "icons")));
             ImageToko.setVisible(visible);
-            AnimalNameToko.setText("Card 6");
+            AnimalNameToko.setText(deckImageNames.get(5));
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             SellButton.setVisible(visible);
@@ -1322,7 +1326,7 @@ public class FieldController implements Initializable{
     }
 
     @FXML
-    public Pane[][]  simulateBearAttack(int rowStart, int colstart) {
+    public Integer[] simulateBearAttack(int damn, int cuk) {
         Pane[][] matrix_pane = new Pane[][] {
                 { plane11, plane12, plane13, plane14, plane15 },
                 { plane21, plane22, plane23, plane24, plane25 },
@@ -1337,16 +1341,12 @@ public class FieldController implements Initializable{
                 }
             }
         }
-        // draggableMaker.setRedGlow(plane11, isInEnemyField());
 
-        // draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
-        for (int row = 0 ; row < rowStart ; row++){
-            for (int col = 0 ; col < colstart ; col++){
-                draggableMaker.setRedGlow(matrix_pane[row][col], true);
-            }
-        }
+
+
+
         // startCountdown();
-        return matrix_pane;
+        return draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
     }
     public void setPanenPageVisibility(boolean bool) {
         label1.setVisible(bool);
@@ -1433,5 +1433,27 @@ public class FieldController implements Initializable{
             // Handle the exception, e.g., show an error message to the user
         }
         return imageUrls;
+    }
+
+    private List<String> getActiveDeckImageName() {
+        List<String> imageNames = new ArrayList<>();
+
+        try {
+            for (ImageView activeCard : listActiveDeck) {
+                String activeCardId = activeCard.getId();
+                int index = ((int) activeCardId.charAt(activeCardId.length() - 1) - '0') - 1;
+                String imageName = gameMaster.getCurrentPlayer().getCardActiveDeck(index).getName();
+                if (imageName == null) {
+                    imageNames.add("Tidak ada kartu disini!");
+                } else {
+                    imageNames.add(imageName);
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+            // Handle the exception, e.g., show an error message to the user
+        }
+        return imageNames;
+
     }
 }
