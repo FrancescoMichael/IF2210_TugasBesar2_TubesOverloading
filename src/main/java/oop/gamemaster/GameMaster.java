@@ -57,6 +57,7 @@ public class GameMaster {
     private Player currentFieldPlayer;
     private int currentTurn;
     private PlantService plantService;
+    // private 
     protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
             "Sapi", () -> new Herbivore("Sapi"),
             "Domba", () -> new Herbivore("Domba"),
@@ -99,6 +100,7 @@ public class GameMaster {
         this.listPlayers = new ArrayList<>();
         this.currentTurn = 0;
         this.plantService = new PlantService();
+        Player.setPlayerPlantService(plantService);
     }
 
     // getters
@@ -123,7 +125,7 @@ public class GameMaster {
        this.listPlayers  = listPlayers;
     }
 
-    public void setCurrentTurn(int currentTurn){
+    public void setCurrentTurn(int currentTurn) {
         this.currentTurn = currentTurn;
     }
 
@@ -147,13 +149,22 @@ public class GameMaster {
         this.currentFieldPlayer = player;
     }
 
+    public void bearAttack(){
+        // sleep 30 seconds
+
+    }
     public void next() {
         this.currentTurn++;
-        ArrayList<Plant> arr = listPlayers.get(0).getAllPlantsInGrid(); // first player in list
-        arr.addAll(listPlayers.get(1).getAllPlantsInGrid()); // second player
-        this.plantService.setPlants(arr);
+        // ArrayList<Plant> arr = listPlayers.get(0).getAllPlantsInGrid(); // first player in list
+        // arr.addAll(listPlayers.get(1).getAllPlantsInGrid()); // second player
+        // this.plantService.setPlants(arr);
         this.plantService.increaseAgeOfPlants();
         if (random.nextBoolean()) {
+            /// 
+
+            // list what ever
+            // set atribut true bear attack
+            // WAIT TIMER ON  = 30 
             // bearAttack();
         }       
     }

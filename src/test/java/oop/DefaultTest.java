@@ -16,11 +16,13 @@ import oop.card.item.Item;
 import oop.card.product.CarnivoreFood;
 import oop.card.product.HerbivoreFood;
 import oop.exceptionkerajaan.BaseException;
+import oop.observer.PlantService;
 import oop.player.Player;
 import static java.util.Map.entry;
  
 
 public class DefaultTest {
+
     protected static Map<String, Supplier<? extends Card>> allCardMap = Map.ofEntries(
             entry("Sapi", () -> new Herbivore("Sapi")),
             entry("Domba", () -> new Herbivore("Domba")),
@@ -50,6 +52,11 @@ public class DefaultTest {
     public void test(){
         assertTrue( true );
         try{
+            Player.setPlayerPlantService(new PlantService());
+            // Testing Map !!!
+            Card testCard = allCardMap.get("Biji Stroberi").get();
+            Creature testAfter = (Creature)testCard;
+            assertTrue(testAfter instanceof Plant);
             // initializing Players
             Player player1 = new Player("marvel");
             Player player2 = new Player("Ray");

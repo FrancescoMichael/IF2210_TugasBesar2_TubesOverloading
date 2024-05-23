@@ -167,10 +167,19 @@ public class Creature extends Card implements UsableCard {
     public void increaseWeight(int additionalWeight) {
         this.weight += additionalWeight;
         this.weightAfterEffect += additionalWeight;
+        if (this.weight  < 0){
+            this.weight = 0;
+        }
+        if (this.weightAfterEffect < 0){
+            this.weightAfterEffect = 0;
+        }
     }
 
     public void increaseWeightAfterEffect(int additionalWeight) {
         this.weightAfterEffect += additionalWeight;
+        if (this.weightAfterEffect < 0){
+            this.weightAfterEffect = 0;
+        }
     }
 
     public void addEffect(Item effect) {

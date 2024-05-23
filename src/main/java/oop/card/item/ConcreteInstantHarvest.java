@@ -11,16 +11,23 @@ public class ConcreteInstantHarvest implements ItemEffect{
 
         // check if the same owner
         // check if target card is a plant
-        if (currentCard.getOwner() == cardTarget.getOwner() && (cardTarget instanceof Creature) && !cardTarget.isEmpty()){
+        if (  (cardTarget instanceof Creature) && !cardTarget.isEmpty()){
 
             // check if owner active deck is full
-            if (currentCard.getOwner().isActiveDeckFull() ){
+            if (cardTarget.getOwner().isActiveDeckFull() && cardTarget.getOwner() != currentCard.getOwner()){
                 throw new ActiveDeckFullException();
             } else {
 
                 // Product finalHarvest, add to active deck
-                currentCard.getOwner().addCardToActiveDeckFirstEmpty(cardTarget.getHarvestedProduct()); // 
-                currentCard.getOwner().setBlankOnGrid(row, col); // set blank on target at grid row and col
+                System.out.println("HEREEE");
+                int i = currentCard.getOwner().getCardIndexAtActiveDeck(currentCard);
+
+                // set active deck blank
+                currentCard.getOwner().removeCardAtActiveDeck(i);
+                System.out.println(i);
+                cardTarget.getOwner().addCardToActiveDeckFirstEmpty(cardTarget.getHarvestedProduct()); // 
+                System.out.println(cardTarget.getHarvestedProduct());
+                cardTarget.getOwner().setBlankOnGrid(row, col); // set blank on target at grid row and col
             }
         } else {
             throw new InvalidCardPlacementException();

@@ -6,6 +6,7 @@ import oop.exceptionkerajaan.*;
 import oop.card.creature.Creature;
 import oop.card.creature.Plant;
 import oop.card.item.*;
+import oop.observer.*;
 
 public class Player {
     private String name;
@@ -15,6 +16,7 @@ public class Player {
     private Creature emptyCreature = new Creature("", this);
     private Card emptyCard = new Card("", this);
     private int cardDeckLeft;
+    private static PlantService plantService;
 
     // Constructor
     public Player() {
@@ -69,9 +71,13 @@ public class Player {
         this.cardDeckLeft = cardDeckLeft;
     }
 
-    public void setCardGrid(Creature card, int row, int col) {}
+    // public void setCardGrid(Creature card, int row, int col) {}
 
     // other methods
+
+    public static void setPlayerPlantService(PlantService plantService2) {
+        Player.plantService = plantService2;
+    }
 
     // find the index firstEmpty in active deck
     public int firstEmptyActiveDeck() {
@@ -92,8 +98,7 @@ public class Player {
         this.activeDeck[this.firstEmptyActiveDeck()] = card;
     }
 
-    //
-    public void addCardToActiveDeck(Card card, int index){
+    public void addCardToActiveDeck(Card card, int index) {
         card.setOwner(this);
         this.activeDeck[index] = card;
     }
@@ -101,13 +106,23 @@ public class Player {
     public void addCardToGrid(Creature card, int row, int col) throws BaseException {
         int arrayIDX = row * 5 + col;
         card.setOwner(this);
-        this.grid.add(arrayIDX, card);
+        this.grid.set(arrayIDX, card);
+        if (card instanceof Plant) {
+            // subscribe plant card
+            Player.plantService.subscribe((Plant) card);
+        }
     }
 
     public void setBlankOnGrid(int row, int col) {
         int arrayIDX = row * 5 + col;
         // this.grid.add(arrayIDX, new Creature("","",this));
+        if (this.getCardGrid(row, col) instanceof Plant) {
+
+            // unsubscribe plant
+            Player.plantService.unsubscribe((Plant) this.getCardGrid(row, col));
+        }
         this.grid.set(arrayIDX, this.emptyCreature);
+
     }
 
     public void removeCardAtActiveDeck(int index) throws BaseException {
@@ -136,11 +151,11 @@ public class Player {
     }
 
     // main methods for grid and activeDeck
-    public Card getCardActiveDeck(int index){
+    public Card getCardActiveDeck(int index) {
         return this.activeDeck[index];
     }
 
-    public Creature getCardGrid(int row, int col)  {
+    public Creature getCardGrid(int row, int col) {
         int arrayIDX = row * 5 + col;
         return this.grid.get(arrayIDX);
     }
@@ -196,21 +211,29 @@ public class Player {
         if (currCard instanceof UsableCard && !currCard.isEmpty()) {
             Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
             ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
-
+            if ( currCard instanceof Item ){
+                if ( ((Item)currCard).getEffect() instanceof ConcreteInstantHarvest ){
+                   return; 
+                }
+            }
+            this.removeCardAtActiveDeck(activeCardIndex);
         } else {
             throw new InvalidCardPlacementException();
         }
 
     }
 
-    public void invokeCardGridtoGrid(int rowSource, int colSource, int rowTarget, int colTarget, Player targetGridPlayer)
+    public void moveCardGridtoGrid(int rowSource, int colSource, int rowTarget, int colTarget,
+            Player targetGridPlayer)
             throws BaseException {
-        Creature currCard = targetGridPlayer.getCardGrid(rowSource, colSource);
-        
+        Creature currCard = this.getCardGrid(rowSource, colSource);
+        Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
         // check if usable and not a blank card
-        if (currCard instanceof UsableCard && !currCard.isEmpty()) {
-            Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
-            ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
+        if (currCard instanceof UsableCard && !currCard.isEmpty() && targetCard.isEmpty() && this == targetGridPlayer) {
+
+            // ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
+            this.grid.set(rowTarget * 5 + colTarget , currCard);
+            this.grid.set(rowSource * 5 + colSource, targetCard);
 
         } else {
             throw new InvalidCardPlacementException();
@@ -247,17 +270,27 @@ public class Player {
         return temp;
     }
 
-    public List<String> getAllEffecArrayList(int row, int col){
+    public List<String> getAllEffecArrayList(int row, int col) {
         Creature card = this.getCardGrid(row, col);
         Map<String, Integer> countMap = new HashMap<>();
-        for (Item item : card.getItemEffects()){
-            countMap.put(item.getName() ,countMap.getOrDefault(item.getName() , 0) + 1 );
+        for (Item item : card.getItemEffects()) {
+            countMap.put(item.getName(), countMap.getOrDefault(item.getName(), 0) + 1);
         }
         List<String> resultList = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
-            resultList.add(entry.getKey() + "(" + entry.getValue() + ")");
+            resultList.add(entry.getKey() + "( " + entry.getValue() + " )");
         }
         return resultList;
+    }
+
+
+    public int getCardIndexAtActiveDeck(Card card){
+        for (int i = 0 ; i < 6 ; i++){
+            if (this.getCardActiveDeck(i) == card){
+                return i;
+            }
+        }
+        return -1;
     }
 
 }

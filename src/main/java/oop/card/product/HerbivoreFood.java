@@ -41,7 +41,7 @@ public class HerbivoreFood extends Product implements Food, UsableCard {
     @Override
     public void useCard(Card targetCard, int row, int col) throws BaseException {
 
-        if (targetCard instanceof Animals) {
+        if (targetCard instanceof Animals && this.getOwner() == targetCard.getOwner()) {
             this.beEaten((Animals) targetCard);
         } else {
             throw new InvalidCardPlacementException();

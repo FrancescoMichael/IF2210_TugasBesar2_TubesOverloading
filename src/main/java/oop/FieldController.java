@@ -354,6 +354,7 @@ public class FieldController implements Initializable {
             player1.addCardToActiveDeckFirstEmpty(new Item("Delay"));
             player1.addCardToActiveDeckFirstEmpty(new Item("Trap"));
             player1.addCardToActiveDeckFirstEmpty(new Plant("Biji Stroberi"));
+
         } catch (Exception e) {
             System.out.println(e.getMessage());
             // TODO: handle exception
@@ -365,6 +366,7 @@ public class FieldController implements Initializable {
             player2.addCardToActiveDeck(new Item("Destroy"), 3);
             player2.addCardToActiveDeck(new Item("Instant Harvest"), 4);
             player2.addCardToActiveDeck(new Item("Accelerate"), 5);
+            player2.addCardToGrid( new Omnivore("Beruang"), 0, 0);
         } catch (Exception e) {
             System.out.println(e.getMessage());
             // TODO: handle exception
@@ -376,17 +378,17 @@ public class FieldController implements Initializable {
 
         // initialize matrixgrid and matrixCardInField
         matrixGrid = new ImageView[][] {
-            {grid11, grid12, grid13, grid14, grid15},
-            {grid21, grid22, grid23, grid24, grid25},
-            {grid31, grid32, grid33, grid34, grid35},
-            {grid41, grid42, grid43, grid44, grid45}
+                { grid11, grid12, grid13, grid14, grid15 },
+                { grid21, grid22, grid23, grid24, grid25 },
+                { grid31, grid32, grid33, grid34, grid35 },
+                { grid41, grid42, grid43, grid44, grid45 }
         };
 
         matrixCardInField = new ImageView[][] {
-            { kosong11, kosong12, kosong13, kosong14, kosong15 },
-            { kosong21, kosong22, kosong23, kosong24, kosong25 },
-            { kosong31, kosong32, kosong33, kosong34, kosong35 },
-            { kosong41, kosong42, kosong43, kosong44, kosong45 }
+                { kosong11, kosong12, kosong13, kosong14, kosong15 },
+                { kosong21, kosong22, kosong23, kosong24, kosong25 },
+                { kosong31, kosong32, kosong33, kosong34, kosong35 },
+                { kosong41, kosong42, kosong43, kosong44, kosong45 }
         };
 
         // initialize money and turn
@@ -394,10 +396,9 @@ public class FieldController implements Initializable {
         secondPlayerMoney.setText(gameMaster.getListPlayers().get(1).getGulden() + "");
         turn.setText((gameMaster.getCurrentTurn() + 1) + "");
 
-        
         listActiveDeck = new ImageView[] {
-            activeCard1, activeCard2, activeCard3,
-            activeCard4, activeCard5, activeCard6
+                activeCard1, activeCard2, activeCard3,
+                activeCard4, activeCard5, activeCard6
         };
 
         loadGridActiveDeck();
@@ -409,7 +410,7 @@ public class FieldController implements Initializable {
         CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false));
 
         glowButtonMaker.setGlow(PanenBtn);
-        
+
         glowButtonMaker.setGlow(nextTurnBtn);
         nextTurnBtn.setOnMouseClicked(event -> {
             gameMaster.next();
@@ -483,7 +484,7 @@ public class FieldController implements Initializable {
             SaveState1.setVisible(false);
             LoadPlugin1.setVisible(false);
         });
-        
+
         draggableMaker = new DraggableMaker(this);
 
         draggableMaker.makeDraggable(activeCard1, matrixGrid, gameMaster, false);
@@ -504,6 +505,7 @@ public class FieldController implements Initializable {
             if (imageUrl == null) {
                 activeCard.setImage(null);
             } else {
+
                 activeCard.setImage(new Image(imageUrl));
             }
         }
@@ -523,20 +525,20 @@ public class FieldController implements Initializable {
         }
     }
 
-    public void setAllLabel(Player player, int row, int col) {
-        AnimalName.setText(player.getCardGrid(row, col).getName());
-        String weightDetail = player.getCardGrid(row, col).getWeight() + " ("
-                + player.getCardGrid(row, col).getHarvestedWeightRequirement() + ")";
+    public void setAllLabel(int row, int col) {
+        AnimalName.setText(gameMaster.getCurrentPlayer().getCardGrid(row, col).getName());
+        String weightDetail = gameMaster.getCurrentPlayer().getCardGrid(row, col).getWeight() + " ("
+                + gameMaster.getCurrentPlayer().getCardGrid(row, col).getWeightAfterEffect() + ")";
         label2.setText(weightDetail);
         
-        List<Item> listItems = player.getCardGrid(row, col).getItemEffects();
+        List<Item> listItems = gameMaster.getCurrentPlayer().getCardGrid(row, col).getItemEffects();
         if (listItems.size() == 0) {
             label4.setText("");
             label5.setText("");
         }
 
         String temp = "";
-        for (String string: player.getAllEffecArrayList(row, col)){
+        for (String string: gameMaster.getCurrentPlayer().getAllEffecArrayList(row, col)){
             temp += string;
             temp += " \n";
         }
