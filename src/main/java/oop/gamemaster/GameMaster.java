@@ -24,8 +24,10 @@ import oop.card.*;
 public class GameMaster {
     private final Random random = new Random();
     private List<Player> listPlayers;
+    private Player currentFieldPlayer;
     private int currentTurn;
     private PlantService plantService;
+    
     protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
             "Sapi", () -> new Herbivore("Sapi"),
             "Domba", () -> new Herbivore("Domba"),
@@ -128,13 +130,27 @@ public class GameMaster {
         return this.listPlayers.get(n);
     }
 
+    public Player getCurrentFieldPlayer() {
+        return this.currentFieldPlayer;
+    }
+
+    public void setCurrentFieldPlayer(Player player) {
+        this.currentFieldPlayer = player;
+    }
+
     public void next() {
         this.currentTurn++;
-        ArrayList<Plant> arr = listPlayers.get(0).getAllPlantsInGrid();
-        arr.addAll(listPlayers.get(2).getAllPlantsInGrid());
+        ArrayList<Plant> arr = listPlayers.get(0).getAllPlantsInGrid(); // first player in list
+        arr.addAll(listPlayers.get(1).getAllPlantsInGrid()); // second player
         this.plantService.setPlants(arr);
         this.plantService.increaseAgeOfPlants();
-        if (random.nextBoolean()) {
+        if (true) {
+            // try {
+            //     Thread.sleep(30000);
+            // } catch (Exception e) {
+
+            // }
+
             // bearAttack();
         }
     }

@@ -191,7 +191,6 @@ public class Creature extends Card implements UsableCard {
     public void useCard(Card targetCard, int row, int col) throws BaseException {
 
         if (targetCard.isEmpty() && this.getOwner() == targetCard.getOwner()) {
-
             this.getOwner().addCardToGrid(this, row, col);
 
         } else {

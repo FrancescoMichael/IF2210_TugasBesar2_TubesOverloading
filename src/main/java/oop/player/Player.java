@@ -3,7 +3,6 @@ package oop.player;
 import java.util.*;
 import oop.card.*;
 import oop.exceptionkerajaan.*;
-import oop.card.creature.Creature;
 import oop.card.creature.*;
 
 public class Player {
@@ -203,6 +202,21 @@ public class Player {
     public void invokeCard(int activeCardIndex, int rowTarget, int colTarget, Player targetGridPlayer)
             throws BaseException {
         Card currCard = this.getCardActiveDeck(activeCardIndex);
+        // check if usable and not a blank card
+        if (currCard instanceof UsableCard && !currCard.isEmpty()) {
+            Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
+            ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
+
+        } else {
+            throw new InvalidCardPlacementException();
+        }
+
+    }
+
+    public void invokeCardGridtoGrid(int rowSource, int colSource, int rowTarget, int colTarget, Player targetGridPlayer)
+            throws BaseException {
+        Creature currCard = targetGridPlayer.getCardGrid(rowSource, colSource);
+        
         // check if usable and not a blank card
         if (currCard instanceof UsableCard && !currCard.isEmpty()) {
             Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
