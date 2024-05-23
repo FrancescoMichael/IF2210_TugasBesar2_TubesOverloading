@@ -3,11 +3,10 @@ package oop.gamemaster;
 import java.util.*;
 import java.util.function.Supplier;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+
+
 import javafx.application.Platform;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 
 import static java.util.Map.entry;
 
@@ -16,10 +15,8 @@ import oop.saveload.SaveLoad;
 import oop.observer.*;
 import oop.card.creature.*;
 import oop.card.item.Item;
-import oop.card.item.ItemEffect;
 import oop.card.product.CarnivoreFood;
 import oop.card.product.HerbivoreFood;
-import oop.card.product.Product;
 import oop.exceptionkerajaan.BaseException;
 import oop.FieldController;
 import oop.card.*;
@@ -50,6 +47,7 @@ public class GameMaster {
     private Shop shop;
     private SaveLoad saveLoad;
     private boolean bearAttack;
+    private ArrayList<Card> currentShuffle;
 
     protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
             "Sapi", () -> new Herbivore("Sapi"),
@@ -121,6 +119,8 @@ public class GameMaster {
         this.plantService = new PlantService();
         this.shop = new Shop();
         this.saveLoad = new SaveLoad();
+        this.bearAttack = false;
+        this.currentShuffle = new ArrayList<>();
         Player.setPlayerPlantService(plantService);
     }
 
@@ -140,10 +140,8 @@ public class GameMaster {
         ArrayList<Integer> cols = new ArrayList<>();
         for (int i = startRow; i < startRow + 2; i++) {
             for (int j = startCol; j < startCol + 3; j++) {
-                // Pane cell = grid[i][j];
-                // glowingCells.add(cell);
-                // setRedGlow(cell, true);
-                try {
+
+                try{    
                     Creature card = currPlayer.getCardGrid(i, j);
                     if (card.isTrap()) {
                         System.out.println("IS A TRAPPPP");
@@ -178,73 +176,10 @@ public class GameMaster {
         }
         controller.loadGridActiveDeck();
 
-        // Player currPlayer = this.getCurrentPlayer();
-        // for (int i = 0 ; i < row ; i++){
-        // for(int j = 0 ; j < col ; j++){
-        // try{
-        // if(currPlayer.getCardGrid(i, j).isTrap()){
-        // execute = false;
-        // break;
-        // }
-        // }catch(BaseException e){
-
-        // }
-
-        // }
-        // }
-        // if (execute){
-        // for (int i = 0 ; i < row ; i++){
-        // for(int j = 0 ; j < col ; j++){
-        // try{
-        // if( !currPlayer.getCardGrid(i, j).isProtected()){
-        // currPlayer.setBlankOnGrid(i, j);
-        // }
-        // }catch (BaseException e){
-
-        // }
-
-        // }
-        // }
-        // }
-
-        // controller.getDraggableMaker().removeRedGlow(panes, row, col);
-        // System.out.println("DONE DISINI");
-        // controller.loadGridActiveDeck();
 
     }
 
-    // public void bearAttackTimer(Label timerLabel, FieldController controller, int
-    // row, int col) throws BaseException {
-    // Integer[] startEnd = controller.simulateBearAttack(0, 0); // set red glow
-
-    // final double[] timeLeft = {2.0}; // Time in seconds for the bear attack
-    // duration
-    // final Timeline[] timelineWrapper = new Timeline[1]; // Wrapper to hold the
-    // timeline
-    // timerLabel.setText("");
-    // timerLabel.setVisible(true);
-
-    // // Thread damn = new Thread(()=> {
-
-    // // } );
-    // Runnable runnable = () -> {
-    // try{
-    // Thread.sleep(100);
-    // }catch (Exception e){
-
-    // }
-    // timeLeft[0] -= 0.1;
-    // timerLabel.setText(String.format(" %.1f seconds", timeLeft[0]));
-    // if (timeLeft[0] <= 0){
-    // timelineWrapper[0].stop();
-    // timerLabel.setVisible(false);
-    // bearAttackProcess(startEnd,controller, row, col);
-    // }
-    // };
-    // new Thread(runnable).start();
-
-    // }
-    public void bearAttackTimer(Label timerLabel, FieldController controller, int row, int col) throws BaseException {
+    public void bearAttackTimer(Label timerLabel, FieldController controller) throws BaseException {
         Integer[] startEnd = controller.simulateBearAttack(0, 0); // Assuming this method is thread-safe
 
         Platform.runLater(() -> {
@@ -276,9 +211,9 @@ public class GameMaster {
 
                 Platform.runLater(() -> {
                     timerLabel.setVisible(false);
-                    try {
-                        bearAttackProcess(startEnd, controller, row, col);
-                    } catch (BaseException e) {
+                    try{
+                        bearAttackProcess(startEnd, controller);
+                    } catch (BaseException e){
 
                     }
 
@@ -297,6 +232,10 @@ public class GameMaster {
 
     public int getCurrentTurn() {
         return this.currentTurn;
+    }
+
+    public Shop getShop() {
+        return this.shop;
     }
 
     // setters
@@ -322,6 +261,7 @@ public class GameMaster {
         return this.listPlayers.get(this.currentTurn % 2);
     }
 
+
     public Player getPlayer(int n) {
         return this.listPlayers.get(n);
     }
@@ -334,34 +274,40 @@ public class GameMaster {
         this.currentFieldPlayer = player;
     }
 
+    public void shuffle(Label timeLabel, FieldController controller){
+        Player currentPlayer = this.getCurrentPlayer();
+        List<Map.Entry<String, Supplier<? extends Card>>> entries = new ArrayList<>(allCardMap.entrySet());
+        Collections.shuffle(entries);
+        this.currentShuffle.clear();
+        Math.min( 4, currentPlayer.getNumberOfEmptyCardsActiveDeck());
+        List<Map.Entry<String, Supplier<? extends Card>>> selected = entries.subList(0, 4);
+        for (Map.Entry<String, Supplier<? extends Card>> entry :selected) {
+            Card card = entry.getValue().get();  
+            this.currentShuffle.add(card);
+        }
+
+    }
+
+    public void doneShuffling(int numCardUSed,Label timeLabel, FieldController controller) throws BaseException{
+        Player player = this.getCurrentPlayer();
+        for (Card card : this.currentShuffle){
+            player.addCardToActiveDeckFirstEmpty(card);
+        }
+        this.getCurrentPlayer().decrementCardDeckLeft(numCardUSed);
+        if (random.nextBoolean()) {
+            this.bearAttack = true;
+            System.out.println("RUNNING TIMER BEAR");
+            this.bearAttackTimer(timeLabel,controller);
+
+        }   
+    }
+
+
     public void next(Label timeLabel, FieldController controller) throws BaseException {
         this.currentTurn++;
         this.bearAttack = false;
         this.plantService.increaseAgeOfPlants();
-        if (random.nextBoolean()) {
-            Random random = new Random();
-            int startRow = 0;
-            int startCol = 0;
-            int count = 0;
-
-            // while (true && count < 1000) {
-            // startRow = random.nextInt(4) + 1;
-            // startCol = random.nextInt(5) + 1;
-
-            // // Check if the product condition is met
-            // if (startRow * startCol <= 6) {
-            // break;
-            // }
-            // }
-            // if (count == 1000){
-            // return;
-            // }
-
-            this.bearAttack = true;
-            System.out.println("RUNNING TIMER BEAR");
-            this.bearAttackTimer(timeLabel, controller, startRow, startCol);
-
-        }
+    
     }
     // Random Creature
 
@@ -578,7 +524,9 @@ public class GameMaster {
         }
 
     }
-
+    public boolean isBearAttack(){
+        return this.bearAttack;
+    }
     public void load(String folderPath, String type) {
         try {
             List<String> currentShopItems = new ArrayList<>();

@@ -21,6 +21,41 @@
             <Image url="@../assets/OOP%202/OOP%202/grid/turn.png" />
          </image>
       </ImageView>
+      <ImageView fx:id="shuffleBG" fitHeight="558.0" fitWidth="655.0" layoutX="237.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%205.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="shufflecard1" fitHeight="150.0" fitWidth="200.0" layoutX="360.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="shufflecard2" fitHeight="150.0" fitWidth="200.0" layoutX="589.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="shufflecard3" fitHeight="150.0" fitWidth="200.0" layoutX="359.0" layoutY="365.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="shufflecard4" fitHeight="150.0" fitWidth="200.0" layoutX="588.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="retry" fitHeight="34.0" fitWidth="51.0" layoutX="517.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/retry.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="okshuffle" fitHeight="74.0" fitWidth="152.0" layoutX="461.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/button/ok.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="LoadState" fitHeight="150.0" fitWidth="200.0" layoutX="828.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/title/Group%2015.png" />
@@ -567,10 +602,10 @@
             <Image url="@../assets/OOP%202/OOP%202/grid/preview.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ImageToko" fitHeight="93.0" fitWidth="99.0" layoutX="604.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true" visible="false" />
-      <Label layoutX="382.0" layoutY="313.0" text="Harga" textFill="WHITE" visible="false" />
-      <Label fx:id="Harga" layoutX="382.0" layoutY="337.0" text="Label" textFill="WHITE" visible="false" />
-      <Label layoutX="382.0" layoutY="368.0" text="Kuantitas" textFill="WHITE" visible="false" />
+      <ImageView fx:id="ImageToko" fitHeight="93.0" fitWidth="99.0" layoutX="604.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+      <Label fx:id="LabelHarga" layoutX="382.0" layoutY="333.0" text="Harga" textFill="WHITE" visible="false" />
+      <Label fx:id="Harga" layoutX="382.0" layoutY="357.0" text="Label" textFill="WHITE" visible="false" />
+      <Label fx:id="LabelKuantitas" layoutX="382.0" layoutY="388.0" text="Kuantitas" textFill="WHITE" visible="false" />
       <ImageView fx:id="BuyButton" fitHeight="38.0" fitWidth="122.0" layoutX="490.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/button/beli.png" />
@@ -581,7 +616,7 @@
             <Image url="@../assets/OOP%202/OOP%202/button/jual.png" />
          </image>
       </ImageView>
-      <TextField fx:id="QuantityInput" layoutX="375.0" layoutY="402.0" prefHeight="26.0" prefWidth="66.0" visible="false" />
+      <TextField fx:id="QuantityInput" layoutX="375.0" layoutY="422.0" prefHeight="26.0" prefWidth="66.0" visible="false" />
       <Label fx:id="AnimalNameToko" layoutX="500.0" layoutY="290.0" text="Label" textFill="WHITE" visible="false" />
       <ImageView fx:id="ClosePopUpToko" fitHeight="18.0" fitWidth="20.0" layoutX="706.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
