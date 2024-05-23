@@ -25,7 +25,7 @@ public class Plant extends Creature {
 
     @Override
     public void increaseWeight(int weight) {
-        System.out.println(this);
+        // System.out.println(this);
         super.increaseWeight(weight);
         if (this.weightAfterEffect >= this.harvestedWeightRequirement) {
             Product tmp = this.getHarvestedProduct();

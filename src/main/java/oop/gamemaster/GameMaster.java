@@ -1,9 +1,15 @@
 package oop.gamemaster;
-
+import javafx.util.Duration;
 import java.util.*;
 import java.util.function.Supplier;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.application.Preloader.StateChangeNotification;
+import javafx.scene.control.Label;
 import oop.player.*;
 // import oop.saveload.SaveLoad;
 import oop.observer.*;
@@ -21,9 +27,11 @@ import oop.card.product.CarnivoreFood;
 import oop.card.product.HerbivoreFood;
 // import oop.card.product.CarnivoreFood;
 // import oop.card.product.HerbivoreFood;
+import javafx.scene.layout.Pane;
 import oop.card.product.Product;
+import oop.FieldController;
 import oop.card.*;
-import java.util.HashMap;
+
 import static java.util.Map.entry;
 
 public class GameMaster {
@@ -57,6 +65,8 @@ public class GameMaster {
     private Player currentFieldPlayer;
     private int currentTurn;
     private PlantService plantService;
+    private boolean bearAttack;
+
     // private 
     protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
             "Sapi", () -> new Herbivore("Sapi"),
@@ -101,6 +111,7 @@ public class GameMaster {
         this.currentTurn = 0;
         this.plantService = new PlantService();
         Player.setPlayerPlantService(plantService);
+        this.bearAttack = false;
     }
 
     // getters
@@ -149,23 +160,93 @@ public class GameMaster {
         this.currentFieldPlayer = player;
     }
 
-    public void bearAttack(){
-        // sleep 30 seconds
+    public void bearAttackTimer(Label timerLabel, FieldController controller, int row, int col) {
+        Pane[][] panes = controller.simulateBearAttack(row, col); // set red glow
+
+
+        final double[] timeLeft = {10.0};  // Time in seconds for the bear attack duration
+        final Timeline[] timelineWrapper = new Timeline[1];  // Wrapper to hold the timeline
+        timerLabel.setText("");
+        timerLabel.setVisible(true);
+        controller.simulateBearAttack(row, col);
+        timelineWrapper[0] = new Timeline(new KeyFrame(Duration.millis(100), event -> {
+            timeLeft[0] -= 0.1;  // Decrement the time
+            timerLabel.setText(String.format(" %.1f seconds", timeLeft[0]));
+            
+            if (timeLeft[0] <= 0) {
+                timelineWrapper[0].stop();
+                timerLabel.setVisible(false);
+
+                Platform.runLater(() -> {
+                    try {
+                        bearAttackProcess(panes,controller, row, col);
+
+                    } finally {
+                    }
+                });
+            }
+        }));
+        
+        timelineWrapper[0].setCycleCount(Timeline.INDEFINITE);
+        timelineWrapper[0].play();
+    }
+
+    public void bearAttackProcess(Pane[][] panes,FieldController controller, int row, int col){
+        boolean execute = true;
+    
+        Player currPlayer = this.getCurrentPlayer();
+        for (int i = 0 ; i < row ; i++){
+            for(int j = 0 ; j < col ; j++){
+                if(currPlayer.getCardGrid(i, j).isTrap()){
+                    execute = false;
+                    break;
+                }
+            }   
+        }
+        if (execute){
+            for (int i = 0 ; i < row ; i++){
+                for(int j = 0 ; j < col ; j++){
+                    if( !currPlayer.getCardGrid(i, j).isProtected()){
+                        currPlayer.setBlankOnGrid(i, j);
+                    }
+                }   
+            }
+        }
+
+        controller.getDraggableMaker().removeRedGlow(panes, row, col);
+        controller.loadGridActiveDeck();
+    
+
 
     }
-    public void next() {
+
+    public void next(Label timeLabel, FieldController controller) {
         this.currentTurn++;
-        // ArrayList<Plant> arr = listPlayers.get(0).getAllPlantsInGrid(); // first player in list
-        // arr.addAll(listPlayers.get(1).getAllPlantsInGrid()); // second player
-        // this.plantService.setPlants(arr);
+        this.bearAttack = false;
         this.plantService.increaseAgeOfPlants();
         if (random.nextBoolean()) {
-            /// 
+            Random random = new Random();
+            int startRow = 0;
+            int startCol = 0;
+            int count = 0;
 
-            // list what ever
-            // set atribut true bear attack
-            // WAIT TIMER ON  = 30 
-            // bearAttack();
+            while (true && count < 1000) {
+                startRow = random.nextInt(4) + 1;
+                startCol = random.nextInt(5) + 1; 
+    
+                // Check if the product condition is met
+                if (startRow * startCol <= 6) {
+                    break;
+                }
+            }
+            if (count == 1000){
+                return;
+            }
+
+            this.bearAttack = true;
+
+            this.bearAttackTimer(timeLabel,controller,startRow,startCol);
+
         }       
     }
 

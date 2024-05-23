@@ -241,6 +241,14 @@ public class DraggableMaker {
         }
     }
 
+    public void removeRedGlow(Pane[][] grid, int rows, int cols){
+        for (int row = 0 ; row < rows ; row++){
+            for (int col = 0 ; col < cols ; cols++){
+                setRedGlow(grid[row][col], false);
+            }
+        }
+        glowingCells.clear();
+    }
     public void setRedGlowOnRandomGroup(Pane[][] grid, int rows, int cols) {
         if (timer != null) {
             timer.stop();
