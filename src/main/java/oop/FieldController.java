@@ -503,7 +503,6 @@ public class FieldController implements Initializable {
             if (imageUrl == null) {
                 activeCard.setImage(null);
             } else {
-
                 activeCard.setImage(new Image(imageUrl));
             }
         }

@@ -68,7 +68,8 @@ public class Player {
         this.cardDeckLeft = cardDeckLeft;
     }
 
-    public void setCardGrid(Creature card, int row, int col) {}
+    public void setCardGrid(Creature card, int row, int col) {
+    }
 
     // other methods
 
@@ -92,7 +93,7 @@ public class Player {
     }
 
     //
-    public void addCardToActiveDeck(Card card, int index){
+    public void addCardToActiveDeck(Card card, int index) {
         card.setOwner(this);
         this.activeDeck[index] = card;
     }
@@ -120,11 +121,11 @@ public class Player {
     }
 
     // main methods for grid and activeDeck
-    public Card getCardActiveDeck(int index){
+    public Card getCardActiveDeck(int index) {
         return this.activeDeck[index];
     }
 
-    public Creature getCardGrid(int row, int col)  {
+    public Creature getCardGrid(int row, int col) {
         int arrayIDX = row * 5 + col;
         return this.grid.get(arrayIDX);
     }
@@ -182,15 +183,16 @@ public class Player {
 
     }
 
-    public void invokeCardGridtoGrid(int rowSource, int colSource, int rowTarget, int colTarget, Player targetGridPlayer)
+    public void moveCardGridtoGrid(int rowSource, int colSource, int rowTarget, int colTarget,
+            Player targetGridPlayer)
             throws BaseException {
-        Creature currCard = targetGridPlayer.getCardGrid(rowSource, colSource);
-        
-        // check if usable and not a blank card
-        if (currCard instanceof UsableCard && !currCard.isEmpty()) {
-            Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
-            ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
+        Creature currCard = this.getCardGrid(rowSource, colSource);
+        Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
 
+        // check if usable and not a blank card
+        if (currCard instanceof UsableCard && !currCard.isEmpty() && targetCard.isEmpty() && this == targetGridPlayer) {
+            this.grid.set(rowTarget * 5 + colTarget, currCard);
+            this.grid.set(rowSource * 5 + colSource, this.emptyCreature);
         } else {
             throw new InvalidCardPlacementException();
         }

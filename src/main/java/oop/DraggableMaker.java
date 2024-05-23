@@ -85,14 +85,15 @@ public class DraggableMaker {
         if (isInField) {
             // fieldController.glowButtonMaker.setGlow(sourceImageView);
             sourceImageView.setOnMouseClicked(event -> {
-                if (!wasDragged && !fieldController.isInEnemyField()) {
-                    
-                    int row = ((int) (event.getSceneY() - 70) / 100) + 1;
-                    int col = ((int) (event.getSceneX() - 34.4) / 100) + 1;
+                int row = ((int) (event.getSceneY() - 70) / 100) + 1;
+                int col = ((int) (event.getSceneX() - 34.4) / 100) + 1;
+                if (!wasDragged && !fieldController.isInEnemyField()
+                        && !gameMaster.getCurrentPlayer().getCardGrid(row - 1, col - 1).isEmpty()) {
 
                     fieldController.getPanenBtn().setOnMouseClicked(e -> {
                         try {
-                            gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1).harvestCreature(row - 1, col - 1);
+                            gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1).harvestCreature(row - 1,
+                                    col - 1);
                             fieldController.loadGridActiveDeck();
                             fieldController.setPanenPageVisibility(false);
                         } catch (Exception exception) {
@@ -100,7 +101,8 @@ public class DraggableMaker {
                         }
                     });
 
-                    // fieldController.creatureClicked = gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1);
+                    // fieldController.creatureClicked =
+                    // gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1);
 
                     Image currentImage = sourceImageView.getImage();
                     String currentImageUrl = currentImage.getUrl();
@@ -176,25 +178,27 @@ public class DraggableMaker {
                         if (true) {
                             if (sourceImageView.getImage() != null) {
                                 String sourceImageUrl = sourceImageView.getImage().getUrl();
-                                
+
                                 if (idSourceImage.charAt(0) != 'k') {
                                     try {
                                         CurrentPLayer.invokeCard(index, row - 1, col - 1,
-                                        gameMaster.getCurrentFieldPlayer());
+                                                gameMaster.getCurrentFieldPlayer());
                                         CurrentPLayer.removeCardAtActiveDeck(index);
 
                                         fieldController.loadGridActiveDeck();
-                                        
+
                                         makeDraggable(targetImageView, matrix_grid, gameMaster, true);
                                     } catch (BaseException e) {
                                         System.out.println(e.getMessage());
                                     }
                                 } else {
                                     try {
-                                        CurrentPLayer.invokeCardGridtoGrid(rowSource - 1, colSource - 1, row - 1,
-                                        col - 1, gameMaster.getCurrentFieldPlayer());
-                                        CurrentPLayer.setBlankOnGrid(rowSource - 1, colSource - 1);
+                                        CurrentPLayer.moveCardGridtoGrid(rowSource - 1, colSource - 1, row - 1,
+                                                col - 1, gameMaster.getCurrentFieldPlayer());
+                                        // CurrentPLayer.setBlankOnGrid(rowSource - 1, colSource - 1);
+
                                         fieldController.loadGridActiveDeck();
+
                                         makeDraggable(targetImageView, matrix_grid, gameMaster, true);
                                     } catch (BaseException e) {
                                         System.out.println(e.getMessage());
