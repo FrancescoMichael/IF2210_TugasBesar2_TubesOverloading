@@ -99,7 +99,6 @@
 //         }
 //     }
 // }
-
 package oop.plugin;
 
 import java.io.File;
@@ -122,8 +121,10 @@ public class PluginLoader {
         ArrayList<String> classNames = new ArrayList<>();
         try {
             JarEntry jar;
+
             while ((jar = jarFile.getNextJarEntry()) != null) {
-                if (jar.getName().endsWith(".class") && !jar.getName().contains("module-info")) {
+
+                if (jar.getName().endsWith(".class") && !jar.getName().contains("META-INF/versions/")) {
                     String className = jar.getName().replace("/", ".").replace(".class", "");
                     classNames.add(className);
                 }

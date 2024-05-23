@@ -307,6 +307,19 @@ public class GameMaster {
         return formattedString.toString().trim();
     }
 
+    public static String saveFormatString(String input) {
+        String[] words = input.split(" ");
+        StringBuilder saveFormatString = new StringBuilder();
+        for (int i = 0; i < words.length; i++) {
+            String word = words[i];
+            saveFormatString.append(word.toUpperCase());
+            if (i < words.length - 1) {
+                saveFormatString.append("_");
+            }
+        }
+        return saveFormatString.toString();
+    }
+
     public void loadPlayer(int n, List<Integer> playerStatus, List<String> activeDeckString, List<String> gridString) {
         Player playerChange = getPlayer(n);
         playerChange.setGulden(playerStatus.get(0));
@@ -389,5 +402,31 @@ public class GameMaster {
         }
 
     }
+
+    // public void save(String folderPath, String type) {
+    // int currentTurn;
+    // List<String> currentShopItems = new ArrayList<>();
+    // List<Integer> playerStatus1 = new ArrayList<>();
+    // List<String> activeDeckString1 = new ArrayList<>();
+    // List<String> gridString1 = new ArrayList<>();
+    // List<Integer> playerStatus2 = new ArrayList<>();
+    // List<String> activeDeckString2 = new ArrayList<>();
+    // List<String> gridString2 = new ArrayList<>();
+
+    // // loading in the stock map
+    // for (Map.Entry<String, Integer> entry : this.shop.getStock().entrySet()) {
+    // String item = entry.getKey() + " " + entry.getValue();
+    // currentShopItems.add(item);
+    // }
+
+    // playerStatus1.add(this.getPlayer(0).getGulden());
+    // playerStatus1.add(this.getPlayer(0).getCardDeckLeft());
+
+    // for(Card card)
+
+    // playerStatus1.add(this.getPlayer(1).getGulden());
+    // playerStatus1.add(this.getPlayer(1).getCardDeckLeft());
+
+    // }
 
 }
