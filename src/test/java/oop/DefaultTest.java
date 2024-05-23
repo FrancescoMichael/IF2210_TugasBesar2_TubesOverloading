@@ -23,6 +23,7 @@ public class DefaultTest {
         assertTrue( true );
         try{
             GameMaster gameMaster = new GameMaster();
+            Player.setPlayerPlantService(gameMaster.getPlantService());
             // initializing Players
             Player player1 = new Player("marvel");
             Player player2 = new Player("Ray");

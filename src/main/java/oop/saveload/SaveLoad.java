@@ -76,13 +76,13 @@ public class SaveLoad {
             List<String> gridString2) throws Exception {
         try {
             // save gamestate
-            saveGame(folderPath + "gamestate." + typeFile, currTurn, currentShopItems, typeFile);
+            saveGame(folderPath + "/gamestate." + typeFile, currTurn, currentShopItems, typeFile);
 
             // save player1
-            savePlayer(folderPath + "player1." + typeFile, playerStatus1, activeDeckString1, gridString1, typeFile);
+            savePlayer(folderPath + "/player1." + typeFile, playerStatus1, activeDeckString1, gridString1, typeFile);
 
             // save player 2
-            savePlayer(folderPath + "player2." + typeFile, playerStatus2, activeDeckString2, gridString2, typeFile);
+            savePlayer(folderPath + "/player2." + typeFile, playerStatus2, activeDeckString2, gridString2, typeFile);
 
         } catch (Exception e) {
             throw new SaveFailException();

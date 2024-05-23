@@ -489,7 +489,11 @@ public class FieldController implements Initializable{
     ImageView[][] matrixCardInField;
 
     ImageView[] listActiveDeck;
+
     
+    public DraggableMaker getDraggableMaker(){
+        return this.draggableMaker;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hideAll();
@@ -598,7 +602,12 @@ public class FieldController implements Initializable{
 
         glowButtonMaker.setGlow(nextTurnBtn);
         nextTurnBtn.setOnMouseClicked(event -> {
-            gameMaster.next();
+            try{
+                gameMaster.next(timerLabel,this);
+            } catch (BaseException e){
+
+            }
+
             turn.setText(gameMaster.getCurrentTurn() + 1 + "");
             gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
             loadGridActiveDeck();
@@ -692,7 +701,7 @@ public class FieldController implements Initializable{
         draggableMaker.makeDraggable(activeCard5, matrixGrid, gameMaster, false);
         draggableMaker.makeDraggable(activeCard6, matrixGrid, gameMaster, false);
 
-        bearAttackButton.setOnAction(event -> simulateBearAttack());
+        // bearAttackButton.setOnAction(event -> simulateBearAttack());
 
         LoadPlugin.setOnMouseClicked(event -> {
             setState("LoadPlugin");
@@ -1068,7 +1077,7 @@ public class FieldController implements Initializable{
     }
 
     @FXML
-    private void simulateBearAttack() {
+    public Pane[][]  simulateBearAttack(int rowStart, int colstart) {
         Pane[][] matrix_pane = new Pane[][] {
                 { plane11, plane12, plane13, plane14, plane15 },
                 { plane21, plane22, plane23, plane24, plane25 },
@@ -1083,11 +1092,17 @@ public class FieldController implements Initializable{
                 }
             }
         }
+        // draggableMaker.setRedGlow(plane11, isInEnemyField());
 
-        draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
-        startCountdown();
+        // draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
+        for (int row = 0 ; row < rowStart ; row++){
+            for (int col = 0 ; col < colstart ; col++){
+                draggableMaker.setRedGlow(matrix_pane[row][col], true);
+            }
+        }
+        // startCountdown();
+        return matrix_pane;
     }
-
     public void setPanenPageVisibility(boolean bool) {
         label1.setVisible(bool);
         label2.setVisible(bool);
@@ -1168,7 +1183,7 @@ public class FieldController implements Initializable{
                     imageUrls.add(imageUrl);
                 }
             }
-        } catch (BaseException e) {
+        } catch(Exception e) {
             e.printStackTrace();
             // Handle the exception, e.g., show an error message to the user
         }
