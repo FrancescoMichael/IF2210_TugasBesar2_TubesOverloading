@@ -27,7 +27,7 @@ public class GameMaster {
     private Player currentFieldPlayer;
     private int currentTurn;
     private PlantService plantService;
-    
+
     protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
             "Sapi", () -> new Herbivore("Sapi"),
             "Domba", () -> new Herbivore("Domba"),
@@ -146,7 +146,7 @@ public class GameMaster {
         this.plantService.increaseAgeOfPlants();
         if (true) {
             // try {
-            //     Thread.sleep(30000);
+            // Thread.sleep(30000);
             // } catch (Exception e) {
 
             // }
@@ -303,9 +303,14 @@ public class GameMaster {
         return formattedString.toString().trim();
     }
 
-    public void load(String filename, String type) {
-        String fileType = filename.substring(0, filename.lastIndexOf('.'));
+    public void load(String folderPath, String type) {
         SaveLoad saveLoad = new SaveLoad();
+        try {
+            saveLoad.validate(folderPath, type, );
+
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
         if (fileType.equals("gamestate")) {
             List<String> currentShopItems = new ArrayList<>();
             // this.shop
