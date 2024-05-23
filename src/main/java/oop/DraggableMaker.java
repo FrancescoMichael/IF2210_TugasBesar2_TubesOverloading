@@ -189,7 +189,7 @@ public class DraggableMaker {
                                     try {
                                         CurrentPLayer.invokeCard(index, row - 1, col - 1,
                                         gameMaster.getCurrentFieldPlayer());
-                                        CurrentPLayer.removeCardAtActiveDeck(index);
+                                        // CurrentPLayer.removeCardAtActiveDeck(index);
 
                                         fieldController.loadGridActiveDeck();
                                         
@@ -199,9 +199,8 @@ public class DraggableMaker {
                                     }
                                 } else {
                                     try {
-                                        CurrentPLayer.invokeCardGridtoGrid(rowSource - 1, colSource - 1, row - 1,
-                                        col - 1, gameMaster.getCurrentFieldPlayer());
-                                        CurrentPLayer.setBlankOnGrid(rowSource - 1, colSource - 1);
+                                        System.out.println("HERE");
+                                        CurrentPLayer.moveCardGridtoGrid(rowSource - 1, colSource - 1, row - 1, col - 1, CurrentPLayer);
                                         fieldController.loadGridActiveDeck();
                                         makeDraggable(targetImageView, matrix_grid, gameMaster, true);
                                     } catch (BaseException e) {

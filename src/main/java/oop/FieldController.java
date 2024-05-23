@@ -1180,7 +1180,7 @@ public class FieldController implements Initializable{
                     imageUrls.add(imageUrl);
                 }
             }
-        } catch (BaseException e) {
+        } catch(Exception e) {
             e.printStackTrace();
             // Handle the exception, e.g., show an error message to the user
         }

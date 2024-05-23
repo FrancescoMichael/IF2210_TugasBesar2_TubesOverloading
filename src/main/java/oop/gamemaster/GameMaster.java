@@ -123,8 +123,11 @@ public class GameMaster {
         this.plantService = new PlantService();
         this.shop = new Shop();
         this.saveLoad = new SaveLoad();
+        Player.setPlayerPlantService(plantService);
     }
-
+    public PlantService getPlantService(){
+        return plantService;
+    }
     public void bearAttackProcess(Pane[][] panes,FieldController controller, int row, int col) {
         boolean execute = true;
     
