@@ -747,51 +747,55 @@ public class FieldController implements Initializable{
 
         glowButtonMaker.setGlow(nextTurnBtn);
         nextTurnBtn.setOnMouseClicked(event -> {
-            try{
-                gameMaster.next();
-                // example of shuffle and done shuffling
-                
-                gameMaster.shuffle();
-                ShuffleVisible(gameMaster.getCurrentShuffle());
-                // gameMaster.doneShuffling(timerLabel, this);
-            } catch (BaseException e){
-
-            }
-
-            turn.setText(gameMaster.getCurrentTurn() + 1 + "");
-            gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
-            loadGridActiveDeck();
-            toLadangku1.setVisible(true);
-            toLadangLawan1.setVisible(false);
-            toToko1.setVisible(false);
-            SaveState1.setVisible(false);
-            LoadPlugin1.setVisible(false);
-            LoadState1.setVisible(false);
-
-            if (gameMaster.getCurrentTurn() % 2 == 1) {
-                titleplayer1.setVisible(true);
-                titleplayer1turn.setVisible(false);
-                titleplayer2.setVisible(false);
-                titleplayer2turn.setVisible(true);
-            } else {
-                
-                titleplayer1.setVisible(false);
-                titleplayer1turn.setVisible(true);
-                titleplayer2.setVisible(true);
-                titleplayer2turn.setVisible(false);
+            if (!gameMaster.isBearAttack()) {
+                try{
+                    gameMaster.next();
+                    // example of shuffle and done shuffling
+                    
+                    gameMaster.shuffle();
+                    ShuffleVisible(gameMaster.getCurrentShuffle());
+                    // gameMaster.doneShuffling(timerLabel, this);
+                } catch (BaseException e){
+    
+                }
+    
+                turn.setText(gameMaster.getCurrentTurn() + 1 + "");
+                gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
+                loadGridActiveDeck();
+                toLadangku1.setVisible(true);
+                toLadangLawan1.setVisible(false);
+                toToko1.setVisible(false);
+                SaveState1.setVisible(false);
+                LoadPlugin1.setVisible(false);
+                LoadState1.setVisible(false);
+    
+                if (gameMaster.getCurrentTurn() % 2 == 1) {
+                    titleplayer1.setVisible(true);
+                    titleplayer1turn.setVisible(false);
+                    titleplayer2.setVisible(false);
+                    titleplayer2turn.setVisible(true);
+                } else {
+                    
+                    titleplayer1.setVisible(false);
+                    titleplayer1turn.setVisible(true);
+                    titleplayer2.setVisible(true);
+                    titleplayer2turn.setVisible(false);
+                }
             }
         });
 
         glowButtonMaker.setGlow(toLadangLawan);
         toLadangLawan.setOnMouseClicked(event -> {
-            gameMaster.setCurrentFieldPlayer(gameMaster.getListPlayers().get((gameMaster.getCurrentTurn() + 1) % 2));
-            loadGridActiveDeck();
-            toLadangLawan1.setVisible(true);
-            toLadangku1.setVisible(false);
-            toToko1.setVisible(false);
-            SaveState1.setVisible(false);
-            LoadPlugin1.setVisible(false);
-            LoadState1.setVisible(false);
+            if (!gameMaster.isBearAttack()) {
+                gameMaster.setCurrentFieldPlayer(gameMaster.getListPlayers().get((gameMaster.getCurrentTurn() + 1) % 2));
+                loadGridActiveDeck();
+                toLadangLawan1.setVisible(true);
+                toLadangku1.setVisible(false);
+                toToko1.setVisible(false);
+                SaveState1.setVisible(false);
+                LoadPlugin1.setVisible(false);
+                LoadState1.setVisible(false);
+            }
         });
         glowButtonMaker.setGlow(toLadangku);
         toLadangku1.setVisible(true);
@@ -807,39 +811,51 @@ public class FieldController implements Initializable{
         });
         glowButtonMaker.setGlow(toToko);
         toToko.setOnMouseClicked(event -> {
-            toToko1.setVisible(true);
-            toLadangLawan1.setVisible(false);
-            toLadangku1.setVisible(false);
-            SaveState1.setVisible(false);
-            LoadPlugin1.setVisible(false);
-            LoadState1.setVisible(false);
+            if (!gameMaster.isBearAttack()) {
+                System.out.println("toko");
+                toToko1.setVisible(true);
+                toLadangLawan1.setVisible(false);
+                toLadangku1.setVisible(false);
+                SaveState1.setVisible(false);
+                LoadPlugin1.setVisible(false);
+                LoadState1.setVisible(false);
+            }
         });
         glowButtonMaker.setGlow(SaveState);
         SaveState.setOnMouseClicked(event -> {
-            SaveState1.setVisible(true);
-            toToko1.setVisible(false);
-            toLadangLawan1.setVisible(false);
-            toLadangku1.setVisible(false);
-            LoadPlugin1.setVisible(false);
-            LoadState1.setVisible(false);
+            if (!gameMaster.isBearAttack()) {
+                System.out.println("save");
+                SaveState1.setVisible(true);
+                toToko1.setVisible(false);
+                toLadangLawan1.setVisible(false);
+                toLadangku1.setVisible(false);
+                LoadPlugin1.setVisible(false);
+                LoadState1.setVisible(false);
+            }
         });
         glowButtonMaker.setGlow(LoadPlugin);
         LoadPlugin.setOnMouseClicked(event -> {
-            LoadPlugin1.setVisible(true);
-            toToko1.setVisible(false);
-            toLadangLawan1.setVisible(false);
-            toLadangku1.setVisible(false);
-            SaveState1.setVisible(false);
-            LoadState1.setVisible(false);
+            if (!gameMaster.isBearAttack()) {
+                System.out.println("plugin");
+                LoadPlugin1.setVisible(true);
+                toToko1.setVisible(false);
+                toLadangLawan1.setVisible(false);
+                toLadangku1.setVisible(false);
+                SaveState1.setVisible(false);
+                LoadState1.setVisible(false);
+            }
         });
         glowButtonMaker.setGlow(LoadState);
         LoadState.setOnMouseClicked(event -> {
-            LoadState1.setVisible(true);
-            toToko1.setVisible(false);
-            toLadangLawan1.setVisible(false);
-            toLadangku1.setVisible(false);
-            SaveState1.setVisible(false);
-            LoadPlugin1.setVisible(false);
+            if (!gameMaster.isBearAttack()) {
+                System.out.println("load");
+                LoadState1.setVisible(true);
+                toToko1.setVisible(false);
+                toLadangLawan1.setVisible(false);
+                toLadangku1.setVisible(false);
+                SaveState1.setVisible(false);
+                LoadPlugin1.setVisible(false);
+            }
         });
 
         draggableMaker = new DraggableMaker(this);
@@ -885,19 +901,21 @@ public class FieldController implements Initializable{
 
     public void setState(String state) {
         hideAll();
-        switch (state) {
-            case "LoadPlugin":
-                setLoadPluginVisible(true);
-                break;
-            case "LoadState":
-                setLoadStateVisible(true);
-                break;
-            case "SaveState":
-                setSaveStateVisible(true);
-                break;
-            case "TokoState":
-                setTokoStateVisible(true);
-                break;
+        if (!gameMaster.isBearAttack()) {
+            switch (state) {
+                case "LoadPlugin":
+                    setLoadPluginVisible(true);
+                    break;
+                case "LoadState":
+                    setLoadStateVisible(true);
+                    break;
+                case "SaveState":
+                    setSaveStateVisible(true);
+                    break;
+                case "TokoState":
+                    setTokoStateVisible(true);
+                    break;
+            }
         }
     }
 

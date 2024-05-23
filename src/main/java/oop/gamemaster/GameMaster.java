@@ -174,6 +174,7 @@ public class GameMaster {
             currPlayer.addCardToActiveDeckFirstEmpty(new Omnivore("Beruang"));
 
         }
+        this.bearAttack = false;
         controller.loadGridActiveDeck();
 
     }
@@ -191,15 +192,15 @@ public class GameMaster {
             // duration
             // Randomize time left
             double timeLeft = 30 + (random.nextDouble() * (60 - 30));
-            // timeLeft = 10;
+            timeLeft = 15;
 
             try {
                 while (timeLeft > 0) {
                     Thread.sleep(100); // Sleep for 1f00 milliseconds
                     timeLeft -= 0.1;
                     double finalTimeLeft = timeLeft;
-                    
-                    // TODO : Possible race condition, check properly later.... 
+
+                    // TODO : Possible race condition, check properly later....
                     Platform.runLater(() -> {
                         timerLabel.setText(String.format("%.1f seconds", finalTimeLeft));
                     });
@@ -269,18 +270,19 @@ public class GameMaster {
         this.currentFieldPlayer = player;
     }
 
-    public void shuffle(){
+    public void shuffle() {
         System.out.println("SHUFFLING");
         Player currentPlayer = this.getCurrentPlayer();
         List<Map.Entry<String, Supplier<? extends Card>>> entries = new ArrayList<>(allCardMap.entrySet());
+        entries.removeIf(entry -> entry.getValue().get().getName().equals("Beruang"));
         Collections.shuffle(entries);
         this.currentShuffle.clear();
         int min = 4;
-        if (min > currentPlayer.getNumberOfEmptyCardsActiveDeck()){
-            min =  currentPlayer.getNumberOfEmptyCardsActiveDeck();
+        if (min > currentPlayer.getNumberOfEmptyCardsActiveDeck()) {
+            min = currentPlayer.getNumberOfEmptyCardsActiveDeck();
             System.out.println(min);
         }
-        List<Map.Entry<String, Supplier<? extends Card>>> selected = entries.subList(0,min );
+        List<Map.Entry<String, Supplier<? extends Card>>> selected = entries.subList(0, min);
         for (Map.Entry<String, Supplier<? extends Card>> entry : selected) {
             Card card = entry.getValue().get();
             card.setOwner(currentPlayer);
@@ -290,14 +292,14 @@ public class GameMaster {
         this.numberOfPickedCards = min;
 
     }
- 
-    public void doneShuffling(Label timeLabel, FieldController controller) throws BaseException{
+
+    public void doneShuffling(Label timeLabel, FieldController controller) throws BaseException {
         // System.out.println("ENTERING DONE SHUFFLING");
         Player player = this.getCurrentPlayer();
 
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
         // System.out.println("ABOUT TO ENTER TIMER BEAR");
-        if (random.nextBoolean()) {
+        if (Math.random() < 0.2) {
 
             this.bearAttack = true;
             // System.out.println("RUNNING TIMER BEAR");
@@ -305,11 +307,11 @@ public class GameMaster {
 
         }
         System.out.println("NUMBERS OF PICKED " + this.numberOfPickedCards);
-        System.out.println( "ARRAY SIZE : " + this.currentShuffle.size());
-        for (Card card : this.currentShuffle){
+        System.out.println("ARRAY SIZE : " + this.currentShuffle.size());
+        for (Card card : this.currentShuffle) {
             player.addCardToActiveDeckFirstEmpty(card);
         }
-        controller.loadGridActiveDeck();   
+        controller.loadGridActiveDeck();
     }
 
     public void next() throws BaseException {
