@@ -98,7 +98,7 @@ public class GameMaster {
             entry("Biji Stroberi", () -> new Plant("Biji Stroberi")),
             entry("Accelerate", () -> new Item("Accelerate")),
             entry("Delay", () -> new Item("Delay")),
-            entry("Instant harvest", () -> new Item("Instant harvest")),
+            entry("Instant Harvest", () -> new Item("Instant Harvest")),
             entry("Destroy", () -> new Item("Destroy")),
             entry("Protect", () -> new Item("Protect")),
             entry("Trap", () -> new Item("Trap")),
@@ -191,7 +191,7 @@ public class GameMaster {
             // duration
             // Randomize time left
             double timeLeft = 30 + (random.nextDouble() * (60 - 30));
-            timeLeft = 10;
+            // timeLeft = 10;
 
             try {
                 while (timeLeft > 0) {
@@ -278,12 +278,16 @@ public class GameMaster {
         int min = 4;
         if (min > currentPlayer.getNumberOfEmptyCardsActiveDeck()){
             min =  currentPlayer.getNumberOfEmptyCardsActiveDeck();
+            System.out.println(min);
         }
         List<Map.Entry<String, Supplier<? extends Card>>> selected = entries.subList(0,min );
         for (Map.Entry<String, Supplier<? extends Card>> entry : selected) {
             Card card = entry.getValue().get();
+            card.setOwner(currentPlayer);
             this.currentShuffle.add(card);
+            System.out.println(card);
         }
+        this.numberOfPickedCards = min;
 
     }
  
@@ -292,7 +296,6 @@ public class GameMaster {
         Player player = this.getCurrentPlayer();
 
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
-        Random random = new Random();
         // System.out.println("ABOUT TO ENTER TIMER BEAR");
         if (random.nextBoolean()) {
 
@@ -301,6 +304,8 @@ public class GameMaster {
             this.bearAttackTimer(timeLabel, controller);
 
         }
+        System.out.println("NUMBERS OF PICKED " + this.numberOfPickedCards);
+        System.out.println( "ARRAY SIZE : " + this.currentShuffle.size());
         for (Card card : this.currentShuffle){
             player.addCardToActiveDeckFirstEmpty(card);
         }
@@ -660,9 +665,13 @@ public class GameMaster {
                     gridString1,
                     playerStatus2, activeDeckString2, gridString2);
         } catch (Exception e) {
-            // TODO: handle exception
+            // TODO: handle exceptionf
         }
 
+    }
+
+    public ArrayList<Card> getCurrentShuffle() {
+        return this.currentShuffle;
     }
 
 }
