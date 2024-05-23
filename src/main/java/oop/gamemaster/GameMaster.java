@@ -211,6 +211,10 @@ public class GameMaster {
         return this.currentTurn;
     }
 
+    public Shop getShop() {
+        return this.shop;
+    }
+
     // setters
     public void setListPlayer(List<Player> listPlayers) {
         this.listPlayers = listPlayers;
@@ -251,10 +255,10 @@ public class GameMaster {
         this.bearAttack = false;
         this.plantService.increaseAgeOfPlants();
         if (random.nextBoolean()) {
-            Random random = new Random();
-            int startRow = 0;
-            int startCol = 0;
-            int count = 0;
+            // Random random = new Random();
+            // int startRow = 0;
+            // int startCol = 0;
+            // int count = 0;
 
             // while (true && count < 1000) {
             //     startRow = random.nextInt(4) + 1;
@@ -269,9 +273,9 @@ public class GameMaster {
             //     return;
             // }
 
-            this.bearAttack = true;
+            // this.bearAttack = true;
 
-            this.bearAttackTimer(timeLabel,controller,startRow,startCol);
+            // this.bearAttackTimer(timeLabel,controller,startRow,startCol);
 
         }       
     }

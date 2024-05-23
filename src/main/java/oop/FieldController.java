@@ -29,6 +29,7 @@ import oop.plugin.PluginLoader;
 import oop.plugin.SaveLoadTXT;
 import oop.saveload.SaveLoad;
 import javafx.util.Duration;
+import oop.card.Card;
 import oop.card.creature.Carnivore;
 import oop.card.creature.Creature;
 import oop.card.creature.Herbivore;
@@ -521,11 +522,15 @@ public class FieldController implements Initializable{
 
     @FXML
     private Label AnimalNameToko;
-
+    
     @FXML
     private ImageView ClosePopUpToko;
 
+    @FXML
+    private Label LabelHarga;
 
+    @FXML
+    private Label LabelKuantitas;
     
     private Timeline countdownTimeline;
 
@@ -541,7 +546,8 @@ public class FieldController implements Initializable{
 
     ImageView[] listActiveDeck;
 
-    
+    int currentProduct;
+
     public DraggableMaker getDraggableMaker(){
         return this.draggableMaker;
     }
@@ -553,6 +559,10 @@ public class FieldController implements Initializable{
         glowButtonMaker.setGlow(plugin_button);
         glowButtonMaker.setGlow(save_button);
         glowButtonMaker.setGlow(toko_back);
+        
+        glowButtonMaker.setGlow(SellButton);
+        glowButtonMaker.setGlow(BuyButton);
+        glowButtonMaker.setGlow(ClosePopUpToko);
 
         close.setOnMouseClicked(event -> {
             hideAll();
@@ -561,6 +571,7 @@ public class FieldController implements Initializable{
 
         toko_back.setOnMouseClicked(event -> {
             hideAll();
+            loadGridActiveDeck();
         });
 
         chooseFilePluginLabel.setOnMouseClicked(event -> {
@@ -775,9 +786,12 @@ public class FieldController implements Initializable{
             ImageToko.setVisible(false);
             AnimalNameToko.setVisible(false);
             ClosePopUpToko.setVisible(false);
-            Harga.setVisible(isInEnemyField());
+            Harga.setVisible(false);
+            QuantityInput.setVisible(false);
             BuyButton.setVisible(false);
             SellButton.setVisible(false);
+            LabelHarga.setVisible(false);
+            LabelKuantitas.setVisible(false);
         });
     }
 
@@ -887,8 +901,9 @@ public class FieldController implements Initializable{
             AnimalNameToko.setText("Daging Domba");
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
-            BuyButton.setVisible(visible);
+            LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
+            BuyButton.setVisible(visible);
         });
 
         toko_jagung.setOnMouseClicked(event -> {
@@ -898,8 +913,9 @@ public class FieldController implements Initializable{
             AnimalNameToko.setText("Jagung");
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
-            BuyButton.setVisible(visible);
+            LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
+            BuyButton.setVisible(visible);
         });
 
         toko_daging_kuda.setOnMouseClicked(event -> {
@@ -909,8 +925,9 @@ public class FieldController implements Initializable{
             AnimalNameToko.setText("Daging Kuda");
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
-            BuyButton.setVisible(visible);
+            LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
+            BuyButton.setVisible(visible);
         });
 
         toko_sirip_hiu.setOnMouseClicked(event -> {
@@ -920,8 +937,9 @@ public class FieldController implements Initializable{
             AnimalNameToko.setText("Sirip Hiu");
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
-            BuyButton.setVisible(visible);
+            LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
+            BuyButton.setVisible(visible);
         });
 
         toko_stroberi.setOnMouseClicked(event -> {
@@ -931,8 +949,9 @@ public class FieldController implements Initializable{
             AnimalNameToko.setText("Stroberi");
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
-            BuyButton.setVisible(visible);
+            LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
+            BuyButton.setVisible(visible);
         });
 
         toko_susu.setOnMouseClicked(event -> {
@@ -942,8 +961,9 @@ public class FieldController implements Initializable{
             AnimalNameToko.setText("Susu");
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
-            BuyButton.setVisible(visible);
+            LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
+            BuyButton.setVisible(visible);
         });
 
         toko_telur.setOnMouseClicked(event -> {
@@ -953,8 +973,9 @@ public class FieldController implements Initializable{
             AnimalNameToko.setText("Telur");
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
-            BuyButton.setVisible(visible);
+            LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
+            BuyButton.setVisible(visible);
         });
 
         toko_labu.setOnMouseClicked(event -> {
@@ -964,8 +985,9 @@ public class FieldController implements Initializable{
             AnimalNameToko.setText("Labu");
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
-            BuyButton.setVisible(visible);
+            LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
+            BuyButton.setVisible(visible);
         });
 
         toko_daging_beruang.setOnMouseClicked(event -> {
@@ -975,71 +997,116 @@ public class FieldController implements Initializable{
             AnimalNameToko.setText("Daging Beruang");
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
-            BuyButton.setVisible(visible);
+            LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
+            BuyButton.setVisible(visible);
         });
 
         toko_deck7.setOnMouseClicked(event -> {
+            currentProduct = 0;
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(0).replace("cards", "icons")));
+            ImageToko.setImage(new Image(deckImageUrls.get(0)));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText(deckImageNames.get(0));
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
+            LabelHarga.setVisible(visible);
+            Harga.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
         });
 
         toko_deck8.setOnMouseClicked(event -> {
+            currentProduct = 1;
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(1).replace("cards", "icons")));
-            System.out.println(deckImageUrls.get(1).replace("cards", "icons"));
+            ImageToko.setImage(new Image(deckImageUrls.get(1)));
+            System.out.println(deckImageUrls.get(1));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText(deckImageNames.get(1));
 
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
+            LabelHarga.setVisible(visible);
+            Harga.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
         });
 
         toko_deck9.setOnMouseClicked(event -> {
+            currentProduct = 2;
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(2).replace("cards", "icons")));
+            ImageToko.setImage(new Image(deckImageUrls.get(2)));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText(deckImageNames.get(2));
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
+            LabelHarga.setVisible(visible);
+            Harga.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
         });
 
         toko_deck10.setOnMouseClicked(event -> {
+            currentProduct = 3;
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(3).replace("cards", "icons")));
-            System.out.println(deckImageUrls.get(3).replace("cards", "icons"));
+            ImageToko.setImage(new Image(deckImageUrls.get(3)));
+            System.out.println(deckImageUrls.get(3));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText(deckImageNames.get(3));
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
+            LabelHarga.setVisible(visible);
+            Harga.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
         });
 
         toko_deck11.setOnMouseClicked(event -> {
+            currentProduct = 4;
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(4).replace("cards", "icons")));
+            ImageToko.setImage(new Image(deckImageUrls.get(4)));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText(deckImageNames.get(4));
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
+            LabelHarga.setVisible(visible);
+            Harga.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
         });
 
         toko_deck12.setOnMouseClicked(event -> {
+            currentProduct = 5;
             PopUpToko.setVisible(visible);
-            ImageToko.setImage(new Image(deckImageUrls.get(5).replace("cards", "icons")));
+            ImageToko.setImage(new Image(deckImageUrls.get(5)));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText(deckImageNames.get(5));
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
+            LabelHarga.setVisible(visible);
+            Harga.setVisible(visible);
+            LabelKuantitas.setVisible(visible);
             SellButton.setVisible(visible);
+        });
+
+        SellButton.setOnMouseClicked(event -> {
+            try {
+                System.out.println(currentProduct);
+                gameMaster.getShop().Sell(gameMaster.getCurrentPlayer(), currentProduct);
+                loadToko();
+                PopUpToko.setVisible(false);
+                ImageToko.setVisible(false);
+                AnimalNameToko.setVisible(false);
+                ClosePopUpToko.setVisible(false);
+                Harga.setVisible(false);
+                QuantityInput.setVisible(false);
+                BuyButton.setVisible(false);
+                SellButton.setVisible(false);
+                LabelHarga.setVisible(false);
+                LabelKuantitas.setVisible(false);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
         });
     }
 
@@ -1273,6 +1340,21 @@ public class FieldController implements Initializable{
         SaveState1.setVisible(false);
         LoadPlugin1.setVisible(false);
         LoadState1.setVisible(false);
+    }
+
+    public void loadToko() {
+        int enumerator = 0;
+        List<String> updatedActiveDeck= getActiveDeckImageUrls();
+        updateTokoDeckImages(updatedActiveDeck);
+        // for (Card card : gameMaster.getCurrentPlayer().getActiveDeck()) {
+        //     System.out.println(card.getPathToImg());
+        //     if (card.getPathToImg() == null) {
+        //         list
+        //         System.out.println("masukk");
+        //     } else {
+        //         listActiveDeck[enumerator].setImage(new Image(card.getPathToImg()));
+        //     }
+        // }
     }
     
     public void setAllLabel(int row, int col) {
