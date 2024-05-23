@@ -77,10 +77,16 @@ public class SecondaryController {
     private Label chooseFilePluginLabel;
 
     @FXML
-    private ComboBox<String> formatComboBox;
+    private ComboBox<String> saveFormatComboBox;
 
     @FXML
-    private Label chooseFolderLabel;
+    private Label chooseSaveFolderLabel;
+
+    @FXML
+    private ComboBox<String> loadFormatComboBox;
+
+    @FXML
+    private Label chooseLoadFolderLabel;
 
 
     private GlowButtonMaker glowButtonMaker = new GlowButtonMaker();
@@ -107,12 +113,19 @@ public class SecondaryController {
             handleFileChoose();
         });
 
-        chooseFolderLabel.setOnMouseClicked(event -> {
+        chooseSaveFolderLabel.setOnMouseClicked(event -> {
             handleFolderChoose();
         });
 
-        // Initialize formatComboBox
-        formatComboBox.getItems().addAll("txt", "docs");
+        chooseLoadFolderLabel.setOnMouseClicked(event -> {
+            handleFolderChoose();
+        });
+
+        // untuk save
+        saveFormatComboBox.getItems().addAll("txt", "json", "yml");
+
+        // untuk load
+        loadFormatComboBox.getItems().addAll("txt", "json", "yml");
     }
 
     @FXML
@@ -161,8 +174,10 @@ public class SecondaryController {
         save_title.setVisible(false);
         close.setVisible(false);
         chooseFilePluginLabel.setVisible(false);
-        formatComboBox.setVisible(false);
-        chooseFolderLabel.setVisible(false);
+        saveFormatComboBox.setVisible(false);
+        chooseSaveFolderLabel.setVisible(false);
+        loadFormatComboBox.setVisible(false);
+        chooseLoadFolderLabel.setVisible(false);
     }
 
     private void setLoadPluginVisible(boolean visible) {
@@ -184,6 +199,8 @@ public class SecondaryController {
         load_format_field.setVisible(visible);
         load_title.setVisible(visible);
         close.setVisible(visible);
+        loadFormatComboBox.setVisible(visible);
+        chooseLoadFolderLabel.setVisible(visible);
     }
 
     private void setSaveStateVisible(boolean visible) {
@@ -195,8 +212,8 @@ public class SecondaryController {
         save_format_field.setVisible(visible);
         save_title.setVisible(visible);
         close.setVisible(visible);
-        formatComboBox.setVisible(visible);
-        chooseFolderLabel.setVisible(visible);
+        saveFormatComboBox.setVisible(visible);
+        chooseSaveFolderLabel.setVisible(visible);
     }
 
     @FXML
@@ -221,10 +238,10 @@ public class SecondaryController {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose Folder");
 
-        Stage stage = (Stage) chooseFolderLabel.getScene().getWindow();
+        Stage stage = (Stage) chooseSaveFolderLabel.getScene().getWindow();
         File selectedDirectory = directoryChooser.showDialog(stage);
         if (selectedDirectory != null) {
-            chooseFolderLabel.setText(selectedDirectory.getAbsolutePath());
+            chooseSaveFolderLabel.setText(selectedDirectory.getAbsolutePath());
         }
     }
 }
