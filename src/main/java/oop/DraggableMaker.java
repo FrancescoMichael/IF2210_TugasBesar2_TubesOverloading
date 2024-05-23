@@ -122,7 +122,7 @@ public class DraggableMaker {
 
                     // Set the new image to the sourceImageView
                     fieldController.getAnimalImage().setImage(new Image(newImageUrl));
-                    System.out.println(gameMaster.getCurrentFieldPlayer().getName());
+                    // System.out.println(gameMaster.getCurrentFieldPlayer().getName());
 
                     fieldController.setAllLabel(row - 1, col - 1);
                     fieldController.setPanenPageVisibility(true);
@@ -193,6 +193,7 @@ public class DraggableMaker {
                                     try {
                                         CurrentPLayer.invokeCard(index, row - 1, col - 1,
                                         gameMaster.getCurrentFieldPlayer());
+                                        // System.out.println("USING CARC");
                                         // CurrentPLayer.removeCardAtActiveDeck(index);
 
                                         fieldController.loadGridActiveDeck();
@@ -204,6 +205,7 @@ public class DraggableMaker {
                                 } else {
                                     try {
                                         System.out.println("HERE");
+                                        System.out.println("MOVE CARD GRID TO GRID");
                                         CurrentPLayer.moveCardGridtoGrid(rowSource - 1, colSource - 1, row - 1, col - 1, CurrentPLayer);
                                         fieldController.loadGridActiveDeck();
                                         makeDraggable(targetImageView, matrix_grid, gameMaster, true);
