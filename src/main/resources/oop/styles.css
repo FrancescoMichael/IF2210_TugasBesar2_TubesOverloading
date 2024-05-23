@@ -1,0 +1,46 @@
+.combo-box {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-arrow-button-visible: true;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+}
+
+.combo-box .arrow-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.combo-box .arrow {
+    -fx-background-color: green;
+}
+
+.combo-box:hover .arrow {
+    -fx-background-color: darkgreen;
+}
+
+.combo-box .list-view {
+    -fx-background-color: #2f2f2f;
+}
+
+.combo-box .list-cell {
+    -fx-font-size: 16px;
+    -fx-background-color: #2f2f2f;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-cell:selected, 
+.combo-box .list-cell:filled:selected, 
+.combo-box .list-cell:odd:selected, 
+.combo-box .list-cell:even:selected {
+    -fx-background-color: rgb(0, 0, 0);
+    -fx-text-fill: rgb(255, 255, 255); /* Text color of selected cell */
+}
+
+.combo-box:filled:focused .list-cell:selected {
+    -fx-text-fill: white;
+}
+
+.combo-box:focused .arrow {
+    -fx-background-color: green;
+}
