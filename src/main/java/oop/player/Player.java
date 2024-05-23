@@ -222,15 +222,22 @@ public class Player {
 
         // check if usable and not a blank card
         if (currCard instanceof UsableCard && !currCard.isEmpty()) {
+
+
             Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
+            
             ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
+
+            // Handle if active fullx
             if ( currCard instanceof Item ){
                 if ( ((Item)currCard).getEffect() instanceof ConcreteInstantHarvest ){
                    return; 
                 }
             }
+            System.out.println("MAU REMOVE MASS");
             this.removeCardAtActiveDeck(activeCardIndex);
         } else {
+            System.out.println("EXCEPTION THROWN");
             throw new InvalidCardPlacementException();
         }
 

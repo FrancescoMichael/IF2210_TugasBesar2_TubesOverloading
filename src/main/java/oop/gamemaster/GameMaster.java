@@ -128,13 +128,15 @@ public class GameMaster {
     public PlantService getPlantService(){
         return plantService;
     }
-    public void bearAttackProcess(Integer[] startEnd,FieldController controller, int row, int col) {
+    public void bearAttackProcess(Integer[] startEnd,FieldController controller, int row, int col) throws BaseException{
         boolean execute = true;
+        System.out.println("IT IS TIME TO ATTACK");
         Player currPlayer = this.getCurrentPlayer();
         controller.getDraggableMaker().removeGlowAll();
         int startRow = startEnd[0];
         int startCol = startEnd[1];
-
+        ArrayList<Integer> rows = new ArrayList<>();
+        ArrayList<Integer> cols = new ArrayList<>();
         for (int i = startRow; i < startRow + 2; i++) {
             for (int j = startCol; j < startCol + 3; j++) {
                 // Pane cell = grid[i][j];
@@ -143,12 +145,14 @@ public class GameMaster {
                 try{    
                     Creature card = currPlayer.getCardGrid(i, j);
                     if(card.isTrap()){
+                        System.out.println("IS A TRAPPPP");
                         execute = false;
                         break;
                     } else if (card.isProtected()){
 
                     }else {
-
+                        rows.add(i);
+                        cols.add(j);
                     }
                 }catch (BaseException e){
 
@@ -156,6 +160,24 @@ public class GameMaster {
 
             }
         }
+        if (execute){
+            for (int i = 0 ; i < rows.size() ; i++){
+                try{
+                    System.out.println();
+                    currPlayer.setBlankOnGrid(rows.get(i), cols.get(i));
+                } catch (BaseException e){
+                    System.out.println(e.getMessage());
+                }
+
+            }
+        }else {
+
+
+        currPlayer.addCardToActiveDeckFirstEmpty( new Omnivore("Beruang"));
+
+        }
+        controller.loadGridActiveDeck();
+
     
         // Player currPlayer = this.getCurrentPlayer();
         // for (int i = 0 ; i < row ; i++){
@@ -235,11 +257,12 @@ public class GameMaster {
             // final double[] timeLeft = {2.0};  // Time in seconds for the bear attack duration
             // Randomize time left
             double timeLeft = 30 + (random.nextDouble() * (60 - 30));
+            timeLeft = 10;
 
             
             try {
                 while (timeLeft > 0) {
-                    Thread.sleep(100); // Sleep for 100 milliseconds
+                    Thread.sleep(100); // Sleep for 1f00 milliseconds
                     timeLeft -= 0.1;
 
                     // TODO :  bug, time not updating correctly
@@ -253,7 +276,12 @@ public class GameMaster {
     
                 Platform.runLater(() -> {
                     timerLabel.setVisible(false);
-                    bearAttackProcess(startEnd, controller, row, col);
+                    try{
+                        bearAttackProcess(startEnd, controller, row, col);
+                    } catch (BaseException e){
+
+                    }
+
                 });
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -330,7 +358,7 @@ public class GameMaster {
             // }
 
             this.bearAttack = true;
-
+            System.out.println("RUNNING TIMER BEAR");
             this.bearAttackTimer(timeLabel,controller,startRow,startCol);
 
         }       
