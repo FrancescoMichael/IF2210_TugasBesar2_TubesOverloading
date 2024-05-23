@@ -3,8 +3,6 @@ package oop.plugin;
 import java.io.IOException;
 import java.util.*;
 
-import oop.player.*;
-
 public interface PluginInterface {
     public void loadPlayer(String filename, List<Integer> playerStatus, List<String> activeDeckString,
             List<String> gridString) throws IOException;

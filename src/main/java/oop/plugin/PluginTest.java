@@ -1,6 +1,6 @@
 package oop.plugin;
 
-import oop.plugin.PluginLoader;
+import oop.saveload.SaveLoad;
 
 public class PluginTest {
     public static void main(String[] args) {
@@ -9,7 +9,8 @@ public class PluginTest {
             String pluginPath = "../path/to/your/plugin.jar";
 
             PluginLoader pluginLoader = new PluginLoader();
-            pluginLoader.loadPlugin(pluginPath);
+            SaveLoad saveLoad = new SaveLoad();
+            pluginLoader.loadPlugin(pluginPath, saveLoad);
 
         } catch (Exception e) {
             e.printStackTrace();
