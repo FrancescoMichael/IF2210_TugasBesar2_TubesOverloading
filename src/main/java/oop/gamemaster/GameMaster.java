@@ -582,7 +582,7 @@ public class GameMaster {
         // loading in the stock map
         for (Map.Entry<String, Integer> entry : this.shop.getStock().entrySet()) {
             if (entry.getValue() > 0) {
-                String item = entry.getKey() + " " + entry.getValue();
+                String item = entry.getKey().toUpperCase() + " " + entry.getValue();
                 currentShopItems.add(item);
             }
         }
@@ -609,7 +609,9 @@ public class GameMaster {
                 String effectNames = effectNamesBuilder.toString().trim();
                 gridString1
                         .add(indexToCoordinate(this.getPlayer(0).searchGridIndex(creature)) + " "
-                                + creature.getName() + " " + creature.getWeight() + " " + numOfEffect + " "
+                                + saveFormatString(creature.getName().toUpperCase()) + " " + creature.getWeight() + " "
+                                + numOfEffect
+                                + " "
                                 + effectNames);
 
             }
@@ -637,7 +639,9 @@ public class GameMaster {
                 String effectNames = effectNamesBuilder.toString().trim();
                 gridString2
                         .add(indexToCoordinate(this.getPlayer(1).searchGridIndex(creature)) + " "
-                                + creature.getName() + " " + creature.getWeight() + " " + numOfEffect + " "
+                                + saveFormatString(creature.getName().toUpperCase()) + " " + creature.getWeight() + " "
+                                + numOfEffect
+                                + " "
                                 + effectNames);
 
             }
