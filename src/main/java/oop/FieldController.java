@@ -1132,17 +1132,19 @@ public class FieldController implements Initializable{
         try {
             // Load the plugin
             PluginLoader pluginLoader = new PluginLoader();
-            SaveLoad saveLoad = new SaveLoad();
-            pluginLoader.loadPlugin(file.getAbsolutePath(), saveLoad);
+            
+            pluginLoader.loadPlugin(file.getAbsolutePath(), gameMaster.getSaveLoad());
 
             // Update the format combo boxes
             saveFormatComboBox.getItems().clear();
             loadFormatComboBox.getItems().clear();
             saveFormatComboBox.getItems().addAll("txt");
             loadFormatComboBox.getItems().addAll("txt");
-
-            for (PluginInterface plugin : saveLoad.getSaveLoaders()) {
+            System.out.println();
+            for (PluginInterface plugin : gameMaster.getSaveLoad().getSaveLoaders()) {
                 String type = plugin.getType();
+                System.out.println(type);
+
                 if (!saveFormatComboBox.getItems().contains(type)) {
                     saveFormatComboBox.getItems().add(type);
                     loadFormatComboBox.getItems().add(type);
@@ -1188,6 +1190,7 @@ public class FieldController implements Initializable{
             gameMaster.load(foldername, format);
             System.out.println("halo");
             gameMaster.getCurrentPlayer().printGridActiveDeckTest();
+            hideAll();
             loadGridActiveDeck();
         } catch (Exception e) {
             e.printStackTrace();
