@@ -7,6 +7,7 @@ import java.util.*;
 public class PlantService {
     private List<Plant> plants;
 
+    private static int num = 0;
     public PlantService() {
         plants = new ArrayList<>();
     }
@@ -24,7 +25,13 @@ public class PlantService {
     }
 
     public void increaseAgeOfPlants() {
-        plants.forEach(plant -> plant.increaseWeight(1));
+        System.out.println("ITERATE: " + num);
+        num += 1;
+        plants.forEach(plant -> { 
+            plant.increaseWeight(1);
+            System.out.println(plant);
+
+        } );
     }
 
     public List<Plant> getSubscribers() {

@@ -37,6 +37,7 @@ public class Card {
         allCardImagePath.put("Protect", "/assets/OOP 2/OOP 2/cards/protect.png");
         allCardImagePath.put("Trap", "/assets/OOP 2/OOP 2/cards/trap.png");
         allCardImagePath.put("Daging Beruang", "/assets/OOP 2/OOP 2/cards/daging_beruang.png");
+        allCardImagePath.put("Daging Domba", "/assets/OOP 2/OOP 2/cards/daging_domba.png");
     }
 
     // contructor

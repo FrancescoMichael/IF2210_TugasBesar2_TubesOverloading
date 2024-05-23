@@ -15,7 +15,16 @@ public class Shop {
 
     public Shop() {
         // Constructor
-        this.stock = new HashMap<String, Integer>();
+        this.stock = new HashMap<>(Map.of(
+                "Sirip Hiu", 0,
+                "Susu", 0,
+                "Daging Domba", 0,
+                "Daging Kuda", 0,
+                "Telur", 0,
+                "Daging Beruang", 0,
+                "Jagung", 0,
+                "Labu", 0,
+                "Stroberi", 0));
         this.allHarvestedProduct = Map.of(
                 "Sirip Hiu", new CarnivoreFood("Sirip Hiu", 500, "Carnivore", 12),
                 "Susu", new CarnivoreFood("Susu", 100, "Carnivore", 4),
@@ -28,18 +37,22 @@ public class Shop {
                 "Stroberi", new HerbivoreFood("Stroberi", 350, "Herbivore", 5));
     }
 
-    public void Buy(Player currentPlayer, String productName, Integer quantity) throws BaseException {
+    public Map<String, Product> getProducts() {
+        return this.allHarvestedProduct;
+    }
+
+    public void Buy(Player currentPlayer, String productName) throws BaseException {
         Product selectedProduct = allHarvestedProduct.get(productName);
         Integer currentStock = stock.get(productName);
 
         // check gulden, check deck, check stock
-        if (currentPlayer.getGulden() >= (selectedProduct.getPrice() * quantity)
-                && (currentPlayer.getCardDeckLeft() >= quantity) && (currentStock >= quantity)) {
+        if (currentPlayer.getGulden() >= (selectedProduct.getPrice())
+                && (currentPlayer.getCardDeckLeft() >= 1) && (currentStock >= 1)) {
             // Decrease player's gulden
-            currentPlayer.setGulden(currentPlayer.getGulden() - (selectedProduct.getPrice() * quantity));
+            currentPlayer.setGulden(currentPlayer.getGulden() - (selectedProduct.getPrice()));
 
             // Decrease stock
-            stock.put(productName, currentStock - quantity);
+            stock.put(productName, currentStock - 1);
 
             // Create a new product instance
             Product productTemp;
@@ -51,9 +64,7 @@ public class Shop {
             productTemp.setOwner(currentPlayer);
 
             // Add product to player's active deck
-            for (int i = 0; i < quantity; i++) {
-                currentPlayer.addCardToActiveDeckFirstEmpty(productTemp);
-            }
+            currentPlayer.addCardToActiveDeckFirstEmpty(productTemp);
         } else {
             throw new BaseException("Stock habis atau uang tidak cukup");
         }
@@ -66,17 +77,24 @@ public class Shop {
         } catch (Exception e) {
             throw new BaseException();
         }
+        System.out.println(indexSelected);
 
         if (selectedCard instanceof Product) {
             // pembelian bisa dilakukan
-            currentPlayer.setGulden(currentPlayer.getGulden() + ((Product) selectedCard).getPrice());
-            String cardName = selectedCard.getName();
-            int currentStock = stock.get(cardName);
-            stock.put(cardName, currentStock + 1);
+            try {
+                currentPlayer.setGulden(currentPlayer.getGulden() + ((Product) selectedCard).getPrice());
+                String cardName = selectedCard.getName();
+                int currentStock = this.stock.get(cardName);
+                this.stock.put(cardName, currentStock + 1);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                // TODO: handle exception
+            }
         } else {
             // exception
+            throw new InvalidSellException();
         }
-
         currentPlayer.removeCardAtActiveDeck(indexSelected);
     }
 

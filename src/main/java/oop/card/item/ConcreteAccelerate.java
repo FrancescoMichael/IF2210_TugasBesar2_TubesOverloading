@@ -5,7 +5,7 @@ import oop.exceptionkerajaan.*;
 import oop.exceptionkerajaan.InvalidCardPlacementException;
 
 
-public class ConcreteAccelerate implements ItemEffect {
+public class ConcreteAccelerate implements ItemEffect, GoodEffect {
     public void useEffect(Item currentCard,Creature cardTarget, int row, int col) throws BaseException{
         if (cardTarget instanceof Animals){
             // increase age of animals
