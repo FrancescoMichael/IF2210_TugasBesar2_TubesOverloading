@@ -55,12 +55,15 @@ public class DraggableMaker {
     }
 
     public void removeRedGlow(Pane[][] grid, int rows, int cols){
+        // System.out.println("REMOVE RED");
+        // System.out.println(rows);
+        // System.out.println(cols);
         for (int row = 0 ; row < rows ; row++){
             for (int col = 0 ; col < cols ; cols++){
                 setRedGlow(grid[row][col], false);
             }
         }
-        glowingCells.clear();
+        // glowingCells.clear();
     }
     private void setGlow(ImageView sourceImageView, boolean glow) {
         if (sourceImageView != null) {

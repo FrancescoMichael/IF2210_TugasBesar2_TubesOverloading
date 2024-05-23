@@ -161,7 +161,8 @@ public class GameMaster {
         }
 
         controller.getDraggableMaker().removeRedGlow(panes, row, col);
-        controller.loadGridActiveDeck();
+        System.out.println("DONE DISINI");
+        // controller.loadGridActiveDeck();
     
 
 
@@ -171,11 +172,10 @@ public class GameMaster {
         Pane[][] panes = controller.simulateBearAttack(row, col); // set red glow
 
 
-        final double[] timeLeft = {10.0};  // Time in seconds for the bear attack duration
+        final double[] timeLeft = {2.0};  // Time in seconds for the bear attack duration
         final Timeline[] timelineWrapper = new Timeline[1];  // Wrapper to hold the timeline
         timerLabel.setText("");
         timerLabel.setVisible(true);
-        controller.simulateBearAttack(row, col);
         timelineWrapper[0] = new Timeline(new KeyFrame(Duration.millis(100), event -> {
             timeLeft[0] -= 0.1;  // Decrement the time
             timerLabel.setText(String.format(" %.1f seconds", timeLeft[0]));
@@ -183,14 +183,16 @@ public class GameMaster {
             if (timeLeft[0] <= 0) {
                 timelineWrapper[0].stop();
                 timerLabel.setVisible(false);
+                bearAttackProcess(panes,controller, row, col);
+                // Platform.runLater(() -> {
+                //     try {
+                //         System.out.println(row + " col : " + col);
+                //         bearAttackProcess(panes,controller, row, col);
 
-                Platform.runLater(() -> {
-                    try {
-                        bearAttackProcess(panes,controller, row, col);
 
-                    } finally {
-                    }
-                });
+                //     } finally {
+                //     }
+                // });
             }
         }));
         

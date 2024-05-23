@@ -38,7 +38,8 @@ import oop.card.item.*;
 import oop.exceptionkerajaan.BaseException;
 import oop.gamemaster.GameMaster;
 import oop.player.Player;
-import oop.card.product.*;;
+import oop.card.product.*;
+import javafx.scene.control.TextField;
 
 public class FieldController implements Initializable{
 
@@ -471,10 +472,60 @@ public class FieldController implements Initializable{
     private ImageView toko_deck12;
 
     @FXML
-    private ImageView toko_list_items;
+    private ImageView toko_back;
 
     @FXML
-    private ImageView toko_back;
+    private ImageView toko_daging_domba;
+
+    @FXML
+    private ImageView toko_jagung;
+
+    @FXML
+    private ImageView toko_daging_kuda;
+
+    @FXML
+    private ImageView toko_sirip_hiu;
+
+    @FXML
+    private ImageView toko_stroberi;
+
+    @FXML
+    private ImageView toko_susu;
+
+    @FXML
+    private ImageView toko_telur;
+
+    @FXML
+    private ImageView toko_labu;
+
+    @FXML
+    private ImageView toko_daging_beruang;
+
+    @FXML
+    private ImageView PopUpToko;
+
+    @FXML
+    private ImageView ImageToko;
+
+    @FXML
+    private Label Harga;
+
+    @FXML
+    private ImageView BuyButton;
+
+    @FXML
+    private ImageView SellButton;
+
+    @FXML
+    private TextField QuantityInput;
+
+    @FXML
+    private Label AnimalNameToko;
+
+    @FXML
+    private ImageView ClosePopUpToko;
+
+
     
     private Timeline countdownTimeline;
 
@@ -718,6 +769,16 @@ public class FieldController implements Initializable{
         toToko.setOnMouseClicked(event -> {
             setState("TokoState");
         });
+
+        ClosePopUpToko.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(false);
+            ImageToko.setVisible(false);
+            AnimalNameToko.setVisible(false);
+            ClosePopUpToko.setVisible(false);
+            Harga.setVisible(isInEnemyField());
+            BuyButton.setVisible(false);
+            SellButton.setVisible(false);
+        });
     }
 
     public void setState(String state) {
@@ -777,8 +838,16 @@ public class FieldController implements Initializable{
         toko_deck10.setVisible(false);
         toko_deck11.setVisible(false);
         toko_deck12.setVisible(false);
-        toko_list_items.setVisible(false);
         toko_back.setVisible(false);
+        toko_daging_domba.setVisible(false);
+        toko_jagung.setVisible(false);
+        toko_daging_kuda.setVisible(false);
+        toko_sirip_hiu.setVisible(false);
+        toko_stroberi.setVisible(false);
+        toko_susu.setVisible(false);
+        toko_telur.setVisible(false);
+        toko_labu.setVisible(false);
+        toko_daging_beruang.setVisible(false);
     }
 
     private void setTokoStateVisible(boolean visible) {
@@ -796,10 +865,118 @@ public class FieldController implements Initializable{
         toko_deck10.setVisible(visible);
         toko_deck11.setVisible(visible);
         toko_deck12.setVisible(visible);
-        toko_list_items.setVisible(visible);
         toko_back.setVisible(visible);
+        toko_daging_domba.setVisible(visible);
+        toko_jagung.setVisible(visible);
+        toko_daging_kuda.setVisible(visible);
+        toko_sirip_hiu.setVisible(visible);
+        toko_stroberi.setVisible(visible);
+        toko_susu.setVisible(visible);
+        toko_telur.setVisible(visible);
+        toko_labu.setVisible(visible);
+        toko_daging_beruang.setVisible(visible);
+
         List<String> deckImageUrls = getActiveDeckImageUrls();
         updateTokoDeckImages(deckImageUrls);
+
+        toko_daging_domba.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_domba.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Daging Domba");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_jagung.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/jagung.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Jagung");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_daging_kuda.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_kuda.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Daging Kuda");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_sirip_hiu.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/sirip_hiu.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Sirip Hiu");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_stroberi.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/stroberi.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Stroberi");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_susu.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/susu.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Susu");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_telur.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/telur.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Telur");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_labu.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/labu.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Labu");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_daging_beruang.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_beruang.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Daging Beruang");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
     }
 
 
