@@ -1,13 +1,10 @@
 package oop.plugin;
 
-import oop.plugin.PluginInterface;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SaveLoadTXT implements PluginInterface {
@@ -111,47 +108,4 @@ public class SaveLoadTXT implements PluginInterface {
     public String getType() {
         return "txt";
     }
-
-    // public static void main(String[] args) {
-    // try {
-    // // Load player 1
-    // List<Integer> playerStatus1 = new ArrayList<>();
-    // List<String> activeDeckString1 = new ArrayList<>();
-    // List<String> gridString1 = new ArrayList<>();
-    // loadPlayer("../config/player1.txt", playerStatus1, activeDeckString1,
-    // gridString1);
-    // System.out.println(playerStatus1);
-    // System.out.println(activeDeckString1);
-    // System.out.println(gridString1);
-    //
-    // // Load player 2
-    // List<Integer> playerStatus2 = new ArrayList<>();
-    // List<String> activeDeckString2 = new ArrayList<>();
-    // List<String> gridString2 = new ArrayList<>();
-    // loadPlayer("../config/player2.txt", playerStatus2, activeDeckString2,
-    // gridString2);
-    // System.out.println(playerStatus2);
-    // System.out.println(activeDeckString2);
-    // System.out.println(gridString2);
-    //
-    // // Load game
-    // List<String> shopItems = new ArrayList<>();
-    // int turn = loadGame("../config/gamestate.txt", shopItems);
-    // System.out.println(turn);
-    // System.out.println(shopItems);
-    //
-    // // Save player 1
-    // savePlayer("../saved_player1.txt", playerStatus1, activeDeckString1,
-    // gridString1);
-    //
-    // // Save player 2
-    // savePlayer("../saved_player2.txt", playerStatus2, activeDeckString2,
-    // gridString2);
-    //
-    // // Save game state
-    // saveGame( "../saved_gamestate.txt", turn, shopItems);
-    // } catch (IOException e) {
-    // System.err.println("Failed to load data: " + e.getMessage());
-    // }
-    // }
 }
