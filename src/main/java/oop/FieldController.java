@@ -1235,12 +1235,8 @@ public class FieldController implements Initializable{
         }
         // save operation
         try {
-            SaveLoad saveLoad = new SaveLoad();
-            String foldername = chooseSaveFolderLabel.getText() + "/saved_file." + format;
-            // nanti fetch currentTurns dan shopItems
-            int currentTurn = 0;
-            List<String> shopItems = new ArrayList<>();
-            saveLoad.saveGame(foldername, currentTurn, shopItems, format);
+            String foldername = chooseSaveFolderLabel.getText();
+            gameMaster.save(foldername, format);
         } catch (Exception e) {
             e.printStackTrace();
         }
