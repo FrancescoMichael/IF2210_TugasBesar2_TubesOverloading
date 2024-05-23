@@ -15,7 +15,16 @@ public class Shop {
 
     public Shop() {
         // Constructor
-        this.stock = new HashMap<String, Integer>();
+        this.stock = new HashMap<>(Map.of(
+                "Sirip Hiu", 0,
+                "Susu", 0,
+                "Daging Domba", 0,
+                "Daging Kuda", 0,
+                "Telur", 0,
+                "Daging Beruang", 0,
+                "Jagung", 0,
+                "Labu", 0,
+                "Stroberi", 0));
         this.allHarvestedProduct = Map.of(
                 "Sirip Hiu", new CarnivoreFood("Sirip Hiu", 500, "Carnivore", 12),
                 "Susu", new CarnivoreFood("Susu", 100, "Carnivore", 4),
@@ -66,17 +75,24 @@ public class Shop {
         } catch (Exception e) {
             throw new BaseException();
         }
+        System.out.println(indexSelected);
 
         if (selectedCard instanceof Product) {
             // pembelian bisa dilakukan
-            currentPlayer.setGulden(currentPlayer.getGulden() + ((Product) selectedCard).getPrice());
-            String cardName = selectedCard.getName();
-            int currentStock = stock.get(cardName);
-            stock.put(cardName, currentStock + 1);
+            try {
+                currentPlayer.setGulden(currentPlayer.getGulden() + ((Product) selectedCard).getPrice());
+                String cardName = selectedCard.getName();
+                int currentStock = this.stock.get(cardName);
+                this.stock.put(cardName, currentStock + 1);
+
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                // TODO: handle exception
+            }
         } else {
             // exception
+            throw new InvalidSellException();
         }
-
         currentPlayer.removeCardAtActiveDeck(indexSelected);
     }
 

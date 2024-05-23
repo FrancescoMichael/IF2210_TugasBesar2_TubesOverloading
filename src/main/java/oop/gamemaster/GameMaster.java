@@ -219,6 +219,10 @@ public class GameMaster {
         return this.currentTurn;
     }
 
+    public Shop getShop() {
+        return this.shop;
+    }
+
     // setters
     public void setListPlayer(List<Player> listPlayers) {
         this.listPlayers = listPlayers;
@@ -283,9 +287,6 @@ public class GameMaster {
         }   
     }
 
-    public void invokeBearAttack(){
-
-    }
 
     public void next(Label timeLabel, FieldController controller) throws BaseException {
         this.currentTurn++;
