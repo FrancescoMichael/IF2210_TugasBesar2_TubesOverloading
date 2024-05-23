@@ -1,4 +1,3 @@
-
 package oop.card.creature;
 
 import oop.card.product.CarnivoreFood;

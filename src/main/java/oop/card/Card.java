@@ -3,7 +3,6 @@ package oop.card;
 import java.util.Map;
 import java.util.HashMap;
 
-import oop.card.creature.Creature;
 import oop.player.Player;
 
 public class Card {
@@ -37,6 +36,7 @@ public class Card {
         allCardImagePath.put("Destroy", "/assets/OOP 2/OOP 2/cards/destroy.png");
         allCardImagePath.put("Protect", "/assets/OOP 2/OOP 2/cards/protect.png");
         allCardImagePath.put("Trap", "/assets/OOP 2/OOP 2/cards/trap.png");
+        allCardImagePath.put("Daging Beruang", "/assets/OOP 2/OOP 2/cards/daging_beruang.png");
     }
 
     // contructor

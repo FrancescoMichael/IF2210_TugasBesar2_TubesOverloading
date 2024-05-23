@@ -38,7 +38,8 @@ import oop.card.item.*;
 import oop.exceptionkerajaan.BaseException;
 import oop.gamemaster.GameMaster;
 import oop.player.Player;
-import oop.card.product.*;;
+import oop.card.product.*;
+import javafx.scene.control.TextField;
 
 public class FieldController implements Initializable{
 
@@ -471,10 +472,60 @@ public class FieldController implements Initializable{
     private ImageView toko_deck12;
 
     @FXML
-    private ImageView toko_list_items;
+    private ImageView toko_back;
 
     @FXML
-    private ImageView toko_back;
+    private ImageView toko_daging_domba;
+
+    @FXML
+    private ImageView toko_jagung;
+
+    @FXML
+    private ImageView toko_daging_kuda;
+
+    @FXML
+    private ImageView toko_sirip_hiu;
+
+    @FXML
+    private ImageView toko_stroberi;
+
+    @FXML
+    private ImageView toko_susu;
+
+    @FXML
+    private ImageView toko_telur;
+
+    @FXML
+    private ImageView toko_labu;
+
+    @FXML
+    private ImageView toko_daging_beruang;
+
+    @FXML
+    private ImageView PopUpToko;
+
+    @FXML
+    private ImageView ImageToko;
+
+    @FXML
+    private Label Harga;
+
+    @FXML
+    private ImageView BuyButton;
+
+    @FXML
+    private ImageView SellButton;
+
+    @FXML
+    private TextField QuantityInput;
+
+    @FXML
+    private Label AnimalNameToko;
+
+    @FXML
+    private ImageView ClosePopUpToko;
+
+
     
     private Timeline countdownTimeline;
 
@@ -489,7 +540,11 @@ public class FieldController implements Initializable{
     ImageView[][] matrixCardInField;
 
     ImageView[] listActiveDeck;
+
     
+    public DraggableMaker getDraggableMaker(){
+        return this.draggableMaker;
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         hideAll();
@@ -513,11 +568,11 @@ public class FieldController implements Initializable{
         });
 
         chooseSaveFolderLabel.setOnMouseClicked(event -> {
-            handleFolderChoose();
+            handleSaveFolderChoose();
         });
 
         chooseLoadFolderLabel.setOnMouseClicked(event -> {
-            handleFolderChoose();
+            handleLoadFolderChoose();
         });
 
         saveFormatComboBox.getItems().addAll("txt");
@@ -598,7 +653,12 @@ public class FieldController implements Initializable{
 
         glowButtonMaker.setGlow(nextTurnBtn);
         nextTurnBtn.setOnMouseClicked(event -> {
-            gameMaster.next();
+            try{
+                gameMaster.next(timerLabel,this);
+            } catch (BaseException e){
+
+            }
+
             turn.setText(gameMaster.getCurrentTurn() + 1 + "");
             gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
             loadGridActiveDeck();
@@ -692,7 +752,7 @@ public class FieldController implements Initializable{
         draggableMaker.makeDraggable(activeCard5, matrixGrid, gameMaster, false);
         draggableMaker.makeDraggable(activeCard6, matrixGrid, gameMaster, false);
 
-        bearAttackButton.setOnAction(event -> simulateBearAttack());
+        bearAttackButton.setOnAction(event -> simulateBearAttack( 0 , 0));
 
         LoadPlugin.setOnMouseClicked(event -> {
             setState("LoadPlugin");
@@ -708,6 +768,16 @@ public class FieldController implements Initializable{
 
         toToko.setOnMouseClicked(event -> {
             setState("TokoState");
+        });
+
+        ClosePopUpToko.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(false);
+            ImageToko.setVisible(false);
+            AnimalNameToko.setVisible(false);
+            ClosePopUpToko.setVisible(false);
+            Harga.setVisible(isInEnemyField());
+            BuyButton.setVisible(false);
+            SellButton.setVisible(false);
         });
     }
 
@@ -768,8 +838,16 @@ public class FieldController implements Initializable{
         toko_deck10.setVisible(false);
         toko_deck11.setVisible(false);
         toko_deck12.setVisible(false);
-        toko_list_items.setVisible(false);
         toko_back.setVisible(false);
+        toko_daging_domba.setVisible(false);
+        toko_jagung.setVisible(false);
+        toko_daging_kuda.setVisible(false);
+        toko_sirip_hiu.setVisible(false);
+        toko_stroberi.setVisible(false);
+        toko_susu.setVisible(false);
+        toko_telur.setVisible(false);
+        toko_labu.setVisible(false);
+        toko_daging_beruang.setVisible(false);
     }
 
     private void setTokoStateVisible(boolean visible) {
@@ -787,10 +865,182 @@ public class FieldController implements Initializable{
         toko_deck10.setVisible(visible);
         toko_deck11.setVisible(visible);
         toko_deck12.setVisible(visible);
-        toko_list_items.setVisible(visible);
         toko_back.setVisible(visible);
+        toko_daging_domba.setVisible(visible);
+        toko_jagung.setVisible(visible);
+        toko_daging_kuda.setVisible(visible);
+        toko_sirip_hiu.setVisible(visible);
+        toko_stroberi.setVisible(visible);
+        toko_susu.setVisible(visible);
+        toko_telur.setVisible(visible);
+        toko_labu.setVisible(visible);
+        toko_daging_beruang.setVisible(visible);
+
         List<String> deckImageUrls = getActiveDeckImageUrls();
+        List<String> deckImageNames = getActiveDeckImageName();
         updateTokoDeckImages(deckImageUrls);
+
+        toko_daging_domba.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_domba.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Daging Domba");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_jagung.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/jagung.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Jagung");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_daging_kuda.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_kuda.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Daging Kuda");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_sirip_hiu.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/sirip_hiu.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Sirip Hiu");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_stroberi.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/stroberi.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Stroberi");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_susu.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/susu.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Susu");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_telur.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/telur.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Telur");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_labu.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/labu.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Labu");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_daging_beruang.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_beruang.png"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Daging Beruang");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            BuyButton.setVisible(visible);
+            Harga.setVisible(visible);
+        });
+
+        toko_deck7.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(0).replace("cards", "icons")));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText(deckImageNames.get(0));
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
+
+        toko_deck8.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(1).replace("cards", "icons")));
+            System.out.println(deckImageUrls.get(1).replace("cards", "icons"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText(deckImageNames.get(1));
+
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
+
+        toko_deck9.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(2).replace("cards", "icons")));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText(deckImageNames.get(2));
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
+
+        toko_deck10.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(3).replace("cards", "icons")));
+            System.out.println(deckImageUrls.get(3).replace("cards", "icons"));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText(deckImageNames.get(3));
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
+
+        toko_deck11.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(4).replace("cards", "icons")));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText(deckImageNames.get(4));
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
+
+        toko_deck12.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(5).replace("cards", "icons")));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText(deckImageNames.get(5));
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
     }
 
 
@@ -847,7 +1097,7 @@ public class FieldController implements Initializable{
     }
 
     @FXML
-    private void handleFolderChoose() {
+    private void handleSaveFolderChoose() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose Folder");
 
@@ -855,6 +1105,17 @@ public class FieldController implements Initializable{
         File selectedDirectory = directoryChooser.showDialog(stage);
         if (selectedDirectory != null) {
             chooseSaveFolderLabel.setText(selectedDirectory.getAbsolutePath());
+        }
+    }
+
+    private void handleLoadFolderChoose() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Choose Folder");
+
+        Stage stage = (Stage) chooseSaveFolderLabel.getScene().getWindow();
+        File selectedDirectory = directoryChooser.showDialog(stage);
+        if (selectedDirectory != null) {
+            chooseLoadFolderLabel.setText(selectedDirectory.getAbsolutePath());
         }
     }
 
@@ -875,17 +1136,19 @@ public class FieldController implements Initializable{
         try {
             // Load the plugin
             PluginLoader pluginLoader = new PluginLoader();
-            SaveLoad saveLoad = new SaveLoad();
-            pluginLoader.loadPlugin(file.getAbsolutePath(), saveLoad);
+            
+            pluginLoader.loadPlugin(file.getAbsolutePath(), gameMaster.getSaveLoad());
 
             // Update the format combo boxes
             saveFormatComboBox.getItems().clear();
             loadFormatComboBox.getItems().clear();
             saveFormatComboBox.getItems().addAll("txt");
             loadFormatComboBox.getItems().addAll("txt");
-
-            for (PluginInterface plugin : saveLoad.getSaveLoaders()) {
+            System.out.println();
+            for (PluginInterface plugin : gameMaster.getSaveLoad().getSaveLoaders()) {
                 String type = plugin.getType();
+                System.out.println(type);
+
                 if (!saveFormatComboBox.getItems().contains(type)) {
                     saveFormatComboBox.getItems().add(type);
                     loadFormatComboBox.getItems().add(type);
@@ -925,11 +1188,15 @@ public class FieldController implements Initializable{
         }
         // load
         try {
-            SaveLoad saveLoad = new SaveLoad();
-            String foldername = chooseLoadFolderLabel.getText() + "/saved_file." + format;
-            List<String> shopItems = new ArrayList<>();
-            int currentTurn = saveLoad.loadGame(foldername, format, shopItems);
-            // Handle the loaded data (currentTurn and shopItems)
+            String foldername = chooseLoadFolderLabel.getText();
+            System.out.println("foldername: "+ foldername);
+            System.out.println("format: "+ format);
+            gameMaster.load(foldername, format);
+            System.out.println("halo");
+            gameMaster.getCurrentPlayer().printGridActiveDeckTest();
+            hideAll();
+            loadGridActiveDeck();
+            loadOther();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -988,17 +1255,24 @@ public class FieldController implements Initializable{
         }
     }
 
-    private void switchToSecondary(String state) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SaveLoadPlugin.fxml"));
-        Parent root = loader.load();
-        SecondaryController secondaryController = loader.getController();
-        secondaryController.setState(state);
-        List<String> deckImageUrls = getActiveDeckImageUrls();
-        secondaryController.updateTokoDeckImages(deckImageUrls);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) LoadPlugin.getScene().getWindow(); // Assuming LoadPlugin is in the current scene
-        stage.setScene(scene);
-        stage.show();
+    public void loadOther() {
+        firstPlayerMoney.setText(gameMaster.getPlayer(0).getGulden() + "");
+        secondPlayerMoney.setText(gameMaster.getPlayer(1).getGulden() + "");
+        turn.setText(gameMaster.getCurrentTurn() + "");
+        if (gameMaster.getCurrentTurn() % 2 == 0) {
+            titleplayer1turn.setVisible(true);
+            titleplayer2turn.setVisible(false);
+        } else {
+            titleplayer1turn.setVisible(false);
+            titleplayer2turn.setVisible(true);
+        }
+        gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
+        toLadangku1.setVisible(true);
+        toLadangLawan1.setVisible(false);
+        toToko1.setVisible(false);
+        SaveState1.setVisible(false);
+        LoadPlugin1.setVisible(false);
+        LoadState1.setVisible(false);
     }
     
     public void setAllLabel(int row, int col) {
@@ -1052,7 +1326,7 @@ public class FieldController implements Initializable{
     }
 
     @FXML
-    private void simulateBearAttack() {
+    public Integer[] simulateBearAttack(int damn, int cuk) {
         Pane[][] matrix_pane = new Pane[][] {
                 { plane11, plane12, plane13, plane14, plane15 },
                 { plane21, plane22, plane23, plane24, plane25 },
@@ -1068,10 +1342,12 @@ public class FieldController implements Initializable{
             }
         }
 
-        draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
-        startCountdown();
-    }
 
+
+
+        // startCountdown();
+        return draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
+    }
     public void setPanenPageVisibility(boolean bool) {
         label1.setVisible(bool);
         label2.setVisible(bool);
@@ -1152,10 +1428,32 @@ public class FieldController implements Initializable{
                     imageUrls.add(imageUrl);
                 }
             }
-        } catch (BaseException e) {
+        } catch(Exception e) {
             e.printStackTrace();
             // Handle the exception, e.g., show an error message to the user
         }
         return imageUrls;
+    }
+
+    private List<String> getActiveDeckImageName() {
+        List<String> imageNames = new ArrayList<>();
+
+        try {
+            for (ImageView activeCard : listActiveDeck) {
+                String activeCardId = activeCard.getId();
+                int index = ((int) activeCardId.charAt(activeCardId.length() - 1) - '0') - 1;
+                String imageName = gameMaster.getCurrentPlayer().getCardActiveDeck(index).getName();
+                if (imageName == null) {
+                    imageNames.add("Tidak ada kartu disini!");
+                } else {
+                    imageNames.add(imageName);
+                }
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+            // Handle the exception, e.g., show an error message to the user
+        }
+        return imageNames;
+
     }
 }

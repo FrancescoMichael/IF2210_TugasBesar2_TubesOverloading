@@ -2,25 +2,46 @@ package oop.gamemaster;
 
 import java.util.*;
 import java.util.function.Supplier;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Platform;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+
 import static java.util.Map.entry;
 
 import oop.player.*;
 import oop.saveload.SaveLoad;
 import oop.observer.*;
 import oop.card.creature.*;
+import oop.card.item.Item;
+import oop.card.item.ItemEffect;
+import oop.card.product.CarnivoreFood;
+import oop.card.product.HerbivoreFood;
+import oop.card.product.Product;
+import oop.exceptionkerajaan.BaseException;
+import oop.FieldController;
+import oop.card.*;
+import oop.shop.*;
+import javafx.util.Duration;
+
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+
+
+import javafx.application.Preloader.StateChangeNotification;
+
+
 import oop.card.item.ConcreteAccelerate;
 import oop.card.item.ConcreteDelay;
 import oop.card.item.ConcreteDestroy;
 import oop.card.item.ConcreteInstantHarvest;
 import oop.card.item.ConcreteProtect;
 import oop.card.item.ConcreteTrap;
-import oop.card.item.Item;
-import oop.card.item.ItemEffect;
-import oop.card.product.CarnivoreFood;
-import oop.card.product.HerbivoreFood;
-import oop.card.product.Product;
-import oop.card.*;
-import oop.shop.*;
+
+// import oop.card.product.CarnivoreFood;
+// import oop.card.product.HerbivoreFood;
 
 public class GameMaster {
     private final Random random = new Random();
@@ -30,6 +51,7 @@ public class GameMaster {
     private PlantService plantService;
     private Shop shop;
     private SaveLoad saveLoad;
+    private boolean bearAttack;
 
     protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
             "Sapi", () -> new Herbivore("Sapi"),
@@ -100,8 +122,86 @@ public class GameMaster {
         this.currentTurn = 0;
         this.plantService = new PlantService();
         this.shop = new Shop();
+        this.saveLoad = new SaveLoad();
+        Player.setPlayerPlantService(plantService);
+    }
+    public PlantService getPlantService(){
+        return plantService;
+    }
+    public void bearAttackProcess(Integer[] startEnd,FieldController controller, int row, int col) {
+        boolean execute = true;
+        controller.getDraggableMaker().removeGlowAll();
+    
+        // Player currPlayer = this.getCurrentPlayer();
+        // for (int i = 0 ; i < row ; i++){
+        //     for(int j = 0 ; j < col ; j++){
+        //         try{
+        //             if(currPlayer.getCardGrid(i, j).isTrap()){
+        //                 execute = false;
+        //                 break;
+        //             }
+        //         }catch(BaseException e){
+
+        //         }
+
+        //     }   
+        // }
+        // if (execute){
+        //     for (int i = 0 ; i < row ; i++){
+        //         for(int j = 0 ; j < col ; j++){
+        //             try{
+        //             if( !currPlayer.getCardGrid(i, j).isProtected()){
+        //                 currPlayer.setBlankOnGrid(i, j);
+        //             }
+        //             }catch (BaseException e){
+
+        //             }
+
+        //         }   
+        //     }
+        // }
+
+        // controller.getDraggableMaker().removeRedGlow(panes, row, col);
+        // System.out.println("DONE DISINI");
+        // controller.loadGridActiveDeck();
+    
+
+
     }
 
+    public void bearAttackTimer(Label timerLabel, FieldController controller, int row, int col) throws BaseException {
+        Integer[] startEnd =  controller.simulateBearAttack(0, 0); // set red glow
+
+
+        final double[] timeLeft = {2.0};  // Time in seconds for the bear attack duration
+        final Timeline[] timelineWrapper = new Timeline[1];  // Wrapper to hold the timeline
+        timerLabel.setText("");
+        timerLabel.setVisible(true);
+        timelineWrapper[0] = new Timeline(new KeyFrame(Duration.millis(100), event -> {
+            timeLeft[0] -= 0.1;  // Decrement the time
+            timerLabel.setText(String.format(" %.1f seconds", timeLeft[0]));
+            
+            if (timeLeft[0] <= 0) {
+                timelineWrapper[0].stop();
+                System.out.println("BEFORE FALSE");
+                timerLabel.setVisible(false);
+                System.out.println("AFTER FALSE");
+                bearAttackProcess(startEnd,controller, row, col);
+                // Platform.runLater(() -> {
+                //     try {
+                //         System.out.println(row + " col : " + col);
+                //         bearAttackProcess(panes,controller, row, col);
+
+
+                //     } finally {
+                //     }
+                // });
+            }
+        }));
+        
+        timelineWrapper[0].setCycleCount(Timeline.INDEFINITE);
+        timelineWrapper[0].play();
+    }
     // getters
     public List<Player> getListPlayers() {
         return this.listPlayers;
@@ -124,6 +224,10 @@ public class GameMaster {
         this.plantService = plantService;
     }
 
+    public SaveLoad getSaveLoad(){
+        return this.saveLoad;
+    }
+
     // other functions
     public Player getCurrentPlayer() {
 
@@ -142,23 +246,35 @@ public class GameMaster {
         this.currentFieldPlayer = player;
     }
 
-    public void next() {
+    public void next(Label timeLabel, FieldController controller) throws BaseException {
         this.currentTurn++;
-        ArrayList<Plant> arr = listPlayers.get(0).getAllPlantsInGrid(); // first player in list
-        arr.addAll(listPlayers.get(1).getAllPlantsInGrid()); // second player
-        this.plantService.setPlants(arr);
+        this.bearAttack = false;
         this.plantService.increaseAgeOfPlants();
-        if (true) {
-            // try {
-            // Thread.sleep(30000);
-            // } catch (Exception e) {
+        if (random.nextBoolean()) {
+            Random random = new Random();
+            int startRow = 0;
+            int startCol = 0;
+            int count = 0;
 
+            // while (true && count < 1000) {
+            //     startRow = random.nextInt(4) + 1;
+            //     startCol = random.nextInt(5) + 1; 
+    
+            //     // Check if the product condition is met
+            //     if (startRow * startCol <= 6) {
+            //         break;
+            //     }
+            // }
+            // if (count == 1000){
+            //     return;
             // }
 
-            // bearAttack();
-        }
-    }
+            this.bearAttack = true;
 
+            this.bearAttackTimer(timeLabel,controller,startRow,startCol);
+
+        }       
+    }
     // Random Creature
 
     // random
@@ -346,24 +462,32 @@ public class GameMaster {
             }
 
         }
+        
+        playerChange.emptyGrid();
         for (int i = 0; i < gridString.size(); i++) {
-            String[] parts = activeDeckString.get(i).split(" ");
+            String[] parts = gridString.get(i).split(" ");
+            System.out.println("Ini parts" + parts[0] + parts[1] + parts[2]);
             int index = coordinateToIndex(parts[0]);
-            if (index > 19) {
+            System.out.println("Ini index: " + index);
+            if (index <= 19) {
                 Card newCard = allCardMap.get(formatItemString(parts[1])).get();
                 Creature newCreature = (Creature) newCard;
                 newCreature.setWeight(Integer.parseInt(parts[2]));
                 newCreature.setWeightAfterEffect(Integer.parseInt(parts[2]));
                 int effectCount = Integer.parseInt(parts[3]);
+                System.out.println("ngasih effect mazeh");
                 for (int j = 0; j < effectCount; j++) {
                     Card newCardItem = allCardMap.get(formatItemString(parts[4 + j])).get();
                     Item newItem = (Item) newCardItem;
+                    System.out.println("dikasih effect mazeh");
                     try {
                         newItem.useCard(newCreature, 0, 0);
+                        System.out.println(" effect mazeh");
                     } catch (Exception e) {
 
                     }
                 }
+                System.out.println("masukkin effect mazeh");
                 try {
                     playerChange.addCardToGrid(newCreature, index / 5, index % 5);
 
@@ -386,7 +510,7 @@ public class GameMaster {
             List<String> gridString2 = new ArrayList<>();
             this.currentTurn = saveLoad.Load(folderPath, type, currentShopItems,
                     playerStatus1, activeDeckString1, gridString1,
-                    playerStatus2, activeDeckString2, gridString2);
+                    playerStatus2, activeDeckString2, gridString2) -1 ;
 
             this.shop.getStock().clear();
             for (int i = 0; i < currentShopItems.size(); i++) {
@@ -395,6 +519,7 @@ public class GameMaster {
             }
             loadPlayer(0, playerStatus1, activeDeckString1, gridString1);
             loadPlayer(1, playerStatus2, activeDeckString2, gridString2);
+            System.out.println(gridString2);
             this.plantService.getSubscribers().clear();
             List<Plant> plantP1 = this.listPlayers.get(0).getAllPlantsInGrid();
             List<Plant> plantP2 = this.listPlayers.get(1).getAllPlantsInGrid();
@@ -407,6 +532,7 @@ public class GameMaster {
 
         } catch (Exception e) {
             // TODO: handle exception
+            System.out.println(e.getMessage());
         }
 
     }

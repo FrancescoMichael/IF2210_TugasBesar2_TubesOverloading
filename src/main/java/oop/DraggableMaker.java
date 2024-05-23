@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javafx.util.Pair;
 import oop.exceptionkerajaan.BaseException;
 import oop.gamemaster.*;
 
@@ -54,6 +55,17 @@ public class DraggableMaker {
         this.fieldList = new String[fieldController.matrixGrid.length][fieldController.matrixGrid[0].length];
     }
 
+    public void removeRedGlow(Pane[][] grid, int rows, int cols){
+        // System.out.println("REMOVE RED");
+        // System.out.println(rows);
+        // System.out.println(cols);
+        for (int row = 0 ; row < rows ; row++){
+            for (int col = 0 ; col < cols ; cols++){
+                setRedGlow(grid[row][col], false);
+            }
+        }
+        // glowingCells.clear();
+    }
     private void setGlow(ImageView sourceImageView, boolean glow) {
         if (sourceImageView != null) {
             if (glow) {
@@ -181,7 +193,7 @@ public class DraggableMaker {
                                     try {
                                         CurrentPLayer.invokeCard(index, row - 1, col - 1,
                                         gameMaster.getCurrentFieldPlayer());
-                                        CurrentPLayer.removeCardAtActiveDeck(index);
+                                        // CurrentPLayer.removeCardAtActiveDeck(index);
 
                                         fieldController.loadGridActiveDeck();
                                         
@@ -191,9 +203,8 @@ public class DraggableMaker {
                                     }
                                 } else {
                                     try {
-                                        CurrentPLayer.invokeCardGridtoGrid(rowSource - 1, colSource - 1, row - 1,
-                                        col - 1, gameMaster.getCurrentFieldPlayer());
-                                        CurrentPLayer.setBlankOnGrid(rowSource - 1, colSource - 1);
+                                        System.out.println("HERE");
+                                        CurrentPLayer.moveCardGridtoGrid(rowSource - 1, colSource - 1, row - 1, col - 1, CurrentPLayer);
                                         fieldController.loadGridActiveDeck();
                                         makeDraggable(targetImageView, matrix_grid, gameMaster, true);
                                     } catch (BaseException e) {
@@ -239,7 +250,8 @@ public class DraggableMaker {
         }
     }
 
-    public void setRedGlowOnRandomGroup(Pane[][] grid, int rows, int cols) {
+    public Integer[] setRedGlowOnRandomGroup(Pane[][] grid, int rows, int cols) {
+        Integer temp[] = new Integer[2];
         if (timer != null) {
             timer.stop();
             for (Pane cell : glowingCells) {
@@ -265,14 +277,25 @@ public class DraggableMaker {
                 setRedGlow(cell, true);
             }
         }
+        temp[0] = startRow;
+        temp[1] = startCol;
 
-        timer = new Timeline(new KeyFrame(Duration.seconds(30), event -> {
-            for (Pane cell : glowingCells) {
-                setRedGlow(cell, false);
-            }
-            glowingCells.clear();
-        }));
-        timer.setCycleCount(1);
-        timer.play();
+        return temp;
+
+        // timer = new Timeline(new KeyFrame(Duration.seconds(30), event -> {
+        //     for (Pane cell : glowingCells) {
+        //         setRedGlow(cell, false);
+        //     }
+        //     glowingCells.clear();
+        // }));
+        // timer.setCycleCount(1);
+        // timer.play();
+    }
+
+    public void removeGlowAll(){
+        for (Pane cell : glowingCells) {
+            setRedGlow(cell, false);
+        }
+        glowingCells.clear();
     }
 }
