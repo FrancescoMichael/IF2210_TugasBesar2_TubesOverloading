@@ -28,10 +28,10 @@ public class Shop {
                 "Stroberi", new HerbivoreFood("Stroberi", 350, "Herbivore", 5));
     }
 
-    public void Buy(Player currentPlayer, String productName) throws BaseException {
+    public void Buy(Player currentPlayer, String productName, Integer quantity) throws BaseException {
         Product selectedProduct = allHarvestedProduct.get(productName);
 
-        if (currentPlayer.getGulden() >= selectedProduct.getPrice() && !currentPlayer.isActiveDeckFull()) {
+        if (currentPlayer.getGulden() >= (selectedProduct.getPrice() * quantity) && (currentPlayer.getCardDeckLeft() >= quantity)) {
             // Check stock
             Integer currentStock = stock.get(productName);
             if (currentStock == null || currentStock <= 0) {
