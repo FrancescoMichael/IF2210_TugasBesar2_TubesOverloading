@@ -26,7 +26,7 @@ public class Plant extends Creature {
     @Override
     public void increaseWeight(int weight) {
         super.increaseWeight(weight);
-        if (this.weightAfterEffect > this.harvestedWeightRequirement) {
+        if (this.weightAfterEffect >= this.harvestedWeightRequirement) {
             Product tmp = this.getHarvestedProduct();
             // Update picture
             this.setPathToImg(tmp.getPathToImg());
@@ -39,7 +39,7 @@ public class Plant extends Creature {
     @Override
     public void increaseWeightAfterEffect(int additionalWeight) {
         super.increaseWeightAfterEffect(additionalWeight);
-        if (this.weightAfterEffect > this.harvestedWeightRequirement) {
+        if (this.weightAfterEffect >= this.harvestedWeightRequirement) {
             Product tmp = this.getHarvestedProduct();
             // Update picture
             this.setPathToImg(tmp.getPathToImg());

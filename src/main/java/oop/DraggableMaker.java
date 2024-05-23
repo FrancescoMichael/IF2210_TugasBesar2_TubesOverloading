@@ -112,7 +112,7 @@ public class DraggableMaker {
                     fieldController.getAnimalImage().setImage(new Image(newImageUrl));
                     System.out.println(gameMaster.getCurrentFieldPlayer().getName());
 
-                    fieldController.setAllLabel(gameMaster.getCurrentFieldPlayer(), row - 1, col - 1);
+                    fieldController.setAllLabel(row - 1, col - 1);
                     fieldController.setPanenPageVisibility(true);
 
                 }
@@ -172,19 +172,19 @@ public class DraggableMaker {
                         ImageView targetImageView = fieldController.getImageViewById("kosong" + (row) + (col));
 
                         // Check if the target cell is empty
-                        if (targetImageView.getImage() == null) {
-                            Player CurrentPLayer = gameMaster.getCurrentPlayer();
+                        Player CurrentPLayer = gameMaster.getCurrentPlayer();
+                        if (true) {
                             if (sourceImageView.getImage() != null) {
                                 String sourceImageUrl = sourceImageView.getImage().getUrl();
-                                targetImageView.setImage(new Image(sourceImageUrl));
-                                // sourceImageView.setImage(targetImageView.getImage());
-                                sourceImageView.setImage(null);
-
+                                
                                 if (idSourceImage.charAt(0) != 'k') {
                                     try {
                                         CurrentPLayer.invokeCard(index, row - 1, col - 1,
-                                                gameMaster.getCurrentFieldPlayer());
+                                        gameMaster.getCurrentFieldPlayer());
                                         CurrentPLayer.removeCardAtActiveDeck(index);
+
+                                        fieldController.loadGridActiveDeck();
+                                        
                                         makeDraggable(targetImageView, matrix_grid, gameMaster, true);
                                     } catch (BaseException e) {
                                         System.out.println(e.getMessage());
@@ -192,8 +192,9 @@ public class DraggableMaker {
                                 } else {
                                     try {
                                         CurrentPLayer.invokeCardGridtoGrid(rowSource - 1, colSource - 1, row - 1,
-                                                col - 1, gameMaster.getCurrentFieldPlayer());
+                                        col - 1, gameMaster.getCurrentFieldPlayer());
                                         CurrentPLayer.setBlankOnGrid(rowSource - 1, colSource - 1);
+                                        fieldController.loadGridActiveDeck();
                                         makeDraggable(targetImageView, matrix_grid, gameMaster, true);
                                     } catch (BaseException e) {
                                         System.out.println(e.getMessage());
@@ -202,6 +203,8 @@ public class DraggableMaker {
                                 }
 
                             }
+                        } else {
+                            // if (CurrentPLayer.getCardActiveDeck(index).)
                         }
                     }
 

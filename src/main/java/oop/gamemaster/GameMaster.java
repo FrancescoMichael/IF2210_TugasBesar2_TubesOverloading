@@ -23,15 +23,14 @@ public class GameMaster {
     private int currentTurn;
     private PlantService plantService;
 
-    public GameMaster(){
+    public GameMaster() {
         this.listPlayers = new ArrayList<>();
         this.currentTurn = 0;
         this.plantService = new PlantService();
     }
 
-
     // getters
-    public List<Player> getListPlayers(){
+    public List<Player> getListPlayers() {
         return this.listPlayers;
     }
 
@@ -39,22 +38,22 @@ public class GameMaster {
         return this.currentTurn;
     }
 
-    //setters
-    public void setListPlayer( List<Player> listPlayers){
-       this.listPlayers  = listPlayers;
+    // setters
+    public void setListPlayer(List<Player> listPlayers) {
+        this.listPlayers = listPlayers;
     }
 
-    public void setCurrentTurn(int currentTurn){
+    public void setCurrentTurn(int currentTurn) {
         this.currentTurn = currentTurn;
     }
 
-    public void setPlantService(PlantService plantService){
+    public void setPlantService(PlantService plantService) {
         this.plantService = plantService;
     }
 
     // other functions
     public Player getCurrentPlayer() {
-        
+
         return this.listPlayers.get(this.currentTurn % 2);
     }
 
@@ -72,8 +71,14 @@ public class GameMaster {
         arr.addAll(listPlayers.get(1).getAllPlantsInGrid()); // second player
         this.plantService.setPlants(arr);
         this.plantService.increaseAgeOfPlants();
-        if(random.nextBoolean()) {
-//            bearAttack();
+        if (true) {
+            // try {
+            //     Thread.sleep(30000);
+            // } catch (Exception e) {
+
+            // }
+
+            // bearAttack();
         }
     }
 
