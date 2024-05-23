@@ -17,6 +17,9 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import oop.plugin.PluginLoader;
+import oop.saveload.SaveLoad;
+
 public class SecondaryController {
 
     @FXML

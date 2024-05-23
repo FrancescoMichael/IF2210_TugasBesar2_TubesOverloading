@@ -6,20 +6,31 @@ import java.util.Random;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import oop.exceptionkerajaan.BaseException;
+import oop.gamemaster.*;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
-import oop.exceptionkerajaan.BaseException;
-import oop.*;
+import oop.player.Player;
 
 public class DraggableMaker {
     private ImageView lastGlowingCell = null;
     private List<Pane> glowingCells = new ArrayList<>();
     private Timeline timer;
+    private boolean wasDragged;
 
     private String[][] fieldList;
     private ArrayList<String> activeDeckName;
@@ -38,56 +49,84 @@ public class DraggableMaker {
         void onCardUpdated(ImageView card);
     }
 
-    private CardUpdateListener cardUpdateListener;
-
     public DraggableMaker(FieldController fieldController) {
         this.fieldController = fieldController;
+        this.fieldList = new String[fieldController.matrixGrid.length][fieldController.matrixGrid[0].length];
     }
 
-    public void setCardUpdateListener(CardUpdateListener listener) {
-        this.cardUpdateListener = listener;
-    }
-
-    private void setGlow(Node node, boolean glow) {
-        if (glow) {
-            DropShadow dropShadow = new DropShadow();
-            dropShadow.setColor(Color.YELLOW); // Glow color
-            dropShadow.setRadius(20);
-            dropShadow.setSpread(0.5);
-            dropShadow.setBlurType(javafx.scene.effect.BlurType.GAUSSIAN);
-            node.setEffect(dropShadow);
-        } else {
-            node.setEffect(null);
+    private void setGlow(ImageView sourceImageView, boolean glow) {
+        if (sourceImageView != null) {
+            if (glow) {
+                DropShadow dropShadow = new DropShadow();
+                dropShadow.setColor(Color.YELLOW); // Glow color
+                dropShadow.setRadius(20);
+                dropShadow.setSpread(0.5);
+                dropShadow.setBlurType(javafx.scene.effect.BlurType.GAUSSIAN);
+                sourceImageView.setEffect(dropShadow);
+            } else {
+                sourceImageView.setEffect(null);
+            }
         }
     }
 
-    public void makeDraggable(Node node, ImageView[][] grid, ArrayList<String> activeDeckName) {
-        this.activeDeckName = activeDeckName;
-
+    public void makeDraggable(ImageView sourceImageView, ImageView[][] matrix_grid, GameMaster gameMaster,
+            boolean isInField) {
         final Delta dragDelta = new Delta();
         final Delta initialPosition = new Delta();
-        initialPosition.x = node.getLayoutX();
-        initialPosition.y = node.getLayoutY();
+        initialPosition.x = sourceImageView.getLayoutX();
+        initialPosition.y = sourceImageView.getLayoutY();
 
-        final double yOffset = 19;
-
-        // Initialize the fieldList with the same dimensions as the grid
-        fieldList = new String[grid.length][grid[0].length];
-
-        node.setOnMousePressed(mouseEvent -> {
+        sourceImageView.setOnMousePressed(mouseEvent -> {
             // record a delta distance for the drag and drop operation.
-            dragDelta.x = node.getTranslateX() - mouseEvent.getSceneX();
-            dragDelta.y = node.getTranslateY() - mouseEvent.getSceneY();
-            // node.setTranslateX(0);
-            // node.setTranslateY(0);
+            dragDelta.x = sourceImageView.getTranslateX() - mouseEvent.getSceneX();
+            dragDelta.y = sourceImageView.getTranslateY() - mouseEvent.getSceneY();
         });
 
-        node.setOnMouseDragged(mouseEvent -> {
-            int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
-            int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
+        if (isInField) {
+            // fieldController.glowButtonMaker.setGlow(sourceImageView);
+            sourceImageView.setOnMouseClicked(event -> {
+                if (!wasDragged && !fieldController.isInEnemyField()) {
+                    
+                    int row = ((int) (event.getSceneY() - 70) / 100) + 1;
+                    int col = ((int) (event.getSceneX() - 34.4) / 100) + 1;
 
-            if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
-                ImageView currentCell = grid[row - 1][col - 1];
+                    fieldController.getPanenBtn().setOnMouseClicked(e -> {
+                        try {
+                            gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1).harvestCreature(row - 1, col - 1);
+                            fieldController.loadGridActiveDeck();
+                            fieldController.setPanenPageVisibility(false);
+                        } catch (Exception exception) {
+                            // TODO: handle exception
+                        }
+                    });
+
+                    // fieldController.creatureClicked = gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1);
+
+                    Image currentImage = sourceImageView.getImage();
+                    String currentImageUrl = currentImage.getUrl();
+
+                    // Edit the image URL (assuming you want to change the image name or path)
+                    String newImageUrl = currentImageUrl.replace("cards", "icons");
+
+                    // Set the new image to the sourceImageView
+                    fieldController.getAnimalImage().setImage(new Image(newImageUrl));
+                    System.out.println(gameMaster.getCurrentFieldPlayer().getName());
+
+                    fieldController.setAllLabel(row - 1, col - 1);
+                    fieldController.setPanenPageVisibility(true);
+
+                }
+                wasDragged = false;
+            });
+        }
+
+        sourceImageView.setOnMouseDragged(mouseEvent -> {
+            wasDragged = true;
+            int row = ((int) (mouseEvent.getSceneY() - 70) / 100) + 1;
+            int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
+
+            if (col > 0 && col <= matrix_grid[0].length && row > 0 && row <= matrix_grid.length) {
+                ImageView currentCell = matrix_grid[row - 1][col - 1];
 
                 // Only change the glow if the cell has changed
                 if (lastGlowingCell != currentCell) {
@@ -104,86 +143,68 @@ public class DraggableMaker {
                 }
             }
 
-            node.setTranslateX(mouseEvent.getSceneX() + dragDelta.x);
-            node.setTranslateY(mouseEvent.getSceneY() + dragDelta.y);
+            sourceImageView.setTranslateX(mouseEvent.getSceneX() + dragDelta.x);
+            sourceImageView.setTranslateY(mouseEvent.getSceneY() + dragDelta.y);
         });
 
-        node.setOnMouseReleased(mouseEvent -> {
+        sourceImageView.setOnMouseReleased(mouseEvent -> {
             if (lastGlowingCell != null) {
+
                 setGlow(lastGlowingCell, false);
 
-                // Snap the card to the grid cell
-                node.setLayoutX(lastGlowingCell.getLayoutX());
-                node.setLayoutY(lastGlowingCell.getLayoutY());
-                node.setTranslateX(0);
-                node.setTranslateY(0);
-
                 // Set the card size to match the grid cell
-                if (node instanceof ImageView) {
-                    ImageView card = (ImageView) node;
-                    card.setFitWidth(lastGlowingCell.getFitWidth());
-                    card.setFitHeight(lastGlowingCell.getFitHeight());
+                if (sourceImageView instanceof ImageView) {
+                    int row = ((int) (mouseEvent.getSceneY() - 70) / 100) + 1;
+                    int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
 
-                    // print active deck name content
-                    for (String name : activeDeckName) {
-                        System.out.println(name);
-                    }
+                    String idSourceImage = sourceImageView.getId();
 
-                    String className = node.getId();
+                    int rowSource = (int) idSourceImage.charAt(idSourceImage.length() - 2) - '0';
+                    int colSource = (int) idSourceImage.charAt(idSourceImage.length() - 1) - '0';
+
+                    String className = sourceImageView.getId();
                     char lastChar = className.charAt(className.length() - 1);
 
                     // Convert the last character to an integer
                     int index = Character.getNumericValue(lastChar) - 1;
-                    System.out.println(index);
 
-                    // Update the fieldList with the card position
-                    int col = ((int) (mouseEvent.getSceneX() - 34.4) / 100) + 1;
-                    int row = ((int) (mouseEvent.getSceneY() - 70) / 110) + 1;
+                    if (col > 0 && col <= matrix_grid[0].length && row > 0 && row <= matrix_grid.length) {
+                        ImageView targetImageView = fieldController.getImageViewById("kosong" + (row) + (col));
 
-                    if (col > 0 && col <= grid[0].length && row > 0 && row <= grid.length) {
-                        ImageView targetImageView = fieldController.getImageViewById("kosong" + row + col);
+                        // Check if the target cell is empty
+                        Player CurrentPLayer = gameMaster.getCurrentPlayer();
+                        if (true) {
+                            if (sourceImageView.getImage() != null) {
+                                String sourceImageUrl = sourceImageView.getImage().getUrl();
+                                
+                                if (idSourceImage.charAt(0) != 'k') {
+                                    try {
+                                        CurrentPLayer.invokeCard(index, row - 1, col - 1,
+                                        gameMaster.getCurrentFieldPlayer());
+                                        CurrentPLayer.removeCardAtActiveDeck(index);
 
-                        if (targetImageView != null) {
-                            // Check if the target cell is empty
-                            if (targetImageView.getImage() == null) {
-                                ImageView sourceImageView = (ImageView) node;
-                                if (sourceImageView.getImage() != null) {
-                                    String sourceImageUrl = sourceImageView.getImage().getUrl();
-                                    targetImageView.setImage(new Image(sourceImageUrl));
-
-                                    // Clear the source image URL
-                                    sourceImageView.setImage(null);
-
-                                    System.out.println("Source image URL: " + sourceImageUrl);
-                                    System.out.println("Target cell: " + "kosong" + row + col + " set to source image.");
-                                    System.out.println("Source cell cleared.");
-                                    // try{
-                                    // //     currentPlayer.invokeCard( 3,  1, 2, currentField  ) //invokeCard
-                                    // // }catch (BaseException e){
-                                    // //     e.getMessage() // harvesr nerima row dan col
-                                    // // }
-  
-
-                                    fieldList[row - 1][col - 1] = activeDeckName.get(index);
-                                    activeDeckName.set(index, "");
-
-                                    if (cardUpdateListener != null) {
-                                        cardUpdateListener.onCardUpdated(card);
+                                        fieldController.loadGridActiveDeck();
+                                        
+                                        makeDraggable(targetImageView, matrix_grid, gameMaster, true);
+                                    } catch (BaseException e) {
+                                        System.out.println(e.getMessage());
+                                    }
+                                } else {
+                                    try {
+                                        CurrentPLayer.invokeCardGridtoGrid(rowSource - 1, colSource - 1, row - 1,
+                                        col - 1, gameMaster.getCurrentFieldPlayer());
+                                        CurrentPLayer.setBlankOnGrid(rowSource - 1, colSource - 1);
+                                        fieldController.loadGridActiveDeck();
+                                        makeDraggable(targetImageView, matrix_grid, gameMaster, true);
+                                    } catch (BaseException e) {
+                                        System.out.println(e.getMessage());
                                     }
 
-                                    printMatrix();
-
-                                    // make redraggable
-                                    makeDraggable(targetImageView, grid, activeDeckName);
-                                } else {
-                                    System.err.println("Error: Source image is null.");
                                 }
-                            } else {
-                                // If the target cell is not empty, show an error message
-                                System.err.println("Error: Target cell 'kosong" + row + col + "' is not empty.");
+
                             }
                         } else {
-                            System.err.println("Target ImageView is null for ID: " + "kosong" + row + col);
+                            // if (CurrentPLayer.getCardActiveDeck(index).)
                         }
                     }
 
@@ -191,39 +212,30 @@ public class DraggableMaker {
 
                 // Disable dragging
                 lastGlowingCell = null;
+                sourceImageView.setTranslateX(0);
+                sourceImageView.setTranslateY(0);
             } else {
+                sourceImageView.setTranslateX(0);
+                sourceImageView.setTranslateY(0);
                 // If not over a grid cell, reset to the initial position
-                node.setTranslateX(0);
-                node.setTranslateY(0);
             }
-        });
-    }
 
-    private void printMatrix() {
-        for (int row = 0; row < fieldList.length; row++) {
-            for (int col = 0; col < fieldList[row].length; col++) {
-                if (fieldList[row][col] != null) {
-                    System.out.print("[" + fieldList[row][col] + "]");
-                } else {
-                    System.out.print("[ ] ");
-                }
-            }
-            System.out.println();
-        }
+            new Timeline(new KeyFrame(Duration.millis(50), e -> wasDragged = false)).play();
+        });
     }
 
     class Delta {
         double x, y;
     }
 
-    public void setRedGlow(Node node, boolean glow) {
-        if (node == null) {
+    public void setRedGlow(Node sourceImageView, boolean glow) {
+        if (sourceImageView == null) {
             return; // or throw an exception or log an error
         }
         if (glow) {
-            node.setStyle("-fx-border-color: red; -fx-border-width: 5;");
+            sourceImageView.setStyle("-fx-border-color: red; -fx-border-width: 5;");
         } else {
-            node.setStyle(null);
+            sourceImageView.setStyle(null);
         }
     }
 

@@ -3,6 +3,7 @@ package oop;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.animation.KeyFrame;
@@ -14,15 +15,24 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.fxml.Initializable;
 import javafx.util.Duration;
+import oop.card.creature.Carnivore;
+import oop.card.creature.Creature;
+import oop.card.creature.Herbivore;
+import oop.card.creature.Omnivore;
+import oop.card.creature.Plant;
+import oop.card.item.*;
+import oop.exceptionkerajaan.BaseException;
+import oop.gamemaster.GameMaster;
 import oop.player.Player;
-import oop.*;
+import oop.card.product.*;;
 
-public class FieldController implements Initializable, DraggableMaker.CardUpdateListener{
+public class FieldController implements Initializable{
 
     @FXML
     private void switchToSecondary() throws IOException {
@@ -105,7 +115,7 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     private ImageView grid44;
 
     @FXML
-    private ImageView grid55;
+    private ImageView grid45;
 
     @FXML
     private Pane plane11;
@@ -324,40 +334,115 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
  
     @FXML
     private ImageView clickableGrid11;
+
+    @FXML
+    private Label firstPlayerMoney;
+
+    @FXML
+    private Label secondPlayerMoney;
+
+    @FXML
+    private Label turn;
     
     private Timeline countdownTimeline;
 
-    private Player currentPlayer;
-
-    private Player nextPlayer;
-
-    private Player currentFieldPlayer;
-
-    private ArrayList<String> activeDeckName = new ArrayList<>();
-    
-    // String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/hiu_darat.png").toExternalForm();
+    private GameMaster gameMaster = new GameMaster();
 
     GlowButtonMaker glowButtonMaker = new GlowButtonMaker();
+
     DraggableMaker draggableMaker;
-    ImageView[][] matrix_grid;
+
+    ImageView[][] matrixGrid;
+
+    ImageView[][] matrixCardInField;
+
+    ImageView[] listActiveDeck;
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        draggableMaker = new DraggableMaker(this);
+        List<Player> listPlayer = new ArrayList<>();
+        Player player1 = new Player("Player1");
+        Player player2 = new Player("Player2");
+        try {
+            player1.addCardToActiveDeckFirstEmpty(new Omnivore("Beruang"));
+            player1.addCardToActiveDeckFirstEmpty(new Item("Protect"));
+            player1.addCardToActiveDeckFirstEmpty(new Item("Trap"));
+            player1.addCardToActiveDeckFirstEmpty(new Item("Delay"));
+            player1.addCardToActiveDeckFirstEmpty(new Item("Trap"));
+            player1.addCardToActiveDeckFirstEmpty(new Plant("Biji Stroberi"));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            // TODO: handle exception
+        }
+        try {
+            player2.addCardToActiveDeckFirstEmpty(new Carnivore("Hiu Darat"));
+            player2.addCardToActiveDeckFirstEmpty(new Herbivore("Sapi"));
+            player2.addCardToActiveDeckFirstEmpty(new Omnivore("Ayam"));
+            player2.addCardToActiveDeck(new Item("Destroy"), 3);
+            player2.addCardToActiveDeck(new Item("Instant Harvest"), 4);
+            player2.addCardToActiveDeck(new Item("Accelerate"), 5);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            // TODO: handle exception
+        }
+        listPlayer.add(player1);
+        listPlayer.add(player2);
+        gameMaster.setListPlayer(listPlayer);
+        gameMaster.setCurrentFieldPlayer(player1);
 
-        String imagePath = getClass().getResource("/assets/OOP 2/OOP 2/cards/beruang.png").toExternalForm();
-        String imagePath2 = getClass().getResource("/assets/OOP 2/OOP 2/cards/stroberi.png").toExternalForm();
-        grid11.setStyle("-fx-image: url('" + imagePath2 + "');");
-        grid22.setStyle("-fx-image: url('" + imagePath + "');");
-        // setPanenPageVisibility(false);
+        // initialize matrixgrid and matrixCardInField
+        matrixGrid = new ImageView[][] {
+                { grid11, grid12, grid13, grid14, grid15 },
+                { grid21, grid22, grid23, grid24, grid25 },
+                { grid31, grid32, grid33, grid34, grid35 },
+                { grid41, grid42, grid43, grid44, grid45 }
+        };
+
+        matrixCardInField = new ImageView[][] {
+                { kosong11, kosong12, kosong13, kosong14, kosong15 },
+                { kosong21, kosong22, kosong23, kosong24, kosong25 },
+                { kosong31, kosong32, kosong33, kosong34, kosong35 },
+                { kosong41, kosong42, kosong43, kosong44, kosong45 }
+        };
+
+        // initialize money and turn
+        firstPlayerMoney.setText(gameMaster.getListPlayers().get(0).getGulden() + "");
+        secondPlayerMoney.setText(gameMaster.getListPlayers().get(1).getGulden() + "");
+        turn.setText((gameMaster.getCurrentTurn() + 1) + "");
+
+        listActiveDeck = new ImageView[] {
+                activeCard1, activeCard2, activeCard3,
+                activeCard4, activeCard5, activeCard6
+        };
+
+        loadGridActiveDeck();
+
+        label1.setText("BERAT:");
+        label3.setText("ITEM AKTIF:");
+
         glowButtonMaker.setGlow(CloseBtn);
-        
         CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false));
-        PanenBtn.setOnMouseClicked(null);
-        
+
+        glowButtonMaker.setGlow(PanenBtn);
+
         glowButtonMaker.setGlow(nextTurnBtn);
+        nextTurnBtn.setOnMouseClicked(event -> {
+            gameMaster.next();
+            turn.setText(gameMaster.getCurrentTurn() + 1 + "");
+            gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
+            loadGridActiveDeck();
+            toLadangku1.setVisible(true);
+            toLadangLawan1.setVisible(false);
+            toToko1.setVisible(false);
+            SaveState1.setVisible(false);
+            LoadPlugin1.setVisible(false);
+            LoadState1.setVisible(false);
+        });
+
         glowButtonMaker.setGlow(toLadangLawan);
         toLadangLawan.setOnMouseClicked(event -> {
+            gameMaster.setCurrentFieldPlayer(gameMaster.getListPlayers().get((gameMaster.getCurrentTurn() + 1) % 2));
+            loadGridActiveDeck();
             toLadangLawan1.setVisible(true);
             toLadangku1.setVisible(false);
             toToko1.setVisible(false);
@@ -366,7 +451,10 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
             LoadState1.setVisible(false);
         });
         glowButtonMaker.setGlow(toLadangku);
+        toLadangku1.setVisible(true);
         toLadangku.setOnMouseClicked(event -> {
+            gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
+            loadGridActiveDeck();
             toLadangku1.setVisible(true);
             toLadangLawan1.setVisible(false);
             toToko1.setVisible(false);
@@ -411,6 +499,17 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
             LoadPlugin1.setVisible(false);
         });
 
+        draggableMaker = new DraggableMaker(this);
+
+        draggableMaker.makeDraggable(activeCard1, matrixGrid, gameMaster, false);
+        draggableMaker.makeDraggable(activeCard2, matrixGrid, gameMaster, false);
+        draggableMaker.makeDraggable(activeCard3, matrixGrid, gameMaster, false);
+        draggableMaker.makeDraggable(activeCard4, matrixGrid, gameMaster, false);
+        draggableMaker.makeDraggable(activeCard5, matrixGrid, gameMaster, false);
+        draggableMaker.makeDraggable(activeCard6, matrixGrid, gameMaster, false);
+
+        bearAttackButton.setOnAction(event -> simulateBearAttack());
+
         LoadPlugin.setOnMouseClicked(event -> {
             try {
                 switchToSecondary("LoadPlugin");
@@ -434,31 +533,38 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
                 e.printStackTrace();
             }
         });
+    }
 
-        activeDeckName.add("beruang");
-        activeDeckName.add("stroberi");
-        activeDeckName.add("beruang");
-        activeDeckName.add("stroberi");
-        activeDeckName.add("stroberi");
-        activeDeckName.add("stroberi");
-        
-        matrix_grid = new ImageView[][] {
-            {grid11, grid12, grid13, grid14, grid15},
-            {grid21, grid22, grid23, grid24, grid25},
-            {grid31, grid32, grid33, grid34, grid35},
-            {grid41, grid42, grid43, grid44, grid55}
-        };
-        
-        draggableMaker.setCardUpdateListener(this);
-        draggableMaker.makeDraggable(activeCard1, matrix_grid, activeDeckName);
-        draggableMaker.makeDraggable(activeCard2, matrix_grid, activeDeckName);
-        draggableMaker.makeDraggable(activeCard3, matrix_grid, activeDeckName);
-        draggableMaker.makeDraggable(activeCard4, matrix_grid, activeDeckName);
-        draggableMaker.makeDraggable(activeCard5, matrix_grid, activeDeckName);
-        draggableMaker.makeDraggable(activeCard6, matrix_grid, activeDeckName);
-
-        // bearAttackButton.setOnAction(event -> applyBearAttackEffect(card11));
-        bearAttackButton.setOnAction(event -> simulateBearAttack());
+    public void loadGridActiveDeck() {
+        try {
+            for (ImageView activeCard : listActiveDeck) {
+                String activeCardId = activeCard.getId();
+                int index = ((int) activeCardId.charAt(activeCardId.length() - 1) - '0') - 1;
+                String imageUrl = gameMaster.getCurrentPlayer().getCardActiveDeck(index).getPathToImg();
+                if (imageUrl == null) {
+                    activeCard.setImage(null);
+                } else {
+                    activeCard.setImage(new Image(imageUrl));
+                }
+            }
+    
+            for (ImageView[] listGrid : matrixCardInField) {
+                for (ImageView grid : listGrid) {
+                    String gridId = grid.getId();
+                    int row = (int) gridId.charAt(gridId.length() - 2) - '0';
+                    int col = (int) gridId.charAt(gridId.length() - 1) - '0';
+                    String imageUrl = gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1).getPathToImg();
+                    if (imageUrl == null) {
+                        grid.setImage(null);
+                    } else {
+                        grid.setImage(new Image(imageUrl));
+                    }
+                }
+            }
+        } catch (BaseException e) {
+            e.printStackTrace();
+            // Handle the exception, e.g., show an error message to the user
+        }
     }
 
     private void switchToSecondary(String state) throws IOException {
@@ -472,28 +578,27 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
         stage.show();
     }
     
-    @Override
-    public void onCardUpdated(ImageView card) {
-        // clickableGrid11.setOnMouseClicked(event -> System.out.println("click"));
-        // card.setOnMouseClicked(event -> System.out.println("click"));
-        // draggableMaker.makeDraggable(card, matrix_grid, null);
-        // clickableGrid11.setOnMouseClicked(event -> setPanenPageVisibility(true));
-        // Handle the updated card
-        System.out.println("Card updated: " + card);
-        // Access updated activeDeckName and fieldList
-        ArrayList<String> updatedDeckNames = draggableMaker.getActiveDeckName();
-        String[][] updatedFieldList = draggableMaker.getFieldList();
-        
-        // Print updated activeDeckName
-        System.out.println("Updated Active Deck Names: " + updatedDeckNames);
-        
-        // Print the updated fieldList
-        System.out.println("Updated Field List:");
-        for (int row = 0; row < updatedFieldList.length; row++) {
-            for (int col = 0; col < updatedFieldList[row].length; col++) {
-                System.out.print(updatedFieldList[row][col] + " ");
+    public void setAllLabel(int row, int col) {
+        try {
+            AnimalName.setText(gameMaster.getCurrentPlayer().getCardGrid(row, col).getName());
+            String weightDetail = gameMaster.getCurrentPlayer().getCardGrid(row, col).getWeight() + " ("
+                    + gameMaster.getCurrentPlayer().getCardGrid(row, col).getWeightAfterEffect() + ")";
+            label2.setText(weightDetail);
+            List<Item> listItems = gameMaster.getCurrentPlayer().getCardGrid(row, col).getItemEffects();
+            if (listItems.size() == 0) {
+                label4.setText("");
+                label5.setText("");
             }
-            System.out.println();
+            if (listItems.size() >= 1) {
+                label4.setText(listItems.get(0).getName());
+    
+            }
+            if (listItems.size() == 2) {
+                label5.setText(listItems.get(1).getName());
+            }
+        } catch (BaseException e) {
+            e.printStackTrace();
+            // Handle the exception, e.g., show an error message to the user
         }
     }
 
@@ -526,12 +631,12 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
     @FXML
     private void simulateBearAttack() {
         Pane[][] matrix_pane = new Pane[][] {
-            {plane11, plane12, plane13, plane14, plane15},
-            {plane21, plane22, plane23, plane24, plane25},
-            {plane31, plane32, plane33, plane34, plane35},
-            {plane41, plane42, plane43, plane44, plane45}
+                { plane11, plane12, plane13, plane14, plane15 },
+                { plane21, plane22, plane23, plane24, plane25 },
+                { plane31, plane32, plane33, plane34, plane35 },
+                { plane41, plane42, plane43, plane44, plane45 }
         };
-    
+
         for (Pane[] row : matrix_pane) {
             for (Pane pane : row) {
                 if (pane == null) {
@@ -539,18 +644,17 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
                 }
             }
         }
-    
+
         draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
         startCountdown();
     }
 
-    private void setPanenPageVisibility(boolean bool) {
+    public void setPanenPageVisibility(boolean bool) {
         label1.setVisible(bool);
         label2.setVisible(bool);
         label3.setVisible(bool);
         label4.setVisible(bool);
         label5.setVisible(bool);
-        label6.setVisible(bool);
         ContainerPanen.setVisible(bool);
         CloseBtn.setVisible(bool);
         PanenBtn.setVisible(bool);
@@ -564,39 +668,50 @@ public class FieldController implements Initializable, DraggableMaker.CardUpdate
         }
 
         countdownTimeline = new Timeline(
-            new KeyFrame(Duration.seconds(0), event -> timerLabel.setText("Timer: 30")),
-            new KeyFrame(Duration.seconds(1), event -> timerLabel.setText("Timer: 29")),
-            new KeyFrame(Duration.seconds(2), event -> timerLabel.setText("Timer: 28")),
-            new KeyFrame(Duration.seconds(3), event -> timerLabel.setText("Timer: 27")),
-            new KeyFrame(Duration.seconds(4), event -> timerLabel.setText("Timer: 26")),
-            new KeyFrame(Duration.seconds(5), event -> timerLabel.setText("Timer: 25")),
-            new KeyFrame(Duration.seconds(6), event -> timerLabel.setText("Timer: 24")),
-            new KeyFrame(Duration.seconds(7), event -> timerLabel.setText("Timer: 23")),
-            new KeyFrame(Duration.seconds(8), event -> timerLabel.setText("Timer: 22")),
-            new KeyFrame(Duration.seconds(9), event -> timerLabel.setText("Timer: 21")),
-            new KeyFrame(Duration.seconds(10), event -> timerLabel.setText("Timer: 20")),
-            new KeyFrame(Duration.seconds(11), event -> timerLabel.setText("Timer: 19")),
-            new KeyFrame(Duration.seconds(12), event -> timerLabel.setText("Timer: 18")),
-            new KeyFrame(Duration.seconds(13), event -> timerLabel.setText("Timer: 17")),
-            new KeyFrame(Duration.seconds(14), event -> timerLabel.setText("Timer: 16")),
-            new KeyFrame(Duration.seconds(15), event -> timerLabel.setText("Timer: 15")),
-            new KeyFrame(Duration.seconds(16), event -> timerLabel.setText("Timer: 14")),
-            new KeyFrame(Duration.seconds(17), event -> timerLabel.setText("Timer: 13")),
-            new KeyFrame(Duration.seconds(18), event -> timerLabel.setText("Timer: 12")),
-            new KeyFrame(Duration.seconds(19), event -> timerLabel.setText("Timer: 11")),
-            new KeyFrame(Duration.seconds(20), event -> timerLabel.setText("Timer: 10")),
-            new KeyFrame(Duration.seconds(21), event -> timerLabel.setText("Timer: 9")),
-            new KeyFrame(Duration.seconds(22), event -> timerLabel.setText("Timer: 8")),
-            new KeyFrame(Duration.seconds(23), event -> timerLabel.setText("Timer: 7")),
-            new KeyFrame(Duration.seconds(24), event -> timerLabel.setText("Timer: 6")),
-            new KeyFrame(Duration.seconds(25), event -> timerLabel.setText("Timer: 5")),
-            new KeyFrame(Duration.seconds(26), event -> timerLabel.setText("Timer: 4")),
-            new KeyFrame(Duration.seconds(27), event -> timerLabel.setText("Timer: 3")),
-            new KeyFrame(Duration.seconds(28), event -> timerLabel.setText("Timer: 2")),
-            new KeyFrame(Duration.seconds(29), event -> timerLabel.setText("Timer: 1")),
-            new KeyFrame(Duration.seconds(30), event -> timerLabel.setText("Timer: 0"))
-        );
+                new KeyFrame(Duration.seconds(0), event -> timerLabel.setText("Timer: 30")),
+                new KeyFrame(Duration.seconds(1), event -> timerLabel.setText("Timer: 29")),
+                new KeyFrame(Duration.seconds(2), event -> timerLabel.setText("Timer: 28")),
+                new KeyFrame(Duration.seconds(3), event -> timerLabel.setText("Timer: 27")),
+                new KeyFrame(Duration.seconds(4), event -> timerLabel.setText("Timer: 26")),
+                new KeyFrame(Duration.seconds(5), event -> timerLabel.setText("Timer: 25")),
+                new KeyFrame(Duration.seconds(6), event -> timerLabel.setText("Timer: 24")),
+                new KeyFrame(Duration.seconds(7), event -> timerLabel.setText("Timer: 23")),
+                new KeyFrame(Duration.seconds(8), event -> timerLabel.setText("Timer: 22")),
+                new KeyFrame(Duration.seconds(9), event -> timerLabel.setText("Timer: 21")),
+                new KeyFrame(Duration.seconds(10), event -> timerLabel.setText("Timer: 20")),
+                new KeyFrame(Duration.seconds(11), event -> timerLabel.setText("Timer: 19")),
+                new KeyFrame(Duration.seconds(12), event -> timerLabel.setText("Timer: 18")),
+                new KeyFrame(Duration.seconds(13), event -> timerLabel.setText("Timer: 17")),
+                new KeyFrame(Duration.seconds(14), event -> timerLabel.setText("Timer: 16")),
+                new KeyFrame(Duration.seconds(15), event -> timerLabel.setText("Timer: 15")),
+                new KeyFrame(Duration.seconds(16), event -> timerLabel.setText("Timer: 14")),
+                new KeyFrame(Duration.seconds(17), event -> timerLabel.setText("Timer: 13")),
+                new KeyFrame(Duration.seconds(18), event -> timerLabel.setText("Timer: 12")),
+                new KeyFrame(Duration.seconds(19), event -> timerLabel.setText("Timer: 11")),
+                new KeyFrame(Duration.seconds(20), event -> timerLabel.setText("Timer: 10")),
+                new KeyFrame(Duration.seconds(21), event -> timerLabel.setText("Timer: 9")),
+                new KeyFrame(Duration.seconds(22), event -> timerLabel.setText("Timer: 8")),
+                new KeyFrame(Duration.seconds(23), event -> timerLabel.setText("Timer: 7")),
+                new KeyFrame(Duration.seconds(24), event -> timerLabel.setText("Timer: 6")),
+                new KeyFrame(Duration.seconds(25), event -> timerLabel.setText("Timer: 5")),
+                new KeyFrame(Duration.seconds(26), event -> timerLabel.setText("Timer: 4")),
+                new KeyFrame(Duration.seconds(27), event -> timerLabel.setText("Timer: 3")),
+                new KeyFrame(Duration.seconds(28), event -> timerLabel.setText("Timer: 2")),
+                new KeyFrame(Duration.seconds(29), event -> timerLabel.setText("Timer: 1")),
+                new KeyFrame(Duration.seconds(30), event -> timerLabel.setText("Timer: 0")));
         countdownTimeline.setCycleCount(1);
         countdownTimeline.play();
+    }
+
+    public ImageView getAnimalImage() {
+        return AnimalImage;
+    }
+
+    public ImageView getPanenBtn() {
+        return PanenBtn;
+    }
+
+    public boolean isInEnemyField() {
+        return toLadangLawan1.isVisible();
     }
 }
