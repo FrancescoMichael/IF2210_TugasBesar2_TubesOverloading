@@ -20,6 +20,7 @@ import oop.card.product.CarnivoreFood;
 import oop.card.product.HerbivoreFood;
 import oop.card.product.Product;
 import oop.card.*;
+import oop.shop.*;
 
 public class GameMaster {
     private final Random random = new Random();
@@ -27,6 +28,7 @@ public class GameMaster {
     private Player currentFieldPlayer;
     private int currentTurn;
     private PlantService plantService;
+    private Shop shop;
 
     protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
             "Sapi", () -> new Herbivore("Sapi"),
@@ -96,6 +98,7 @@ public class GameMaster {
         this.listPlayers = new ArrayList<>();
         this.currentTurn = 0;
         this.plantService = new PlantService();
+        this.shop = new Shop();
     }
 
     // getters
@@ -303,73 +306,86 @@ public class GameMaster {
         return formattedString.toString().trim();
     }
 
+    public void loadPlayer(int n, List<Integer> playerStatus, List<String> activeDeckString, List<String> gridString) {
+        Player playerChange = getPlayer(n);
+        playerChange.setGulden(playerStatus.get(0));
+        playerChange.setCardDeckLeft(playerStatus.get(1));
+        playerChange.emptyActiveDeck();
+        for (int i = 0; i < activeDeckString.size(); i++) {
+            String[] parts = activeDeckString.get(i).split(" ");
+            int index = coordinateToIndex(parts[0]);
+            if (index < 6) {
+                Card newCard = allCardMap.get(formatItemString(parts[1])).get();
+                try {
+                    playerChange.addCardToActiveDeck(newCard, index);
+                } catch (Exception e) {
+
+                }
+            }
+
+        }
+        for (int i = 0; i < gridString.size(); i++) {
+            String[] parts = activeDeckString.get(i).split(" ");
+            int index = coordinateToIndex(parts[0]);
+            if (index > 19) {
+                Card newCard = allCardMap.get(formatItemString(parts[1])).get();
+                Creature newCreature = (Creature) newCard;
+                newCreature.setWeight(Integer.parseInt(parts[2]));
+                newCreature.setWeightAfterEffect(Integer.parseInt(parts[2]));
+                int effectCount = Integer.parseInt(parts[3]);
+                for (int j = 0; j < effectCount; j++) {
+                    Card newCardItem = allCardMap.get(formatItemString(parts[4 + j])).get();
+                    Item newItem = (Item) newCardItem;
+                    try {
+                        newItem.useCard(newCreature, 0, 0);
+                    } catch (Exception e) {
+
+                    }
+                }
+                try {
+                    playerChange.addCardToGrid(newCreature, index / 5, index % 5);
+
+                } catch (Exception e) {
+
+                }
+            }
+        }
+
+    }
+
     public void load(String folderPath, String type) {
         SaveLoad saveLoad = new SaveLoad();
         try {
-            saveLoad.validate(folderPath, type, );
+            List<String> currentShopItems = new ArrayList<>();
+            List<Integer> playerStatus1 = new ArrayList<>();
+            List<String> activeDeckString1 = new ArrayList<>();
+            List<String> gridString1 = new ArrayList<>();
+            List<Integer> playerStatus2 = new ArrayList<>();
+            List<String> activeDeckString2 = new ArrayList<>();
+            List<String> gridString2 = new ArrayList<>();
+            this.currentTurn = saveLoad.Load(folderPath, type, currentShopItems,
+                    playerStatus1, activeDeckString1, gridString1,
+                    playerStatus2, activeDeckString2, gridString2);
+
+            this.shop.getStock().clear();
+            for (int i = 0; i < currentShopItems.size(); i++) {
+                String[] parts = currentShopItems.get(i).split(" ");
+                this.shop.getStock().put(formatItemString(parts[0]), Integer.parseInt(parts[1]));
+            }
+            loadPlayer(0, playerStatus1, activeDeckString1, gridString1);
+            loadPlayer(1, playerStatus2, activeDeckString2, gridString2);
+            this.plantService.getSubscribers().clear();
+            List<Plant> plantP1 = this.listPlayers.get(0).getAllPlantsInGrid();
+            List<Plant> plantP2 = this.listPlayers.get(1).getAllPlantsInGrid();
+            for (int i = 0; i < plantP1.size(); i++) {
+                this.plantService.getSubscribers().add(plantP1.get(i));
+            }
+            for (int i = 0; i < plantP2.size(); i++) {
+                this.plantService.getSubscribers().add(plantP2.get(i));
+            }
 
         } catch (Exception e) {
             // TODO: handle exception
-        }
-        if (fileType.equals("gamestate")) {
-            List<String> currentShopItems = new ArrayList<>();
-            // this.shop
-            // try {
-            // this.currentTurn = saveLoad.loadGame(filename, type, currentShopItems);
-
-            // } catch (Exception e) {
-            // // TODO: handle exception
-            // }
-        } else if (fileType.startsWith("player")) {
-            String playerNumberStr = fileType.replace("player", "");
-            try {
-                int playerNumber = Integer.parseInt(playerNumberStr);
-                if (playerNumber == 1 || playerNumber == 2) {
-                    List<Integer> playerStatus = new ArrayList<>();
-                    List<String> activeDeckString = new ArrayList<>();
-                    List<String> gridString = new ArrayList<>();
-                    saveLoad.loadPlayer(filename, playerStatus, activeDeckString, gridString, fileType);
-                    Player playerChange = getPlayer(playerNumber - 1);
-                    playerChange.setGulden(playerStatus.get(0));
-                    playerChange.setCardDeckLeft(playerStatus.get(1));
-                    playerChange.emptyActiveDeck();
-                    for (int i = 0; i < activeDeckString.size(); i++) {
-                        String[] parts = activeDeckString.get(i).split(" ");
-                        int index = coordinateToIndex(parts[0]);
-                        if (index > 6) {
-                            throw new Exception();
-                        }
-                        Card newCard = allCardMap.get(formatItemString(parts[1])).get();
-                        playerChange.addCardToActiveDeck(newCard, index);
-                    }
-                    for (int i = 0; i < gridString.size(); i++) {
-                        String[] parts = activeDeckString.get(i).split(" ");
-                        int index = coordinateToIndex(parts[0]);
-                        if (index > 19) {
-                            throw new Exception();
-                        }
-                        Card newCard = allCardMap.get(formatItemString(parts[1])).get();
-                        Creature newCreature = (Creature) newCard;
-                        newCreature.setWeight(Integer.parseInt(parts[2]));
-                        newCreature.setWeightAfterEffect(Integer.parseInt(parts[2]));
-                        int effectCount = Integer.parseInt(parts[3]);
-                        for (int j = 0; j < effectCount; j++) {
-                            Card newCardItem = allCardMap.get(formatItemString(parts[4 + j])).get();
-                            Item newItem = (Item) newCardItem;
-                            newItem.useCard(newCreature, 0, 0);
-                        }
-                        playerChange.addCardToGrid(newCreature, index / 5, index % 5);
-                    }
-                } else {
-                    throw new Exception();
-                }
-            } catch (NumberFormatException e) {
-
-            } catch (Exception e) {
-
-            }
-        } else {
-
         }
 
     }
