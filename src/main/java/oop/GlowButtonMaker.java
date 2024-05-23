@@ -16,7 +16,6 @@ public class GlowButtonMaker {
             dropShadow.setSpread(0.5);
             dropShadow.setBlurType(javafx.scene.effect.BlurType.GAUSSIAN);
             node.setEffect(dropShadow);
-            System.out.println("Click");
             
             Timeline timeline = new Timeline(new KeyFrame(
                 Duration.millis(80), // Delay of half a second

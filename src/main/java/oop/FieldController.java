@@ -867,7 +867,8 @@ public class FieldController implements Initializable{
         draggableMaker.makeDraggable(activeCard5, matrixGrid, gameMaster, false);
         draggableMaker.makeDraggable(activeCard6, matrixGrid, gameMaster, false);
 
-        bearAttackButton.setOnAction(event -> simulateBearAttack( 0 , 0));
+        // bearAttackButton.setOnAction(event -> simulateBearAttack( ));
+        bearAttackButton.setVisible(false);
 
         LoadPlugin.setOnMouseClicked(event -> {
             setState("LoadPlugin");
@@ -1611,7 +1612,7 @@ public class FieldController implements Initializable{
     }
 
     @FXML
-    public Integer[] simulateBearAttack(int damn, int cuk) {
+    public Integer[] simulateBearAttack() {
         Pane[][] matrix_pane = new Pane[][] {
                 { plane11, plane12, plane13, plane14, plane15 },
                 { plane21, plane22, plane23, plane24, plane25 },
@@ -1631,7 +1632,7 @@ public class FieldController implements Initializable{
 
 
         // startCountdown();
-        return draggableMaker.setRedGlowOnRandomGroup(matrix_pane, 2, 3);
+        return draggableMaker.setRedGlowOnRandomGroup(matrix_pane);
     }
     public void setPanenPageVisibility(boolean bool) {
         label1.setVisible(bool);

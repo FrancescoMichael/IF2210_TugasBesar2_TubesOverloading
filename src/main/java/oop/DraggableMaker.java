@@ -242,8 +242,8 @@ public class DraggableMaker {
         }
     }
 
-    public Integer[] setRedGlowOnRandomGroup(Pane[][] grid, int rows, int cols) {
-        Integer temp[] = new Integer[2];
+    public Integer[] setRedGlowOnRandomGroup(Pane[][] grid) {
+        Integer temp[] = new Integer[4];
         if (timer != null) {
             timer.stop();
             for (Pane cell : glowingCells) {
@@ -258,6 +258,13 @@ public class DraggableMaker {
         int gridCols = grid[0].length;
 
         // Randomly choose a starting position for the 2x3 area
+        List<Integer> rowsPossible = new ArrayList<>(List.of(1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 4));
+        List<Integer> colsPossible = new ArrayList<>(List.of(1, 2, 3, 4, 5, 1, 2, 3, 1, 2, 1));
+        // rows =4;
+        // cols = 5;
+        int randomNumber = random.nextInt(11);
+        int rows = rowsPossible.get(randomNumber);
+        int cols = colsPossible.get(randomNumber);
         int startRow = random.nextInt(gridRows - rows + 1);
         int startCol = random.nextInt(gridCols - cols + 1);
 
@@ -271,6 +278,8 @@ public class DraggableMaker {
         }
         temp[0] = startRow;
         temp[1] = startCol;
+        temp[2] = rows;
+        temp[3] = cols;
 
         return temp;
 

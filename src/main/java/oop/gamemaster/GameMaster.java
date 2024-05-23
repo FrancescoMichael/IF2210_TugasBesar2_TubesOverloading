@@ -136,11 +136,14 @@ public class GameMaster {
         controller.getDraggableMaker().removeGlowAll();
         int startRow = startEnd[0];
         int startCol = startEnd[1];
+        int rowsAdd = startEnd[2];
+        int colsAdd = startEnd[3];
         ArrayList<Integer> rows = new ArrayList<>();
         ArrayList<Integer> cols = new ArrayList<>();
-        for (int i = startRow; i < startRow + 2; i++) {
-            for (int j = startCol; j < startCol + 3; j++) {
-
+        for (int i = startRow; i < startRow + rowsAdd; i++) {
+            for (int j = startCol; j < startCol + colsAdd; j++) {
+                System.out.println("ROW : " + i);
+                System.out.println("COL" + j);
                 try {
                     Creature card = currPlayer.getCardGrid(i, j);
                     if (card.isTrap()) {
@@ -180,7 +183,7 @@ public class GameMaster {
     }
 
     public void bearAttackTimer(Label timerLabel, FieldController controller) throws BaseException {
-        Integer[] startEnd = controller.simulateBearAttack(0, 0); // Assuming this method is thread-safe
+        Integer[] startEnd = controller.simulateBearAttack(); // Assuming this method is thread-safe
 
         Platform.runLater(() -> {
             timerLabel.setText("");
@@ -192,7 +195,7 @@ public class GameMaster {
             // duration
             // Randomize time left
             double timeLeft = 30 + (random.nextDouble() * (60 - 30));
-            timeLeft = 15;
+            timeLeft=10;
 
             try {
                 while (timeLeft > 0) {
@@ -211,7 +214,8 @@ public class GameMaster {
                     try {
                         bearAttackProcess(startEnd, controller);
                     } catch (BaseException e) {
-
+                        System.out.println(e.getMessage());
+                        this.bearAttack = false;
                     }
 
                 });
@@ -299,7 +303,7 @@ public class GameMaster {
 
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
         // System.out.println("ABOUT TO ENTER TIMER BEAR");
-        if (Math.random() < 0.2) {
+        if (true) {
 
             this.bearAttack = true;
             // System.out.println("RUNNING TIMER BEAR");
