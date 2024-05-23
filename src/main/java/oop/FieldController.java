@@ -977,6 +977,66 @@ public class FieldController implements Initializable{
             BuyButton.setVisible(visible);
             Harga.setVisible(visible);
         });
+
+        toko_deck7.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(0)));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Card 1");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
+
+        toko_deck8.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(1)));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Card 2");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
+
+        toko_deck9.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(2)));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Card 3");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
+
+        toko_deck10.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(3)));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Card 4");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
+
+        toko_deck11.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(4)));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Card 5");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
+
+        toko_deck12.setOnMouseClicked(event -> {
+            PopUpToko.setVisible(visible);
+            ImageToko.setImage(new Image(deckImageUrls.get(5)));
+            ImageToko.setVisible(visible);
+            AnimalNameToko.setText("Card 6");
+            AnimalNameToko.setVisible(visible);
+            ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(visible);
+        });
     }
 
 
