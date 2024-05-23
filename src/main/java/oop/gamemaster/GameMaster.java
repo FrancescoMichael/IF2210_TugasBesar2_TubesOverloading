@@ -128,13 +128,14 @@ public class GameMaster {
     public PlantService getPlantService(){
         return plantService;
     }
-    public void bearAttackProcess(Integer[] startEnd,FieldController controller, int row, int col) {
+    public void bearAttackProcess(Integer[] startEnd,FieldController controller, int row, int col) throws BaseException{
         boolean execute = true;
         Player currPlayer = this.getCurrentPlayer();
         controller.getDraggableMaker().removeGlowAll();
         int startRow = startEnd[0];
         int startCol = startEnd[1];
-
+        ArrayList<Integer> rows = new ArrayList<>();
+        ArrayList<Integer> cols = new ArrayList<>();
         for (int i = startRow; i < startRow + 2; i++) {
             for (int j = startCol; j < startCol + 3; j++) {
                 // Pane cell = grid[i][j];
@@ -148,7 +149,8 @@ public class GameMaster {
                     } else if (card.isProtected()){
 
                     }else {
-
+                        rows.add(i);
+                        cols.add(i);
                     }
                 }catch (BaseException e){
 
@@ -156,6 +158,23 @@ public class GameMaster {
 
             }
         }
+        if (execute){
+            for (int i = 0 ; i < rows.size() ; i++){
+                try{
+                    currPlayer.setBlankOnGrid(rows.get(i), cols.get(i));
+                } catch (BaseException e){
+                    System.out.println(e.getMessage());
+                }
+
+            }
+        }else {
+
+
+ 
+            currPlayer.addCardToActiveDeckFirstEmpty( new Omnivore("Bear"));
+
+        }
+
     
         // Player currPlayer = this.getCurrentPlayer();
         // for (int i = 0 ; i < row ; i++){
@@ -253,7 +272,12 @@ public class GameMaster {
     
                 Platform.runLater(() -> {
                     timerLabel.setVisible(false);
-                    bearAttackProcess(startEnd, controller, row, col);
+                    try{
+                        bearAttackProcess(startEnd, controller, row, col);
+                    } catch (BaseException e){
+                        
+                    }
+
                 });
             } catch (InterruptedException e) {
                 e.printStackTrace();
