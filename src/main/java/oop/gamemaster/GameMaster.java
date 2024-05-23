@@ -2,6 +2,7 @@ package oop.gamemaster;
 
 import java.util.*;
 import java.util.function.Supplier;
+import static java.util.Map.entry;
 
 import oop.player.*;
 import oop.saveload.SaveLoad;
@@ -17,7 +18,8 @@ import oop.card.item.Item;
 import oop.card.item.ItemEffect;
 import oop.card.product.CarnivoreFood;
 import oop.card.product.HerbivoreFood;
-import oop.card.product.Product;;
+import oop.card.product.Product;
+import oop.card.*;
 
 public class GameMaster {
     private final Random random = new Random();
@@ -62,6 +64,32 @@ public class GameMaster {
             "Telur", () -> new CarnivoreFood("Telur", 50, "Carnivore", 2),
             "Daging Beruang", () -> new CarnivoreFood("Daging Beruang", 500, "Carnivore", 12));
 
+    protected static Map<String, Supplier<? extends Card>> allCardMap = Map.ofEntries(
+            entry("Sapi", () -> new Herbivore("Sapi")),
+            entry("Domba", () -> new Herbivore("Domba")),
+            entry("Kuda", () -> new Herbivore("Kuda")),
+            entry("Hiu Darat", () -> new Carnivore("Hiu Darat")),
+            entry("Ayam", () -> new Omnivore("Ayam")),
+            entry("Beruang", () -> new Omnivore("Beruang")),
+            entry("Biji Labu", () -> new Plant("Biji Labu")),
+            entry("Biji Jagung", () -> new Plant("Biji Jagung")),
+            entry("Biji Stroberi", () -> new Plant("Biji Stroberi")),
+            entry("Accelerate", () -> new Item("Accelerate")),
+            entry("Delay", () -> new Item("Delay")),
+            entry("Instant harvest", () -> new Item("Instant harvest")),
+            entry("Destroy", () -> new Item("Destroy")),
+            entry("Protect", () -> new Item("Protect")),
+            entry("Trap", () -> new Item("Trap")),
+            entry("Jagung", () -> new HerbivoreFood("Jagung", 150, "Herbivore", 3)),
+            entry("Labu", () -> new HerbivoreFood("Labu", 500, "Herbivore", 10)),
+            entry("Stroberi", () -> new HerbivoreFood("Stroberi", 350, "Herbivore", 5)),
+            entry("Sirip Hiu", () -> new CarnivoreFood("Sirip Hiu", 500, "Carnivore", 12)),
+            entry("Susu", () -> new CarnivoreFood("Susu", 100, "Carnivore", 4)),
+            entry("Daging Domba", () -> new CarnivoreFood("Daging Domba", 120, "Carnivore", 6)),
+            entry("Daging Kuda", () -> new CarnivoreFood("Daging Kuda", 150, "Carnivore", 8)),
+            entry("Telur", () -> new CarnivoreFood("Telur", 50, "Carnivore", 2)),
+            entry("Daging Beruang", () -> new CarnivoreFood("Daging Beruang", 500, "Carnivore", 12)));
+
     public GameMaster() {
         this.listPlayers = new ArrayList<>();
         this.currentTurn = 0;
@@ -94,6 +122,10 @@ public class GameMaster {
     public Player getCurrentPlayer() {
 
         return this.listPlayers.get(this.currentTurn % 2);
+    }
+
+    public Player getPlayer(int n) {
+        return this.listPlayers.get(n);
     }
 
     public void next() {
@@ -233,36 +265,92 @@ public class GameMaster {
         return new HerbivoreFood(carnivoreFood, info.get(0), "Herbivore", info.get(1));
     }
 
+    public int coordinateToIndex(String coordinate) {
+        char letter = coordinate.charAt(0);
+        int number = Integer.parseInt(coordinate.substring(1)) - 1;
+        int row = letter - 'A';
+        int col = number;
+        return row * 5 + col;
+    }
+
+    public static String formatItemString(String input) {
+        String lowerCaseString = input.toLowerCase();
+        String[] words = lowerCaseString.split("_");
+        StringBuilder formattedString = new StringBuilder();
+        for (String word : words) {
+            if (word.length() > 0) {
+                formattedString.append(Character.toUpperCase(word.charAt(0)))
+                        .append(word.substring(1))
+                        .append(" ");
+            }
+        }
+        return formattedString.toString().trim();
+    }
+
     public void load(String filename, String type) {
         String fileType = filename.substring(0, filename.lastIndexOf('.'));
         SaveLoad saveLoad = new SaveLoad();
         if (fileType.equals("gamestate")) {
             List<String> currentShopItems = new ArrayList<>();
-            this.shop
-            try {
-                this.currentTurn = saveLoad.loadGame(filename, type, currentShopItems);
-                
-            } catch (Exception e) {
-                // TODO: handle exception
-            }
+            // this.shop
+            // try {
+            // this.currentTurn = saveLoad.loadGame(filename, type, currentShopItems);
+
+            // } catch (Exception e) {
+            // // TODO: handle exception
+            // }
         } else if (fileType.startsWith("player")) {
             String playerNumberStr = fileType.replace("player", "");
             try {
                 int playerNumber = Integer.parseInt(playerNumberStr);
-                if (playerNumber == 1) {
-
-                } else if(playerNumber == 2){
-
-                }else{
+                if (playerNumber == 1 || playerNumber == 2) {
+                    List<Integer> playerStatus = new ArrayList<>();
+                    List<String> activeDeckString = new ArrayList<>();
+                    List<String> gridString = new ArrayList<>();
+                    saveLoad.loadPlayer(filename, playerStatus, activeDeckString, gridString, fileType);
+                    Player playerChange = getPlayer(playerNumber - 1);
+                    playerChange.setGulden(playerStatus.get(0));
+                    playerChange.setCardDeckLeft(playerStatus.get(1));
+                    playerChange.emptyActiveDeck();
+                    for (int i = 0; i < activeDeckString.size(); i++) {
+                        String[] parts = activeDeckString.get(i).split(" ");
+                        int index = coordinateToIndex(parts[0]);
+                        if (index > 6) {
+                            throw new Exception();
+                        }
+                        Card newCard = allCardMap.get(formatItemString(parts[1])).get();
+                        playerChange.addCardToActiveDeck(newCard, index);
+                    }
+                    for (int i = 0; i < gridString.size(); i++) {
+                        String[] parts = activeDeckString.get(i).split(" ");
+                        int index = coordinateToIndex(parts[0]);
+                        if (index > 19) {
+                            throw new Exception();
+                        }
+                        Card newCard = allCardMap.get(formatItemString(parts[1])).get();
+                        Creature newCreature = (Creature) newCard;
+                        newCreature.setWeight(Integer.parseInt(parts[2]));
+                        newCreature.setWeightAfterEffect(Integer.parseInt(parts[2]));
+                        int effectCount = Integer.parseInt(parts[3]);
+                        for (int j = 0; j < effectCount; j++) {
+                            Card newCardItem = allCardMap.get(formatItemString(parts[4 + j])).get();
+                            Item newItem = (Item) newCardItem;
+                            newItem.useCard(newCreature, 0, 0);
+                        }
+                        playerChange.addCardToGrid(newCreature, index / 5, index % 5);
+                    }
+                } else {
                     throw new Exception();
                 }
             } catch (NumberFormatException e) {
+
+            } catch (Exception e) {
 
             }
         } else {
 
         }
-        
+
     }
 
 }

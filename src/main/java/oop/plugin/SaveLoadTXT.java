@@ -13,7 +13,7 @@ import java.util.List;
 public class SaveLoadTXT implements PluginInterface {
 
     @Override
-    public static void loadPlayer(String filename, List<Integer> playerStatus, List<String> activeDeckString,
+    public void loadPlayer(String filename, List<Integer> playerStatus, List<String> activeDeckString,
             List<String> gridString) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
 
@@ -39,7 +39,7 @@ public class SaveLoadTXT implements PluginInterface {
     }
 
     @Override
-    public static int loadGame(String filename, List<String> shopItems) throws IOException {
+    public int loadGame(String filename, List<String> shopItems) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
 
         int turn = Integer.parseInt(reader.readLine().trim());
@@ -55,7 +55,7 @@ public class SaveLoadTXT implements PluginInterface {
     }
 
     @Override
-    public static void savePlayer(String filename, List<Integer> playerStatus, List<String> activeDeckString,
+    public void savePlayer(String filename, List<Integer> playerStatus, List<String> activeDeckString,
             List<String> gridString) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 
@@ -89,7 +89,7 @@ public class SaveLoadTXT implements PluginInterface {
     }
 
     @Override
-    public static void saveGame(String filename, int currentTurn, List<String> shopItems) throws IOException {
+    public void saveGame(String filename, int currentTurn, List<String> shopItems) throws IOException {
         BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 
         writer.write(String.valueOf(currentTurn));
