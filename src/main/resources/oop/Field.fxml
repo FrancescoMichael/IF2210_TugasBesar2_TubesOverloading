@@ -567,7 +567,7 @@
             <Image url="@../assets/OOP%202/OOP%202/grid/preview.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="ImageToko" fitHeight="93.0" fitWidth="99.0" layoutX="604.0" layoutY="315.0" pickOnBounds="true" preserveRatio="true" visible="false" />
+      <ImageView fx:id="ImageToko" fitHeight="93.0" fitWidth="99.0" layoutX="604.0" layoutY="345.0" pickOnBounds="true" preserveRatio="true" visible="false" />
       <Label layoutX="382.0" layoutY="313.0" text="Harga" textFill="WHITE" visible="false" />
       <Label fx:id="Harga" layoutX="382.0" layoutY="337.0" text="Label" textFill="WHITE" visible="false" />
       <Label layoutX="382.0" layoutY="368.0" text="Kuantitas" textFill="WHITE" visible="false" />
@@ -582,7 +582,7 @@
          </image>
       </ImageView>
       <TextField fx:id="QuantityInput" layoutX="375.0" layoutY="402.0" prefHeight="26.0" prefWidth="66.0" visible="false" />
-      <Label fx:id="AnimalNameToko" layoutX="521.0" layoutY="290.0" text="Label" textFill="WHITE" visible="false" />
+      <Label fx:id="AnimalNameToko" layoutX="500.0" layoutY="290.0" text="Label" textFill="WHITE" visible="false" />
       <ImageView fx:id="ClosePopUpToko" fitHeight="18.0" fitWidth="20.0" layoutX="706.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/misc/close_button.png" />
