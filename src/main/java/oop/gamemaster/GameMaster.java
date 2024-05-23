@@ -285,16 +285,16 @@ public class GameMaster {
     }
  
     public void doneShuffling(Label timeLabel, FieldController controller) throws BaseException{
-        System.out.println("ENTERING DONE SHUFFLING");
+        // System.out.println("ENTERING DONE SHUFFLING");
         Player player = this.getCurrentPlayer();
 
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
         Random random = new Random();
-        System.out.println("ABOUT TO ENTER TIMER BEAR");
+        // System.out.println("ABOUT TO ENTER TIMER BEAR");
         if (random.nextBoolean()) {
 
             this.bearAttack = true;
-            System.out.println("RUNNING TIMER BEAR");
+            // System.out.println("RUNNING TIMER BEAR");
             this.bearAttackTimer(timeLabel, controller);
 
         }

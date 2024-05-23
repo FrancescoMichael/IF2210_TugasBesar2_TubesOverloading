@@ -332,7 +332,7 @@ public class Player {
     }
 
     public long getNumberOfEmptyCardsActiveDeck(){
-        return this.grid.stream().filter(card -> !card.isEmpty()).count();
+        return this.grid.stream().filter(card -> card.isEmpty()).count();
     }
 
     public void emptyGrid(){
