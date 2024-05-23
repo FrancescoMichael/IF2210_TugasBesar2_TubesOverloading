@@ -993,6 +993,7 @@ public class FieldController implements Initializable{
             System.out.println("halo");
             gameMaster.getCurrentPlayer().printGridActiveDeckTest();
             loadGridActiveDeck();
+            loadOther();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1051,17 +1052,17 @@ public class FieldController implements Initializable{
         }
     }
 
-    private void switchToSecondary(String state) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("SaveLoadPlugin.fxml"));
-        Parent root = loader.load();
-        SecondaryController secondaryController = loader.getController();
-        secondaryController.setState(state);
-        List<String> deckImageUrls = getActiveDeckImageUrls();
-        secondaryController.updateTokoDeckImages(deckImageUrls);
-        Scene scene = new Scene(root);
-        Stage stage = (Stage) LoadPlugin.getScene().getWindow(); // Assuming LoadPlugin is in the current scene
-        stage.setScene(scene);
-        stage.show();
+    public void loadOther() {
+        firstPlayerMoney.setText(gameMaster.getPlayer(0).getGulden() + "");
+        secondPlayerMoney.setText(gameMaster.getPlayer(1).getGulden() + "");
+        turn.setText(gameMaster.getCurrentTurn() + "");
+        if (gameMaster.getCurrentTurn() % 2 == 0) {
+            titleplayer1turn.setVisible(true);
+            titleplayer2turn.setVisible(false);
+        } else {
+            titleplayer1turn.setVisible(false);
+            titleplayer2turn.setVisible(true);
+        }
     }
     
     public void setAllLabel(int row, int col) {
