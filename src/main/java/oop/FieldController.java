@@ -1453,13 +1453,17 @@ public class FieldController implements Initializable{
                 label4.setText("");
                 label5.setText("");
             }
+
+            List<String> effect = gameMaster.getCurrentPlayer().getAllEffecArrayList(row,col);
             if (listItems.size() >= 1) {
-                label4.setText(listItems.get(0).getName());
+                String temp = "";
+                for (String str : effect){
+                    temp += str;
+                }
+                label4.setText(temp);
     
             }
-            if (listItems.size() == 2) {
-                label5.setText(listItems.get(1).getName());
-            }
+    
         } catch (BaseException e) {
             e.printStackTrace();
             // Handle the exception, e.g., show an error message to the user
