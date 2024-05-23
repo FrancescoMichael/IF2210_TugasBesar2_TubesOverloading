@@ -513,11 +513,11 @@ public class FieldController implements Initializable{
         });
 
         chooseSaveFolderLabel.setOnMouseClicked(event -> {
-            handleFolderChoose();
+            handleSaveFolderChoose();
         });
 
         chooseLoadFolderLabel.setOnMouseClicked(event -> {
-            handleFolderChoose();
+            handleLoadFolderChoose();
         });
 
         saveFormatComboBox.getItems().addAll("txt");
@@ -847,7 +847,7 @@ public class FieldController implements Initializable{
     }
 
     @FXML
-    private void handleFolderChoose() {
+    private void handleSaveFolderChoose() {
         DirectoryChooser directoryChooser = new DirectoryChooser();
         directoryChooser.setTitle("Choose Folder");
 
@@ -855,6 +855,17 @@ public class FieldController implements Initializable{
         File selectedDirectory = directoryChooser.showDialog(stage);
         if (selectedDirectory != null) {
             chooseSaveFolderLabel.setText(selectedDirectory.getAbsolutePath());
+        }
+    }
+
+    private void handleLoadFolderChoose() {
+        DirectoryChooser directoryChooser = new DirectoryChooser();
+        directoryChooser.setTitle("Choose Folder");
+
+        Stage stage = (Stage) chooseSaveFolderLabel.getScene().getWindow();
+        File selectedDirectory = directoryChooser.showDialog(stage);
+        if (selectedDirectory != null) {
+            chooseLoadFolderLabel.setText(selectedDirectory.getAbsolutePath());
         }
     }
 
@@ -925,11 +936,13 @@ public class FieldController implements Initializable{
         }
         // load
         try {
-            SaveLoad saveLoad = new SaveLoad();
-            String foldername = chooseLoadFolderLabel.getText() + "/saved_file." + format;
-            List<String> shopItems = new ArrayList<>();
-            int currentTurn = saveLoad.loadGame(foldername, format, shopItems);
-            // Handle the loaded data (currentTurn and shopItems)
+            String foldername = chooseLoadFolderLabel.getText();
+            System.out.println("foldername: "+ foldername);
+            System.out.println("format: "+ format);
+            gameMaster.load(foldername, format);
+            System.out.println("halo");
+            gameMaster.getCurrentPlayer().printGridActiveDeckTest();
+            loadGridActiveDeck();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -100,6 +100,7 @@ public class GameMaster {
         this.currentTurn = 0;
         this.plantService = new PlantService();
         this.shop = new Shop();
+        this.saveLoad = new SaveLoad();
     }
 
     // getters
@@ -387,6 +388,7 @@ public class GameMaster {
             }
             loadPlayer(0, playerStatus1, activeDeckString1, gridString1);
             loadPlayer(1, playerStatus2, activeDeckString2, gridString2);
+            System.out.println(gridString2);
             this.plantService.getSubscribers().clear();
             List<Plant> plantP1 = this.listPlayers.get(0).getAllPlantsInGrid();
             List<Plant> plantP2 = this.listPlayers.get(1).getAllPlantsInGrid();
@@ -399,6 +401,7 @@ public class GameMaster {
 
         } catch (Exception e) {
             // TODO: handle exception
+            System.out.println(e.getMessage());
         }
 
     }
