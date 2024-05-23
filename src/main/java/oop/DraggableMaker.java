@@ -54,6 +54,14 @@ public class DraggableMaker {
         this.fieldList = new String[fieldController.matrixGrid.length][fieldController.matrixGrid[0].length];
     }
 
+    public void removeRedGlow(Pane[][] grid, int rows, int cols){
+        for (int row = 0 ; row < rows ; row++){
+            for (int col = 0 ; col < cols ; cols++){
+                setRedGlow(grid[row][col], false);
+            }
+        }
+        glowingCells.clear();
+    }
     private void setGlow(ImageView sourceImageView, boolean glow) {
         if (sourceImageView != null) {
             if (glow) {
