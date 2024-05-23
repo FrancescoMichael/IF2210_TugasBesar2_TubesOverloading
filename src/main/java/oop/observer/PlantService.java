@@ -19,10 +19,15 @@ public class PlantService {
         plants.remove(plant);
     }
 
-    public void setPlants(List<Plant> plants){
+    public void setPlants(List<Plant> plants) {
         this.plants = plants;
     }
+
     public void increaseAgeOfPlants() {
         plants.forEach(plant -> plant.increaseWeight(1));
+    }
+
+    public List<Plant> getSubscribers() {
+        return this.plants;
     }
 }

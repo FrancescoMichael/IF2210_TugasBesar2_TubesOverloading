@@ -33,7 +33,8 @@ public class Shop {
         Integer currentStock = stock.get(productName);
 
         // check gulden, check deck, check stock
-        if (currentPlayer.getGulden() >= (selectedProduct.getPrice() * quantity) && (currentPlayer.getCardDeckLeft() >= quantity) && (currentStock >= quantity)) {
+        if (currentPlayer.getGulden() >= (selectedProduct.getPrice() * quantity)
+                && (currentPlayer.getCardDeckLeft() >= quantity) && (currentStock >= quantity)) {
             // Decrease player's gulden
             currentPlayer.setGulden(currentPlayer.getGulden() - (selectedProduct.getPrice() * quantity));
 
@@ -50,7 +51,7 @@ public class Shop {
             productTemp.setOwner(currentPlayer);
 
             // Add product to player's active deck
-            for(int i = 0; i < quantity; i++) {
+            for (int i = 0; i < quantity; i++) {
                 currentPlayer.addCardToActiveDeckFirstEmpty(productTemp);
             }
         } else {
@@ -62,7 +63,7 @@ public class Shop {
         Card selectedCard;
         try {
             selectedCard = currentPlayer.getCardActiveDeck(indexSelected);
-        } catch(Exception e) {
+        } catch (Exception e) {
             throw new BaseException();
         }
 
@@ -77,5 +78,9 @@ public class Shop {
         }
 
         currentPlayer.removeCardAtActiveDeck(indexSelected);
+    }
+
+    public Map<String, Integer> getStock() {
+        return this.stock;
     }
 }
