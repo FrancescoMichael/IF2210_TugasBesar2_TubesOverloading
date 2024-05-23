@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.SecondaryController">
    <children>
-      <ImageView fx:id="background" fitHeight="761.0" fitWidth="1080.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="background" fitHeight="761.0" fitWidth="1080.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/background/save-load-plugin.png" />
          </image>
@@ -43,32 +43,32 @@
             <Image url="@../assets/OOP%202/OOP%202/button/load.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="save_title" fitHeight="184.0" fitWidth="373.0" layoutX="71.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="save_title" fitHeight="184.0" fitWidth="373.0" layoutX="71.0" layoutY="57.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/title/save.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="save_folder" fitHeight="70.0" fitWidth="226.0" layoutX="374.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="save_folder" fitHeight="70.0" fitWidth="226.0" layoutX="374.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/title/folder.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="save_format" fitHeight="62.0" fitWidth="162.0" layoutX="374.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="save_format" fitHeight="62.0" fitWidth="162.0" layoutX="374.0" layoutY="278.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/title/format.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="save_format_field" fitHeight="82.0" fitWidth="484.0" layoutX="562.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="save_format_field" fitHeight="82.0" fitWidth="484.0" layoutX="562.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%206.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="save_folder_field" fitHeight="82.0" fitWidth="484.0" layoutX="562.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="save_folder_field" fitHeight="82.0" fitWidth="484.0" layoutX="562.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%206.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="save_button" fitHeight="59.0" fitWidth="159.0" layoutX="602.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="save_button" fitHeight="59.0" fitWidth="159.0" layoutX="602.0" layoutY="492.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/button/save.png" />
          </image>
@@ -101,7 +101,57 @@
       <Label fx:id="chooseFilePluginLabel" layoutX="627.0" layoutY="306.0" style="-fx-font-size: 20px;" text="Click here to choose file!" textFill="white" visible="false" />
       <ComboBox fx:id="saveFormatComboBox" layoutX="584.0" layoutY="292.0" prefHeight="33.0" prefWidth="420.0" visible="false" />
       <Label fx:id="chooseSaveFolderLabel" layoutX="589.0" layoutY="385.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" />
-      <ComboBox fx:id="loadFormatComboBox" layoutX="584.0" layoutY="287.0" prefHeight="33.0" prefWidth="420.0" />
-      <Label fx:id="chooseLoadFolderLabel" layoutX="589.0" layoutY="377.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" />
+      <ComboBox fx:id="loadFormatComboBox" layoutX="584.0" layoutY="287.0" prefHeight="33.0" prefWidth="420.0" visible="false" />
+      <Label fx:id="chooseLoadFolderLabel" layoutX="589.0" layoutY="377.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" />
+      <ImageView fx:id="toko_bg" fitHeight="761.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/background/tokobg.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_title" fitHeight="49.0" fitWidth="169.0" layoutX="456.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/title/toko.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_deck1" fitHeight="88.0" fitWidth="66.0" layoutX="307.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_deck2" fitHeight="88.0" fitWidth="66.0" layoutX="387.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_deck3" fitHeight="88.0" fitWidth="66.0" layoutX="468.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_deck4" fitHeight="88.0" fitWidth="66.0" layoutX="546.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_deck5" fitHeight="88.0" fitWidth="66.0" layoutX="626.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_deck6" fitHeight="88.0" fitWidth="66.0" layoutX="707.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_ladang.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_list_items" fitHeight="343.0" fitWidth="717.0" layoutX="205.0" layoutY="220.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/item.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="toko_back" fitHeight="59.0" fitWidth="143.0" layoutX="469.0" layoutY="591.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/button/back.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

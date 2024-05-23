@@ -95,6 +95,36 @@ public class SecondaryController {
     @FXML
     private Label chooseLoadFolderLabel;
 
+    @FXML
+    private ImageView toko_bg;
+
+    @FXML
+    private ImageView toko_title;
+
+    @FXML
+    private ImageView toko_deck1;
+
+    @FXML
+    private ImageView toko_deck2;
+
+    @FXML
+    private ImageView toko_deck3;
+
+    @FXML
+    private ImageView toko_deck4;
+
+    @FXML
+    private ImageView toko_deck5;
+
+    @FXML
+    private ImageView toko_deck6;
+
+    @FXML
+    private ImageView toko_list_items;
+
+    @FXML
+    private ImageView toko_back;
+
 
     private GlowButtonMaker glowButtonMaker = new GlowButtonMaker();
 
@@ -107,8 +137,17 @@ public class SecondaryController {
         glowButtonMaker.setGlow(load_button);
         glowButtonMaker.setGlow(plugin_button);
         glowButtonMaker.setGlow(save_button);
+        glowButtonMaker.setGlow(toko_back);
 
         close.setOnMouseClicked(event -> {
+            try {
+                switchToPrimary();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+
+        toko_back.setOnMouseClicked(event -> {
             try {
                 switchToPrimary();
             } catch (IOException e) {
@@ -158,6 +197,9 @@ public class SecondaryController {
             case "SaveState":
                 setSaveStateVisible(true);
                 break;
+            case "TokoState":
+                setTokoStateVisible(true);
+                break;
         }
     }
 
@@ -186,7 +228,31 @@ public class SecondaryController {
         chooseSaveFolderLabel.setVisible(false);
         loadFormatComboBox.setVisible(false);
         chooseLoadFolderLabel.setVisible(false);
+        toko_bg.setVisible(false);
+        toko_title.setVisible(false);
+        toko_deck1.setVisible(false);
+        toko_deck2.setVisible(false);
+        toko_deck3.setVisible(false);
+        toko_deck4.setVisible(false);
+        toko_deck5.setVisible(false);
+        toko_deck6.setVisible(false);
+        toko_list_items.setVisible(false);
+        toko_back.setVisible(false);
     }
+
+    private void setTokoStateVisible(boolean visible) {
+        toko_bg.setVisible(visible);
+        toko_title.setVisible(visible);
+        toko_deck1.setVisible(visible);
+        toko_deck2.setVisible(visible);
+        toko_deck3.setVisible(visible);
+        toko_deck4.setVisible(visible);
+        toko_deck5.setVisible(visible);
+        toko_deck6.setVisible(visible);
+        toko_list_items.setVisible(visible);
+        toko_back.setVisible(visible);
+    }
+
 
     private void setLoadPluginVisible(boolean visible) {
         background.setVisible(visible);
@@ -335,6 +401,27 @@ public class SecondaryController {
             // Handle the loaded data (currentTurn and shopItems)
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public void updateTokoDeckImages(List<String> imageUrls) {
+        ImageView[] tokoDecks = {
+            toko_deck1, toko_deck2, toko_deck3, 
+            toko_deck4, toko_deck5, toko_deck6
+        };
+
+        System.out.println("masuk");
+        // print imageUrls
+        for (String imageUrl : imageUrls) {
+            System.out.println(imageUrl);
+        }
+
+        for (int i = 0; i < imageUrls.size() && i < tokoDecks.length; i++) {
+            // handle if null
+            if (imageUrls.get(i) == null) {
+                continue;
+            }
+            tokoDecks[i].setImage(new Image(imageUrls.get(i)));
         }
     }
 }
