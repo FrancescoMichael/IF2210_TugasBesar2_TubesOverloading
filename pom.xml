@@ -18,11 +18,11 @@
             <scope>test</scope>
         </dependency>
 
-<dependency>
+<!-- <dependency>
                 <groupId>org.json</groupId>
                 <artifactId>json</artifactId>
                 <version>20240303</version>
-            </dependency>
+            </dependency> -->
 
         <dependency>
             <groupId>org.junit.jupiter</groupId>

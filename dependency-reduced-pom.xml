@@ -40,7 +40,7 @@
         <configuration>
           <transformers>
             <transformer>
-              <mainClass>oop.Main</mainClass>
+              <mainClass>oop.plugin.SaveLoadYAML</mainClass>
             </transformer>
           </transformers>
         </configuration>
