@@ -17,6 +17,14 @@ public class SaveLoad {
         this.saveLoaders.add(new SaveLoadTXT());
     }
 
+    public void Load(String folderPath, String typeFile) {
+        
+    }
+
+    public void Save(String folderPath, String typeFile) {
+
+    }
+
     public void addSaveLoader(PluginInterface saveLoader) {
         this.saveLoaders.add(saveLoader);
     }

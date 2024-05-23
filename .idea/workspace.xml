@@ -5,7 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="70fc63dc-d615-4f18-82bf-8fa8e14c7ca0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oop/plugin/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oop/plugin/PluginInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oop/plugin/PluginInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oop/plugin/PluginLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oop/plugin/PluginLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oop/plugin/PluginTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oop/plugin/PluginTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oop/saveload/SaveLoad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oop/saveload/SaveLoad.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/oop/shop/Shop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/oop/shop/Shop.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,6 +93,7 @@
       <workItem from="1716437772067" duration="2542000" />
       <workItem from="1716449819826" duration="10000" />
       <workItem from="1716452373066" duration="567000" />
+      <workItem from="1716458949875" duration="6000" />
     </task>
     <servers />
   </component>

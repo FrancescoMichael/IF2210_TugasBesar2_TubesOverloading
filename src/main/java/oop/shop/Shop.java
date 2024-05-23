@@ -28,32 +28,35 @@ public class Shop {
                 "Stroberi", new HerbivoreFood("Stroberi", 350, "Herbivore", 5));
     }
 
-    public void Buy(Player currentPlayer, Card selectedCard) throws BaseException {
-        if (selectedCard instanceof Product) {
-            if (currentPlayer.getGulden() >= ((Product) selectedCard).getPrice() && !currentPlayer.isActiveDeckFull()) {
-                // pembalian bisa dilakukan
-                // stock.get(selectedCard.getName());
-                String cardName = selectedCard.getName();
-                int currentStock = stock.get(cardName);
-                stock.put(cardName, currentStock - 1);
+    public void Buy(Player currentPlayer, String productName) throws BaseException {
+        Product selectedProduct = allHarvestedProduct.get(productName);
 
-                currentPlayer.setGulden(currentPlayer.getGulden() - ((Product) selectedCard).getPrice());
-
-                Product pTemp = this.allHarvestedProduct.get(selectedCard.getName());
-                if (pTemp instanceof CarnivoreFood) {
-                    pTemp = new CarnivoreFood((CarnivoreFood) pTemp);
-
-                } else if (pTemp instanceof HerbivoreFood) {
-                    pTemp = new HerbivoreFood((HerbivoreFood) pTemp);
-                }
-                pTemp.setOwner(currentPlayer);
-
-                currentPlayer.addCardToActiveDeckFirstEmpty(pTemp);
-            } else {
-                System.out.println("Stok habis atau uang tidak cukup");
+        if (currentPlayer.getGulden() >= selectedProduct.getPrice() && !currentPlayer.isActiveDeckFull()) {
+            // Check stock
+            Integer currentStock = stock.get(productName);
+            if (currentStock == null || currentStock <= 0) {
+                throw new BaseException("Stock habis atau uang tidak cukup");
             }
+
+            // Decrease player's gulden
+            currentPlayer.setGulden(currentPlayer.getGulden() - selectedProduct.getPrice());
+
+            // Decrease stock
+            stock.put(productName, currentStock - 1);
+
+            // Create a new product instance
+            Product productTemp;
+            if (selectedProduct instanceof CarnivoreFood) {
+                productTemp = new CarnivoreFood((CarnivoreFood) selectedProduct);
+            } else {
+                productTemp = new HerbivoreFood((HerbivoreFood) selectedProduct);
+            }
+            productTemp.setOwner(currentPlayer);
+
+            // Add product to player's active deck
+            currentPlayer.addCardToActiveDeckFirstEmpty(productTemp);
         } else {
-            // pembelisan bukan product
+            throw new BaseException("Stock habis atau uang tidak cukup");
         }
     }
 
@@ -74,5 +77,7 @@ public class Shop {
         } else {
             // exception
         }
+
+        currentPlayer.removeCardAtActiveDeck(indexSelected);
     }
 }

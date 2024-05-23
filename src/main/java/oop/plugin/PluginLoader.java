@@ -76,17 +76,21 @@ public class PluginLoader {
             ArrayList<Class<?>> classes = loadJarFile(pluginPath);
             for (Class<?> c : classes) {
                 try {
-                    Method loadMethod = c.getMethod("onLoad", String.class);
-                    Method saveMethod = c.getMethod("onSave", String.class);
-
-                    if (loadMethod != null && saveMethod != null) {
+                    Method loadPlayerMethod = c.getMethod("loadPlayer", String.class, List.class, List.class, List.class);
+                    Method savePlayerMethod = c.getMethod("savePlayer", String.class, List.class, List.class, List.class);
+                    Method loadGameMethod = c.getMethod("loadGame", String.class, List.class);
+                    Method saveGameMethod = c.getMethod("saveGame", String.class, int.class, List.class);
+                    Method getTypeMethod = c.getMethod("getType");
+    
+                    if (loadPlayerMethod != null && savePlayerMethod != null && loadGameMethod != null && saveGameMethod != null && getTypeMethod != null) {
                         Constructor<?> constructor = c.getDeclaredConstructor();
                         PluginInterface pluginInstance = (PluginInterface) constructor.newInstance();
                         saveLoad.addSaveLoader(pluginInstance);
-
                     } else {
                         System.out.println("The plugin does not have the required methods.");
                     }
+                } catch (NoSuchMethodException e) {
+                    System.out.println("Required method not found: " + e.getMessage());
                 } catch (Exception e) {
                     System.out.println("Error invoking methods: " + e.getMessage());
                 }
