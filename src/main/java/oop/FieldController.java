@@ -566,6 +566,11 @@ public class FieldController implements Initializable{
 
         close.setOnMouseClicked(event -> {
             hideAll();
+            // reset combobox and label
+            saveFormatComboBox.setValue(null);
+            loadFormatComboBox.setValue(null);
+            chooseLoadFolderLabel.setText("Click here to choose folder!");
+            chooseSaveFolderLabel.setText("Click here to choose folder!");
             loadGridActiveDeck();
         });
 
@@ -1221,6 +1226,7 @@ public class FieldController implements Initializable{
                     loadFormatComboBox.getItems().add(type);
                 }
             }
+            chooseFilePluginLabel.setText("Click here to choose file!");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1237,6 +1243,8 @@ public class FieldController implements Initializable{
         try {
             String foldername = chooseSaveFolderLabel.getText();
             gameMaster.save(foldername, format);
+            saveFormatComboBox.setValue(null);
+            chooseSaveFolderLabel.setText("Click here to choose folder!");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1257,9 +1265,10 @@ public class FieldController implements Initializable{
             gameMaster.load(foldername, format);
             System.out.println("halo");
             gameMaster.getCurrentPlayer().printGridActiveDeckTest();
-            hideAll();
             loadGridActiveDeck();
             loadOther();
+            loadFormatComboBox.setValue(null);
+            chooseLoadFolderLabel.setText("Click here to choose folder!");
         } catch (Exception e) {
             e.printStackTrace();
         }
