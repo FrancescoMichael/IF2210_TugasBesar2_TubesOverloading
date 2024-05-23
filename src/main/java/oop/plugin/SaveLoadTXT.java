@@ -1,5 +1,7 @@
 package oop.plugin;
 
+import oop.plugin.PluginInterface;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -7,80 +9,43 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
-
-import oop.player.*;
-import oop.card.*;
 
 public class SaveLoadTXT implements PluginInterface {
+
     @Override
-    public void saveGame(String filename, Map<String, Integer> stock, int currentTurn) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
+    public static void loadPlayer(String filename, List<Integer> playerStatus, List<String> activeDeckString, List<String> gridString) throws IOException{
+        BufferedReader reader = new BufferedReader(new FileReader(filename));
 
-        writer.write(String.valueOf(currentTurn));
-        writer.newLine();
-        int numItemsInShop = 0;
-        for (Map.Entry<String, Integer> entry : stock.entrySet()) {
-            if (entry.getValue() > 0) {
-                numItemsInShop++;
-            }
-        }
-        writer.write(String.valueOf(numItemsInShop));
-        writer.newLine();
+        // player status
+        int gold = Integer.parseInt(reader.readLine().trim());
+        int totalDeck = Integer.parseInt(reader.readLine().trim());
+        playerStatus.add(gold);
+        playerStatus.add(totalDeck);
 
-        for (Map.Entry<String, Integer> entry : stock.entrySet()) {
-            if (entry.getValue() > 0) {
-                writer.write(entry.getKey() + " " + entry.getValue());
-                writer.newLine();
-            }
+        // active deck
+        int activeDeck = Integer.parseInt(reader.readLine().trim());
+        for (int i = 0; i < activeDeck; i++) {
+            activeDeckString.add(reader.readLine());
         }
 
-        writer.close();
+        // grid
+        int totalField = Integer.parseInt(reader.readLine().trim());
+        for (int i = 0; i < totalField; i++) {
+            gridString.add(reader.readLine());
+        }
+
+        reader.close();
     }
 
     @Override
-    public void savePlayer(String filename, Player player) throws IOException {
-        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
-
-        writer.write(String.valueOf(player.getGulden()));
-        writer.newLine();
-        writer.write(String.valueOf(player.getCardDeckLeft()));
-        writer.newLine();
-        writer.write(String.valueOf(player.numOfActiveDeck()));
-        writer.newLine();
-
-        for (Card card : player.getActiveDeck()) {
-            if (!card.isEmpty()) {
-                writer.write(card.getLocation() + " " + card.getCardName());
-                writer.newLine();
-            }
-        }
-
-        writer.write(String.valueOf(player.getTotalField()));
-        writer.newLine();
-
-        for (FieldCard card : player.getFieldCards()) {
-            writer.write(card.getLocation() + " " + card.getCardName() + " " + card.getAgeOrWeight() + " "
-                    + card.getActiveItems().size());
-            for (String item : card.getActiveItems()) {
-                writer.write(" " + item);
-            }
-            writer.newLine();
-        }
-
-        writer.close();
-    }
-
-    @Override
-    public int loadGame(String filename, Map<String, Integer> stock) throws IOException {
+    public static int loadGame(String filename, List<String> shopItems) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
 
         int turn = Integer.parseInt(reader.readLine().trim());
         int numItemsInShop = Integer.parseInt(reader.readLine().trim());
 
         for (int i = 0; i < numItemsInShop; i++) {
-            String[] parts = reader.readLine().split(" ");
-            stock.put(parts[0], Integer.parseInt(parts[1]));
+            shopItems.add(reader.readLine().trim());
         }
 
         reader.close();
@@ -88,61 +53,96 @@ public class SaveLoadTXT implements PluginInterface {
         return turn;
     }
 
-    public static int coordinateToIndex(String coordinate) {
-        char letter = coordinate.charAt(0);
-        String digits = coordinate.substring(1);
+    @Override
+    public static void savePlayer(String filename, List<Integer> playerStatus, List<String> activeDeckString, List<String> gridString) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 
-        int col = letter - 'A' + 1;
-        int row = Integer.parseInt(digits);
+        writer.write(String.valueOf(playerStatus.get(0)));
+        writer.newLine();
+        writer.write(String.valueOf(playerStatus.get(1)));
+        writer.newLine();
+        writer.write(String.valueOf(activeDeckString.size()));
+        writer.newLine();
 
-        return (row - 1) * 5 + col;
+        for(int i = 0; i < activeDeckString.size(); i++) {
+            writer.write(activeDeckString.get(i));
+
+            if(i != activeDeckString.size() - 1) writer.newLine();
+        }
+
+        writer.newLine();
+
+        writer.write(String.valueOf(gridString.size()));
+        writer.newLine();
+
+        for(int i = 0; i < gridString.size(); i++) {
+            writer.write(gridString.get(i));
+
+            if(i != gridString.size() - 1) writer.newLine();
+        }
+
+        writer.close();
     }
 
     @Override
-    public Player loadPlayer(String filename) throws IOException {
-        Player loadedPlayer = new Player();
-        BufferedReader reader = new BufferedReader(new FileReader(filename));
+    public static void saveGame(String filename, int currentTurn, List<String> shopItems) throws IOException {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(filename));
 
-        int gulden = Integer.parseInt(reader.readLine().trim());
-        loadedPlayer.setGulden(gulden);
-        int cardDeckLeft = Integer.parseInt(reader.readLine().trim()); // sisa deck
-        loadedPlayer.setCardDeckLeft(cardDeckLeft);
+        writer.write(String.valueOf(currentTurn));
+        writer.newLine();
+        writer.write(String.valueOf(shopItems.size()));
+        writer.newLine();
 
-        int activeDeckCount = Integer.parseInt(reader.readLine().trim()); 
-        List<Card> activeDeck = new ArrayList<>();
-        for (int i = 0; i < activeDeckCount; i++) {
-            String[] parts = reader.readLine().split(" ");
-            int gridIndex = coordinateToIndex(parts[0]);
-            
-            activeDeck.add(new DeckCard(parts[0], parts[1]));
+        for(int i = 0; i < shopItems.size(); i++) {
+            writer.write(shopItems.get(i));
+
+            if(i != shopItems.size() - 1) writer.newLine();
         }
 
-        // jumlah kartu ladang
-
-        int totalField = Integer.parseInt(reader.readLine().trim());
-
-        // masukkin kartu ladanag
-        List<Card> fieldCards = new ArrayList<>();
-        for (int i = 0; i < totalField; i++) {
-            String[] parts = reader.readLine().split(" ");
-            String location = parts[0];
-            String cardName = parts[1];
-            int ageOrWeight = Integer.parseInt(parts[2]);
-            int activeItemsCount = Integer.parseInt(parts[3]);
-            List<String> activeItems = new ArrayList<>();
-            for (int j = 0; j < activeItemsCount; j++) {
-                activeItems.add(parts[4 + j]);
-            }
-            fieldCards.add(new FieldCard(location, cardName, ageOrWeight, activeItems));
-        }
-
-        reader.close();
-
-        return new Player(gulden, totalDeck, activeDeck, totalField, fieldCards);
+        writer.close();
     }
 
     @Override
     public String getType() {
         return "txt";
     }
+
+//    public static void main(String[] args) {
+//        try {
+//            // Load player 1
+//            List<Integer> playerStatus1 = new ArrayList<>();
+//            List<String> activeDeckString1 = new ArrayList<>();
+//            List<String> gridString1 = new ArrayList<>();
+//            loadPlayer("../config/player1.txt", playerStatus1, activeDeckString1, gridString1);
+//            System.out.println(playerStatus1);
+//            System.out.println(activeDeckString1);
+//            System.out.println(gridString1);
+//
+//            // Load player 2
+//            List<Integer> playerStatus2 = new ArrayList<>();
+//            List<String> activeDeckString2 = new ArrayList<>();
+//            List<String> gridString2 = new ArrayList<>();
+//            loadPlayer("../config/player2.txt", playerStatus2, activeDeckString2, gridString2);
+//            System.out.println(playerStatus2);
+//            System.out.println(activeDeckString2);
+//            System.out.println(gridString2);
+//
+//            // Load game
+//            List<String> shopItems = new ArrayList<>();
+//            int turn = loadGame("../config/gamestate.txt", shopItems);
+//            System.out.println(turn);
+//            System.out.println(shopItems);
+//
+//            // Save player 1
+//            savePlayer("../saved_player1.txt", playerStatus1, activeDeckString1, gridString1);
+//
+//            // Save player 2
+//            savePlayer("../saved_player2.txt", playerStatus2, activeDeckString2, gridString2);
+//
+//            // Save game state
+//            saveGame( "../saved_gamestate.txt", turn, shopItems);
+//        } catch (IOException e) {
+//            System.err.println("Failed to load data: " + e.getMessage());
+//        }
+//    }
 }

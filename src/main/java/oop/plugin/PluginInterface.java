@@ -6,14 +6,13 @@ import java.util.*;
 import oop.player.*;
 
 public interface PluginInterface {
-    void saveGame(String filename, int currTurn, List<String> shopItems) throws IOException;
+    public void loadPlayer(String filename, List<Integer> playerStatus, List<String> activeDeckString, List<String> gridString) throws IOException;
 
-    void savePlayer(String filename, int currGulden, int cardDeckLeft) throws IOException;
+    public int loadGame(String filename, List<String> shopItems) throws IOException;
 
-    int loadGame(String filename, List<String> shopItems) throws IOException;
+    public void savePlayer(String filename, List<Integer> playerStatus, List<String> activeDeckString, List<String> gridString) throws IOException;
 
-    List<Integer> loadPlayer(String filename, List<String> playerStatus, List<String> activeDeckString,
-            List<String> gridString) throws IOException;
+    public void saveGame(String filename, int currentTurn, List<String> shopItems) throws IOException;
 
-    String getType();
+    public String getType();
 }

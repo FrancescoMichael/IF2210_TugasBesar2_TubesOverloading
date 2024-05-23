@@ -25,17 +25,16 @@ public class SaveLoad {
         return this.saveLoaders;
     }
 
-    public void saveData(String filename, String type) throws Exception {
+    public void saveGame(String filename, int turn, List<String> shopItems, String type) throws Exception {
         for (PluginInterface plugin : this.saveLoaders) {
             if (type.equals(plugin.getType())) {
-                plugin.saveGame(filename);
+                plugin.saveGame(filename, turn, shopItems);
             }
-
         }
     }
 
     // INI YANG PENTING
-    public void loadDataGame(String filename, String type) throws Exception {
+    public void loadGame(String filename, String type) throws Exception {
         for (PluginInterface plugin : this.saveLoaders) {
             int currTurn;
             List<String> currentShopItems = new ArrayList<>();
@@ -48,7 +47,7 @@ public class SaveLoad {
     public void savePlayer(String filename, Player player, String type) throws Exception {
         for (PluginInterface plugin : this.saveLoaders) {
             if (type.equals(plugin.getType())) {
-                plugin.savePlayer(filename, player);
+                plugin.savePlayer(filename, player.getGulden(), player.getCardDeckLeft());
             }
         }
     }
