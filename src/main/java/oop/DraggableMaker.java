@@ -6,22 +6,14 @@ import java.util.Random;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
-import javafx.util.Pair;
 import oop.exceptionkerajaan.BaseException;
 import oop.gamemaster.*;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -216,8 +208,6 @@ public class DraggableMaker {
                                 }
 
                             }
-                        } else {
-                            // if (CurrentPLayer.getCardActiveDeck(index).)
                         }
                     }
 

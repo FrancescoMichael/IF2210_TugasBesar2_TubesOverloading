@@ -234,10 +234,10 @@ public class Player {
                    return; 
                 }
             }
-            System.out.println("MAU REMOVE MASS");
+            // System.out.println("MAU REMOVE MASS");
             this.removeCardAtActiveDeck(activeCardIndex);
         } else {
-            System.out.println("EXCEPTION THROWN");
+            // System.out.println("EXCEPTION THROWN");
             throw new InvalidCardPlacementException();
         }
 
@@ -298,7 +298,7 @@ public class Player {
         }
         List<String> resultList = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
-            resultList.add(entry.getKey() + "( " + entry.getValue() + " )");
+            resultList.add(entry.getKey() + " ( " + entry.getValue() + " ) ");
         }
         return resultList;
     }
@@ -313,7 +313,9 @@ public class Player {
         return -1;
     }
 
-
+    public long getNumberOfEmptyCardsActiveDeck(){
+        return this.grid.stream().filter(card -> !card.isEmpty()).count();
+    }
 
     public void emptyGrid(){
         try {

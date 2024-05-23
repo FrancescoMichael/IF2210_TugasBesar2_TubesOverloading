@@ -3,11 +3,8 @@ package oop.gamemaster;
 import java.util.*;
 import java.util.function.Supplier;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.scene.control.Label;
-import javafx.scene.layout.Pane;
 
 import static java.util.Map.entry;
 
@@ -16,29 +13,13 @@ import oop.saveload.SaveLoad;
 import oop.observer.*;
 import oop.card.creature.*;
 import oop.card.item.Item;
-import oop.card.item.ItemEffect;
 import oop.card.product.CarnivoreFood;
 import oop.card.product.HerbivoreFood;
-import oop.card.product.Product;
 import oop.exceptionkerajaan.BaseException;
 import oop.FieldController;
 import oop.card.*;
 import oop.shop.*;
-import javafx.util.Duration;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
-
-import javafx.application.Preloader.StateChangeNotification;
-
-
-import oop.card.item.ConcreteAccelerate;
-import oop.card.item.ConcreteDelay;
-import oop.card.item.ConcreteDestroy;
-import oop.card.item.ConcreteInstantHarvest;
-import oop.card.item.ConcreteProtect;
-import oop.card.item.ConcreteTrap;
 
 // import oop.card.product.CarnivoreFood;
 // import oop.card.product.HerbivoreFood;
@@ -123,12 +104,13 @@ public class GameMaster {
         this.plantService = new PlantService();
         this.shop = new Shop();
         this.saveLoad = new SaveLoad();
+        this.bearAttack = false;
         Player.setPlayerPlantService(plantService);
     }
     public PlantService getPlantService(){
         return plantService;
     }
-    public void bearAttackProcess(Integer[] startEnd,FieldController controller, int row, int col) throws BaseException{
+    public void bearAttackProcess(Integer[] startEnd,FieldController controller) throws BaseException{
         boolean execute = true;
         System.out.println("IT IS TIME TO ATTACK");
         Player currPlayer = this.getCurrentPlayer();
@@ -139,9 +121,7 @@ public class GameMaster {
         ArrayList<Integer> cols = new ArrayList<>();
         for (int i = startRow; i < startRow + 2; i++) {
             for (int j = startCol; j < startCol + 3; j++) {
-                // Pane cell = grid[i][j];
-                // glowingCells.add(cell);
-                // setRedGlow(cell, true);
+
                 try{    
                     Creature card = currPlayer.getCardGrid(i, j);
                     if(card.isTrap()){
@@ -178,74 +158,10 @@ public class GameMaster {
         }
         controller.loadGridActiveDeck();
 
-    
-        // Player currPlayer = this.getCurrentPlayer();
-        // for (int i = 0 ; i < row ; i++){
-        //     for(int j = 0 ; j < col ; j++){
-        //         try{
-        //             if(currPlayer.getCardGrid(i, j).isTrap()){
-        //                 execute = false;
-        //                 break;
-        //             }
-        //         }catch(BaseException e){
-
-        //         }
-
-        //     }   
-        // }
-        // if (execute){
-        //     for (int i = 0 ; i < row ; i++){
-        //         for(int j = 0 ; j < col ; j++){
-        //             try{
-        //             if( !currPlayer.getCardGrid(i, j).isProtected()){
-        //                 currPlayer.setBlankOnGrid(i, j);
-        //             }
-        //             }catch (BaseException e){
-
-        //             }
-
-        //         }   
-        //     }
-        // }
-
-        // controller.getDraggableMaker().removeRedGlow(panes, row, col);
-        // System.out.println("DONE DISINI");
-        // controller.loadGridActiveDeck();
-    
-
 
     }
 
-    // public void bearAttackTimer(Label timerLabel, FieldController controller, int row, int col) throws BaseException {
-    //     Integer[] startEnd =  controller.simulateBearAttack(0, 0); // set red glow
-
-
-    //     final double[] timeLeft = {2.0};  // Time in seconds for the bear attack duration
-    //     final Timeline[] timelineWrapper = new Timeline[1];  // Wrapper to hold the timeline
-    //     timerLabel.setText("");
-    //     timerLabel.setVisible(true);
-
-    //     // Thread damn = new Thread(()=> {
-
-    //     // }  );
-    //     Runnable runnable = () -> {
-    //         try{
-    //             Thread.sleep(100);
-    //         }catch (Exception e){
-
-    //         }
-    //         timeLeft[0] -= 0.1;
-    //         timerLabel.setText(String.format(" %.1f seconds", timeLeft[0]));
-    //         if (timeLeft[0] <= 0){
-    //             timelineWrapper[0].stop();
-    //             timerLabel.setVisible(false);
-    //             bearAttackProcess(startEnd,controller, row, col);
-    //         }
-    //     };
-    //     new Thread(runnable).start();
-    
-    // }
-    public void bearAttackTimer(Label timerLabel, FieldController controller, int row, int col) throws BaseException {
+    public void bearAttackTimer(Label timerLabel, FieldController controller) throws BaseException {
         Integer[] startEnd = controller.simulateBearAttack(0, 0); // Assuming this method is thread-safe
     
         Platform.runLater(() -> {
@@ -277,7 +193,7 @@ public class GameMaster {
                 Platform.runLater(() -> {
                     timerLabel.setVisible(false);
                     try{
-                        bearAttackProcess(startEnd, controller, row, col);
+                        bearAttackProcess(startEnd, controller);
                     } catch (BaseException e){
 
                     }
@@ -334,32 +250,20 @@ public class GameMaster {
         this.currentFieldPlayer = player;
     }
 
+    public void shuffle(){
+        Player currentPlayer = this.getCurrentPlayer();
+        
+    }
+
     public void next(Label timeLabel, FieldController controller) throws BaseException {
         this.currentTurn++;
         this.bearAttack = false;
         this.plantService.increaseAgeOfPlants();
         if (random.nextBoolean()) {
-            Random random = new Random();
-            int startRow = 0;
-            int startCol = 0;
-            int count = 0;
-
-            // while (true && count < 1000) {
-            //     startRow = random.nextInt(4) + 1;
-            //     startCol = random.nextInt(5) + 1; 
-    
-            //     // Check if the product condition is met
-            //     if (startRow * startCol <= 6) {
-            //         break;
-            //     }
-            // }
-            // if (count == 1000){
-            //     return;
-            // }
 
             this.bearAttack = true;
             System.out.println("RUNNING TIMER BEAR");
-            this.bearAttackTimer(timeLabel,controller,startRow,startCol);
+            this.bearAttackTimer(timeLabel,controller);
 
         }       
     }
@@ -578,7 +482,9 @@ public class GameMaster {
         }
 
     }
-
+    public boolean isBearAttack(){
+        return this.bearAttack;
+    }
     public void load(String folderPath, String type) {
         try {
             List<String> currentShopItems = new ArrayList<>();
