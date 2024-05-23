@@ -275,8 +275,11 @@ public class GameMaster {
         List<Map.Entry<String, Supplier<? extends Card>>> entries = new ArrayList<>(allCardMap.entrySet());
         Collections.shuffle(entries);
         this.currentShuffle.clear();
-        Math.min(4, currentPlayer.getNumberOfEmptyCardsActiveDeck());
-        List<Map.Entry<String, Supplier<? extends Card>>> selected = entries.subList(0, 4);
+        int min = 4;
+        if (min > currentPlayer.getNumberOfEmptyCardsActiveDeck()){
+            min =  currentPlayer.getNumberOfEmptyCardsActiveDeck();
+        }
+        List<Map.Entry<String, Supplier<? extends Card>>> selected = entries.subList(0,min );
         for (Map.Entry<String, Supplier<? extends Card>> entry : selected) {
             Card card = entry.getValue().get();
             this.currentShuffle.add(card);

@@ -317,7 +317,7 @@ public class Player {
         }
         List<String> resultList = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
-            resultList.add(entry.getKey() + " ( " + entry.getValue() + " ) ");
+            resultList.add(entry.getKey() + " (" + entry.getValue() + ") ");
         }
         return resultList;
     }
@@ -331,8 +331,15 @@ public class Player {
         return -1;
     }
 
-    public long getNumberOfEmptyCardsActiveDeck(){
-        return this.grid.stream().filter(card -> card.isEmpty()).count();
+    public int getNumberOfEmptyCardsActiveDeck(){
+        // return this.grid.stream().filter(card -> card.isEmpty()).count();
+        int counter = 0;
+        for (int i = 0 ; i < this.activeDeck.length ; i++){
+            if (this.activeDeck[i].isEmpty()){
+                counter++;
+            }
+        }
+        return counter;
     }
 
     public void emptyGrid(){
