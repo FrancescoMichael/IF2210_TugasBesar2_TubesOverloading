@@ -35,11 +35,6 @@ import oop.card.product.*;;
 public class FieldController implements Initializable{
 
     @FXML
-    private void switchToSecondary() throws IOException {
-        App.setRoot("SaveLoadPlugin");
-    }
-
-    @FXML
     private ImageView ActiveDeck1;
 
     @FXML
@@ -562,6 +557,14 @@ public class FieldController implements Initializable{
                 e.printStackTrace();
             }
         });
+
+        toToko.setOnMouseClicked(event -> {
+            try {
+                switchToSecondary("TokoState");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public void loadGridActiveDeck() {
@@ -601,6 +604,8 @@ public class FieldController implements Initializable{
         Parent root = loader.load();
         SecondaryController secondaryController = loader.getController();
         secondaryController.setState(state);
+        List<String> deckImageUrls = getActiveDeckImageUrls();
+        secondaryController.updateTokoDeckImages(deckImageUrls);
         Scene scene = new Scene(root);
         Stage stage = (Stage) LoadPlugin.getScene().getWindow(); // Assuming LoadPlugin is in the current scene
         stage.setScene(scene);
@@ -742,5 +747,26 @@ public class FieldController implements Initializable{
 
     public boolean isInEnemyField() {
         return toLadangLawan1.isVisible();
+    }
+
+    private List<String> getActiveDeckImageUrls() {
+        List<String> imageUrls = new ArrayList<>();
+
+        try {
+            for (ImageView activeCard : listActiveDeck) {
+                String activeCardId = activeCard.getId();
+                int index = ((int) activeCardId.charAt(activeCardId.length() - 1) - '0') - 1;
+                String imageUrl = gameMaster.getCurrentPlayer().getCardActiveDeck(index).getPathToImg();
+                if (imageUrl == null) {
+                    imageUrls.add(null);
+                } else {
+                    imageUrls.add(imageUrl);
+                }
+            }
+        } catch (BaseException e) {
+            e.printStackTrace();
+            // Handle the exception, e.g., show an error message to the user
+        }
+        return imageUrls;
     }
 }
