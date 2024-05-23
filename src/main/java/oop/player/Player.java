@@ -48,6 +48,7 @@ public class Player {
     public ArrayList<Creature> getGrid() {
         return this.grid;
     }
+
     public void emptyActiveDeck() {
         try {
             for (int i = 0; i < 6; i++) {
@@ -58,6 +59,7 @@ public class Player {
         }
 
     }
+
     public int getGulden() {
         return this.gulden;
     }
@@ -123,7 +125,7 @@ public class Player {
         }
     }
 
-    public void setBlankOnGrid(int row, int col) throws BaseException{
+    public void setBlankOnGrid(int row, int col) throws BaseException {
         int arrayIDX = row * 5 + col;
         // this.grid.add(arrayIDX, new Creature("","",this));
         if (this.getCardGrid(row, col) instanceof Plant) {
@@ -146,6 +148,24 @@ public class Player {
         return this.firstEmptyActiveDeck() == -1;
     }
 
+    public int searchActiveCardIndex(Card card) {
+        for (int i = 0; i < 6; i++) {
+            if (activeDeck[i] == card) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int searchGridIndex(Creature creature) {
+        for (int i = 0; i < 20; i++) {
+            if (grid.get(i) == creature) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
     public Card[] getActiveDeck() {
         return this.activeDeck;
     }
@@ -165,8 +185,8 @@ public class Player {
         return this.activeDeck[index];
     }
 
-    public Creature getCardGrid(int row, int col) throws BaseException{
-        if (row < 0 || row > 3 || col < 0 || col > 4){
+    public Creature getCardGrid(int row, int col) throws BaseException {
+        if (row < 0 || row > 3 || col < 0 || col > 4) {
             throw new GridOutOfBoundsException();
         }
         int arrayIDX = row * 5 + col;
@@ -223,15 +243,14 @@ public class Player {
         // check if usable and not a blank card
         if (currCard instanceof UsableCard && !currCard.isEmpty()) {
 
-
             Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
-            
+
             ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
 
             // Handle if active fullx
-            if ( currCard instanceof Item ){
-                if ( ((Item)currCard).getEffect() instanceof ConcreteInstantHarvest ){
-                   return; 
+            if (currCard instanceof Item) {
+                if (((Item) currCard).getEffect() instanceof ConcreteInstantHarvest) {
+                    return;
                 }
             }
             // System.out.println("MAU REMOVE MASS");
@@ -252,7 +271,7 @@ public class Player {
         if (currCard instanceof UsableCard && !currCard.isEmpty() && targetCard.isEmpty() && this == targetGridPlayer) {
 
             // ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
-            this.grid.set(rowTarget * 5 + colTarget , currCard);
+            this.grid.set(rowTarget * 5 + colTarget, currCard);
             this.grid.set(rowSource * 5 + colSource, targetCard);
 
         } else {
@@ -298,34 +317,47 @@ public class Player {
         }
         List<String> resultList = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
-            resultList.add(entry.getKey() + " ( " + entry.getValue() + " ) ");
+            resultList.add(entry.getKey() + " (" + entry.getValue() + ") ");
         }
         return resultList;
     }
 
-
-    public int getCardIndexAtActiveDeck(Card card){
-        for (int i = 0 ; i < 6 ; i++){
-            if (this.getCardActiveDeck(i) == card){
+    public int getCardIndexAtActiveDeck(Card card) {
+        for (int i = 0; i < 6; i++) {
+            if (this.getCardActiveDeck(i) == card) {
                 return i;
             }
         }
         return -1;
     }
 
-    public long getNumberOfEmptyCardsActiveDeck(){
-        return this.grid.stream().filter(card -> !card.isEmpty()).count();
+    public int getNumberOfEmptyCardsActiveDeck(){
+        // return this.grid.stream().filter(card -> card.isEmpty()).count();
+        int counter = 0;
+        for (int i = 0 ; i < this.activeDeck.length ; i++){
+            if (this.activeDeck[i].isEmpty()){
+                counter++;
+            }
+        }
+        return counter;
     }
 
     public void emptyGrid(){
         try {
             for (int i = 0; i < 4; i++) {
-                for(int j = 0; j < 5; j++){
-                    setBlankOnGrid(i,j);
+                for (int j = 0; j < 5; j++) {
+                    setBlankOnGrid(i, j);
                 }
             }
         } catch (Exception e) {
             // TODO: handle exception
+        }
+    }
+
+    public void decrementCardDeckLeft(int amount){
+        this.cardDeckLeft -= amount;
+        if (this.cardDeckLeft <= 0){
+            this.cardDeckLeft = 0;
         }
     }
 

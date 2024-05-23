@@ -2,6 +2,7 @@ package oop;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +40,7 @@ import oop.card.item.*;
 import oop.exceptionkerajaan.BaseException;
 import oop.gamemaster.GameMaster;
 import oop.player.Player;
+import oop.card.*;
 import oop.card.product.*;
 import javafx.scene.control.TextField;
 
@@ -530,6 +532,27 @@ public class FieldController implements Initializable{
     private Label LabelKuantitas;
 
     @FXML
+    private ImageView shuffleBG;
+
+    @FXML
+    private ImageView shufflecard1;
+
+    @FXML
+    private ImageView shufflecard2;
+
+    @FXML
+    private ImageView shufflecard3;
+
+    @FXML
+    private ImageView shufflecard4;
+
+    @FXML
+    private ImageView retry;
+
+    @FXML
+    private ImageView okshuffle;
+
+    @FXML
     private Label Kuantitas;
     
     private Timeline countdownTimeline;
@@ -553,8 +576,56 @@ public class FieldController implements Initializable{
     public DraggableMaker getDraggableMaker(){
         return this.draggableMaker;
     }
+
+    public void ShuffleVisible(ArrayList<Card> cardNames) {
+        shuffleBG.setVisible(true);
+        shufflecard1.setVisible(true);
+        shufflecard2.setVisible(true);
+        shufflecard3.setVisible(true);
+        shufflecard4.setVisible(true);
+        retry.setVisible(true);
+        okshuffle.setVisible(true);
+
+        ImageView[] shuffleCards = {
+            shufflecard1, shufflecard2, shufflecard3, shufflecard4
+        };
+
+        for (int i = 0; i < cardNames.size() && i < shuffleCards.length; i++) {
+            // handle if null
+            if (cardNames.get(i).getPathToImg() == null) {
+                shuffleCards[i].setImage(new Image("/assets/OOP 2/OOP 2/misc/empty_cards_deck.png"));
+            } else {
+                shuffleCards[i].setImage(new Image(cardNames.get(i).getPathToImg()));
+            }
+        }
+    }
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        retry.setOnMouseClicked(event -> {
+            gameMaster.shuffle();
+            ShuffleVisible(gameMaster.getCurrentShuffle());
+        });
+
+        okshuffle.setOnMouseClicked(event -> {
+            shuffleBG.setVisible(false);
+            shufflecard1.setVisible(false);
+            shufflecard1.setImage(new Image("/assets/OOP 2/OOP 2/misc/empty_cards_deck.png"));
+            shufflecard2.setVisible(false);
+            shufflecard2.setImage(new Image("/assets/OOP 2/OOP 2/misc/empty_cards_deck.png"));
+            shufflecard3.setVisible(false);
+            shufflecard3.setImage(new Image("/assets/OOP 2/OOP 2/misc/empty_cards_deck.png"));
+            shufflecard4.setVisible(false);
+            shufflecard4.setImage(new Image("/assets/OOP 2/OOP 2/misc/empty_cards_deck.png"));
+            retry.setVisible(false);
+            okshuffle.setVisible(false);
+            try {
+                gameMaster.doneShuffling(timerLabel, this);
+            } catch (BaseException e) {
+                System.out.println(e.getMessage());
+
+            }
+        });
+
         hideAll();
         glowButtonMaker.setGlow(close);
         glowButtonMaker.setGlow(load_button);
@@ -568,6 +639,11 @@ public class FieldController implements Initializable{
 
         close.setOnMouseClicked(event -> {
             hideAll();
+            // reset combobox and label
+            saveFormatComboBox.setValue(null);
+            loadFormatComboBox.setValue(null);
+            chooseLoadFolderLabel.setText("Click here to choose folder!");
+            chooseSaveFolderLabel.setText("Click here to choose folder!");
             loadGridActiveDeck();
         });
 
@@ -603,32 +679,36 @@ public class FieldController implements Initializable{
         List<Player> listPlayer = new ArrayList<>();
         Player player1 = new Player("Player1");
         Player player2 = new Player("Player2");
-        try {
-            player1.addCardToActiveDeckFirstEmpty(new Omnivore("Beruang"));
-            player1.addCardToActiveDeckFirstEmpty(new Item("Protect"));
-            player1.addCardToActiveDeckFirstEmpty(new Item("Trap"));
-            player1.addCardToActiveDeckFirstEmpty(new Item("Delay"));
-            player1.addCardToActiveDeckFirstEmpty(new Item("Trap"));
-            player1.addCardToActiveDeckFirstEmpty(new Plant("Biji Stroberi"));
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            // TODO: handle exception
-        }
-        try {
-            player2.addCardToActiveDeckFirstEmpty(new Carnivore("Hiu Darat"));
-            player2.addCardToActiveDeckFirstEmpty(new Herbivore("Sapi"));
-            player2.addCardToActiveDeckFirstEmpty(new Omnivore("Ayam"));
-            player2.addCardToActiveDeck(new Item("Destroy"), 3);
-            player2.addCardToActiveDeck(new Item("Instant Harvest"), 4);
-            player2.addCardToActiveDeck(new Item("Accelerate"), 5);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            // TODO: handle exception
-        }
+
+        // try {
+        //     player1.addCardToActiveDeckFirstEmpty(new Omnivore("Beruang"));
+        //     player1.addCardToActiveDeckFirstEmpty(new Item("Protect"));
+        //     player1.addCardToActiveDeckFirstEmpty(new Item("Trap"));
+        //     player1.addCardToActiveDeckFirstEmpty(new Item("Delay"));
+        //     player1.addCardToActiveDeckFirstEmpty(new Item("Trap"));
+        //     player1.addCardToActiveDeckFirstEmpty(new Plant("Biji Stroberi"));
+        // } catch (Exception e) {
+        //     System.out.println(e.getMessage());
+        //     // TODO: handle exception
+        // }
+        // try {
+        //     player2.addCardToActiveDeckFirstEmpty(new Carnivore("Hiu Darat"));
+        //     player2.addCardToActiveDeckFirstEmpty(new Herbivore("Sapi"));
+        //     player2.addCardToActiveDeckFirstEmpty(new Omnivore("Ayam"));
+        //     player2.addCardToActiveDeck(new Item("Destroy"), 3);
+        //     player2.addCardToActiveDeck(new Item("Instant Harvest"), 4);
+        //     player2.addCardToActiveDeck(new Item("Accelerate"), 5);
+        // } catch (Exception e) {
+        //     System.out.println(e.getMessage());
+        //     // TODO: handle exception
+        // }
         listPlayer.add(player1);
         listPlayer.add(player2);
         gameMaster.setListPlayer(listPlayer);
         gameMaster.setCurrentFieldPlayer(player1);
+        gameMaster.shuffle();
+        ShuffleVisible(gameMaster.getCurrentShuffle());
+        
 
         // initialize matrixgrid and matrixCardInField
         matrixGrid = new ImageView[][] {
@@ -668,7 +748,12 @@ public class FieldController implements Initializable{
         glowButtonMaker.setGlow(nextTurnBtn);
         nextTurnBtn.setOnMouseClicked(event -> {
             try{
-                gameMaster.next(timerLabel,this);
+                gameMaster.next();
+                // example of shuffle and done shuffling
+                
+                gameMaster.shuffle();
+                ShuffleVisible(gameMaster.getCurrentShuffle());
+                // gameMaster.doneShuffling(timerLabel, this);
             } catch (BaseException e){
 
             }
@@ -1317,6 +1402,7 @@ public class FieldController implements Initializable{
                     loadFormatComboBox.getItems().add(type);
                 }
             }
+            chooseFilePluginLabel.setText("Click here to choose file!");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1331,12 +1417,10 @@ public class FieldController implements Initializable{
         }
         // save operation
         try {
-            SaveLoad saveLoad = new SaveLoad();
-            String foldername = chooseSaveFolderLabel.getText() + "/saved_file." + format;
-            // nanti fetch currentTurns dan shopItems
-            int currentTurn = 0;
-            List<String> shopItems = new ArrayList<>();
-            saveLoad.saveGame(foldername, currentTurn, shopItems, format);
+            String foldername = chooseSaveFolderLabel.getText();
+            gameMaster.save(foldername, format);
+            saveFormatComboBox.setValue(null);
+            chooseSaveFolderLabel.setText("Click here to choose folder!");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1357,9 +1441,10 @@ public class FieldController implements Initializable{
             gameMaster.load(foldername, format);
             System.out.println("halo");
             gameMaster.getCurrentPlayer().printGridActiveDeckTest();
-            hideAll();
             loadGridActiveDeck();
             loadOther();
+            loadFormatComboBox.setValue(null);
+            chooseLoadFolderLabel.setText("Click here to choose folder!");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1464,13 +1549,17 @@ public class FieldController implements Initializable{
                 label4.setText("");
                 label5.setText("");
             }
+
+            List<String> effect = gameMaster.getCurrentPlayer().getAllEffecArrayList(row,col);
             if (listItems.size() >= 1) {
-                label4.setText(listItems.get(0).getName());
+                String temp = "";
+                for (String str : effect){
+                    temp += str;
+                }
+                label4.setText(temp);
     
             }
-            if (listItems.size() == 2) {
-                label5.setText(listItems.get(1).getName());
-            }
+    
         } catch (BaseException e) {
             e.printStackTrace();
             // Handle the exception, e.g., show an error message to the user

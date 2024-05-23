@@ -21,41 +21,6 @@
             <Image url="@../assets/OOP%202/OOP%202/grid/turn.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="shuffleBG" fitHeight="558.0" fitWidth="655.0" layoutX="237.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%205.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="shufflecard1" fitHeight="150.0" fitWidth="200.0" layoutX="360.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="shufflecard2" fitHeight="150.0" fitWidth="200.0" layoutX="589.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="shufflecard3" fitHeight="150.0" fitWidth="200.0" layoutX="359.0" layoutY="365.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="shufflecard4" fitHeight="150.0" fitWidth="200.0" layoutX="588.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="retry" fitHeight="34.0" fitWidth="51.0" layoutX="517.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/misc/retry.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="okshuffle" fitHeight="74.0" fitWidth="152.0" layoutX="461.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true" visible="false">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/button/ok.png" />
-         </image>
-      </ImageView>
       <ImageView fx:id="LoadState" fitHeight="150.0" fitWidth="200.0" layoutX="828.0" layoutY="303.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/title/Group%2015.png" />
@@ -475,8 +440,43 @@
       <Label fx:id="chooseFilePluginLabel" layoutX="627.0" layoutY="306.0" style="-fx-font-size: 20px;" text="Click here to choose file!" textFill="white" visible="false" />
       <ComboBox fx:id="saveFormatComboBox" layoutX="584.0" layoutY="292.0" prefHeight="33.0" prefWidth="420.0" visible="false" />
       <Label fx:id="chooseSaveFolderLabel" layoutX="589.0" layoutY="385.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" />
-      <ComboBox fx:id="loadFormatComboBox" layoutX="584.0" layoutY="287.0" prefHeight="33.0" prefWidth="420.0" visible="false" />
-      <Label fx:id="chooseLoadFolderLabel" layoutX="589.0" layoutY="377.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" />
+      <ComboBox fx:id="loadFormatComboBox" layoutX="584.0" layoutY="282.0" prefHeight="33.0" prefWidth="420.0" visible="false" />
+      <Label fx:id="chooseLoadFolderLabel" layoutX="589.0" layoutY="375.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" />
+      <ImageView fx:id="shuffleBG" fitHeight="558.0" fitWidth="655.0" layoutX="237.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%205.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="shufflecard1" fitHeight="150.0" fitWidth="200.0" layoutX="360.0" layoutY="132.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="shufflecard2" fitHeight="150.0" fitWidth="200.0" layoutX="589.0" layoutY="135.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="shufflecard3" fitHeight="150.0" fitWidth="200.0" layoutX="359.0" layoutY="365.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="shufflecard4" fitHeight="150.0" fitWidth="200.0" layoutX="588.0" layoutY="368.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/empty_cards_deck.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="retry" fitHeight="34.0" fitWidth="51.0" layoutX="517.0" layoutY="306.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/retry.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="okshuffle" fitHeight="74.0" fitWidth="152.0" layoutX="461.0" layoutY="545.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/button/ok.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="toko_bg" fitHeight="761.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/background/tokobg.png" />
