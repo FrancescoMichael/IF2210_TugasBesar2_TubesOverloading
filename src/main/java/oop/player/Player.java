@@ -110,6 +110,17 @@ public class Player {
         this.activeDeck[index] = this.emptyCard;
     }
 
+    public void emptyActiveDeck() {
+        try {
+            for (int i = 0; i < 6; i++) {
+                removeCardAtActiveDeck(i);
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
+
+    }
+
     public boolean isActiveDeckFull() {
         return this.firstEmptyActiveDeck() == -1;
     }

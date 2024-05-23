@@ -52,13 +52,11 @@ public class SaveLoad {
         }
     }
 
-    public void loadPlayer(String filename, String type) throws Exception {
+    public void loadPlayer(String filename, List<Integer> playerStatus, List<String> activeDeckString,
+            List<String> gridString, String type) throws Exception {
         for (PluginInterface plugin : this.saveLoaders) {
-            List<Integer> playerStatus = new ArrayList<>();
-            List<String> activeDeckString = new ArrayList<>();
-            List<String> gridString = new ArrayList<>();
             if (type.equals(plugin.getType())) {
-                plugin.loadPlayer(filename, playerStatus, activeDeckString, gridString);
+                plugin.loadPlayer(filename, playerStatus, activeDeckString, gridString, type);
             }
         }
     }
