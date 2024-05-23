@@ -130,7 +130,32 @@ public class GameMaster {
     }
     public void bearAttackProcess(Integer[] startEnd,FieldController controller, int row, int col) {
         boolean execute = true;
+        Player currPlayer = this.getCurrentPlayer();
         controller.getDraggableMaker().removeGlowAll();
+        int startRow = startEnd[0];
+        int startCol = startEnd[1];
+
+        for (int i = startRow; i < startRow + 2; i++) {
+            for (int j = startCol; j < startCol + 3; j++) {
+                // Pane cell = grid[i][j];
+                // glowingCells.add(cell);
+                // setRedGlow(cell, true);
+                try{    
+                    Creature card = currPlayer.getCardGrid(i, j);
+                    if(card.isTrap()){
+                        execute = false;
+                        break;
+                    } else if (card.isProtected()){
+
+                    }else {
+
+                    }
+                }catch (BaseException e){
+
+                }
+
+            }
+        }
     
         // Player currPlayer = this.getCurrentPlayer();
         // for (int i = 0 ; i < row ; i++){
@@ -169,39 +194,66 @@ public class GameMaster {
 
     }
 
+    // public void bearAttackTimer(Label timerLabel, FieldController controller, int row, int col) throws BaseException {
+    //     Integer[] startEnd =  controller.simulateBearAttack(0, 0); // set red glow
+
+
+    //     final double[] timeLeft = {2.0};  // Time in seconds for the bear attack duration
+    //     final Timeline[] timelineWrapper = new Timeline[1];  // Wrapper to hold the timeline
+    //     timerLabel.setText("");
+    //     timerLabel.setVisible(true);
+
+    //     // Thread damn = new Thread(()=> {
+
+    //     // }  );
+    //     Runnable runnable = () -> {
+    //         try{
+    //             Thread.sleep(100);
+    //         }catch (Exception e){
+
+    //         }
+    //         timeLeft[0] -= 0.1;
+    //         timerLabel.setText(String.format(" %.1f seconds", timeLeft[0]));
+    //         if (timeLeft[0] <= 0){
+    //             timelineWrapper[0].stop();
+    //             timerLabel.setVisible(false);
+    //             bearAttackProcess(startEnd,controller, row, col);
+    //         }
+    //     };
+    //     new Thread(runnable).start();
+    
+    // }
     public void bearAttackTimer(Label timerLabel, FieldController controller, int row, int col) throws BaseException {
-        Integer[] startEnd =  controller.simulateBearAttack(0, 0); // set red glow
-
-
-        final double[] timeLeft = {2.0};  // Time in seconds for the bear attack duration
-        final Timeline[] timelineWrapper = new Timeline[1];  // Wrapper to hold the timeline
-        timerLabel.setText("");
-        timerLabel.setVisible(true);
-        timelineWrapper[0] = new Timeline(new KeyFrame(Duration.millis(100), event -> {
-            timeLeft[0] -= 0.1;  // Decrement the time
-            timerLabel.setText(String.format(" %.1f seconds", timeLeft[0]));
-            
-            if (timeLeft[0] <= 0) {
-                timelineWrapper[0].stop();
-                System.out.println("BEFORE FALSE");
-                timerLabel.setVisible(false);
-                System.out.println("AFTER FALSE");
-                bearAttackProcess(startEnd,controller, row, col);
-                // Platform.runLater(() -> {
-                //     try {
-                //         System.out.println(row + " col : " + col);
-                //         bearAttackProcess(panes,controller, row, col);
-
-
-                //     } finally {
-                //     }
-                // });
+        Integer[] startEnd = controller.simulateBearAttack(0, 0); // Assuming this method is thread-safe
+    
+        Platform.runLater(() -> {
+            timerLabel.setText("");
+            timerLabel.setVisible(true);
+        });
+    
+        new Thread(() -> {
+            final double[] timeLeft = {2.0};  // Time in seconds for the bear attack duration
+            try {
+                while (timeLeft[0] > 0) {
+                    Thread.sleep(100); // Sleep for 100 milliseconds
+                    timeLeft[0] -= 0.1;
+                    double finalTimeLeft = timeLeft[0]; // Use a effectively final variable for lambda expression inside runLater
+                    Platform.runLater(() -> {
+                        timerLabel.setText(String.format("%.1f seconds", finalTimeLeft));
+                    });
+                }
+    
+                Platform.runLater(() -> {
+                    timerLabel.setVisible(false);
+                    bearAttackProcess(startEnd, controller, row, col);
+                });
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                Thread.currentThread().interrupt(); // Handle thread interruption properly
             }
-        }));
-        
-        timelineWrapper[0].setCycleCount(Timeline.INDEFINITE);
-        timelineWrapper[0].play();
+        }).start();
     }
+    
     // getters
     public List<Player> getListPlayers() {
         return this.listPlayers;
