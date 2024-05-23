@@ -103,6 +103,10 @@ public class Player {
         this.grid.set(arrayIDX, this.emptyCreature);
     }
 
+    public List<Creature> getGrid() {
+        return this.grid;
+    }
+
     public void removeCardAtActiveDeck(int index) throws BaseException {
         if (index < 0 || index >= 6) {
             throw new ActiveDeckFullException();
@@ -137,6 +141,24 @@ public class Player {
             }
         }
         return num;
+    }
+
+    public int searchActiveCardIndex(Card card) {
+        for (int i = 0; i < 6; i++) {
+            if (activeDeck[i] == card) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public int searchGridIndex(Creature creature) {
+        for (int i = 0; i < 20; i++) {
+            if (grid.get(i) == creature) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     // main methods for grid and activeDeck
@@ -213,10 +235,11 @@ public class Player {
 
     }
 
-    public void invokeCardGridtoGrid(int rowSource, int colSource, int rowTarget, int colTarget, Player targetGridPlayer)
+    public void invokeCardGridtoGrid(int rowSource, int colSource, int rowTarget, int colTarget,
+            Player targetGridPlayer)
             throws BaseException {
         Creature currCard = targetGridPlayer.getCardGrid(rowSource, colSource);
-        
+
         // check if usable and not a blank card
         if (currCard instanceof UsableCard && !currCard.isEmpty()) {
             Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);

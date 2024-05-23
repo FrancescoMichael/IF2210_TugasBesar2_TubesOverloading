@@ -293,6 +293,14 @@ public class GameMaster {
         return row * 5 + col;
     }
 
+    public String indexToCoordinate(int index) {
+        int row = index / 5;
+        int col = index % 5;
+        char letter = (char) ('A' + row);
+        int number = col + 1;
+        return "" + letter + number;
+    }
+
     public static String formatItemString(String input) {
         String lowerCaseString = input.toLowerCase();
         String[] words = lowerCaseString.split("_");
@@ -403,30 +411,77 @@ public class GameMaster {
 
     }
 
-    // public void save(String folderPath, String type) {
-    // int currentTurn;
-    // List<String> currentShopItems = new ArrayList<>();
-    // List<Integer> playerStatus1 = new ArrayList<>();
-    // List<String> activeDeckString1 = new ArrayList<>();
-    // List<String> gridString1 = new ArrayList<>();
-    // List<Integer> playerStatus2 = new ArrayList<>();
-    // List<String> activeDeckString2 = new ArrayList<>();
-    // List<String> gridString2 = new ArrayList<>();
+    public void save(String folderPath, String type) {
+        int currentTurn;
+        List<String> currentShopItems = new ArrayList<>();
+        List<Integer> playerStatus1 = new ArrayList<>();
+        List<String> activeDeckString1 = new ArrayList<>();
+        List<String> gridString1 = new ArrayList<>();
+        List<Integer> playerStatus2 = new ArrayList<>();
+        List<String> activeDeckString2 = new ArrayList<>();
+        List<String> gridString2 = new ArrayList<>();
 
-    // // loading in the stock map
-    // for (Map.Entry<String, Integer> entry : this.shop.getStock().entrySet()) {
-    // String item = entry.getKey() + " " + entry.getValue();
-    // currentShopItems.add(item);
-    // }
+        // loading in the stock map
+        for (Map.Entry<String, Integer> entry : this.shop.getStock().entrySet()) {
+            String item = entry.getKey() + " " + entry.getValue();
+            currentShopItems.add(item);
+        }
 
-    // playerStatus1.add(this.getPlayer(0).getGulden());
-    // playerStatus1.add(this.getPlayer(0).getCardDeckLeft());
+        playerStatus1.add(this.getPlayer(0).getGulden());
+        playerStatus1.add(this.getPlayer(0).getCardDeckLeft());
 
-    // for(Card card)
+        for (Card card : this.getPlayer(0).getActiveDeck()) {
+            if (!card.getName().equals("")) {
+                activeDeckString1
+                        .add(indexToCoordinate(this.getPlayer(0).searchActiveCardIndex(card)) + " " + card.getName());
+            }
 
-    // playerStatus1.add(this.getPlayer(1).getGulden());
-    // playerStatus1.add(this.getPlayer(1).getCardDeckLeft());
+        }
 
-    // }
+        for (Creature creature : this.getPlayer(0).getGrid()) {
+            if (!creature.getName().equals("")) {
+                StringBuilder effectNamesBuilder = new StringBuilder();
+                int numOfEffect = 0;
+                for (Item item : creature.getItemEffects()) {
+                    effectNamesBuilder.append(item.getName().toUpperCase()).append(" ");
+                    numOfEffect++;
+                }
+                String effectNames = effectNamesBuilder.toString().trim();
+                gridString1
+                        .add(indexToCoordinate(this.getPlayer(0).searchGridIndex(creature)) + " "
+                                + creature.getName() + " " + creature.getWeight() + " " + numOfEffect + " "
+                                + effectNames);
+
+            }
+        }
+        playerStatus2.add(this.getPlayer(1).getGulden());
+        playerStatus2.add(this.getPlayer(1).getCardDeckLeft());
+
+        for (Card card : this.getPlayer(1).getActiveDeck()) {
+            if (!card.getName().equals("")) {
+                activeDeckString2
+                        .add(indexToCoordinate(this.getPlayer(1).searchActiveCardIndex(card)) + " " + card.getName());
+            }
+
+        }
+
+        for (Creature creature : this.getPlayer(1).getGrid()) {
+            if (!creature.getName().equals("")) {
+                StringBuilder effectNamesBuilder = new StringBuilder();
+                int numOfEffect = 0;
+                for (Item item : creature.getItemEffects()) {
+                    effectNamesBuilder.append(item.getName().toUpperCase()).append(" ");
+                    numOfEffect++;
+                }
+                String effectNames = effectNamesBuilder.toString().trim();
+                gridString2
+                        .add(indexToCoordinate(this.getPlayer(1).searchGridIndex(creature)) + " "
+                                + creature.getName() + " " + creature.getWeight() + " " + numOfEffect + " "
+                                + effectNames);
+
+            }
+        }
+
+    }
 
 }
