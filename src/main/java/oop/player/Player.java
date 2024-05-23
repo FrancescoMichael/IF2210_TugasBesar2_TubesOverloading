@@ -222,15 +222,22 @@ public class Player {
 
         // check if usable and not a blank card
         if (currCard instanceof UsableCard && !currCard.isEmpty()) {
+
+
             Creature targetCard = targetGridPlayer.getCardGrid(rowTarget, colTarget);
+            
             ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
+
+            // Handle if active fullx
             if ( currCard instanceof Item ){
                 if ( ((Item)currCard).getEffect() instanceof ConcreteInstantHarvest ){
                    return; 
                 }
             }
+            // System.out.println("MAU REMOVE MASS");
             this.removeCardAtActiveDeck(activeCardIndex);
         } else {
+            // System.out.println("EXCEPTION THROWN");
             throw new InvalidCardPlacementException();
         }
 
@@ -291,7 +298,7 @@ public class Player {
         }
         List<String> resultList = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : countMap.entrySet()) {
-            resultList.add(entry.getKey() + "( " + entry.getValue() + " )");
+            resultList.add(entry.getKey() + " ( " + entry.getValue() + " ) ");
         }
         return resultList;
     }
@@ -306,7 +313,9 @@ public class Player {
         return -1;
     }
 
-
+    public long getNumberOfEmptyCardsActiveDeck(){
+        return this.grid.stream().filter(card -> !card.isEmpty()).count();
+    }
 
     public void emptyGrid(){
         try {

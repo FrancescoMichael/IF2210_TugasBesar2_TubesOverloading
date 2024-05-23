@@ -9,11 +9,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
@@ -21,7 +18,6 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import oop.plugin.PluginInterface;
 import oop.plugin.PluginLoader;
-import oop.plugin.SaveLoadTXT;
 import oop.saveload.SaveLoad;
 
 public class SecondaryController {

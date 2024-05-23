@@ -24,7 +24,11 @@ public class PlantService {
     }
 
     public void increaseAgeOfPlants() {
-        plants.forEach(plant -> plant.increaseWeight(1));
+        plants.forEach(plant -> { 
+            plant.increaseWeight(1);
+            System.out.println(plant);
+
+        } );
     }
 
     public List<Plant> getSubscribers() {

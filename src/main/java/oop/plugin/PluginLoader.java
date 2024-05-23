@@ -1,3 +1,5 @@
+
+
 package oop.plugin;
 
 import java.io.File;
@@ -38,7 +40,7 @@ public class PluginLoader {
     public void loadPlugin(String pluginPath, SaveLoad saveLoad) throws Exception {
         try {
             URL jarUrl = new File(pluginPath).toURI().toURL();
-            try (URLClassLoader classLoader = new URLClassLoader(new URL[]{jarUrl}, SaveLoad.class.getClassLoader())) {
+            try (URLClassLoader classLoader = new URLClassLoader(new URL[]{jarUrl}, getClass().getClassLoader())) {
                 ArrayList<Class<?>> classes = loadJarFile(pluginPath, classLoader);
                 System.out.println("Classes found in JAR: " + classes);
 
@@ -51,7 +53,7 @@ public class PluginLoader {
 
                         boolean implementsPluginInterface = false;
                         for (Class<?> iface : c.getInterfaces()) {
-                            if (iface.getName().equals("PluginInterface")) { // Ensure correct package name
+                            if (iface.getName().equals("oop.plugin.PluginInterface")) { // Ensure correct package name
                                 implementsPluginInterface = true;
                                 break;
                             }
@@ -67,14 +69,13 @@ public class PluginLoader {
                         } else {
                             System.out.println("The class " + c.getName() + " does not implement an interface 'PluginInterface'.");
                         }
-                        
-                        System.out.println("Finished");
                     } catch (NoSuchMethodException e) {
                         System.out.println("Required method not found in class " + c.getName() + ": " + e.getMessage());
                     } catch (Exception e) {
                         System.out.println("Error invoking methods in class " + c.getName() + ": " + e.getMessage());
                     }
                 }
+                System.out.println("Finished");
             }
         } catch (Exception e) {
             System.out.println("Error loading plugin: " + e.getMessage());

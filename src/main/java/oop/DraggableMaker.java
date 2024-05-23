@@ -6,22 +6,14 @@ import java.util.Random;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
-import javafx.util.Pair;
 import oop.exceptionkerajaan.BaseException;
 import oop.gamemaster.*;
 
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
@@ -122,7 +114,7 @@ public class DraggableMaker {
 
                     // Set the new image to the sourceImageView
                     fieldController.getAnimalImage().setImage(new Image(newImageUrl));
-                    System.out.println(gameMaster.getCurrentFieldPlayer().getName());
+                    // System.out.println(gameMaster.getCurrentFieldPlayer().getName());
 
                     fieldController.setAllLabel(row - 1, col - 1);
                     fieldController.setPanenPageVisibility(true);
@@ -193,6 +185,7 @@ public class DraggableMaker {
                                     try {
                                         CurrentPLayer.invokeCard(index, row - 1, col - 1,
                                         gameMaster.getCurrentFieldPlayer());
+                                        // System.out.println("USING CARC");
                                         // CurrentPLayer.removeCardAtActiveDeck(index);
 
                                         fieldController.loadGridActiveDeck();
@@ -204,6 +197,7 @@ public class DraggableMaker {
                                 } else {
                                     try {
                                         System.out.println("HERE");
+                                        System.out.println("MOVE CARD GRID TO GRID");
                                         CurrentPLayer.moveCardGridtoGrid(rowSource - 1, colSource - 1, row - 1, col - 1, CurrentPLayer);
                                         fieldController.loadGridActiveDeck();
                                         makeDraggable(targetImageView, matrix_grid, gameMaster, true);
@@ -214,8 +208,6 @@ public class DraggableMaker {
                                 }
 
                             }
-                        } else {
-                            // if (CurrentPLayer.getCardActiveDeck(index).)
                         }
                     }
 
