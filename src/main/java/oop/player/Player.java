@@ -257,4 +257,14 @@ public class Player {
         return temp;
     }
 
+    public int getCardIndexAtActiveDeck(Card card) throws BaseException{
+        for (int i = 0 ; i < 6 ; i++){
+            if (this.getCardActiveDeck(i) == card){
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
 }
