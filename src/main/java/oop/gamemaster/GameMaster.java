@@ -128,40 +128,41 @@ public class GameMaster {
     public PlantService getPlantService(){
         return plantService;
     }
-    public void bearAttackProcess(Pane[][] panes,FieldController controller, int row, int col) {
+    public void bearAttackProcess(Integer[] startEnd,FieldController controller, int row, int col) {
         boolean execute = true;
+        controller.getDraggableMaker().removeGlowAll();
     
-        Player currPlayer = this.getCurrentPlayer();
-        for (int i = 0 ; i < row ; i++){
-            for(int j = 0 ; j < col ; j++){
-                try{
-                    if(currPlayer.getCardGrid(i, j).isTrap()){
-                        execute = false;
-                        break;
-                    }
-                }catch(BaseException e){
+        // Player currPlayer = this.getCurrentPlayer();
+        // for (int i = 0 ; i < row ; i++){
+        //     for(int j = 0 ; j < col ; j++){
+        //         try{
+        //             if(currPlayer.getCardGrid(i, j).isTrap()){
+        //                 execute = false;
+        //                 break;
+        //             }
+        //         }catch(BaseException e){
 
-                }
+        //         }
 
-            }   
-        }
-        if (execute){
-            for (int i = 0 ; i < row ; i++){
-                for(int j = 0 ; j < col ; j++){
-                    try{
-                    if( !currPlayer.getCardGrid(i, j).isProtected()){
-                        currPlayer.setBlankOnGrid(i, j);
-                    }
-                    }catch (BaseException e){
+        //     }   
+        // }
+        // if (execute){
+        //     for (int i = 0 ; i < row ; i++){
+        //         for(int j = 0 ; j < col ; j++){
+        //             try{
+        //             if( !currPlayer.getCardGrid(i, j).isProtected()){
+        //                 currPlayer.setBlankOnGrid(i, j);
+        //             }
+        //             }catch (BaseException e){
 
-                    }
+        //             }
 
-                }   
-            }
-        }
+        //         }   
+        //     }
+        // }
 
-        controller.getDraggableMaker().removeRedGlow(panes, row, col);
-        System.out.println("DONE DISINI");
+        // controller.getDraggableMaker().removeRedGlow(panes, row, col);
+        // System.out.println("DONE DISINI");
         // controller.loadGridActiveDeck();
     
 
@@ -169,7 +170,7 @@ public class GameMaster {
     }
 
     public void bearAttackTimer(Label timerLabel, FieldController controller, int row, int col) throws BaseException {
-        Pane[][] panes = controller.simulateBearAttack(row, col); // set red glow
+        Integer[] startEnd =  controller.simulateBearAttack(0, 0); // set red glow
 
 
         final double[] timeLeft = {2.0};  // Time in seconds for the bear attack duration
@@ -182,8 +183,10 @@ public class GameMaster {
             
             if (timeLeft[0] <= 0) {
                 timelineWrapper[0].stop();
+                System.out.println("BEFORE FALSE");
                 timerLabel.setVisible(false);
-                bearAttackProcess(panes,controller, row, col);
+                System.out.println("AFTER FALSE");
+                bearAttackProcess(startEnd,controller, row, col);
                 // Platform.runLater(() -> {
                 //     try {
                 //         System.out.println(row + " col : " + col);
@@ -253,18 +256,18 @@ public class GameMaster {
             int startCol = 0;
             int count = 0;
 
-            while (true && count < 1000) {
-                startRow = random.nextInt(4) + 1;
-                startCol = random.nextInt(5) + 1; 
+            // while (true && count < 1000) {
+            //     startRow = random.nextInt(4) + 1;
+            //     startCol = random.nextInt(5) + 1; 
     
-                // Check if the product condition is met
-                if (startRow * startCol <= 6) {
-                    break;
-                }
-            }
-            if (count == 1000){
-                return;
-            }
+            //     // Check if the product condition is met
+            //     if (startRow * startCol <= 6) {
+            //         break;
+            //     }
+            // }
+            // if (count == 1000){
+            //     return;
+            // }
 
             this.bearAttack = true;
 
