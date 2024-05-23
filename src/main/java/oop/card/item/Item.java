@@ -60,12 +60,15 @@ public class Item extends Card implements UsableCard {
     // other methods
     @Override
     public void useCard(Card targetCard, int row, int col) throws BaseException {
-        if (targetCard instanceof Creature) {
+        if (targetCard instanceof Creature && !targetCard.isEmpty()) {
 
-            this.effect.useEffect(this, (Creature) targetCard, row, col);
+            if ( (this instanceof GoodEffect && this.getOwner() == targetCard.getOwner())  || ( this instanceof BadEffect && this.getOwner() != targetCard.getOwner()) ){
+                this.effect.useEffect(this, (Creature) targetCard, row, col);
+                ((Creature) targetCard).addEffect(this);
+            }
 
-            // add effect to target
-            ((Creature) targetCard).addEffect(this);
+
+  
         } else {
             throw new InvalidCardPlacementException();
         }

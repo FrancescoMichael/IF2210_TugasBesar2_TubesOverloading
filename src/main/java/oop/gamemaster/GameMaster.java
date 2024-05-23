@@ -232,12 +232,20 @@ public class GameMaster {
         });
     
         new Thread(() -> {
-            final double[] timeLeft = {2.0};  // Time in seconds for the bear attack duration
+            // final double[] timeLeft = {2.0};  // Time in seconds for the bear attack duration
+            // Randomize time left
+            double timeLeft = 30 + (random.nextDouble() * (60 - 30));
+
+            
             try {
-                while (timeLeft[0] > 0) {
+                while (timeLeft > 0) {
                     Thread.sleep(100); // Sleep for 100 milliseconds
-                    timeLeft[0] -= 0.1;
-                    double finalTimeLeft = timeLeft[0]; // Use a effectively final variable for lambda expression inside runLater
+                    timeLeft -= 0.1;
+
+                    // TODO :  bug, time not updating correctly
+                    double finalTimeLeft = timeLeft; // Use a effectively final variable for lambda expression inside runLater
+                    
+                    // TODO : Possible race condition, check properly later.... 
                     Platform.runLater(() -> {
                         timerLabel.setText(String.format("%.1f seconds", finalTimeLeft));
                     });
