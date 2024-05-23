@@ -20,8 +20,16 @@ public class SaveLoad {
         this.saveLoaders.add(new SaveLoadTXT());
     }
 
-    public void Load(String folderPath, String typeFile) throws BaseException {
+    public int Load(String folderPath, String typeFile, List<String> currentShopItems,
+            List<Integer> playerStatus1,
+            List<String> activeDeckString1,
+            List<String> gridString1,
+            List<Integer> playerStatus2, List<String> activeDeckString2,
+            List<String> gridString2) throws BaseException {
+
         File folder = new File(folderPath);
+
+        int currTurn = -1;
 
         if (folder.exists() && folder.isDirectory()) {
             File gameStateFile = new File(folderPath, "gamestate." + typeFile);
@@ -29,26 +37,51 @@ public class SaveLoad {
             File player2File = new File(folderPath, "player2." + typeFile);
 
             if (gameStateFile.exists() && player1File.exists() && player2File.exists()) {
-                System.out.println("All required files are present.");
-            } else {
-                System.out.println("One or more required files are missing:");
-                if (!gameStateFile.exists()) {
-                    System.out.println("Missing: gamestate.txt");
+                try {
+                    // load gamestate
+                    currTurn = loadGame(folderPath + "gamestate." + typeFile, typeFile, currentShopItems);
+
+                    // load player1
+                    loadPlayer(folderPath + "player1." + typeFile, playerStatus1, activeDeckString1, gridString1,
+                            typeFile);
+
+                    // load player 2
+                    loadPlayer(folderPath + "player2." + typeFile, playerStatus2, activeDeckString2, gridString2,
+                            typeFile);
+
+                    return currTurn;
+                } catch (Exception e) {
+                    // TODO: handle exception
                 }
-                if (!player1File.exists()) {
-                    System.out.println("Missing: player1.txt");
-                }
-                if (!player2File.exists()) {
-                    System.out.println("Missing: player2.txt");
-                }
-            }
+
         } else {
             throw new FileNotFoundException();
         }
     }
 
-    public void Save(String folderPath, String typeFile) {
-        
+    public void Save(String folderPath, String typeFile, int currTurn, 
+            List<String> currentShopItems,
+            List<Integer> playerStatus1,
+            List<String> activeDeckString1,
+            List<String> gridString1,
+            List<Integer> playerStatus2, List<String> activeDeckString2,
+            List<String> gridString2) {
+        try {
+            // load gamestate
+            saveGame(folderPath + "gamestate." + typeFile, typeFile, currentShopItems);
+
+            // load player1
+            loadPlayer(folderPath + "player1." + typeFile, playerStatus1, activeDeckString1, gridString1,
+                    typeFile);
+
+            // load player 2
+            loadPlayer(folderPath + "player2." + typeFile, playerStatus2, activeDeckString2, gridString2,
+                    typeFile);
+
+            return currTurn;
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 
     public void addSaveLoader(PluginInterface saveLoader) {
@@ -69,12 +102,13 @@ public class SaveLoad {
 
     // INI YANG PENTING
     public int loadGame(String filename, String type, List<String> currentShopItems) throws Exception {
-        int currTurn;
+        int currTurn = -1;
         for (PluginInterface plugin : this.saveLoaders) {
             if (type.equals(plugin.getType())) {
                 currTurn = plugin.loadGame(filename, currentShopItems);
             }
         }
+
         return currTurn;
     }
 
@@ -90,7 +124,7 @@ public class SaveLoad {
             List<String> gridString, String type) throws Exception {
         for (PluginInterface plugin : this.saveLoaders) {
             if (type.equals(plugin.getType())) {
-                plugin.loadPlayer(filename, playerStatus, activeDeckString, gridString, type);
+                plugin.loadPlayer(filename, playerStatus, activeDeckString, gridString);
             }
         }
     }
