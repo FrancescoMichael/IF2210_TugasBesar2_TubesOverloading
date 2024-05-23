@@ -75,7 +75,7 @@
                 <!-- put your configurations here -->
                     <transformers>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
-                            <mainClass>oop.plugin.SaveLoadJSON</mainClass>
+                            <mainClass>oop.Main</mainClass>
                         </transformer>
                     </transformers>
                 </configuration>
