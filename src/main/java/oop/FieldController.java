@@ -665,7 +665,11 @@ public class FieldController implements Initializable{
         glowButtonMaker.setGlow(nextTurnBtn);
         nextTurnBtn.setOnMouseClicked(event -> {
             try{
-                gameMaster.next(timerLabel,this);
+                gameMaster.next();
+                // example of shuffle and done shuffling
+                
+                gameMaster.shuffle();
+                gameMaster.doneShuffling(timerLabel, this);
             } catch (BaseException e){
 
             }

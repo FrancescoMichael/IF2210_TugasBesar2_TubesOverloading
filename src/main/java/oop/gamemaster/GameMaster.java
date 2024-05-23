@@ -46,6 +46,7 @@ public class GameMaster {
     private SaveLoad saveLoad;
     private boolean bearAttack;
     private ArrayList<Card> currentShuffle;
+    private int numberOfPickedCards;
 
     protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
             "Sapi", () -> new Herbivore("Sapi"),
@@ -118,6 +119,7 @@ public class GameMaster {
         this.shop = new Shop();
         this.saveLoad = new SaveLoad();
         this.bearAttack = false;
+        this.numberOfPickedCards = 0;
         this.currentShuffle = new ArrayList<>();
         Player.setPlayerPlantService(plantService);
     }
@@ -195,12 +197,9 @@ public class GameMaster {
                 while (timeLeft > 0) {
                     Thread.sleep(100); // Sleep for 1f00 milliseconds
                     timeLeft -= 0.1;
-
-                    // TODO : bug, time not updating correctly
-                    double finalTimeLeft = timeLeft; // Use a effectively final variable for lambda expression inside
-                                                     // runLater
-
-                    // TODO : Possible race condition, check properly later....
+                    double finalTimeLeft = timeLeft;
+                    
+                    // TODO : Possible race condition, check properly later.... 
                     Platform.runLater(() -> {
                         timerLabel.setText(String.format("%.1f seconds", finalTimeLeft));
                     });
@@ -270,7 +269,8 @@ public class GameMaster {
         this.currentFieldPlayer = player;
     }
 
-    public void shuffle(Label timeLabel, FieldController controller) {
+    public void shuffle(){
+        System.out.println("SHUFFLING");
         Player currentPlayer = this.getCurrentPlayer();
         List<Map.Entry<String, Supplier<? extends Card>>> entries = new ArrayList<>(allCardMap.entrySet());
         Collections.shuffle(entries);
@@ -283,22 +283,28 @@ public class GameMaster {
         }
 
     }
-
-    public void doneShuffling(int numCardUSed, Label timeLabel, FieldController controller) throws BaseException {
+ 
+    public void doneShuffling(Label timeLabel, FieldController controller) throws BaseException{
+        // System.out.println("ENTERING DONE SHUFFLING");
         Player player = this.getCurrentPlayer();
-        for (Card card : this.currentShuffle) {
-            player.addCardToActiveDeckFirstEmpty(card);
-        }
-        this.getCurrentPlayer().decrementCardDeckLeft(numCardUSed);
+
+        this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
+        Random random = new Random();
+        // System.out.println("ABOUT TO ENTER TIMER BEAR");
         if (random.nextBoolean()) {
+
             this.bearAttack = true;
-            System.out.println("RUNNING TIMER BEAR");
+            // System.out.println("RUNNING TIMER BEAR");
             this.bearAttackTimer(timeLabel, controller);
 
         }
+        for (Card card : this.currentShuffle){
+            player.addCardToActiveDeckFirstEmpty(card);
+        }
+        controller.loadGridActiveDeck();   
     }
 
-    public void next(Label timeLabel, FieldController controller) throws BaseException {
+    public void next() throws BaseException {
         this.currentTurn++;
         this.bearAttack = false;
         this.plantService.increaseAgeOfPlants();
