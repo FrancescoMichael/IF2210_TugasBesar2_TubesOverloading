@@ -2,6 +2,9 @@ package oop;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,8 +19,9 @@ import javafx.scene.image.ImageView;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-
+import oop.plugin.PluginInterface;
 import oop.plugin.PluginLoader;
+import oop.plugin.SaveLoadTXT;
 import oop.saveload.SaveLoad;
 
 public class SecondaryController {
@@ -124,11 +128,12 @@ public class SecondaryController {
             handleFolderChoose();
         });
 
-        // untuk save
-        saveFormatComboBox.getItems().addAll("txt", "json", "yml");
+        saveFormatComboBox.getItems().addAll("txt");
+        loadFormatComboBox.getItems().addAll("txt");
 
-        // untuk load
-        loadFormatComboBox.getItems().addAll("txt", "json", "yml");
+        save_button.setOnMouseClicked(event -> handleSave());
+        load_button.setOnMouseClicked(event -> handleLoad());
+        plugin_button.setOnMouseClicked(event -> handlePlugin());
     }
 
     @FXML
@@ -222,17 +227,16 @@ public class SecondaryController {
     @FXML
     private void handleFileChoose() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Choose File");
-        
-        // filter json dan yaml aja
-        FileChooser.ExtensionFilter jsonFilter = new FileChooser.ExtensionFilter("JSON files (*.json)", "*.json");
-        FileChooser.ExtensionFilter yamlFilter = new FileChooser.ExtensionFilter("YAML files (*.yaml, *.yml)", "*.yaml", "*.yml");
-        fileChooser.getExtensionFilters().addAll(jsonFilter, yamlFilter);
-        
+        fileChooser.setTitle("Choose Plugin File");
+
+        // Filter jar files
+        FileChooser.ExtensionFilter jarFilter = new FileChooser.ExtensionFilter("JAR files (*.jar)", "*.jar");
+        fileChooser.getExtensionFilters().addAll(jarFilter);
+
         Stage stage = (Stage) chooseFilePluginLabel.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
         if (file != null) {
-            chooseFilePluginLabel.setText(file.getName());
+            chooseFilePluginLabel.setText(file.getAbsolutePath());
         }
     }
 
@@ -245,6 +249,92 @@ public class SecondaryController {
         File selectedDirectory = directoryChooser.showDialog(stage);
         if (selectedDirectory != null) {
             chooseSaveFolderLabel.setText(selectedDirectory.getAbsolutePath());
+        }
+    }
+
+    @FXML
+    private void handlePlugin() {
+        String pluginFileName = chooseFilePluginLabel.getText();
+        if (pluginFileName == null || pluginFileName.isEmpty()) {
+            // TO-DO: Handle error - no file chosen
+            return;
+        }
+
+        File file = new File(pluginFileName);
+        if (!file.exists()) {
+            // TO-DO: Handle error: file does not exist
+            return;
+        }
+
+        try {
+            // Load the plugin
+            PluginLoader pluginLoader = new PluginLoader();
+            SaveLoad saveLoad = new SaveLoad();
+            pluginLoader.loadPlugin(file.getAbsolutePath(), saveLoad);
+
+            // Update the format combo boxes
+            saveFormatComboBox.getItems().clear();
+            loadFormatComboBox.getItems().clear();
+            saveFormatComboBox.getItems().addAll("txt");
+            loadFormatComboBox.getItems().addAll("txt");
+
+            for (PluginInterface plugin : saveLoad.getSaveLoaders()) {
+                String type = plugin.getType();
+                if (!saveFormatComboBox.getItems().contains(type)) {
+                    saveFormatComboBox.getItems().add(type);
+                    loadFormatComboBox.getItems().add(type);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getFileExtension(File file) {
+        String fileName = file.getName();
+        if (fileName.lastIndexOf(".") != -1 && fileName.lastIndexOf(".") != 0) {
+            return fileName.substring(fileName.lastIndexOf(".") + 1);
+        } else {
+            return "";
+        }
+    }
+
+    @FXML
+    private void handleSave() {
+        String format = saveFormatComboBox.getValue();
+        if (format == null || format.isEmpty()) {
+            // TO-DO: handle error
+            return;
+        }
+        // save operation
+        try {
+            SaveLoad saveLoad = new SaveLoad();
+            String foldername = chooseSaveFolderLabel.getText() + "/saved_file." + format;
+            // nanti fetch currentTurns dan shopItems
+            int currentTurn = 0;
+            List<String> shopItems = new ArrayList<>();
+            saveLoad.saveGame(foldername, currentTurn, shopItems, format);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleLoad() {
+        String format = loadFormatComboBox.getValue();
+        if (format == null || format.isEmpty()) {
+            // TO-DO: Handle the error, format not selected
+            return;
+        }
+        // load
+        try {
+            SaveLoad saveLoad = new SaveLoad();
+            String foldername = chooseLoadFolderLabel.getText() + "/saved_file." + format;
+            List<String> shopItems = new ArrayList<>();
+            int currentTurn = saveLoad.loadGame(foldername, format, shopItems);
+            // Handle the loaded data (currentTurn and shopItems)
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
