@@ -205,11 +205,7 @@
          </image>
       </ImageView>
       <ImageView fitHeight="89.0" fitWidth="76.0" layoutX="51.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="activeCard1" fitHeight="89.0" fitWidth="78.0" layoutX="51.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../assets/OOP%202/OOP%202/cards/beruang.png" />
-         </image>
-      </ImageView>
+      <ImageView fx:id="activeCard1" fitHeight="89.0" fitWidth="78.0" layoutX="51.0" layoutY="505.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="activeCard2" fitHeight="85.0" fitWidth="83.0" layoutX="167.0" layoutY="507.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/cards/stroberi.png" />
@@ -334,8 +330,10 @@
       <Label fx:id="label1" layoutX="281.0" layoutY="253.0" text="Label" textFill="WHITE" visible="false" />
       <Label fx:id="label2" layoutX="281.0" layoutY="283.0" text="Label" textFill="WHITE" visible="false" />
       <Label fx:id="label3" layoutX="281.0" layoutY="323.0" text="Label" textFill="WHITE" visible="false" />
-      <Label fx:id="label4" layoutX="281.0" layoutY="374.0" text="Label" textFill="WHITE" visible="false" />
-      <Label fx:id="label5" layoutX="281.0" layoutY="397.0" text="Label" textFill="WHITE" visible="false" />
-      <Label fx:id="label6" layoutX="281.0" layoutY="423.0" text="Label" textFill="WHITE" visible="false" />
+      <Label fx:id="label4" layoutX="281.0" layoutY="374.0" textFill="WHITE" visible="false" />
+      <Label fx:id="label5" layoutX="281.0" layoutY="397.0" textFill="WHITE" visible="false" />
+      <Label fx:id="firstPlayerMoney" layoutX="900.0" layoutY="50.0" text="Label" textFill="#fafafa" />
+      <Label fx:id="secondPlayerMoney" layoutX="900.0" layoutY="84.0" text="Label" textFill="#fafafa" />
+      <Label fx:id="turn" layoutX="631.0" layoutY="67.0" text="0" textFill="#fafafa" />
    </children>
 </AnchorPane>

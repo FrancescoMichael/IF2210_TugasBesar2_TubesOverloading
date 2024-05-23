@@ -68,8 +68,8 @@ public class GameMaster {
 
     public void next() {
         this.currentTurn++;
-        ArrayList<Plant> arr = listPlayers.get(0).getAllPlantsInGrid();
-        arr.addAll(listPlayers.get(2).getAllPlantsInGrid());
+        ArrayList<Plant> arr = listPlayers.get(0).getAllPlantsInGrid(); // first player in list
+        arr.addAll(listPlayers.get(1).getAllPlantsInGrid()); // second player
         this.plantService.setPlants(arr);
         this.plantService.increaseAgeOfPlants();
         if(random.nextBoolean()) {

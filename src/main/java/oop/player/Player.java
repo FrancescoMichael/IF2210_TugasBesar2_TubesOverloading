@@ -97,7 +97,7 @@ public class Player {
         this.activeDeck[index] = card;
     }
 
-    public void addCardToGrid(Creature card, int row, int col) throws BaseException {
+    public void addCardToGrid(Creature card, int row, int col) {
         int arrayIDX = (row * 5) + col;
         this.grid.set(arrayIDX, card);
     }
@@ -120,17 +120,13 @@ public class Player {
     }
 
     // main methods for grid and activeDeck
-    public Card getCardActiveDeck(int index) throws BaseException {
-        if (index < 0 || index >= 6) {
-            throw new ActiveDeckOutOfBoundsException();
-        }
+    public Card getCardActiveDeck(int index){
         return this.activeDeck[index];
     }
 
     public Creature getCardGrid(int row, int col)  {
         int arrayIDX = row * 5 + col;
         return this.grid.get(arrayIDX);
-
     }
 
     public long getNumberOfCardsInGrid() {
