@@ -329,4 +329,11 @@ public class Player {
         }
     }
 
+    public void decrementCardDeckLeft(int amount){
+        this.cardDeckLeft -= amount;
+        if (this.cardDeckLeft <= 0){
+            this.cardDeckLeft = 0;
+        }
+    }
+
 }

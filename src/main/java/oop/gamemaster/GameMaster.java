@@ -3,6 +3,8 @@ package oop.gamemaster;
 import java.util.*;
 import java.util.function.Supplier;
 
+
+
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 
@@ -33,6 +35,7 @@ public class GameMaster {
     private Shop shop;
     private SaveLoad saveLoad;
     private boolean bearAttack;
+    private ArrayList<Card> currentShuffle;
 
     protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
             "Sapi", () -> new Herbivore("Sapi"),
@@ -105,6 +108,7 @@ public class GameMaster {
         this.shop = new Shop();
         this.saveLoad = new SaveLoad();
         this.bearAttack = false;
+        this.currentShuffle = new ArrayList<>();
         Player.setPlayerPlantService(plantService);
     }
     public PlantService getPlantService(){
@@ -238,6 +242,7 @@ public class GameMaster {
         return this.listPlayers.get(this.currentTurn % 2);
     }
 
+
     public Player getPlayer(int n) {
         return this.listPlayers.get(n);
     }
@@ -250,22 +255,43 @@ public class GameMaster {
         this.currentFieldPlayer = player;
     }
 
-    public void shuffle(){
+    public void shuffle(Label timeLabel, FieldController controller){
         Player currentPlayer = this.getCurrentPlayer();
-        
+        List<Map.Entry<String, Supplier<? extends Card>>> entries = new ArrayList<>(allCardMap.entrySet());
+        Collections.shuffle(entries);
+        this.currentShuffle.clear();
+        Math.min( 4, currentPlayer.getNumberOfEmptyCardsActiveDeck());
+        List<Map.Entry<String, Supplier<? extends Card>>> selected = entries.subList(0, 4);
+        for (Map.Entry<String, Supplier<? extends Card>> entry :selected) {
+            Card card = entry.getValue().get();  
+            this.currentShuffle.add(card);
+        }
+
+    }
+
+    public void doneShuffling(int numCardUSed,Label timeLabel, FieldController controller) throws BaseException{
+        Player player = this.getCurrentPlayer();
+        for (Card card : this.currentShuffle){
+            player.addCardToActiveDeckFirstEmpty(card);
+        }
+        this.getCurrentPlayer().decrementCardDeckLeft(numCardUSed);
+        if (random.nextBoolean()) {
+            this.bearAttack = true;
+            System.out.println("RUNNING TIMER BEAR");
+            this.bearAttackTimer(timeLabel,controller);
+
+        }   
+    }
+
+    public void invokeBearAttack(){
+
     }
 
     public void next(Label timeLabel, FieldController controller) throws BaseException {
         this.currentTurn++;
         this.bearAttack = false;
         this.plantService.increaseAgeOfPlants();
-        if (random.nextBoolean()) {
-
-            this.bearAttack = true;
-            System.out.println("RUNNING TIMER BEAR");
-            this.bearAttackTimer(timeLabel,controller);
-
-        }       
+    
     }
     // Random Creature
 
