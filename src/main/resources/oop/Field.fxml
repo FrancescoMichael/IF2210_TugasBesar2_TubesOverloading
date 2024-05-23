@@ -475,8 +475,8 @@
       <Label fx:id="chooseFilePluginLabel" layoutX="627.0" layoutY="306.0" style="-fx-font-size: 20px;" text="Click here to choose file!" textFill="white" visible="false" />
       <ComboBox fx:id="saveFormatComboBox" layoutX="584.0" layoutY="292.0" prefHeight="33.0" prefWidth="420.0" visible="false" />
       <Label fx:id="chooseSaveFolderLabel" layoutX="589.0" layoutY="385.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" />
-      <ComboBox fx:id="loadFormatComboBox" layoutX="584.0" layoutY="287.0" prefHeight="33.0" prefWidth="420.0" visible="false" />
-      <Label fx:id="chooseLoadFolderLabel" layoutX="589.0" layoutY="377.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" />
+      <ComboBox fx:id="loadFormatComboBox" layoutX="584.0" layoutY="282.0" prefHeight="33.0" prefWidth="420.0" visible="false" />
+      <Label fx:id="chooseLoadFolderLabel" layoutX="589.0" layoutY="375.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" />
       <ImageView fx:id="toko_bg" fitHeight="761.0" fitWidth="1080.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/background/tokobg.png" />
