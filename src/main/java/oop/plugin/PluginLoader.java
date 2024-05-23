@@ -71,28 +71,28 @@ public class PluginLoader {
         return availableClasses;
     }
 
-    public void loadPlugin(String pluginPath, SaveLoad saveLoad) throws Exception {
-        try {
-            ArrayList<Class<?>> classes = loadJarFile(pluginPath);
-            for (Class<?> c : classes) {
-                try {
-                    Method loadMethod = c.getMethod("onLoad", String.class);
-                    Method saveMethod = c.getMethod("onSave", String.class);
+    // public void loadPlugin(String pluginPath, SaveLoad saveLoad) throws Exception {
+    //     try {
+    //         ArrayList<Class<?>> classes = loadJarFile(pluginPath);
+    //         for (Class<?> c : classes) {
+    //             try {
+    //                 Method loadMethod = c.getMethod("onLoad", String.class);
+    //                 Method saveMethod = c.getMethod("onSave", String.class);
 
-                    if (loadMethod != null && saveMethod != null) {
-                        Constructor<?> constructor = c.getDeclaredConstructor();
-                        PluginInterface pluginInstance = (PluginInterface) constructor.newInstance();
-                        saveLoad.addSaveLoader(pluginInstance);
+    //                 if (loadMethod != null && saveMethod != null) {
+    //                     Constructor<?> constructor = c.getDeclaredConstructor();
+    //                     PluginInterface pluginInstance = (PluginInterface) constructor.newInstance();
+    //                     saveLoad.addSaveLoader(pluginInstance);
 
-                    } else {
-                        System.out.println("The plugin does not have the required methods.");
-                    }
-                } catch (Exception e) {
-                    System.out.println("Error invoking methods: " + e.getMessage());
-                }
-            }
-        } catch (Exception e) {
-            System.out.println("Error loading plugin: " + e.getMessage());
-        }
-    }
+    //                 } else {
+    //                     System.out.println("The plugin does not have the required methods.");
+    //                 }
+    //             } catch (Exception e) {
+    //                 System.out.println("Error invoking methods: " + e.getMessage());
+    //             }
+    //         }
+    //     } catch (Exception e) {
+    //         System.out.println("Error loading plugin: " + e.getMessage());
+    //     }
+    // }
 }

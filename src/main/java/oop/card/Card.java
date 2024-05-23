@@ -3,7 +3,6 @@ package oop.card;
 import java.util.Map;
 import java.util.HashMap;
 
-import oop.card.creature.Creature;
 import oop.player.Player;
 
 public class Card {
@@ -37,7 +36,6 @@ public class Card {
         allCardImagePath.put("Destroy", "/assets/OOP 2/OOP 2/cards/destroy.png");
         allCardImagePath.put("Protect", "/assets/OOP 2/OOP 2/cards/protect.png");
         allCardImagePath.put("Trap", "/assets/OOP 2/OOP 2/cards/trap.png");
-        allCardImagePath.put("Trap", "/assets/OOP 2/OOP 2/cards/blank.png");
     }
 
     // contructor
@@ -45,7 +43,7 @@ public class Card {
 
         this.name = "";
 
-        this.pathToImg = "asset/blank.jpg";
+        this.pathToImg = null;
 
     }
 
@@ -54,14 +52,19 @@ public class Card {
         if (allCardImagePath.containsKey(name)) {
             this.pathToImg = allCardImagePath.get(name);
         } else {
-            this.pathToImg = "/assets/OOP 2/OOP 2/cards/blank.png";
+            this.pathToImg = null;
         }
         this.owner = owner;
     }
 
     public Card(String name) {
         this.name = name;
-        this.pathToImg = allCardImagePath.get(name);
+        // System.out.println("masuk");
+        if (allCardImagePath.containsKey(name)) {
+            this.pathToImg = allCardImagePath.get(name);
+        } else {
+            this.pathToImg = null;
+        }
     }
 
     // getters
@@ -71,6 +74,7 @@ public class Card {
     }
 
     public String getPathToImg() {
+
         return this.pathToImg;
     }
 

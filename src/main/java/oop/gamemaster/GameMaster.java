@@ -3,8 +3,9 @@ package oop.gamemaster;
 import java.util.*;
 import java.util.function.Supplier;
 
+import javafx.application.Preloader.StateChangeNotification;
 import oop.player.*;
-import oop.saveload.SaveLoad;
+// import oop.saveload.SaveLoad;
 import oop.observer.*;
 import oop.card.creature.*;
 import oop.card.item.ConcreteAccelerate;
@@ -14,14 +15,46 @@ import oop.card.item.ConcreteInstantHarvest;
 import oop.card.item.ConcreteProtect;
 import oop.card.item.ConcreteTrap;
 import oop.card.item.Item;
+// import oop.card.item.Item;
 import oop.card.item.ItemEffect;
 import oop.card.product.CarnivoreFood;
 import oop.card.product.HerbivoreFood;
-import oop.card.product.Product;;
+// import oop.card.product.CarnivoreFood;
+// import oop.card.product.HerbivoreFood;
+import oop.card.product.Product;
+import oop.card.*;
+import java.util.HashMap;
+import static java.util.Map.entry;
 
 public class GameMaster {
+    protected static Map<String, Supplier<? extends Card>> allCardMap = Map.ofEntries(
+        entry("Sapi", () -> new Herbivore("Sapi")),
+        entry("Domba", () -> new Herbivore("Domba")),
+        entry("Kuda", () -> new Herbivore("Kuda")),
+        entry("Hiu Darat", () -> new Carnivore("Hiu Darat")),
+        entry("Ayam", () -> new Omnivore("Ayam")),
+        entry("Beruang", () -> new Omnivore("Beruang")),
+        entry("Biji Labu", () -> new Plant("Biji Labu")),
+        entry("Biji Jagung", () -> new Plant("Biji Jagung")),
+        entry("Biji Stroberi", () -> new Plant("Biji Stroberi")),
+        entry("Accelerate", () -> new Item("Accelerate")),
+        entry("Delay", () -> new Item("Delay")),
+        entry("Instant harvest", () -> new Item("Instant harvest")),
+        entry("Destroy", () -> new Item("Destroy")),
+        entry("Protect", () -> new Item("Protect")),
+        entry("Trap", () -> new Item("Trap")),
+        entry("Jagung", () -> new HerbivoreFood("Jagung", 150, "Herbivore", 3)),
+        entry("Labu", () -> new HerbivoreFood("Labu", 500, "Herbivore", 10)),
+        entry("Stroberi", () -> new HerbivoreFood("Stroberi", 350, "Herbivore", 5)),
+        entry("Sirip Hiu", () -> new CarnivoreFood("Sirip Hiu", 500, "Carnivore", 12)),
+        entry("Susu", () -> new CarnivoreFood("Susu", 100, "Carnivore", 4)),
+        entry("Daging Domba", () -> new CarnivoreFood("Daging Domba", 120, "Carnivore", 6)),
+        entry("Daging Kuda", () -> new CarnivoreFood("Daging Kuda", 150, "Carnivore", 8)),
+        entry("Telur", () -> new CarnivoreFood("Telur", 50, "Carnivore", 2)),
+        entry("Daging Beruang", () -> new CarnivoreFood("Daging Beruang", 500, "Carnivore", 12)));
     private final Random random = new Random();
     private List<Player> listPlayers;
+    private Player currentFieldPlayer;
     private int currentTurn;
     private PlantService plantService;
     protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
@@ -72,39 +105,57 @@ public class GameMaster {
     public List<Player> getListPlayers() {
         return this.listPlayers;
     }
+    // getters
 
     public int getCurrentTurn() {
         return this.currentTurn;
     }
 
-    // setters
-    public void setListPlayer(List<Player> listPlayers) {
-        this.listPlayers = listPlayers;
+    public static Card getCard(String name){
+        Card card = GameMaster.allCardMap.get(name).get();
+        return card;
+    }
+ 
+
+
+    //setters
+    public void setListPlayer( List<Player> listPlayers){
+       this.listPlayers  = listPlayers;
     }
 
-    public void setCurrentTurn(int currentTurn) {
+    public void setCurrentTurn(int currentTurn){
         this.currentTurn = currentTurn;
     }
 
-    public void setPlantService(PlantService plantService) {
+    // other functions
+    public void setPlantService(PlantService plantService){
         this.plantService = plantService;
     }
 
     // other functions
     public Player getCurrentPlayer() {
 
+        
         return this.listPlayers.get(this.currentTurn % 2);
+    }
+
+    public Player getCurrentFieldPlayer() {
+        return this.currentFieldPlayer;
+    }
+
+    public void setCurrentFieldPlayer(Player player) {
+        this.currentFieldPlayer = player;
     }
 
     public void next() {
         this.currentTurn++;
-        ArrayList<Plant> arr = listPlayers.get(0).getAllPlantsInGrid();
-        arr.addAll(listPlayers.get(2).getAllPlantsInGrid());
+        ArrayList<Plant> arr = listPlayers.get(0).getAllPlantsInGrid(); // first player in list
+        arr.addAll(listPlayers.get(1).getAllPlantsInGrid()); // second player
         this.plantService.setPlants(arr);
         this.plantService.increaseAgeOfPlants();
         if (random.nextBoolean()) {
             // bearAttack();
-        }
+        }       
     }
 
     // Random Creature
@@ -233,36 +284,36 @@ public class GameMaster {
         return new HerbivoreFood(carnivoreFood, info.get(0), "Herbivore", info.get(1));
     }
 
-    public void load(String filename, String type) {
-        String fileType = filename.substring(0, filename.lastIndexOf('.'));
-        SaveLoad saveLoad = new SaveLoad();
-        if (fileType.equals("gamestate")) {
-            List<String> currentShopItems = new ArrayList<>();
-            this.shop
-            try {
-                this.currentTurn = saveLoad.loadGame(filename, type, currentShopItems);
+    // public void load(String filename, String type) {
+    //     String fileType = filename.substring(0, filename.lastIndexOf('.'));
+    //     SaveLoad saveLoad = new SaveLoad();
+    //     if (fileType.equals("gamestate")) {
+    //         List<String> currentShopItems = new ArrayList<>();
+    //         this.shop
+    //         try {
+    //             this.currentTurn = saveLoad.loadGame(filename, type, currentShopItems);
                 
-            } catch (Exception e) {
-                // TODO: handle exception
-            }
-        } else if (fileType.startsWith("player")) {
-            String playerNumberStr = fileType.replace("player", "");
-            try {
-                int playerNumber = Integer.parseInt(playerNumberStr);
-                if (playerNumber == 1) {
+    //         } catch (Exception e) {
+    //             // TODO: handle exception
+    //         }
+    //     } else if (fileType.startsWith("player")) {
+    //         String playerNumberStr = fileType.replace("player", "");
+    //         try {
+    //             int playerNumber = Integer.parseInt(playerNumberStr);
+    //             if (playerNumber == 1) {
 
-                } else if(playerNumber == 2){
+    //             } else if(playerNumber == 2){
 
-                }else{
-                    throw new Exception();
-                }
-            } catch (NumberFormatException e) {
+    //             }else{
+    //                 throw new Exception();
+    //             }
+    //         } catch (NumberFormatException e) {
 
-            }
-        } else {
+    //         }
+    //     } else {
 
-        }
+    //     }
         
-    }
+    // }
 
 }

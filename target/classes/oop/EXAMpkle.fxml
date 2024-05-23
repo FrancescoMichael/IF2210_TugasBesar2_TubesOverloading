@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.ImageView?>
+
+
+<ImageView fx:id="bg" fitHeight="282.0" fitWidth="376.0" pickOnBounds="true" preserveRatio="true" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.SecondaryController" />
