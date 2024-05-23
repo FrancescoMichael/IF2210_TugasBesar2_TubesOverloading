@@ -343,6 +343,18 @@ public class FieldController implements Initializable{
 
     @FXML
     private Label turn;
+
+    @FXML 
+    private ImageView titleplayer1;
+
+    @FXML 
+    private ImageView titleplayer2;
+
+    @FXML 
+    private ImageView titleplayer1turn;
+
+    @FXML 
+    private ImageView titleplayer2turn;
     
     private Timeline countdownTimeline;
 
@@ -360,6 +372,10 @@ public class FieldController implements Initializable{
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        titleplayer1.setVisible(false);
+        titleplayer1turn.setVisible(true);
+        titleplayer2.setVisible(true);
+        titleplayer2turn.setVisible(false);
         List<Player> listPlayer = new ArrayList<>();
         Player player1 = new Player("Player1");
         Player player2 = new Player("Player2");
@@ -437,6 +453,19 @@ public class FieldController implements Initializable{
             SaveState1.setVisible(false);
             LoadPlugin1.setVisible(false);
             LoadState1.setVisible(false);
+
+            if (gameMaster.getCurrentTurn() % 2 == 1) {
+                titleplayer1.setVisible(true);
+                titleplayer1turn.setVisible(false);
+                titleplayer2.setVisible(false);
+                titleplayer2turn.setVisible(true);
+            } else {
+                
+                titleplayer1.setVisible(false);
+                titleplayer1turn.setVisible(true);
+                titleplayer2.setVisible(true);
+                titleplayer2turn.setVisible(false);
+            }
         });
 
         glowButtonMaker.setGlow(toLadangLawan);
