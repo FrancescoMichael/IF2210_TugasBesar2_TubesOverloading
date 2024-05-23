@@ -3,8 +3,6 @@ package oop.gamemaster;
 import java.util.*;
 import java.util.function.Supplier;
 
-
-
 import javafx.application.Platform;
 import javafx.scene.control.Label;
 
@@ -128,7 +126,7 @@ public class GameMaster {
         return plantService;
     }
 
-    public void bearAttackProcess(Integer[] startEnd, FieldController controller, int row, int col)
+    public void bearAttackProcess(Integer[] startEnd, FieldController controller)
             throws BaseException {
         boolean execute = true;
         System.out.println("IT IS TIME TO ATTACK");
@@ -141,7 +139,7 @@ public class GameMaster {
         for (int i = startRow; i < startRow + 2; i++) {
             for (int j = startCol; j < startCol + 3; j++) {
 
-                try{    
+                try {
                     Creature card = currPlayer.getCardGrid(i, j);
                     if (card.isTrap()) {
                         System.out.println("IS A TRAPPPP");
@@ -175,7 +173,6 @@ public class GameMaster {
 
         }
         controller.loadGridActiveDeck();
-
 
     }
 
@@ -211,9 +208,9 @@ public class GameMaster {
 
                 Platform.runLater(() -> {
                     timerLabel.setVisible(false);
-                    try{
+                    try {
                         bearAttackProcess(startEnd, controller);
-                    } catch (BaseException e){
+                    } catch (BaseException e) {
 
                     }
 
@@ -261,7 +258,6 @@ public class GameMaster {
         return this.listPlayers.get(this.currentTurn % 2);
     }
 
-
     public Player getPlayer(int n) {
         return this.listPlayers.get(n);
     }
@@ -274,40 +270,39 @@ public class GameMaster {
         this.currentFieldPlayer = player;
     }
 
-    public void shuffle(Label timeLabel, FieldController controller){
+    public void shuffle(Label timeLabel, FieldController controller) {
         Player currentPlayer = this.getCurrentPlayer();
         List<Map.Entry<String, Supplier<? extends Card>>> entries = new ArrayList<>(allCardMap.entrySet());
         Collections.shuffle(entries);
         this.currentShuffle.clear();
-        Math.min( 4, currentPlayer.getNumberOfEmptyCardsActiveDeck());
+        Math.min(4, currentPlayer.getNumberOfEmptyCardsActiveDeck());
         List<Map.Entry<String, Supplier<? extends Card>>> selected = entries.subList(0, 4);
-        for (Map.Entry<String, Supplier<? extends Card>> entry :selected) {
-            Card card = entry.getValue().get();  
+        for (Map.Entry<String, Supplier<? extends Card>> entry : selected) {
+            Card card = entry.getValue().get();
             this.currentShuffle.add(card);
         }
 
     }
 
-    public void doneShuffling(int numCardUSed,Label timeLabel, FieldController controller) throws BaseException{
+    public void doneShuffling(int numCardUSed, Label timeLabel, FieldController controller) throws BaseException {
         Player player = this.getCurrentPlayer();
-        for (Card card : this.currentShuffle){
+        for (Card card : this.currentShuffle) {
             player.addCardToActiveDeckFirstEmpty(card);
         }
         this.getCurrentPlayer().decrementCardDeckLeft(numCardUSed);
         if (random.nextBoolean()) {
             this.bearAttack = true;
             System.out.println("RUNNING TIMER BEAR");
-            this.bearAttackTimer(timeLabel,controller);
+            this.bearAttackTimer(timeLabel, controller);
 
-        }   
+        }
     }
-
 
     public void next(Label timeLabel, FieldController controller) throws BaseException {
         this.currentTurn++;
         this.bearAttack = false;
         this.plantService.increaseAgeOfPlants();
-    
+
     }
     // Random Creature
 
@@ -524,9 +519,11 @@ public class GameMaster {
         }
 
     }
-    public boolean isBearAttack(){
+
+    public boolean isBearAttack() {
         return this.bearAttack;
     }
+
     public void load(String folderPath, String type) {
         try {
             List<String> currentShopItems = new ArrayList<>();
