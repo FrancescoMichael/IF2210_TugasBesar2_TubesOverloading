@@ -1262,6 +1262,13 @@ public class FieldController implements Initializable{
             titleplayer1turn.setVisible(false);
             titleplayer2turn.setVisible(true);
         }
+        gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
+        toLadangku1.setVisible(true);
+        toLadangLawan1.setVisible(false);
+        toToko1.setVisible(false);
+        SaveState1.setVisible(false);
+        LoadPlugin1.setVisible(false);
+        LoadState1.setVisible(false);
     }
     
     public void setAllLabel(int row, int col) {
