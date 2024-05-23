@@ -125,6 +125,10 @@ public class GameMaster {
         this.plantService = plantService;
     }
 
+    public SaveLoad getSaveLoad(){
+        return this.saveLoad;
+    }
+
     // other functions
     public Player getCurrentPlayer() {
 
@@ -339,24 +343,32 @@ public class GameMaster {
             }
 
         }
+        
+        playerChange.emptyGrid();
         for (int i = 0; i < gridString.size(); i++) {
-            String[] parts = activeDeckString.get(i).split(" ");
+            String[] parts = gridString.get(i).split(" ");
+            System.out.println("Ini parts" + parts[0] + parts[1] + parts[2]);
             int index = coordinateToIndex(parts[0]);
-            if (index > 19) {
+            System.out.println("Ini index: " + index);
+            if (index <= 19) {
                 Card newCard = allCardMap.get(formatItemString(parts[1])).get();
                 Creature newCreature = (Creature) newCard;
                 newCreature.setWeight(Integer.parseInt(parts[2]));
                 newCreature.setWeightAfterEffect(Integer.parseInt(parts[2]));
                 int effectCount = Integer.parseInt(parts[3]);
+                System.out.println("ngasih effect mazeh");
                 for (int j = 0; j < effectCount; j++) {
                     Card newCardItem = allCardMap.get(formatItemString(parts[4 + j])).get();
                     Item newItem = (Item) newCardItem;
+                    System.out.println("dikasih effect mazeh");
                     try {
                         newItem.useCard(newCreature, 0, 0);
+                        System.out.println(" effect mazeh");
                     } catch (Exception e) {
 
                     }
                 }
+                System.out.println("masukkin effect mazeh");
                 try {
                     playerChange.addCardToGrid(newCreature, index / 5, index % 5);
 
@@ -379,7 +391,7 @@ public class GameMaster {
             List<String> gridString2 = new ArrayList<>();
             this.currentTurn = saveLoad.Load(folderPath, type, currentShopItems,
                     playerStatus1, activeDeckString1, gridString1,
-                    playerStatus2, activeDeckString2, gridString2);
+                    playerStatus2, activeDeckString2, gridString2) -1 ;
 
             this.shop.getStock().clear();
             for (int i = 0; i < currentShopItems.size(); i++) {

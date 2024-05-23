@@ -94,7 +94,7 @@ public class Player {
     public void addCardToGrid(Creature card, int row, int col) throws BaseException {
         int arrayIDX = row * 5 + col;
         card.setOwner(this);
-        this.grid.add(arrayIDX, card);
+        this.grid.set(arrayIDX, card);
     }
 
     public void setBlankOnGrid(int row, int col) {
@@ -119,6 +119,18 @@ public class Player {
             // TODO: handle exception
         }
 
+    }
+
+    public void emptyGrid(){
+        try {
+            for (int i = 0; i < 4; i++) {
+                for(int j = 0; j < 5; j++){
+                    setBlankOnGrid(i,j);
+                }
+            }
+        } catch (Exception e) {
+            // TODO: handle exception
+        }
     }
 
     public boolean isActiveDeckFull() {

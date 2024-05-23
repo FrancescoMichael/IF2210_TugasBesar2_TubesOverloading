@@ -141,20 +141,23 @@ public class PluginLoader {
         }
     }
 
-    private ArrayList<Class<?>> loadJarFile(String filePath) throws Exception {
+    public ArrayList<Class<?>> loadJarFile(String filePath) throws Exception {
         ArrayList<Class<?>> availableClasses = new ArrayList<>();
         ArrayList<String> classNames = getClassNamesFromJar(filePath);
-        File f = new File(filePath);
+        
+        System.out.println(classNames);
 
-        try (URLClassLoader classLoader = new URLClassLoader(new URL[] { f.toURI().toURL() })) {
+        File jarFile = new File(filePath);
+        try (URLClassLoader classLoader = new URLClassLoader(new URL[]{jarFile.toURI().toURL()})) {
             for (String className : classNames) {
                 try {
-                    Class<?> cc = classLoader.loadClass(className);
-                    if (implementsPluginInterface(cc)) {
-                        availableClasses.add(cc);
+                    Class<?> clazz = classLoader.loadClass(className);
+                    System.out.println(clazz);
+                    if (implementsPluginInterface(clazz)) {
+                        availableClasses.add(clazz);
                     }
                 } catch (ClassNotFoundException e) {
-                    System.out.println("Class not found: " + e.getMessage());
+                    System.out.println("Class not found: " + className);
                 }
             }
         }
@@ -163,7 +166,7 @@ public class PluginLoader {
 
     private boolean implementsPluginInterface(Class<?> clazz) {
         for (Class<?> iface : clazz.getInterfaces()) {
-            if (iface.getName().equals("oop.plugin.PluginInterface")) {
+            if (iface.getName().equals("PluginInterface")) {
                 return true;
             }
         }
@@ -173,7 +176,10 @@ public class PluginLoader {
     public void loadPlugin(String pluginPath, SaveLoad saveLoad) throws Exception {
         try {
             ArrayList<Class<?>> classes = loadJarFile(pluginPath);
+            System.out.println(classes);
+
             for (Class<?> c : classes) {
+
                 try {
                     Method loadPlayerMethod = c.getMethod("loadPlayer", String.class, List.class, List.class,
                             List.class);
@@ -182,11 +188,11 @@ public class PluginLoader {
                     Method loadGameMethod = c.getMethod("loadGame", String.class, List.class);
                     Method saveGameMethod = c.getMethod("saveGame", String.class, int.class, List.class);
                     Method getTypeMethod = c.getMethod("getType");
-
                     if (loadPlayerMethod != null && savePlayerMethod != null && loadGameMethod != null
                             && saveGameMethod != null && getTypeMethod != null) {
                         Constructor<?> constructor = c.getDeclaredConstructor();
                         PluginInterface pluginInstance = (PluginInterface) constructor.newInstance();
+                        System.out.println("MASUKKIN PLUGIN");
                         saveLoad.addSaveLoader(pluginInstance);
                     } else {
                         System.out.println("The plugin does not have the required methods.");

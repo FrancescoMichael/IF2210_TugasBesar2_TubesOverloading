@@ -27,7 +27,6 @@ public class SaveLoad {
             List<String> gridString1,
             List<Integer> playerStatus2, List<String> activeDeckString2,
             List<String> gridString2) throws BaseException {
-
         File folder = new File(folderPath);
 
         int currTurn = -1;
@@ -41,16 +40,20 @@ public class SaveLoad {
             // check if file exist
             if (gameStateFile.exists() && player1File.exists() && player2File.exists()) {
                 try {
+                    System.out.println("Start load");
                     // load gamestate
-                    currTurn = loadGame(folderPath + "gamestate." + typeFile, typeFile, currentShopItems);
+                    currTurn = loadGame(folderPath + "/gamestate." + typeFile, typeFile, currentShopItems);
 
+                    System.out.println("Load Game");
                     // load player1
-                    loadPlayer(folderPath + "player1." + typeFile, playerStatus1, activeDeckString1, gridString1,
+                    loadPlayer(folderPath + "/player1." + typeFile, playerStatus1, activeDeckString1, gridString1,
                             typeFile);
 
+                            System.out.println("Load Player1");
                     // load player 2
-                    loadPlayer(folderPath + "player2." + typeFile, playerStatus2, activeDeckString2, gridString2,
-                            typeFile);
+                    loadPlayer(folderPath + "/player2." + typeFile, playerStatus2, activeDeckString2, gridString2,
+                            typeFile);  
+                            System.out.println("Load Player2");
 
                     return currTurn;
                 } catch (Exception e) {
@@ -103,13 +106,16 @@ public class SaveLoad {
     }
 
     public int loadGame(String filename, String type, List<String> currentShopItems) throws Exception {
+        System.out.println("Load game");
         int currTurn = -1;
         for (PluginInterface plugin : this.saveLoaders) {
+            System.out.println("Plugin start");
             if (type.equals(plugin.getType())) {
+                System.out.println("Found plugin");
                 currTurn = plugin.loadGame(filename, currentShopItems);
             }
         }
-
+        System.out.println("Return");
         return currTurn;
     }
 
