@@ -34,14 +34,14 @@ public class SaveLoad {
     }
 
     // INI YANG PENTING
-    public void loadGame(String filename, String type) throws Exception {
+    public int loadGame(String filename, String type, List<String> currentShopItems) throws Exception {
+        int currTurn;
         for (PluginInterface plugin : this.saveLoaders) {
-            int currTurn;
-            List<String> currentShopItems = new ArrayList<>();
             if (type.equals(plugin.getType())) {
                 currTurn = plugin.loadGame(filename, currentShopItems);
             }
         }
+        return currTurn;
     }
 
     public void savePlayer(String filename, Player player, String type) throws Exception {

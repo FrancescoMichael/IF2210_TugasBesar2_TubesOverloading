@@ -1,8 +1,10 @@
 package oop.gamemaster;
 
 import java.util.*;
+import java.util.function.Supplier;
 
 import oop.player.*;
+import oop.saveload.SaveLoad;
 import oop.observer.*;
 import oop.card.creature.*;
 import oop.card.item.ConcreteAccelerate;
@@ -14,23 +16,60 @@ import oop.card.item.ConcreteTrap;
 import oop.card.item.Item;
 import oop.card.item.ItemEffect;
 import oop.card.product.CarnivoreFood;
-import oop.card.product.HerbivoreFood;;
+import oop.card.product.HerbivoreFood;
+import oop.card.product.Product;;
 
 public class GameMaster {
     private final Random random = new Random();
     private List<Player> listPlayers;
     private int currentTurn;
     private PlantService plantService;
+    protected static Map<String, Supplier<Herbivore>> allHerbivoreMap = Map.of(
+            "Sapi", () -> new Herbivore("Sapi"),
+            "Domba", () -> new Herbivore("Domba"),
+            "Kuda", () -> new Herbivore("Kuda"));
 
-    public GameMaster(){
+    protected static Map<String, Supplier<Carnivore>> allCarnivoreMap = Map.of(
+            "Hiu Darat", () -> new Carnivore("Hiu Darat"));
+
+    protected static Map<String, Supplier<Omnivore>> allOmnivoreMap = Map.of(
+            "Ayam", () -> new Omnivore("Ayam"),
+            "Beruang", () -> new Omnivore("Beruang"));
+
+    protected static Map<String, Supplier<Plant>> allPlantMap = Map.of(
+            "Biji Labu", () -> new Plant("Biji Labu"),
+            "Biji Jagung", () -> new Plant("Biji Jagung"),
+            "Biji Stroberi", () -> new Plant("Biji Stroberi"));
+
+    protected static Map<String, Supplier<Item>> allItemMap = Map.of(
+            "Accelerate", () -> new Item("Accelerate"),
+            "Delay", () -> new Item("Delay"),
+            "Instant harvest", () -> new Item("Instant harvest"),
+            "Destroy", () -> new Item("Destroy"),
+            "Protect", () -> new Item("Protect"),
+            "Trap", () -> new Item("Trap"));
+
+    protected static Map<String, Supplier<HerbivoreFood>> allHerbivoreFoodMap = Map.of(
+            "Jagung", () -> new HerbivoreFood("Jagung", 150, "Herbivore", 3),
+            "Labu", () -> new HerbivoreFood("Labu", 500, "labu.img", 10),
+            "Stroberi", () -> new HerbivoreFood("Stroberi", 350, "Herbivore", 5));
+
+    protected static Map<String, Supplier<CarnivoreFood>> allCarnivoreFoodMap = Map.of(
+            "Sirip Hiu", () -> new CarnivoreFood("Sirip Hiu", 500, "Carnivore", 12),
+            "Susu", () -> new CarnivoreFood("Susu", 100, "Carnivore", 4),
+            "Daging Domba", () -> new CarnivoreFood("Daging Domba", 120, "Carnivore", 6),
+            "Daging Kuda", () -> new CarnivoreFood("Daging Kuda", 150, "Carnivore", 8),
+            "Telur", () -> new CarnivoreFood("Telur", 50, "Carnivore", 2),
+            "Daging Beruang", () -> new CarnivoreFood("Daging Beruang", 500, "Carnivore", 12));
+
+    public GameMaster() {
         this.listPlayers = new ArrayList<>();
         this.currentTurn = 0;
         this.plantService = new PlantService();
     }
 
-
     // getters
-    public List<Player> getListPlayers(){
+    public List<Player> getListPlayers() {
         return this.listPlayers;
     }
 
@@ -38,22 +77,22 @@ public class GameMaster {
         return this.currentTurn;
     }
 
-    //setters
-    public void setListPlayer( List<Player> listPlayers){
-       this.listPlayers  = listPlayers;
+    // setters
+    public void setListPlayer(List<Player> listPlayers) {
+        this.listPlayers = listPlayers;
     }
 
-    public void setCurrentTurn(int currentTurn){
+    public void setCurrentTurn(int currentTurn) {
         this.currentTurn = currentTurn;
     }
 
-    public void setPlantService(PlantService plantService){
+    public void setPlantService(PlantService plantService) {
         this.plantService = plantService;
     }
 
     // other functions
-        public Player getCurrentPlayer() {
-        
+    public Player getCurrentPlayer() {
+
         return this.listPlayers.get(this.currentTurn % 2);
     }
 
@@ -63,8 +102,8 @@ public class GameMaster {
         arr.addAll(listPlayers.get(2).getAllPlantsInGrid());
         this.plantService.setPlants(arr);
         this.plantService.increaseAgeOfPlants();
-        if(random.nextBoolean()) {
-//            bearAttack();
+        if (random.nextBoolean()) {
+            // bearAttack();
         }
     }
 
@@ -193,4 +232,37 @@ public class GameMaster {
         List<Integer> info = herbivoreInfoMap.get(carnivoreFood);
         return new HerbivoreFood(carnivoreFood, info.get(0), "Herbivore", info.get(1));
     }
+
+    public void load(String filename, String type) {
+        String fileType = filename.substring(0, filename.lastIndexOf('.'));
+        SaveLoad saveLoad = new SaveLoad();
+        if (fileType.equals("gamestate")) {
+            List<String> currentShopItems = new ArrayList<>();
+            this.shop
+            try {
+                this.currentTurn = saveLoad.loadGame(filename, type, currentShopItems);
+                
+            } catch (Exception e) {
+                // TODO: handle exception
+            }
+        } else if (fileType.startsWith("player")) {
+            String playerNumberStr = fileType.replace("player", "");
+            try {
+                int playerNumber = Integer.parseInt(playerNumberStr);
+                if (playerNumber == 1) {
+
+                } else if(playerNumber == 2){
+
+                }else{
+                    throw new Exception();
+                }
+            } catch (NumberFormatException e) {
+
+            }
+        } else {
+
+        }
+        
+    }
+
 }
