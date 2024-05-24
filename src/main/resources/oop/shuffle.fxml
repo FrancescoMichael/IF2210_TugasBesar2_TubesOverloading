@@ -13,9 +13,9 @@
             <Image url="@../assets/OOP%202/OOP%202/background/menang.png" />
          </image>
       </ImageView>
-      <Label fx:id="menang_player_info" layoutX="429.0" layoutY="238.0" prefHeight="89.0" prefWidth="222.0" textAlignment="CENTER" visible="false">
+      <Label fx:id="menang_player_info" layoutX="19.0" layoutY="229.0" prefHeight="89.0" prefWidth="1037.0" textAlignment="CENTER" visible="false">
          <font>
-            <Font size="48.0" />
+            <Font size="24.0" />
          </font>
       </Label>
       <ImageView fx:id="retrygame" fitHeight="58.0" fitWidth="136.0" layoutX="600.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true" visible="false">
