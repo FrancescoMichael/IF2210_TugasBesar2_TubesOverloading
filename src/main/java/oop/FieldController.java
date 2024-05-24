@@ -689,28 +689,6 @@ public class FieldController implements Initializable{
         Player player1 = new Player("Player1");
         Player player2 = new Player("Player2");
 
-        // try {
-        //     player1.addCardToActiveDeckFirstEmpty(new Omnivore("Beruang"));
-        //     player1.addCardToActiveDeckFirstEmpty(new Item("Protect"));
-        //     player1.addCardToActiveDeckFirstEmpty(new Item("Trap"));
-        //     player1.addCardToActiveDeckFirstEmpty(new Item("Delay"));
-        //     player1.addCardToActiveDeckFirstEmpty(new Item("Trap"));
-        //     player1.addCardToActiveDeckFirstEmpty(new Plant("Biji Stroberi"));
-        // } catch (Exception e) {
-        //     System.out.println(e.getMessage());
-        //     // TODO: handle exception
-        // }
-        // try {
-        //     player2.addCardToActiveDeckFirstEmpty(new Carnivore("Hiu Darat"));
-        //     player2.addCardToActiveDeckFirstEmpty(new Herbivore("Sapi"));
-        //     player2.addCardToActiveDeckFirstEmpty(new Omnivore("Ayam"));
-        //     player2.addCardToActiveDeck(new Item("Destroy"), 3);
-        //     player2.addCardToActiveDeck(new Item("Instant Harvest"), 4);
-        //     player2.addCardToActiveDeck(new Item("Accelerate"), 5);
-        // } catch (Exception e) {
-        //     System.out.println(e.getMessage());
-        //     // TODO: handle exception
-        // }
         listPlayer.add(player1);
         listPlayer.add(player2);
         gameMaster.setListPlayer(listPlayer);
