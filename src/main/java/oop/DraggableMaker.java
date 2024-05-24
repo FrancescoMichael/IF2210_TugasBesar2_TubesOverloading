@@ -196,8 +196,8 @@ public class DraggableMaker {
                                     }
                                 } else {
                                     try {
-                                        System.out.println("HERE");
-                                        System.out.println("MOVE CARD GRID TO GRID");
+                                        // System.out.println("HERE");
+                                        // System.out.println("MOVE CARD GRID TO GRID");
                                         CurrentPLayer.moveCardGridtoGrid(rowSource - 1, colSource - 1, row - 1, col - 1, CurrentPLayer);
                                         fieldController.loadGridActiveDeck();
                                         makeDraggable(targetImageView, matrix_grid, gameMaster, true);
