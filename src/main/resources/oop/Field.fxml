@@ -617,7 +617,7 @@
             <Image url="@../assets/OOP%202/OOP%202/button/jual.png" />
          </image>
       </ImageView>
-      <Label fx:id="AnimalNameToko" layoutX="500.0" layoutY="290.0" text="Label" textFill="WHITE" visible="false" />
+      <Label fx:id="AnimalNameToko" layoutX="344.0" layoutY="290.0" prefHeight="17.0" prefWidth="390.0" text="Label" textAlignment="CENTER" textFill="WHITE" visible="false" alignment="CENTER"/>
       <ImageView fx:id="ClosePopUpToko" fitHeight="18.0" fitWidth="20.0" layoutX="706.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/misc/close_button.png" />
