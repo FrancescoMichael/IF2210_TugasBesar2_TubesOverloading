@@ -756,7 +756,7 @@ public class FieldController implements Initializable{
         label3.setText("ITEM AKTIF:");
 
         glowButtonMaker.setGlow(CloseBtn);
-        CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false, false));
+        CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false, true));
 
         glowButtonMaker.setGlow(PanenBtn);
 
@@ -1672,7 +1672,11 @@ public class FieldController implements Initializable{
         AnimalName.setVisible(bool);
         if (isHarvestable) {
             PanenBtn.setVisible(bool);
+        }else {
+            PanenBtn.setVisible(!bool);
         }
+
+        
     }
 
     private void startCountdown() {

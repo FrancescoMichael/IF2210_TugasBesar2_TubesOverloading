@@ -96,7 +96,7 @@ public class DraggableMaker {
                             try {
                                 gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1).harvestCreature(row - 1, col - 1);
                                 fieldController.loadGridActiveDeck();
-                                fieldController.setPanenPageVisibility(false, false);
+                                fieldController.setPanenPageVisibility(false, true);
                             } catch (Exception exception) {
                                 // TODO: handle exception
                             }
