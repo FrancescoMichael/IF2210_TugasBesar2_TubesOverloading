@@ -101,4 +101,10 @@ public class Shop {
     public Map<String, Integer> getStock() {
         return this.stock;
     }
+
+    public void resetStock() {
+        for (String key : stock.keySet()) {
+            stock.put(key, 0);
+        }
+    }
 }
