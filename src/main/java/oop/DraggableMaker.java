@@ -96,7 +96,7 @@ public class DraggableMaker {
                             try {
                                 gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1).harvestCreature(row - 1, col - 1);
                                 fieldController.loadGridActiveDeck();
-                                fieldController.setPanenPageVisibility(false, false);
+                                fieldController.setPanenPageVisibility(false, true);
                             } catch (Exception exception) {
                                 // TODO: handle exception
                             }
@@ -108,10 +108,12 @@ public class DraggableMaker {
 
                     Image currentImage = sourceImageView.getImage();
                     String currentImageUrl = currentImage.getUrl();
+                    // System.out.println(currentImageUrl);
+                    
+                    // String newImageUrl = currentImageUrl.replace("cards", "icons");
+                    // System.out.println(newImageUrl);
 
-                    String newImageUrl = currentImageUrl.replace("cards", "icons");
-
-                    fieldController.getAnimalImage().setImage(new Image(newImageUrl));
+                    fieldController.getAnimalImage().setImage(new Image(currentImageUrl));
 
                     fieldController.setAllLabel(row - 1, col - 1);
 
