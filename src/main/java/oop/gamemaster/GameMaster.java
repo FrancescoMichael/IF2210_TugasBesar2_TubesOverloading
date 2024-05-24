@@ -26,6 +26,7 @@ import oop.shop.*;
 // import oop.card.product.HerbivoreFood;
 
 public class GameMaster {
+    private Random random = new Random();
     private List<Player> listPlayers;
     private Player currentFieldPlayer;
     private int currentTurn;
@@ -200,7 +201,7 @@ public class GameMaster {
         });
 
         new Thread(() -> {
-            double timeLeft = 15;  // Initial time in seconds
+            double timeLeft = 30 + (random.nextDouble() * (60 - 30));
             try {
 
                 while (timeLeft > 0 && this.bearAttack) {
@@ -317,7 +318,7 @@ public class GameMaster {
 
         // decrementing deck left
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
-        if (true) {
+        if (Math.random() < 0.2) {
 
             this.bearAttack = true;
             this.bearAttackTimer(timeLabel, controller);
