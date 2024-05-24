@@ -185,10 +185,7 @@ public class Player {
         return this.activeDeck[index];
     }
 
-    public Creature getCardGrid(int row, int col) throws BaseException {
-        if (row < 0 || row > 3 || col < 0 || col > 4) {
-            throw new GridOutOfBoundsException();
-        }
+    public Creature getCardGrid(int row, int col) {
         int arrayIDX = row * 5 + col;
         return this.grid.get(arrayIDX);
     }

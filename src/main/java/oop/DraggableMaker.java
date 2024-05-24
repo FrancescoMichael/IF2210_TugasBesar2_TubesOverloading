@@ -94,30 +94,29 @@ public class DraggableMaker {
                     int row = ((int) (event.getSceneY() - 70) / 100) + 1;
                     int col = ((int) (event.getSceneX() - 34.4) / 100) + 1;
 
-                    fieldController.getPanenBtn().setOnMouseClicked(e -> {
-                        try {
-                            gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1).harvestCreature(row - 1, col - 1);
-                            fieldController.loadGridActiveDeck();
-                            fieldController.setPanenPageVisibility(false);
-                        } catch (Exception exception) {
-                            // TODO: handle exception
-                        }
-                    });
-
-                    // fieldController.creatureClicked = gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1);
+                    if (gameMaster.getCurrentPlayer().getCardGrid(row - 1, col - 1).isHarvestable()) {
+                        fieldController.getPanenBtn().setOnMouseClicked(e -> {
+                            try {
+                                gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1).harvestCreature(row - 1, col - 1);
+                                fieldController.loadGridActiveDeck();
+                                fieldController.setPanenPageVisibility(false, false);
+                            } catch (Exception exception) {
+                                // TODO: handle exception
+                            }
+                        });
+                        fieldController.setPanenPageVisibility(true, true);
+                    } else {
+                        fieldController.setPanenPageVisibility(true, false);
+                    }
 
                     Image currentImage = sourceImageView.getImage();
                     String currentImageUrl = currentImage.getUrl();
 
-                    // Edit the image URL (assuming you want to change the image name or path)
                     String newImageUrl = currentImageUrl.replace("cards", "icons");
 
-                    // Set the new image to the sourceImageView
                     fieldController.getAnimalImage().setImage(new Image(newImageUrl));
-                    // System.out.println(gameMaster.getCurrentFieldPlayer().getName());
 
                     fieldController.setAllLabel(row - 1, col - 1);
-                    fieldController.setPanenPageVisibility(true);
 
                 }
                 wasDragged = false;

@@ -206,10 +206,13 @@ public class Creature extends Card implements UsableCard {
         }
     }
 
+    public boolean isHarvestable() {
+        return this.getWeightAfterEffect() >= this.getHarvestedWeightRequirement();
+    }
+    
     // get harvested product from Creature
-
     public void harvestCreature(int row, int col) throws BaseException {
-        if (this.getWeightAfterEffect() >= this.getHarvestedWeightRequirement()) {
+        if (isHarvestable()) {
             // remove creature from grid, add product in active deck
             // addCardToActiveDeck already checks if activeDeck is full
 

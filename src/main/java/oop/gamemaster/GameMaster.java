@@ -156,7 +156,7 @@ public class GameMaster {
                         rows.add(i);
                         cols.add(j);
                     }
-                } catch (BaseException e) {
+                } catch (Exception e) {
 
                 }
 
