@@ -623,6 +623,7 @@ public class FieldController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        glowButtonMaker.setGlow(home_start_button);
         home_start_button.setOnMouseClicked(event -> {
             if (!gameStarted) {
                 timerLabel.setVisible(false);
@@ -637,11 +638,13 @@ public class FieldController implements Initializable{
     }
 
     public void initializeGameComponents() {
+        glowButtonMaker.setGlow(retry);
         retry.setOnMouseClicked(event -> {
             gameMaster.shuffle();
             ShuffleVisible(gameMaster.getCurrentShuffle());
         });
 
+        glowButtonMaker.setGlow(okshuffle);
         okshuffle.setOnMouseClicked(event -> {
             shuffleBG.setVisible(false);
             shufflecard1.setVisible(false);
@@ -705,8 +708,11 @@ public class FieldController implements Initializable{
         saveFormatComboBox.getItems().addAll("txt");
         loadFormatComboBox.getItems().addAll("txt");
 
+        glowButtonMaker.setGlow(save_button);
         save_button.setOnMouseClicked(event -> handleSave());
+        glowButtonMaker.setGlow(load_button);
         load_button.setOnMouseClicked(event -> handleLoad());
+        glowButtonMaker.setGlow(plugin_button);
         plugin_button.setOnMouseClicked(event -> handlePlugin());
 
         titleplayer1turn.setVisible(true);
@@ -924,6 +930,7 @@ public class FieldController implements Initializable{
         menang_player_info.setText(winner.getName() + " has win with " + winner.getGulden() + " !");
         }
         
+        glowButtonMaker.setGlow(retrygame);
         retrygame.setOnMouseClicked(event -> {
             gameMaster = new GameMaster();
             initializeGameComponents();
