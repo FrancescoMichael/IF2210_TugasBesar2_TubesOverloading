@@ -709,9 +709,7 @@ public class FieldController implements Initializable{
         load_button.setOnMouseClicked(event -> handleLoad());
         plugin_button.setOnMouseClicked(event -> handlePlugin());
 
-        titleplayer1.setVisible(false);
         titleplayer1turn.setVisible(true);
-        titleplayer2.setVisible(true);
         titleplayer2turn.setVisible(false);
         List<Player> listPlayer = new ArrayList<>();
         Player player1 = new Player("Player1");
@@ -791,15 +789,10 @@ public class FieldController implements Initializable{
                 LoadState1.setVisible(false);
     
                 if (gameMaster.getCurrentTurn() % 2 == 1) {
-                    titleplayer1.setVisible(true);
                     titleplayer1turn.setVisible(false);
-                    titleplayer2.setVisible(false);
                     titleplayer2turn.setVisible(true);
                 } else {
-                    
-                    titleplayer1.setVisible(false);
                     titleplayer1turn.setVisible(true);
-                    titleplayer2.setVisible(true);
                     titleplayer2turn.setVisible(false);
                 }
             }
@@ -1562,11 +1555,10 @@ public class FieldController implements Initializable{
         firstPlayerMoney.setText(gameMaster.getPlayer(0).getGulden() + "");
         secondPlayerMoney.setText(gameMaster.getPlayer(1).getGulden() + "");
         turn.setText((gameMaster.getCurrentTurn() + 1 ) + "");
-        if (gameMaster.getCurrentTurn() % 2 == 0) {
+        if (gameMaster.getCurrentTurn() % 2 == 1) {
             titleplayer1turn.setVisible(true);
             titleplayer2turn.setVisible(false);
         } else {
-            titleplayer1.setVisible(true);
             titleplayer1turn.setVisible(false);
             titleplayer2turn.setVisible(true);
         }
