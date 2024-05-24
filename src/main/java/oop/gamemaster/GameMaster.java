@@ -683,4 +683,12 @@ public class GameMaster {
         return this.currentShuffle;
     }
 
+    public Player getWinner() {
+        if (this.listPlayers.get(0).getGulden() > this.listPlayers.get(1).getGulden()) {
+            return this.listPlayers.get(0);
+        } else {
+            return this.listPlayers.get(1);
+        }
+    }
+
 }
