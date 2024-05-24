@@ -15,29 +15,17 @@ import oop.card.creature.*;
 import oop.card.item.Item;
 import oop.card.product.CarnivoreFood;
 import oop.card.product.HerbivoreFood;
+import oop.exceptionkerajaan.ActiveDeckFullException;
+import oop.exceptionkerajaan.PrematureBearAttackException;
 import oop.exceptionkerajaan.BaseException;
 import oop.FieldController;
 import oop.card.*;
 import oop.shop.*;
-import javafx.util.Duration;
-
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-
-import javafx.application.Preloader.StateChangeNotification;
-
-import oop.card.item.ConcreteAccelerate;
-import oop.card.item.ConcreteDelay;
-import oop.card.item.ConcreteDestroy;
-import oop.card.item.ConcreteInstantHarvest;
-import oop.card.item.ConcreteProtect;
-import oop.card.item.ConcreteTrap;
 
 // import oop.card.product.CarnivoreFood;
 // import oop.card.product.HerbivoreFood;
 
 public class GameMaster {
-    private final Random random = new Random();
     private List<Player> listPlayers;
     private Player currentFieldPlayer;
     private int currentTurn;
@@ -128,12 +116,17 @@ public class GameMaster {
         return plantService;
     }
 
-    public void bearAttackProcess(Integer[] startEnd, FieldController controller)
+    public synchronized void bearAttackProcess(Integer[] startEnd, FieldController controller, boolean finisih)
             throws BaseException {
+        if (!this.bearAttack){
+            return;
+        }
         boolean execute = true;
-        System.out.println("IT IS TIME TO ATTACK");
+        // System.out.println("IT IS TIME TO ATTACK");
         Player currPlayer = this.getCurrentPlayer();
-        controller.getDraggableMaker().removeGlowAll();
+        if (finisih){
+            controller.getDraggableMaker().removeGlowAll();
+        }
         int startRow = startEnd[0];
         int startCol = startEnd[1];
         int rowsAdd = startEnd[2];
@@ -162,7 +155,8 @@ public class GameMaster {
 
             }
         }
-        if (execute) {
+        if (execute && finisih) {
+            // bear attack semua di grid setelah timer
             for (int i = 0; i < rows.size(); i++) {
                 try {
                     currPlayer.setBlankOnGrid(rows.get(i), cols.get(i));
@@ -172,55 +166,76 @@ public class GameMaster {
 
             }
         } else {
+                // Kena trap
+            if (!execute){
+                if (!finisih){
+                    controller.getDraggableMaker().removeGlowAll();
+                }
+                currPlayer.addCardToActiveDeckFirstEmpty(new Omnivore("Beruang"));
+                this.bearAttack = false;
+                controller.loadGridActiveDeck();
+                if (!finisih){
+                    throw new PrematureBearAttackException();
+                }
 
-            currPlayer.addCardToActiveDeckFirstEmpty(new Omnivore("Beruang"));
+
+            }
 
         }
-        this.bearAttack = false;
-        controller.loadGridActiveDeck();
+        if (finisih){
+            System.out.println("DALAM FINISIH");
+            this.bearAttack = false;
+            controller.loadGridActiveDeck();
+    
+        }
 
     }
 
     public void bearAttackTimer(Label timerLabel, FieldController controller) throws BaseException {
         Integer[] startEnd = controller.simulateBearAttack(); // Assuming this method is thread-safe
-
+        this.bearAttack = true;
         Platform.runLater(() -> {
             timerLabel.setText("");
             timerLabel.setVisible(true);
         });
 
         new Thread(() -> {
-            // final double[] timeLeft = {2.0}; // Time in seconds for the bear attack
-            // duration
-            // Randomize time left
-            double timeLeft = 30 + (random.nextDouble() * (60 - 30));
-            timeLeft = 10;
-
+            double timeLeft = 15;  // Initial time in seconds
             try {
-                while (timeLeft > 0) {
-                    Thread.sleep(100); // Sleep for 1f00 milliseconds
+
+                while (timeLeft > 0 && this.bearAttack) {
+                    Thread.sleep(100); // Sleep for 100 milliseconds
                     timeLeft -= 0.1;
                     double finalTimeLeft = timeLeft;
-
-                    // TODO : Possible race condition, check properly later....
                     Platform.runLater(() -> {
                         timerLabel.setText(String.format("%.1f seconds", finalTimeLeft));
+                        try {
+                            bearAttackProcess(startEnd, controller, false);
+                        } catch (BaseException e) {
+                            System.out.println(e.getMessage());
+                            if (e instanceof ActiveDeckFullException || e instanceof PrematureBearAttackException) {
+                                this.bearAttack = false;
+                                timerLabel.setVisible(false);
+                                System.out.println(e.getMessage());
+                            }
+                        }
                     });
                 }
-
+        
+                // Final call to make UI changes and possibly a final bear attack process call
                 Platform.runLater(() -> {
                     timerLabel.setVisible(false);
-                    try {
-                        bearAttackProcess(startEnd, controller);
-                    } catch (BaseException e) {
-                        System.out.println(e.getMessage());
-                        this.bearAttack = false;
+                    if (this.bearAttack) {
+                        try {
+                            bearAttackProcess(startEnd, controller, true);
+                        } catch (BaseException e) {
+                            System.out.println(e.getMessage());
+                            this.bearAttack = false;
+                        }
                     }
-
                 });
             } catch (InterruptedException e) {
-                e.printStackTrace();
-                Thread.currentThread().interrupt(); // Handle thread interruption properly
+                Thread.currentThread().interrupt();
             }
         }).start();
     }
@@ -274,7 +289,6 @@ public class GameMaster {
     }
 
     public void shuffle() {
-        System.out.println("SHUFFLING");
         Player currentPlayer = this.getCurrentPlayer();
         List<Map.Entry<String, Supplier<? extends Card>>> entries = new ArrayList<>(allCardMap.entrySet());
         entries.removeIf(entry -> entry.getValue().get().getName().equals("Beruang"));
@@ -283,7 +297,6 @@ public class GameMaster {
         int min = 4;
         if (min > currentPlayer.getNumberOfEmptyCardsActiveDeck()) {
             min = currentPlayer.getNumberOfEmptyCardsActiveDeck();
-            // System.out.println(min);
         }
         int numLeft = this.getCurrentPlayer().getCardDeckLeft();
         min = Math.min(min, numLeft);
@@ -293,7 +306,6 @@ public class GameMaster {
                 Card card = entry.getValue().get();
                 card.setOwner(currentPlayer);
                 this.currentShuffle.add(card);
-                // System.out.println(card);
             }
         }
         this.numberOfPickedCards = min;
@@ -301,17 +313,13 @@ public class GameMaster {
     }
 
     public void doneShuffling(Label timeLabel, FieldController controller) throws BaseException {
-        // System.out.println("ENTERING DONE SHUFFLING");
         Player player = this.getCurrentPlayer();
 
         // decrementing deck left
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
-        // System.out.println("ABOUT TO ENTER TIMER BEAR");
-
-        if (Math.random() < 0.20) {
+        if (true) {
 
             this.bearAttack = true;
-            // System.out.println("RUNNING TIMER BEAR");
             this.bearAttackTimer(timeLabel, controller);
 
         }
@@ -326,7 +334,9 @@ public class GameMaster {
     }
 
     public void next() throws BaseException {
+  
         this.currentTurn++;
+        System.out.println( "CURR TURN DI DALAM NEXT:" +this.currentTurn);
         this.bearAttack = false;
         this.plantService.increaseAgeOfPlants();
 
