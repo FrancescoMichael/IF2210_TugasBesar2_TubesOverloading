@@ -307,13 +307,15 @@ public class GameMaster {
         // decrementing deck left
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
         // System.out.println("ABOUT TO ENTER TIMER BEAR");
-        if (Math.random() < 0.30) {
+
+        if (Math.random() < 0.20) {
 
             this.bearAttack = true;
             // System.out.println("RUNNING TIMER BEAR");
             this.bearAttackTimer(timeLabel, controller);
 
         }
+
         // System.out.println("NUMBERS OF PICKED " + this.numberOfPickedCards);
         // System.out.println("ARRAY SIZE : " + this.currentShuffle.size());
         for (Card card : this.currentShuffle) {
@@ -617,7 +619,7 @@ public class GameMaster {
             if (!card.getName().equals("")) {
                 activeDeckString1
                         .add(indexToCoordinate(this.getPlayer(0).searchActiveCardIndex(card)) + " "
-                                + card.getName().toUpperCase());
+                                + saveFormatString(card.getName().toUpperCase()));
             }
         }
 
@@ -646,7 +648,7 @@ public class GameMaster {
             if (!card.getName().equals("")) {
                 activeDeckString2
                         .add(indexToCoordinate(this.getPlayer(1).searchActiveCardIndex(card)) + " "
-                                + card.getName().toUpperCase());
+                                + saveFormatString(card.getName().toUpperCase()));
             }
 
         }
