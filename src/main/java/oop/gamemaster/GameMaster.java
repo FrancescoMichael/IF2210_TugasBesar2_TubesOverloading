@@ -324,6 +324,9 @@ public class GameMaster {
             this.bearAttackTimer(timeLabel, controller);
 
         }
+
+        // System.out.println("NUMBERS OF PICKED " + this.numberOfPickedCards);
+        // System.out.println("ARRAY SIZE : " + this.currentShuffle.size());
         for (Card card : this.currentShuffle) {
             player.addCardToActiveDeckFirstEmpty(card);
         }
@@ -627,7 +630,7 @@ public class GameMaster {
             if (!card.getName().equals("")) {
                 activeDeckString1
                         .add(indexToCoordinate(this.getPlayer(0).searchActiveCardIndex(card)) + " "
-                                + card.getName().toUpperCase());
+                                + saveFormatString(card.getName().toUpperCase()));
             }
         }
 
@@ -656,7 +659,7 @@ public class GameMaster {
             if (!card.getName().equals("")) {
                 activeDeckString2
                         .add(indexToCoordinate(this.getPlayer(1).searchActiveCardIndex(card)) + " "
-                                + card.getName().toUpperCase());
+                                + saveFormatString(card.getName().toUpperCase()));
             }
 
         }
