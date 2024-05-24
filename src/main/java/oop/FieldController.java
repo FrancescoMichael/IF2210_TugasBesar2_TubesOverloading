@@ -1,8 +1,6 @@
 package oop;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +9,9 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -27,22 +21,14 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import oop.plugin.PluginInterface;
 import oop.plugin.PluginLoader;
-import oop.plugin.SaveLoadTXT;
-import oop.saveload.SaveLoad;
 import javafx.util.Duration;
 import oop.card.Card;
-import oop.card.creature.Carnivore;
-import oop.card.creature.Creature;
-import oop.card.creature.Herbivore;
-import oop.card.creature.Omnivore;
-import oop.card.creature.Plant;
 import oop.card.item.*;
 import oop.exceptionkerajaan.BaseException;
 import oop.gamemaster.GameMaster;
 import oop.player.Player;
-import oop.card.*;
 import oop.card.product.*;
-import javafx.scene.control.TextField;
+
 
 public class FieldController implements Initializable{
 
@@ -798,7 +784,7 @@ public class FieldController implements Initializable{
         nextTurnBtn.setOnMouseClicked(event -> {
 
             System.out.println("Current Turn: " + gameMaster.getCurrentTurn());
-            if (gameMaster.getCurrentTurn() > 20) {
+            if (gameMaster.getCurrentTurn() > 18) {
                 setWinningPageVisibility(true);
             }
             else {
@@ -1616,15 +1602,6 @@ public class FieldController implements Initializable{
         int enumerator = 0;
         List<String> updatedActiveDeck= getActiveDeckImageUrls();
         updateTokoDeckImages(updatedActiveDeck);
-        // for (Card card : gameMaster.getCurrentPlayer().getActiveDeck()) {
-        //     System.out.println(card.getPathToImg());
-        //     if (card.getPathToImg() == null) {
-        //         list
-        //         System.out.println("masukk");
-        //     } else {
-        //         listActiveDeck[enumerator].setImage(new Image(card.getPathToImg()));
-        //     }
-        // }
     }
     
     public void setAllLabel(int row, int col) {
