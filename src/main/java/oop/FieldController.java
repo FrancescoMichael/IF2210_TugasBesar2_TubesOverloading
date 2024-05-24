@@ -923,8 +923,12 @@ public class FieldController implements Initializable{
         exitgame.setVisible(visible);
         Player winner = gameMaster.getWinner();
         // set label menang player info to player name
+        if (gameMaster.getPlayer(0).getGulden() == gameMaster.getPlayer(1).getGulden()) {
+            menang_player_info.setText("Player 1's gulden is the same as Player 2's!");
+        } else {
         menang_player_info.setText(winner.getName() + "has win with " + winner.getGulden() + " !");
-
+        }
+        
         retrygame.setOnMouseClicked(event -> {
             gameMaster = new GameMaster();
             initializeGameComponents();
