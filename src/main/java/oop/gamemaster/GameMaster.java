@@ -603,7 +603,7 @@ public class GameMaster {
         // loading in the stock map
         for (Map.Entry<String, Integer> entry : this.shop.getStock().entrySet()) {
             if (entry.getValue() > 0) {
-                String item = entry.getKey().toUpperCase() + " " + entry.getValue();
+                String item = saveFormatString(entry.getKey().toUpperCase()) + " " + entry.getValue();
                 currentShopItems.add(item);
             }
         }
