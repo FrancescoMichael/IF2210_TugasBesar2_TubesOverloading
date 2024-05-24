@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -246,7 +245,7 @@
       
       <Button fx:id="bearAttackButton" layoutX="750.0" layoutY="450.0" text="Bear Attack" />
       <Label fx:id="timerLabel" layoutX="750.0" layoutY="500.0" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 18px;" text="Timer: 30" textFill="RED" />
-      <Label layoutX="610.0" layoutY="614.0" prefHeight="18.0" prefWidth="130.0" text="Label" textFill="WHITE" />
+      <Label fx:id="deckLeft" layoutX="610.0" layoutY="614.0" prefHeight="18.0" prefWidth="130.0" text="Label" textFill="WHITE" />
       <ImageView fx:id="toLadangku" fitHeight="52.0" fitWidth="215.0" layoutX="602.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/title/Group%2011.png" />
@@ -606,7 +605,7 @@
       <Label fx:id="LabelHarga" layoutX="382.0" layoutY="333.0" text="Harga" textFill="WHITE" visible="false" />
       <Label fx:id="Harga" layoutX="382.0" layoutY="357.0" text="Label" textFill="WHITE" visible="false" />
       <Label fx:id="LabelKuantitas" layoutX="382.0" layoutY="388.0" text="Kuantitas" textFill="WHITE" visible="false" />
-      <Label fx:id="Kuantitas" layoutX="382.0" layoutY="408.0" textFill="WHITE" prefHeight="26.0" prefWidth="66.0" visible="false" />
+      <Label fx:id="Kuantitas" layoutX="382.0" layoutY="408.0" prefHeight="26.0" prefWidth="66.0" textFill="WHITE" visible="false" />
       <ImageView fx:id="BuyButton" fitHeight="38.0" fitWidth="122.0" layoutX="490.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/button/beli.png" />

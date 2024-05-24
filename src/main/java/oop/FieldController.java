@@ -554,6 +554,9 @@ public class FieldController implements Initializable{
 
     @FXML
     private Label Kuantitas;
+
+    @FXML
+    private Label deckLeft;
     
     private Timeline countdownTimeline;
 
@@ -575,6 +578,11 @@ public class FieldController implements Initializable{
 
     public DraggableMaker getDraggableMaker(){
         return this.draggableMaker;
+    }
+
+    public void updateDeckLeft() {
+        int cardInDeck = gameMaster.getCurrentPlayer().getCardDeckLeft();
+        deckLeft.setText(cardInDeck + "/40");
     }
 
     public void ShuffleVisible(ArrayList<Card> cardNames) {
@@ -620,6 +628,7 @@ public class FieldController implements Initializable{
             okshuffle.setVisible(false);
             try {
                 gameMaster.doneShuffling(timerLabel, this);
+                updateDeckLeft();
             } catch (BaseException e) {
                 System.out.println(e.getMessage());
 
@@ -812,7 +821,6 @@ public class FieldController implements Initializable{
         glowButtonMaker.setGlow(toToko);
         toToko.setOnMouseClicked(event -> {
             if (!gameMaster.isBearAttack()) {
-                System.out.println("toko");
                 toToko1.setVisible(true);
                 toLadangLawan1.setVisible(false);
                 toLadangku1.setVisible(false);
@@ -824,7 +832,6 @@ public class FieldController implements Initializable{
         glowButtonMaker.setGlow(SaveState);
         SaveState.setOnMouseClicked(event -> {
             if (!gameMaster.isBearAttack()) {
-                System.out.println("save");
                 SaveState1.setVisible(true);
                 toToko1.setVisible(false);
                 toLadangLawan1.setVisible(false);
@@ -836,7 +843,6 @@ public class FieldController implements Initializable{
         glowButtonMaker.setGlow(LoadPlugin);
         LoadPlugin.setOnMouseClicked(event -> {
             if (!gameMaster.isBearAttack()) {
-                System.out.println("plugin");
                 LoadPlugin1.setVisible(true);
                 toToko1.setVisible(false);
                 toLadangLawan1.setVisible(false);
@@ -848,7 +854,6 @@ public class FieldController implements Initializable{
         glowButtonMaker.setGlow(LoadState);
         LoadState.setOnMouseClicked(event -> {
             if (!gameMaster.isBearAttack()) {
-                System.out.println("load");
                 LoadState1.setVisible(true);
                 toToko1.setVisible(false);
                 toLadangLawan1.setVisible(false);
@@ -1176,7 +1181,6 @@ public class FieldController implements Initializable{
             currentProduct = 1;
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image(deckImageUrls.get(1)));
-            System.out.println(deckImageUrls.get(1));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText(deckImageNames.get(1));
             
@@ -1216,7 +1220,6 @@ public class FieldController implements Initializable{
             currentProduct = 3;
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image(deckImageUrls.get(3)));
-            System.out.println(deckImageUrls.get(3));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText(deckImageNames.get(3));
             AnimalNameToko.setVisible(visible);
@@ -1410,10 +1413,8 @@ public class FieldController implements Initializable{
             loadFormatComboBox.getItems().clear();
             saveFormatComboBox.getItems().addAll("txt");
             loadFormatComboBox.getItems().addAll("txt");
-            System.out.println();
             for (PluginInterface plugin : gameMaster.getSaveLoad().getSaveLoaders()) {
                 String type = plugin.getType();
-                System.out.println(type);
 
                 if (!saveFormatComboBox.getItems().contains(type)) {
                     saveFormatComboBox.getItems().add(type);
@@ -1457,7 +1458,6 @@ public class FieldController implements Initializable{
             System.out.println("foldername: "+ foldername);
             System.out.println("format: "+ format);
             gameMaster.load(foldername, format);
-            System.out.println("halo");
             gameMaster.getCurrentPlayer().printGridActiveDeckTest();
             loadGridActiveDeck();
             loadOther();
