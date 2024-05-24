@@ -14,6 +14,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.fxml.Initializable;
@@ -755,7 +756,7 @@ public class FieldController implements Initializable{
         label3.setText("ITEM AKTIF:");
 
         glowButtonMaker.setGlow(CloseBtn);
-        CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false));
+        CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false, false));
 
         glowButtonMaker.setGlow(PanenBtn);
 
@@ -1546,10 +1547,11 @@ public class FieldController implements Initializable{
                         grid.setImage(null);
                     } else {
                         grid.setImage(new Image(imageUrl));
+                        draggableMaker.makeDraggable(grid, matrixGrid, gameMaster, true);
                     }
                 }
             }
-        } catch (BaseException e) {
+        } catch (Exception e) {
             e.printStackTrace();
             // Handle the exception, e.g., show an error message to the user
         }
@@ -1658,7 +1660,7 @@ public class FieldController implements Initializable{
         // startCountdown();
         return draggableMaker.setRedGlowOnRandomGroup(matrix_pane);
     }
-    public void setPanenPageVisibility(boolean bool) {
+    public void setPanenPageVisibility(boolean bool, boolean isHarvestable) {
         label1.setVisible(bool);
         label2.setVisible(bool);
         label3.setVisible(bool);
@@ -1666,9 +1668,11 @@ public class FieldController implements Initializable{
         label5.setVisible(bool);
         ContainerPanen.setVisible(bool);
         CloseBtn.setVisible(bool);
-        PanenBtn.setVisible(bool);
         AnimalImage.setVisible(bool);
         AnimalName.setVisible(bool);
+        if (isHarvestable) {
+            PanenBtn.setVisible(bool);
+        }
     }
 
     private void startCountdown() {
