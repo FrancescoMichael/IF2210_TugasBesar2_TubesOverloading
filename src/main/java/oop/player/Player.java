@@ -102,7 +102,6 @@ public class Player {
 
     //
     public void addCardToActiveDeckFirstEmpty(Card card) throws BaseException {
-        System.out.println("ADD TO ACTIVE DECK FIRST");
         if (this.isActiveDeckFull()) {
             throw new ActiveDeckFullException();
         }
@@ -244,16 +243,14 @@ public class Player {
 
             ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
 
-            // Handle if active fullx
+            // Handle if active full
             if (currCard instanceof Item) {
                 if (((Item) currCard).getEffect() instanceof ConcreteInstantHarvest) {
                     return;
                 }
             }
-            // System.out.println("MAU REMOVE MASS");
             this.removeCardAtActiveDeck(activeCardIndex);
         } else {
-            // System.out.println("EXCEPTION THROWN");
             throw new InvalidCardPlacementException();
         }
 

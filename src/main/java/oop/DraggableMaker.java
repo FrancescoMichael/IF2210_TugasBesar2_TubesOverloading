@@ -48,9 +48,6 @@ public class DraggableMaker {
     }
 
     public void removeRedGlow(Pane[][] grid, int rows, int cols){
-        // System.out.println("REMOVE RED");
-        // System.out.println(rows);
-        // System.out.println(cols);
         for (int row = 0 ; row < rows ; row++){
             for (int col = 0 ; col < cols ; cols++){
                 setRedGlow(grid[row][col], false);
@@ -184,9 +181,6 @@ public class DraggableMaker {
                                     try {
                                         CurrentPLayer.invokeCard(index, row - 1, col - 1,
                                         gameMaster.getCurrentFieldPlayer());
-                                        // System.out.println("USING CARC");
-                                        // CurrentPLayer.removeCardAtActiveDeck(index);
-
                                         fieldController.loadGridActiveDeck();
                                         
                                         makeDraggable(targetImageView, matrix_grid, gameMaster, true);
@@ -195,8 +189,6 @@ public class DraggableMaker {
                                     }
                                 } else {
                                     try {
-                                        // System.out.println("HERE");
-                                        // System.out.println("MOVE CARD GRID TO GRID");
                                         CurrentPLayer.moveCardGridtoGrid(rowSource - 1, colSource - 1, row - 1, col - 1, CurrentPLayer);
                                         fieldController.loadGridActiveDeck();
                                         makeDraggable(targetImageView, matrix_grid, gameMaster, true);
@@ -281,15 +273,6 @@ public class DraggableMaker {
         temp[3] = cols;
 
         return temp;
-
-        // timer = new Timeline(new KeyFrame(Duration.seconds(30), event -> {
-        //     for (Pane cell : glowingCells) {
-        //         setRedGlow(cell, false);
-        //     }
-        //     glowingCells.clear();
-        // }));
-        // timer.setCycleCount(1);
-        // timer.play();
     }
 
     public void removeGlowAll(){

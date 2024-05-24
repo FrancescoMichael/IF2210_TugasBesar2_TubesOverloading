@@ -1,8 +1,6 @@
 package oop;
 
 import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,13 +9,9 @@ import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
@@ -28,22 +22,14 @@ import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import oop.plugin.PluginInterface;
 import oop.plugin.PluginLoader;
-import oop.plugin.SaveLoadTXT;
-import oop.saveload.SaveLoad;
 import javafx.util.Duration;
 import oop.card.Card;
-import oop.card.creature.Carnivore;
-import oop.card.creature.Creature;
-import oop.card.creature.Herbivore;
-import oop.card.creature.Omnivore;
-import oop.card.creature.Plant;
 import oop.card.item.*;
 import oop.exceptionkerajaan.BaseException;
 import oop.gamemaster.GameMaster;
 import oop.player.Player;
-import oop.card.*;
 import oop.card.product.*;
-import javafx.scene.control.TextField;
+
 
 public class FieldController implements Initializable{
 
@@ -777,7 +763,7 @@ public class FieldController implements Initializable{
         nextTurnBtn.setOnMouseClicked(event -> {
 
             System.out.println("Current Turn: " + gameMaster.getCurrentTurn());
-            if (gameMaster.getCurrentTurn() > 20) {
+            if (gameMaster.getCurrentTurn() > 18) {
                 setWinningPageVisibility(true);
             }
             else {
@@ -938,8 +924,12 @@ public class FieldController implements Initializable{
         exitgame.setVisible(visible);
         Player winner = gameMaster.getWinner();
         // set label menang player info to player name
+        if (gameMaster.getPlayer(0).getGulden() == gameMaster.getPlayer(1).getGulden()) {
+            menang_player_info.setText("Player 1's gulden is the same as Player 2's!");
+        } else {
         menang_player_info.setText(winner.getName() + "has win with " + winner.getGulden() + " !");
-
+        }
+        
         retrygame.setOnMouseClicked(event -> {
             gameMaster = new GameMaster();
             initializeGameComponents();
@@ -1524,11 +1514,6 @@ public class FieldController implements Initializable{
             toko_deck10, toko_deck11, toko_deck12
         };
 
-        // print imageUrls
-        for (String imageUrl : imageUrls) {
-            System.out.println(imageUrl);
-        }
-
         for (int i = 0; i < imageUrls.size() && i < tokoDecks.length; i++) {
             // handle if null
             if (imageUrls.get(i) == null) {
@@ -1575,7 +1560,7 @@ public class FieldController implements Initializable{
     public void loadOther() {
         firstPlayerMoney.setText(gameMaster.getPlayer(0).getGulden() + "");
         secondPlayerMoney.setText(gameMaster.getPlayer(1).getGulden() + "");
-        turn.setText(gameMaster.getCurrentTurn() + "");
+        turn.setText((gameMaster.getCurrentTurn() + 1 ) + "");
         if (gameMaster.getCurrentTurn() % 2 == 0) {
             titleplayer1turn.setVisible(true);
             titleplayer2turn.setVisible(false);
@@ -1596,15 +1581,6 @@ public class FieldController implements Initializable{
         int enumerator = 0;
         List<String> updatedActiveDeck= getActiveDeckImageUrls();
         updateTokoDeckImages(updatedActiveDeck);
-        // for (Card card : gameMaster.getCurrentPlayer().getActiveDeck()) {
-        //     System.out.println(card.getPathToImg());
-        //     if (card.getPathToImg() == null) {
-        //         list
-        //         System.out.println("masukk");
-        //     } else {
-        //         listActiveDeck[enumerator].setImage(new Image(card.getPathToImg()));
-        //     }
-        // }
     }
     
     public void setAllLabel(int row, int col) {

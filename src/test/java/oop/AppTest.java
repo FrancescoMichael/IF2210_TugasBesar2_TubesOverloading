@@ -16,11 +16,10 @@ import oop.exceptionkerajaan.BaseException;
 import oop.player.Player;
 
 public class AppTest {
+    @Test
     public void test(){
         assertTrue( true );
-        // System.out.println("HELLO");
 
-        // simulating Active deck 
 
         Player player1 = new Player("Marvel Pangondian");
         Player player2 = new Player("Maximilian");
