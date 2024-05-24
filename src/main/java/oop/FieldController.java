@@ -1566,6 +1566,7 @@ public class FieldController implements Initializable{
             titleplayer1turn.setVisible(true);
             titleplayer2turn.setVisible(false);
         } else {
+            titleplayer1.setVisible(true);
             titleplayer1turn.setVisible(false);
             titleplayer2turn.setVisible(true);
         }

@@ -313,7 +313,7 @@ public class GameMaster {
 
         // decrementing deck left
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
-        if (Math.random() < 0.25) {
+        if (false) {
 
             this.bearAttack = true;
             this.bearAttackTimer(timeLabel, controller);
@@ -558,7 +558,7 @@ public class GameMaster {
                     playerStatus1, activeDeckString1, gridString1,
                     playerStatus2, activeDeckString2, gridString2) - 1;
 
-            this.shop.getStock().clear();
+            this.shop.resetStock();
             for (int i = 0; i < currentShopItems.size(); i++) {
                 String[] parts = currentShopItems.get(i).split(" ");
                 this.shop.getStock().put(formatItemString(parts[0]), Integer.parseInt(parts[1]));
