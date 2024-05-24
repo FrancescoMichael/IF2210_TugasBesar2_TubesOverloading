@@ -245,7 +245,7 @@
       </ImageView>
       
       <Button fx:id="bearAttackButton" layoutX="750.0" layoutY="450.0" text="Bear Attack" />
-      <Label fx:id="timerLabel" layoutX="750.0" layoutY="500.0" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 18px;" text="Timer: 30" textFill="RED" />
+      <Label fx:id="timerLabel" layoutX="630.0" layoutY="450.0" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 18px;" text="Timer: 30" textFill="RED" />
       <Label fx:id="deckLeft" layoutX="610.0" layoutY="614.0" prefHeight="18.0" prefWidth="130.0" text="Label" textFill="WHITE" />
       <ImageView fx:id="toLadangku" fitHeight="52.0" fitWidth="215.0" layoutX="602.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
          <image>
