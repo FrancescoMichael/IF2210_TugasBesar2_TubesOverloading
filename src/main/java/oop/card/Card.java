@@ -61,7 +61,6 @@ public class Card {
 
     public Card(String name) {
         this.name = name;
-        // System.out.println("masuk");
         if (allCardImagePath.containsKey(name)) {
             this.pathToImg = allCardImagePath.get(name);
         } else {
@@ -70,7 +69,6 @@ public class Card {
     }
 
     // getters
-
     public String getName() {
         return this.name;
     }
