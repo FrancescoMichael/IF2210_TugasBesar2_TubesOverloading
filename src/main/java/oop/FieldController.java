@@ -557,6 +557,18 @@ public class FieldController implements Initializable{
 
     @FXML
     private Label deckLeft;
+
+    @FXML
+    private ImageView home_start_bg;
+
+    @FXML
+    private ImageView home_main_title;
+
+    @FXML
+    private ImageView home_start_button;
+
+    @FXML
+    private ImageView home_nim;
     
     private Timeline countdownTimeline;
 
@@ -607,8 +619,24 @@ public class FieldController implements Initializable{
             }
         }
     }
+
+    private boolean gameStarted = false;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        home_start_button.setOnMouseClicked(event -> {
+            if (!gameStarted) {
+                initializeGameComponents();
+                home_main_title.setVisible(gameStarted);
+                home_start_bg.setVisible(gameStarted);
+                home_start_button.setVisible(gameStarted);
+                home_nim.setVisible(gameStarted);
+                gameStarted = true;
+            }
+        });
+    }
+
+    public void initializeGameComponents() {
         retry.setOnMouseClicked(event -> {
             gameMaster.shuffle();
             ShuffleVisible(gameMaster.getCurrentShuffle());
