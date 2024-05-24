@@ -17,7 +17,7 @@ import oop.player.Player;
 
 public class AppTest {
     public void test(){
-          assertTrue( true );
+        assertTrue( true );
         // System.out.println("HELLO");
 
         // simulating Active deck 

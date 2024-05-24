@@ -38,7 +38,6 @@ public class CarnivoreFood extends Product implements Food, UsableCard {
     }
 
     public void useCard(Card targetCard, int row, int col) throws BaseException {
-        System.out.println("asdasdasdas");
         if (targetCard instanceof Animals && this.getOwner() == targetCard.getOwner()) {
             this.beEaten((Animals) targetCard);
         } else {

@@ -136,11 +136,14 @@ public class GameMaster {
         controller.getDraggableMaker().removeGlowAll();
         int startRow = startEnd[0];
         int startCol = startEnd[1];
+        int rowsAdd = startEnd[2];
+        int colsAdd = startEnd[3];
         ArrayList<Integer> rows = new ArrayList<>();
         ArrayList<Integer> cols = new ArrayList<>();
-        for (int i = startRow; i < startRow + 2; i++) {
-            for (int j = startCol; j < startCol + 3; j++) {
-
+        for (int i = startRow; i < startRow + rowsAdd; i++) {
+            for (int j = startCol; j < startCol + colsAdd; j++) {
+                // System.out.println("ROW : " + i);
+                // System.out.println("COL" + j);
                 try {
                     Creature card = currPlayer.getCardGrid(i, j);
                     if (card.isTrap()) {
@@ -162,7 +165,6 @@ public class GameMaster {
         if (execute) {
             for (int i = 0; i < rows.size(); i++) {
                 try {
-                    System.out.println();
                     currPlayer.setBlankOnGrid(rows.get(i), cols.get(i));
                 } catch (BaseException e) {
                     System.out.println(e.getMessage());
@@ -180,7 +182,7 @@ public class GameMaster {
     }
 
     public void bearAttackTimer(Label timerLabel, FieldController controller) throws BaseException {
-        Integer[] startEnd = controller.simulateBearAttack(0, 0); // Assuming this method is thread-safe
+        Integer[] startEnd = controller.simulateBearAttack(); // Assuming this method is thread-safe
 
         Platform.runLater(() -> {
             timerLabel.setText("");
@@ -192,7 +194,7 @@ public class GameMaster {
             // duration
             // Randomize time left
             double timeLeft = 30 + (random.nextDouble() * (60 - 30));
-            timeLeft = 15;
+            timeLeft = 10;
 
             try {
                 while (timeLeft > 0) {
@@ -211,7 +213,8 @@ public class GameMaster {
                     try {
                         bearAttackProcess(startEnd, controller);
                     } catch (BaseException e) {
-
+                        System.out.println(e.getMessage());
+                        this.bearAttack = false;
                     }
 
                 });
@@ -280,14 +283,18 @@ public class GameMaster {
         int min = 4;
         if (min > currentPlayer.getNumberOfEmptyCardsActiveDeck()) {
             min = currentPlayer.getNumberOfEmptyCardsActiveDeck();
-            System.out.println(min);
+            // System.out.println(min);
         }
-        List<Map.Entry<String, Supplier<? extends Card>>> selected = entries.subList(0, min);
-        for (Map.Entry<String, Supplier<? extends Card>> entry : selected) {
-            Card card = entry.getValue().get();
-            card.setOwner(currentPlayer);
-            this.currentShuffle.add(card);
-            System.out.println(card);
+        int numLeft = this.getCurrentPlayer().getCardDeckLeft();
+        min = Math.min(min, numLeft);
+        if (numLeft >= 0) {
+            List<Map.Entry<String, Supplier<? extends Card>>> selected = entries.subList(0, min);
+            for (Map.Entry<String, Supplier<? extends Card>> entry : selected) {
+                Card card = entry.getValue().get();
+                card.setOwner(currentPlayer);
+                this.currentShuffle.add(card);
+                // System.out.println(card);
+            }
         }
         this.numberOfPickedCards = min;
 
@@ -297,20 +304,22 @@ public class GameMaster {
         // System.out.println("ENTERING DONE SHUFFLING");
         Player player = this.getCurrentPlayer();
 
+        // decrementing deck left
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
         // System.out.println("ABOUT TO ENTER TIMER BEAR");
-        if (Math.random() < 0.2) {
+        if (Math.random() < 0.30) {
 
             this.bearAttack = true;
             // System.out.println("RUNNING TIMER BEAR");
             this.bearAttackTimer(timeLabel, controller);
 
         }
-        System.out.println("NUMBERS OF PICKED " + this.numberOfPickedCards);
-        System.out.println("ARRAY SIZE : " + this.currentShuffle.size());
+        // System.out.println("NUMBERS OF PICKED " + this.numberOfPickedCards);
+        // System.out.println("ARRAY SIZE : " + this.currentShuffle.size());
         for (Card card : this.currentShuffle) {
             player.addCardToActiveDeckFirstEmpty(card);
         }
+        System.out.println("DECK LEFT: " + player.getCardDeckLeft());
         controller.loadGridActiveDeck();
     }
 
@@ -387,6 +396,7 @@ public class GameMaster {
                 "Daging Kuda",
                 "Daging Domba",
                 "Daging Beruang");
+
         Map<String, List<Integer>> carnivoreInfoMap = new HashMap<>();
         List<Integer> values = new ArrayList<>();
         values.add(500);
@@ -425,6 +435,7 @@ public class GameMaster {
                 "Jagung",
                 "Labu",
                 "Stroberi");
+
         Map<String, List<Integer>> herbivoreInfoMap = new HashMap<>();
         List<Integer> values = new ArrayList<>();
         values.add(150);
@@ -521,19 +532,15 @@ public class GameMaster {
                         newItem.useCard(newCreature, 0, 0);
                         System.out.println(" effect mazeh");
                     } catch (Exception e) {
-
                     }
                 }
                 System.out.println("masukkin effect mazeh");
                 try {
                     playerChange.addCardToGrid(newCreature, index / 5, index % 5);
-
                 } catch (Exception e) {
-
                 }
             }
         }
-
     }
 
     public boolean isBearAttack() {
