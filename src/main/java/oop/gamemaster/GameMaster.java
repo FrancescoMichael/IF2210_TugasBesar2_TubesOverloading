@@ -313,7 +313,7 @@ public class GameMaster {
 
         // decrementing deck left
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
-        if (Math.random() < 0.2) {
+        if (Math.random() < 0.25) {
 
             this.bearAttack = true;
             this.bearAttackTimer(timeLabel, controller);

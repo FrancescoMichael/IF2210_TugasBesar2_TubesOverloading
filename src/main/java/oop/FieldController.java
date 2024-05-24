@@ -624,6 +624,7 @@ public class FieldController implements Initializable{
     public void initialize(URL url, ResourceBundle resourceBundle) {
         home_start_button.setOnMouseClicked(event -> {
             if (!gameStarted) {
+                timerLabel.setVisible(false);
                 initializeGameComponents();
                 home_main_title.setVisible(gameStarted);
                 home_start_bg.setVisible(gameStarted);
@@ -773,7 +774,6 @@ public class FieldController implements Initializable{
                     
                     gameMaster.shuffle();
                     ShuffleVisible(gameMaster.getCurrentShuffle());
-                    // gameMaster.doneShuffling(timerLabel, this);
                 } catch (BaseException e){
     
                 }
