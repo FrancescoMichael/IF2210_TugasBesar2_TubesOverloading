@@ -927,7 +927,7 @@ public class FieldController implements Initializable{
         if (gameMaster.getPlayer(0).getGulden() == gameMaster.getPlayer(1).getGulden()) {
             menang_player_info.setText("Player 1's gulden is the same as Player 2's!");
         } else {
-        menang_player_info.setText(winner.getName() + "has win with " + winner.getGulden() + " !");
+        menang_player_info.setText(winner.getName() + " has win with " + winner.getGulden() + " !");
         }
         
         retrygame.setOnMouseClicked(event -> {
