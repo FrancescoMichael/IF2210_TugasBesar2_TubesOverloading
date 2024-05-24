@@ -57,9 +57,7 @@ public class PluginLoader {
                             Constructor<?> constructor = c.getDeclaredConstructor();
                             PluginInterface pluginInstance = (PluginInterface) constructor.newInstance();
                             saveLoad.addSaveLoader(pluginInstance);
-                            System.out.println("Plugin Success!!!");
                         } else {
-                            // System.out.println("The class " + c.getName() + " does not implement an interface 'PluginInterface'.");
                         }
                     } catch (NoSuchMethodException e) {
                         System.out.println("Required method not found in class " + c.getName() + ": " + e.getMessage());

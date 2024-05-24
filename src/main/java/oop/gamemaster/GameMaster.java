@@ -123,7 +123,6 @@ public class GameMaster {
             return;
         }
         boolean execute = true;
-        // System.out.println("IT IS TIME TO ATTACK");
         Player currPlayer = this.getCurrentPlayer();
         if (finisih){
             controller.getDraggableMaker().removeGlowAll();
@@ -136,12 +135,9 @@ public class GameMaster {
         ArrayList<Integer> cols = new ArrayList<>();
         for (int i = startRow; i < startRow + rowsAdd; i++) {
             for (int j = startCol; j < startCol + colsAdd; j++) {
-                // System.out.println("ROW : " + i);
-                // System.out.println("COL" + j);
                 try {
                     Creature card = currPlayer.getCardGrid(i, j);
                     if (card.isTrap()) {
-                        System.out.println("IS A TRAPPPP");
                         execute = false;
                         break;
                     } else if (card.isProtected()) {
@@ -184,7 +180,6 @@ public class GameMaster {
 
         }
         if (finisih){
-            System.out.println("DALAM FINISIH");
             this.bearAttack = false;
             controller.loadGridActiveDeck();
     
@@ -325,19 +320,15 @@ public class GameMaster {
 
         }
 
-        // System.out.println("NUMBERS OF PICKED " + this.numberOfPickedCards);
-        // System.out.println("ARRAY SIZE : " + this.currentShuffle.size());
         for (Card card : this.currentShuffle) {
             player.addCardToActiveDeckFirstEmpty(card);
         }
-        System.out.println("DECK LEFT: " + player.getCardDeckLeft());
         controller.loadGridActiveDeck();
     }
 
     public void next() throws BaseException {
   
         this.currentTurn++;
-        System.out.println( "CURR TURN DI DALAM NEXT:" +this.currentTurn);
         this.bearAttack = false;
         this.plantService.increaseAgeOfPlants();
 
@@ -527,27 +518,21 @@ public class GameMaster {
         playerChange.emptyGrid();
         for (int i = 0; i < gridString.size(); i++) {
             String[] parts = gridString.get(i).split(" ");
-            System.out.println("Ini parts" + parts[0] + parts[1] + parts[2]);
             int index = coordinateToIndex(parts[0]);
-            System.out.println("Ini index: " + index);
             if (index <= 19) {
                 Card newCard = allCardMap.get(formatItemString(parts[1])).get();
                 Creature newCreature = (Creature) newCard;
                 newCreature.setWeight(Integer.parseInt(parts[2]));
                 newCreature.setWeightAfterEffect(Integer.parseInt(parts[2]));
                 int effectCount = Integer.parseInt(parts[3]);
-                System.out.println("ngasih effect mazeh");
                 for (int j = 0; j < effectCount; j++) {
                     Card newCardItem = allCardMap.get(formatItemString(parts[4 + j])).get();
                     Item newItem = (Item) newCardItem;
-                    System.out.println("dikasih effect mazeh");
                     try {
                         newItem.useCard(newCreature, 0, 0);
-                        System.out.println(" effect mazeh");
                     } catch (Exception e) {
                     }
                 }
-                System.out.println("masukkin effect mazeh");
                 try {
                     playerChange.addCardToGrid(newCreature, index / 5, index % 5);
                 } catch (Exception e) {

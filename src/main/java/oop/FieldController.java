@@ -1509,11 +1509,6 @@ public class FieldController implements Initializable{
             toko_deck10, toko_deck11, toko_deck12
         };
 
-        // print imageUrls
-        for (String imageUrl : imageUrls) {
-            System.out.println(imageUrl);
-        }
-
         for (int i = 0; i < imageUrls.size() && i < tokoDecks.length; i++) {
             // handle if null
             if (imageUrls.get(i) == null) {

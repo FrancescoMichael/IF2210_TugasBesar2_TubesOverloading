@@ -405,12 +405,7 @@ public class SecondaryController {
             toko_deck1, toko_deck2, toko_deck3, 
             toko_deck4, toko_deck5, toko_deck6
         };
-;
-        // print imageUrls
-        for (String imageUrl : imageUrls) {
-            System.out.println(imageUrl);
-        }
-
+        
         for (int i = 0; i < imageUrls.size() && i < tokoDecks.length; i++) {
             // handle if null
             if (imageUrls.get(i) == null) {
