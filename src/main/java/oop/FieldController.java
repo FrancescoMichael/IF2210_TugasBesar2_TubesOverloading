@@ -569,6 +569,18 @@ public class FieldController implements Initializable{
 
     @FXML
     private ImageView home_nim;
+
+    @FXML
+    private ImageView winning_bg;
+
+    @FXML
+    private Label menang_player_info;
+
+    @FXML
+    private ImageView retrygame;
+
+    @FXML
+    private ImageView exitgame;
     
     private Timeline countdownTimeline;
 
@@ -784,6 +796,12 @@ public class FieldController implements Initializable{
 
         glowButtonMaker.setGlow(nextTurnBtn);
         nextTurnBtn.setOnMouseClicked(event -> {
+
+            System.out.println("Current Turn: " + gameMaster.getCurrentTurn());
+            if (gameMaster.getCurrentTurn() > 20) {
+                setWinningPageVisibility(true);
+            }
+            else {
             if (!gameMaster.isBearAttack()) {
                 try{
                     gameMaster.next();
@@ -818,6 +836,7 @@ public class FieldController implements Initializable{
                     titleplayer2.setVisible(true);
                     titleplayer2turn.setVisible(false);
                 }
+            }
             }
         });
 
@@ -930,6 +949,29 @@ public class FieldController implements Initializable{
             LabelHarga.setVisible(false);
             LabelKuantitas.setVisible(false);
             Kuantitas.setVisible(false);
+        });
+    }
+
+    public void setWinningPageVisibility(boolean visible) {
+        winning_bg.setVisible(visible);
+        menang_player_info.setVisible(visible);
+        retrygame.setVisible(visible);
+        exitgame.setVisible(visible);
+        Player winner = gameMaster.getWinner();
+        // set label menang player info to player name
+        menang_player_info.setText(winner.getName() + "has win with " + winner.getGulden() + " !");
+
+        retrygame.setOnMouseClicked(event -> {
+            gameMaster = new GameMaster();
+            initializeGameComponents();
+            winning_bg.setVisible(false);
+            menang_player_info.setVisible(false);
+            retrygame.setVisible(false);
+            exitgame.setVisible(false);
+        });
+
+        exitgame.setOnMouseClicked(event -> {
+            System.exit(0);
         });
     }
 
