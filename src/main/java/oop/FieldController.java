@@ -757,6 +757,7 @@ public class FieldController implements Initializable{
 
         glowButtonMaker.setGlow(CloseBtn);
         CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false, true));
+        CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false, true));
 
         glowButtonMaker.setGlow(PanenBtn);
 
@@ -1565,6 +1566,7 @@ public class FieldController implements Initializable{
             titleplayer1turn.setVisible(true);
             titleplayer2turn.setVisible(false);
         } else {
+            titleplayer1.setVisible(true);
             titleplayer1turn.setVisible(false);
             titleplayer2turn.setVisible(true);
         }
@@ -1672,7 +1674,7 @@ public class FieldController implements Initializable{
         AnimalName.setVisible(bool);
         if (isHarvestable) {
             PanenBtn.setVisible(bool);
-        }else {
+        } else {
             PanenBtn.setVisible(!bool);
         }
 
