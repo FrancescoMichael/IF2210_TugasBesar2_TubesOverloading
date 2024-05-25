@@ -37,7 +37,7 @@
                     <limit>
                       <counter>LINE</counter>
                       <value>COVEREDRATIO</value>
-                      <minimum>0.00</minimum>
+                      <minimum>0.25</minimum>
                     </limit>
                   </limits>
                 </rule>
@@ -48,6 +48,7 @@
         <configuration>
           <excludes>
             <exclude>**/oop/*.class</exclude>
+            <exclude>**/oop/plugin/PluginLoader.class</exclude>
           </excludes>
         </configuration>
       </plugin>

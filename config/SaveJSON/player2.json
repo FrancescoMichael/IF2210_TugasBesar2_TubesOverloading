@@ -2,22 +2,13 @@
   "JUMLAH_KARTU_LADANG": 1,
   "KARTU_LADANG": [{
     "UMUR_BERAT": 0,
-    "KARTU": "AYAM",
-    "LOKASI_KARTU": "B2",
-    "JUMLAH_ITEM_AKTIF": 0,
-    "ITEMS": []
+    "KARTU": "BIJI_JAGUNG",
+    "LOKASI_KARTU": "B02",
+    "JUMLAH_ITEM_AKTIF": 1,
+    "ITEMS": ["PROTECT"]
   }],
-  "DECK_AKTIF": [
-    {
-      "KARTU": "BERUANG",
-      "LOKASI_KARTU": "A1"
-    },
-    {
-      "KARTU": "BERUANG",
-      "LOKASI_KARTU": "B1"
-    }
-  ],
-  "JUMLAH_GULDEN": 300,
-  "JUMLAH_DECK_AKTIF": 2,
-  "JUMLAH_DECK": 38
+  "DECK_AKTIF": [],
+  "JUMLAH_GULDEN": 0,
+  "JUMLAH_DECK_AKTIF": 0,
+  "JUMLAH_DECK": 36
 }
