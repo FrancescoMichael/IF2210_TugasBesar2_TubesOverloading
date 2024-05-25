@@ -90,9 +90,9 @@ public class GameMasterTest {
         assertTrue(item instanceof Item);
         Player winner = gameMaster.getWinner();
         assertTrue(winner.getGulden() >= player1.getGulden() && winner.getGulden() >= player2.getGulden());
-        String coor = gameMaster.indexToCoordinate(10);
+        String coor = gameMaster.indexToCoordinate(10 , 5);
         System.err.println(coor);
-        Integer f = gameMaster.coordinateToIndex(coor);
+        Integer f = gameMaster.coordinateToIndex(coor, 5);
         assertTrue(f == 10);
         gameMaster.setCurrentTurn(100);
         assertTrue(gameMaster.getCurrentTurn()  == 100); 
