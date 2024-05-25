@@ -1,10 +1,10 @@
 {
-  "CURRENT_TURN": 1,
-  "JUMLAH_ITEM_DI_SHOP": 5,
+  "CURRENT_TURN": 8,
+  "JUMLAH_ITEM_DI_SHOP": 4,
   "SHOP_ITEMS": [
     {
-      "NAME": "SIRIP_HIU",
-      "QUANTITY": 5
+      "NAME": "DAGING_KUDA",
+      "QUANTITY": 10
     },
     {
       "NAME": "SUSU",
@@ -13,10 +13,6 @@
     {
       "NAME": "DAGING_DOMBA",
       "QUANTITY": 3
-    },
-    {
-      "NAME": "DAGING_KUDA",
-      "QUANTITY": 10
     },
     {
       "NAME": "DAGING_BERUANG",

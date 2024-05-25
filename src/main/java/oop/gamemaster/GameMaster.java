@@ -312,7 +312,7 @@ public class GameMaster {
 
         // decrementing deck left
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
-        if (Math.random() < 0.25) {
+        if (false) {
 
             this.bearAttack = true;
             this.bearAttackTimer(timeLabel, controller);
@@ -463,8 +463,8 @@ public class GameMaster {
     public int coordinateToIndex(String coordinate) {
         char letter = coordinate.charAt(0);
         int number = Integer.parseInt(coordinate.substring(1)) - 1;
-        int row = letter - 'A';
-        int col = number;
+        int col = letter - 'A';
+        int row = number;
         return row * 5 + col;
     }
 
@@ -502,6 +502,7 @@ public class GameMaster {
         playerChange.emptyActiveDeck();
         for (int i = 0; i < activeDeckString.size(); i++) {
             String[] parts = activeDeckString.get(i).split(" ");
+            // System.out.println(" INI INDEX " + parts[0] + );
             int index = coordinateToIndex(parts[0]);
             if (index < 6) {
                 Card newCard = allCardMap.get(formatItemString(parts[1])).get();
@@ -556,12 +557,13 @@ public class GameMaster {
             this.currentTurn = saveLoad.Load(folderPath, type, currentShopItems,
                     playerStatus1, activeDeckString1, gridString1,
                     playerStatus2, activeDeckString2, gridString2) - 1;
-
+            System.out.println("Hehe");
             this.shop.resetStock();
             for (int i = 0; i < currentShopItems.size(); i++) {
                 String[] parts = currentShopItems.get(i).split(" ");
                 this.shop.getStock().put(formatItemString(parts[0]), Integer.parseInt(parts[1]));
             }
+            System.out.println("");
             loadPlayer(0, playerStatus1, activeDeckString1, gridString1);
             loadPlayer(1, playerStatus2, activeDeckString2, gridString2);
             System.out.println(gridString2);
@@ -587,7 +589,7 @@ public class GameMaster {
         int col = index % 5;
         char letter = (char) ('A' + row);
         int number = col + 1;
-        return "" + letter + number;
+        return "" + letter + "0" + number;
     }
 
     public void save(String folderPath, String type) {
@@ -667,7 +669,7 @@ public class GameMaster {
             }
         }
         try {
-            saveLoad.Save(folderPath, type, this.currentTurn, currentShopItems, playerStatus1, activeDeckString1,
+            saveLoad.Save(folderPath, type, this.currentTurn + 1, currentShopItems, playerStatus1, activeDeckString1,
                     gridString1,
                     playerStatus2, activeDeckString2, gridString2);
         } catch (Exception e) {

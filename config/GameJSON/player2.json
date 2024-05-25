@@ -1,7 +1,7 @@
 {
   "JUMLAH_GULDEN": 300,
-  "JUMLAH_DECK": 38,
-  "JUMLAH_DECK_AKTIF": 2,
+  "JUMLAH_DECK": 37,
+  "JUMLAH_DECK_AKTIF": 3,
   "DECK_AKTIF": [
     {
       "LOKASI_KARTU": "A01",
@@ -10,6 +10,10 @@
     {
       "LOKASI_KARTU": "B01",
       "KARTU": "BERUANG"
+    },
+    {
+      "LOKASI_KARTU": "C01",
+      "KARTU": "AYAM"
     }
   ],
   "JUMLAH_KARTU_LADANG": 1,
