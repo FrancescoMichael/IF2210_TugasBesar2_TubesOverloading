@@ -2,6 +2,7 @@ package oop;
 
 import java.io.File;
 import java.net.URL;
+// import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -21,6 +22,8 @@ import javafx.stage.Stage;
 import javafx.fxml.Initializable;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
+import java.io.FileInputStream;
+
 import oop.plugin.PluginInterface;
 import oop.plugin.PluginLoader;
 import javafx.util.Duration;
@@ -641,7 +644,7 @@ public class FieldController implements Initializable{
         mainMediaPlayer.setCycleCount(10);
         mainMediaPlayer.setOnPlaying(() -> {
             mainMediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
-                if (newValue.toSeconds() >= 80) {
+                if (newValue.toSeconds() >= 78) {
                     mainMediaPlayer.seek(Duration.ZERO);
                 }
             });
@@ -793,7 +796,7 @@ public class FieldController implements Initializable{
 
         glowButtonMaker.setGlow(nextTurnBtn);
         nextTurnBtn.setOnMouseClicked(event -> {
-
+            // playGif("/assets/OOP 2/OOP 2/gif/bearAttack.gif", grid11);
             System.out.println("Current Turn: " + gameMaster.getCurrentTurn());
             if (gameMaster.getCurrentTurn() > 18) {
                 setWinningPageVisibility(true);
@@ -1800,5 +1803,48 @@ public class FieldController implements Initializable{
         }
         return imageNames;
 
+    }
+
+    private Image[] loadGifFrames(String filePath) {
+        // Implement loading GIF frames from file here
+        // For simplicity, I'm just returning an array with a single frame
+        try {
+            Image frame = new Image(new FileInputStream(filePath));
+            return new Image[]{frame};
+        } catch (Exception e) {
+            return new Image[0];
+        }
+    }
+
+    public void playGif(String pathImage, ImageView grid) {
+        try {
+            Image[] frames = loadGifFrames(pathImage);
+            int[] frameIndex = {0}; // Use an array to hold the frame index
+            ImageView imageView = new ImageView(frames[frameIndex[0]]);
+            imageView.setLayoutX(grid.getLayoutX());
+            imageView.setLayoutY(grid.getLayoutY());
+    
+            // Add the ImageView to your scene (assuming you have a Pane to add it to)
+            ((Pane) grid.getParent()).getChildren().add(imageView);
+    
+            // Create a Timeline to animate the frames
+            Timeline timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+                frameIndex[0] = (frameIndex[0] + 1) % frames.length;
+                imageView.setImage(frames[frameIndex[0]]);
+            }));
+            timeline.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        // // Create an ImageView to display the frames
+        // imageView = new ImageView(frames[frameIndex]);
+
+        // // Create a Timeline to animate the frames
+        // timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> {
+        //     frameIndex = (frameIndex + 1) % frames.length;
+        //     imageView.setImage(frames[frameIndex]);
+        // }));
     }
 }

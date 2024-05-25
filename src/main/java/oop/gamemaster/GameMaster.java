@@ -182,7 +182,6 @@ public class GameMaster {
         if (finisih){
             this.bearAttack = false;
             controller.loadGridActiveDeck();
-    
         }
 
     }
