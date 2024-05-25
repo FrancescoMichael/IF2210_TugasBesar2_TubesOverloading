@@ -369,15 +369,15 @@
          <font>
             <Font name="Arcade Normal" size="13.0" />
          </font></Label>
-      <Label fx:id="firstPlayerMoney" layoutX="900.0" layoutY="50.0" text="Label" textFill="#fafafa" >
+      <Label fx:id="firstPlayerMoney" layoutX="900.0" layoutY="50.0" text="Label" textFill="#FDEF45" >
          <font>
             <Font name="Arcade Normal" size="13.0" />
          </font></Label>
-      <Label fx:id="secondPlayerMoney" layoutX="900.0" layoutY="84.0" text="Label" textFill="#fafafa" >
+      <Label fx:id="secondPlayerMoney" layoutX="900.0" layoutY="84.0" text="Label" textFill="#FDEF45" >
          <font>
             <Font name="Arcade Normal" size="13.0" />
          </font></Label>
-      <Label fx:id="turn" layoutX="630.0" layoutY="67.0" text="0" textFill="#fafafa" >
+      <Label fx:id="turn" layoutX="610.0" layoutY="65.0" alignment="CENTER" prefHeight="24.0" prefWidth="50.0" text="0" textFill="#fafafa" textAlignment="CENTER">
          <font>
             <Font name="Arcade Normal" size="13.0" />
          </font></Label>
