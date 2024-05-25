@@ -971,6 +971,9 @@ public class FieldController implements Initializable {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
             if (!gameMaster.isBearAttack()) {
+                clickMediaPlayer.stop();
+                playTokoMusic();
+                setState("TokoState");
                 toToko1.setVisible(true);
                 toLadangLawan1.setVisible(false);
                 toLadangku1.setVisible(false);
@@ -1047,13 +1050,6 @@ public class FieldController implements Initializable {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
             setState("SaveState");
-        });
-
-        toToko.setOnMouseClicked(event -> {
-            clickMediaPlayer.stop();
-            clickMediaPlayer.play();
-            playTokoMusic();
-            setState("TokoState");
         });
 
         ClosePopUpToko.setOnMouseClicked(event -> {
