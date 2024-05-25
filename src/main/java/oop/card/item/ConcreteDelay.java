@@ -11,7 +11,10 @@ public class ConcreteDelay implements ItemEffect, BadEffect {
         } else if (cardTarget instanceof Plant && !cardTarget.isProtected()){
             // increase age of plant
             cardTarget.increaseWeightAfterEffect(-2);
-        } else {
+        } else if (cardTarget.isProtected()){
+            throw new InvalidProtected();
+        }
+        else {
             throw new InvalidCardPlacementException();
         }
     }
