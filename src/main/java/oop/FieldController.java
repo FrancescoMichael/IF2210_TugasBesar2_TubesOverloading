@@ -1215,17 +1215,19 @@ public class FieldController implements Initializable {
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
+            SellButton.setVisible(false);
             LabelKuantitas.setVisible(visible);
             Kuantitas.setVisible(visible);
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_jagung.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
             currentProductName = "Jagung";
             PopUpToko.setVisible(visible);
+            SellButton.setVisible(false);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/jagung.png"));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText("Jagung");
@@ -1239,9 +1241,10 @@ public class FieldController implements Initializable {
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_daging_kuda.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
+            SellButton.setVisible(false);
             clickMediaPlayer.play();
             currentProductName = "Daging Kuda";
             PopUpToko.setVisible(visible);
@@ -1258,10 +1261,11 @@ public class FieldController implements Initializable {
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_sirip_hiu.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
+            SellButton.setVisible(false);
             currentProductName = "Sirip Hiu";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/sirip_hiu.png"));
@@ -1277,12 +1281,13 @@ public class FieldController implements Initializable {
             BuyButton.setVisible(visible);
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_stroberi.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
             currentProductName = "Stroberi";
             PopUpToko.setVisible(visible);
+            SellButton.setVisible(false);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/stroberi.png"));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText("Stroberi");
@@ -1296,8 +1301,9 @@ public class FieldController implements Initializable {
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_susu.setOnMouseClicked(event -> {
+            SellButton.setVisible(false);
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
             currentProductName = "Susu";
@@ -1315,7 +1321,7 @@ public class FieldController implements Initializable {
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-
+        
         toko_telur.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1325,6 +1331,7 @@ public class FieldController implements Initializable {
             ImageToko.setVisible(visible);
             AnimalNameToko.setText("Telur");
             AnimalNameToko.setVisible(visible);
+            SellButton.setVisible(false);
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
@@ -1345,6 +1352,7 @@ public class FieldController implements Initializable {
             AnimalNameToko.setText("Labu");
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(false);
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
@@ -1365,6 +1373,7 @@ public class FieldController implements Initializable {
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
+            SellButton.setVisible(false);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
             LabelKuantitas.setVisible(visible);
@@ -1501,8 +1510,8 @@ public class FieldController implements Initializable {
         });
 
         SellButton.setOnMouseClicked(event -> {
-            moneyMediaPlayer.stop();
-            moneyMediaPlayer.play();
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             try {
                 gameMaster.getShop().Sell(gameMaster.getCurrentPlayer(), currentProduct);
                 loadToko();
@@ -1516,14 +1525,17 @@ public class FieldController implements Initializable {
                 LabelHarga.setVisible(false);
                 LabelKuantitas.setVisible(false);
                 Kuantitas.setVisible(false);
+                clickMediaPlayer.stop();
+                moneyMediaPlayer.stop();
+                moneyMediaPlayer.play();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         });
 
         BuyButton.setOnMouseClicked(event -> {
-            moneyMediaPlayer.stop();
-            moneyMediaPlayer.play();
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             try {
                 gameMaster.getShop().Buy(gameMaster.getCurrentPlayer(), currentProductName);
                 loadToko();
@@ -1537,6 +1549,9 @@ public class FieldController implements Initializable {
                 LabelHarga.setVisible(false);
                 LabelKuantitas.setVisible(false);
                 Kuantitas.setVisible(false);
+                clickMediaPlayer.stop();
+                moneyMediaPlayer.stop();
+                moneyMediaPlayer.play();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
