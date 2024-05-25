@@ -60,7 +60,6 @@ public class CardTest {
 
 
             // STARTING WITH EMPTY GRID
-            System.out.println(" FIRST INITIALIZING");
 
             player1.printGridActiveDeckTest();
             player2.printGridActiveDeckTest();
@@ -69,7 +68,6 @@ public class CardTest {
             // adding to grid, adding all creature to grid
             // Player1
             // in this example, the 0'th index of activeDeck, which is "hiu darat" is being dragged to grid at row 1, col 2
-            System.out.println("ADD HIU DARAT IN ROW 1 COL 2");
             ((UsableCard) player1.getCardActiveDeck(0) ).useCard( player1.getCardGrid(1, 2) , 1, 2);
 
             // Jika berhasil maka GUI akan menghapus deck pada active deck
@@ -80,7 +78,6 @@ public class CardTest {
             assertTrue(  (player1.getCardGrid(1, 2) instanceof Animals) && (player1.getCardGrid(1, 2) instanceof Carnivore) );
             
             // TRYING TO FEED CARNIVORE at grid 1 - 2 (row - col)  , index 4 of active deck
-            System.out.println("HEREEEE");
             // System.out.println(player1.getCardActiveDeck(1));
             ((UsableCard) player1.getCardActiveDeck(4)).useCard( player1.getCardGrid(1, 2), 1, 2);
             
@@ -92,7 +89,6 @@ public class CardTest {
             // Trying to feed carnivore at grid 1,2 with AD index 3 susu
             ((UsableCard) player1.getCardActiveDeck(5)).useCard( player1.getCardGrid(1, 2), 1, 2);
             player1.removeCardAtActiveDeck(5);
-            System.out.println(player1.getCardGrid(1, 2));
             
             player1.addCardToActiveDeckFirstEmpty( new CarnivoreFood("Susu", 100, "Carnivore", 4));
             player1.addCardToActiveDeckFirstEmpty( new CarnivoreFood("Susu", 100, "dummy.img", 4));
@@ -116,7 +112,6 @@ public class CardTest {
             player1.removeCardAtActiveDeck(5);
             ( (UsableCard)player1.getCardActiveDeck(2) ).useCard( player1.getCardGrid(3, 4), 3, 4);
             player1.removeCardAtActiveDeck(2);
-            System.out.println(player1.getCardGrid(3, 4));
 
             player1.addCardToActiveDeckFirstEmpty(new Item("Delay"));
             player1.addCardToActiveDeckFirstEmpty(new Item("Delay"));
@@ -128,7 +123,6 @@ public class CardTest {
             player1.printGridActiveDeckTest();
 
             player1.invokeCard(0, 3, 4, player1);
-            System.out.println(player1.getCardGrid(3, 4));
 
             player1.invokeCard(3, 0, 0, player1);
 

@@ -13,21 +13,17 @@ public class SaveLoadTXT implements PluginInterface {
     public void loadPlayer(String filename, List<Integer> playerStatus, List<String> activeDeckString,
             List<String> gridString) throws IOException {
         BufferedReader reader = new BufferedReader(new FileReader(filename));
-        
-        System.out.println("Start txt");
+
         // player status
         int gold = Integer.parseInt(reader.readLine().trim());
         int totalDeck = Integer.parseInt(reader.readLine().trim());
         playerStatus.add(gold);
         playerStatus.add(totalDeck);
-        System.out.println("Start active deck");
         // active deck
         int activeDeck = Integer.parseInt(reader.readLine().trim());
         for (int i = 0; i < activeDeck; i++) {
             activeDeckString.add(reader.readLine());
         }
-
-        System.out.println("Start grid");
 
         // grid
         int totalField = Integer.parseInt(reader.readLine().trim());
@@ -40,18 +36,13 @@ public class SaveLoadTXT implements PluginInterface {
 
     @Override
     public int loadGame(String filename, List<String> shopItems) throws IOException {
-        System.out.println("Start game");
-        System.out.println("Ini file : " +  filename);
         BufferedReader reader = new BufferedReader(new FileReader(filename));
 
-        System.out.println("Start game");
         int turn = Integer.parseInt(reader.readLine().trim());
         int numItemsInShop = Integer.parseInt(reader.readLine().trim());
-        System.out.println("Start shop");
         for (int i = 0; i < numItemsInShop; i++) {
             shopItems.add(reader.readLine().trim());
         }
-        System.out.println("End Shop");
         reader.close();
 
         return turn;
