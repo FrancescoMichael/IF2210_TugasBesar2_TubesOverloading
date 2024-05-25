@@ -584,6 +584,9 @@ public class FieldController implements Initializable {
     @FXML
     private MediaView placeMusic;
 
+    @FXML
+    private ImageView clock;
+
     private Timeline countdownTimeline;
 
     private GameMaster gameMaster = new GameMaster();
