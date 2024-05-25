@@ -86,12 +86,12 @@ public class DraggableMaker {
         if (isInField) {
             // fieldController.glowButtonMaker.setGlow(sourceImageView);
             sourceImageView.setOnMouseClicked(event -> {
-                if (!wasDragged && !fieldController.isInEnemyField()) {
+                int row = ((int) (event.getSceneY() - 70) / 100) + 1;
+                int col = ((int) (event.getSceneX() - 34.4) / 100) + 1;
+                if (!wasDragged && !fieldController.isInEnemyField()&& !gameMaster.getCurrentPlayer().getCardGrid(row - 1, col - 1).isEmpty()) {
                     fieldController.clickMediaPlayer.stop();
                     fieldController.clickMediaPlayer.play();
                     
-                    int row = ((int) (event.getSceneY() - 70) / 100) + 1;
-                    int col = ((int) (event.getSceneX() - 34.4) / 100) + 1;
 
                     if (gameMaster.getCurrentPlayer().getCardGrid(row - 1, col - 1).isHarvestable()) {
                         fieldController.getPanenBtn().setOnMouseClicked(e -> {
