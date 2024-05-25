@@ -1,6 +1,8 @@
-# Project Name
-> Outline a brief description of your project.
-> Live demo [_here_](https://www.example.com). <!-- If you have the project hosted somewhere, include the link here. -->
+
+
+# Remidi Kelola Kerajaan
+> Program java sederhana untuk mensimulasikan permainan kartu menggunakan GUI javaFX
+
 
 ## Table of Contents
 - [Project Name](#project-name)
@@ -10,82 +12,77 @@
   - [Features](#features)
   - [Screenshots](#screenshots)
   - [Setup](#setup)
-  - [Usage](#usage)
   - [Project Status](#project-status)
   - [Room for Improvement](#room-for-improvement)
   - [Acknowledgements](#acknowledgements)
-  - [Contact](#contact)
 <!-- * [License](#license) -->
 
 
 ## General Information
-- Provide general information about your project here.
-- What problem does it (intend to) solve?
-- What is the purpose of your project?
-- Why did you undertake it?
-<!-- You don't have to answer all the questions - just the ones relevant to your project. -->
+Permainan yang kami buat adalah permainan kartu *drag and drop* yang dibuat menggunakann Java dengan framework JavaFX sebagai kakas GUI.
+
+Permainan *Remidi Kelola Kerajaan* dimulai dengan dua pemain. Pemain pertama akan mendapatkan 4 kartu secara random yang dapat di*shuffle* ulang sampai mendapatkan kartu - kartu yang diinginkan, kartu tersebut kemudian akan ditempatkan pada *active deck* pemain yang memiliki slot maksimal 6 kartu. Setelah fase *shuffle*, pemain dapat melakukan berbagai hal yakni menanam kartu *creature* dari *active deck* ke ladang, menggunakan kartu *item* yang efeknya bervariasi, memberi makan kepada kartu *creature* pada ladang, memanen kartu di ladang yang siap dipanen, dan lain - lain. Pada awal *shuffle* terdapat kemungkinan pemain terkena serangan beruang, pada fase tersebut pemain memiliki waktu tertentu (acak antara 30 dan 60 detik) untuk memindahkan kartu pada ladangnya yang ditargetkan beruang ke subgrid yang lain.
+
+Permainan kita juga menyediakan fitur *Plugin* yang dapat digunakan untuk menambahkan format berkas yang dapat di muat atau simpan.
 
 
 ## Technologies Used
-- Tech 1 - version 1.0
-- Tech 2 - version 2.0
-- Tech 3 - version 3.0
-
+- Java version 21.0.0 or higher
+- Apache Maven 3.8.0 or higher
+- JavaFX version 21.0.0
 
 ## Features
-List the ready features here:
-- Awesome feature 1
-- Awesome feature 2
-- Awesome feature 3
-
+- Drag and drop cards
+- Plugin
+- Shop
+- Bear Attack
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+![home](img/home.png)</br></br>
+![shuffle](img/shuffle.png)</br></br>
+![bearAttack](img/bearAttack.png)</br></br>
+![detailCard](img/detailCard.png)</br></br>
+![toko](img/toko.png)</br></br>
+![save](img/save.png)</br></br>
+![load](img/load.png)</br></br>
+![plugin](img/plugin.png)</br></br>
 <!-- If you have screenshots you'd like to share, include them here. -->
 
 
 ## Setup
-What are the project requirements/dependencies? Where are they listed? A requirements.txt or a Pipfile.lock file perhaps? Where is it located?
+### Prerequisites
+- Apache Maven
+- Java version 21 or higher
 
-Proceed to describe how to install / setup one's local environment / get started with the project.
-
-
-## Usage
-How does one go about using it?
-Provide various use cases and code examples here.
-
-`write-your-code-here`
+### Compile and run
+```shell
+mvn clean install
+java -jar target/oop2-0.0.1.jar
+```
 
 
 ## Project Status
-Project is: _in progress_ / _complete_ / _no longer being worked on_. If you are no longer working on it, provide reasons why.
-
+Project is:  _complete_  
 
 ## Room for Improvement
-Include areas you believe need improvement / could be improved. Also add TODOs for future development.
 
-Room for improvement:
-- Improvement to be done 1
+Things to improve:
+- Improve design pattern
+- Improve object-oriented programming implementation
 
 
 To do:
-- Feature to be added 1
-- Feature to be added 2
+- Flexible grid size (can change grid size)
+-  Unit Testing
 
 
 ## Acknowledgements
-Give credit here.
-- This project was inspired by...
-- This project was based on [this tutorial](https://www.example.com).
-- Many thanks to...
+- Denise Felicia Tiowanni (13522013)
+- Francesco Michael Kusuma (13522038)
+- Maximilian Sulistiyo (13522061)
+- Marvel Pangondian (13522075)
+- Abdullah Mubarak (1352210)
 
 
-## Contact
-Created by [@flynerdpl](https://www.flynerd.pl/) - feel free to contact me!
 
 
-<!-- Optional -->
-<!-- ## License -->
-<!-- This project is open source and available under the [... License](). -->
-
-<!-- You don't have to include all sections - just the one's relevant to your project -->
