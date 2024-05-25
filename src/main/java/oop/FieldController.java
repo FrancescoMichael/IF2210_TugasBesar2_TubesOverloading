@@ -575,6 +575,9 @@ public class FieldController implements Initializable{
 
     @FXML
     private MediaView mediaView;
+
+    @FXML
+    private ImageView clock;
     
     private Timeline countdownTimeline;
 
@@ -687,7 +690,7 @@ public class FieldController implements Initializable{
             retry.setVisible(false);
             okshuffle.setVisible(false);
             try {
-                gameMaster.doneShuffling(timerLabel, this);
+                gameMaster.doneShuffling(timerLabel, this, clock);
                 updateDeckLeft();
             } catch (BaseException e) {
                 System.out.println(e.getMessage());
@@ -1686,7 +1689,7 @@ public class FieldController implements Initializable{
 
 
 
-
+        // clock.setVisible(true);
         // startCountdown();
         return draggableMaker.setRedGlowOnRandomGroup(matrix_pane);
     }
@@ -1745,7 +1748,9 @@ public class FieldController implements Initializable{
                 new KeyFrame(Duration.seconds(27), event -> timerLabel.setText("Timer: 3")),
                 new KeyFrame(Duration.seconds(28), event -> timerLabel.setText("Timer: 2")),
                 new KeyFrame(Duration.seconds(29), event -> timerLabel.setText("Timer: 1")),
-                new KeyFrame(Duration.seconds(30), event -> timerLabel.setText("Timer: 0")));
+                new KeyFrame(Duration.seconds(30), event -> {
+                    timerLabel.setText("Timer: 0");
+                }));
         countdownTimeline.setCycleCount(1);
         countdownTimeline.play();
     }
