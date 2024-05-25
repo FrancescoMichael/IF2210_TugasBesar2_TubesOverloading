@@ -1591,7 +1591,7 @@ public class FieldController implements Initializable{
         firstPlayerMoney.setText(gameMaster.getPlayer(0).getGulden() + "");
         secondPlayerMoney.setText(gameMaster.getPlayer(1).getGulden() + "");
         turn.setText((gameMaster.getCurrentTurn() + 1 ) + "");
-        if (gameMaster.getCurrentTurn() % 2 == 1) {
+        if (gameMaster.getCurrentTurn() % 2 == 0) {
             titleplayer1turn.setVisible(true);
             titleplayer2turn.setVisible(false);
         } else {
