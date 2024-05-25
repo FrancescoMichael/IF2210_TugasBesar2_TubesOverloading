@@ -730,5 +730,6 @@
       <MediaView fx:id="clickMusic" />
       <MediaView fx:id="bearMusic" />
       <MediaView fx:id="placeMusic" />
+      <MediaView fx:id="moneyMusic" />
    </children>
 </AnchorPane>

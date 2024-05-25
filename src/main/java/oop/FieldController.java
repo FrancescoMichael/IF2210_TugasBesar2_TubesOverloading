@@ -585,6 +585,9 @@ public class FieldController implements Initializable {
     private MediaView placeMusic;
 
     @FXML
+    private MediaView moneyMusic;
+
+    @FXML
     private ImageView clock;
 
     private Timeline countdownTimeline;
@@ -610,6 +613,8 @@ public class FieldController implements Initializable {
     MediaPlayer bearMediaPlayer;
 
     MediaPlayer placeMediaPlayer;
+
+    MediaPlayer moneyMediaPlayer;
 
     public DraggableMaker getDraggableMaker() {
         return this.draggableMaker;
@@ -664,10 +669,12 @@ public class FieldController implements Initializable {
         String clickPath = "/assets/OOP 2/OOP 2/music/clickButton.mp3";
         String bearPath = "/assets/OOP 2/OOP 2/music/bearAttack.mp3";
         String placePath = "/assets/OOP 2/OOP 2/music/placeSound.mp3";
+        String moneyPath = "/assets/OOP 2/OOP 2/music/moneyMusic.mp3";
         URL clickUrl = getClass().getResource(clickPath);
         URL musicUrl = getClass().getResource(musicFile);
         URL bearUrl = getClass().getResource(bearPath);
         URL placeUrl = getClass().getResource(placePath);
+        URL moneyUrl = getClass().getResource(moneyPath);
         if (musicUrl != null) {
             Media media = new Media(musicUrl.toExternalForm());
             mainMediaPlayer = new MediaPlayer(media);
@@ -684,6 +691,10 @@ public class FieldController implements Initializable {
             Media placeMedia = new Media(placeUrl.toExternalForm());
             placeMediaPlayer = new MediaPlayer(placeMedia);
             placeMusic.setMediaPlayer(placeMediaPlayer);
+
+            Media moneyMedia = new Media(moneyUrl.toExternalForm());
+            moneyMediaPlayer = new MediaPlayer(moneyMedia);
+            moneyMusic.setMediaPlayer(moneyMediaPlayer);
         } else {
             System.out.println("Music file not found");
         }
@@ -1490,8 +1501,8 @@ public class FieldController implements Initializable {
         });
 
         SellButton.setOnMouseClicked(event -> {
-            clickMediaPlayer.stop();
-            clickMediaPlayer.play();
+            moneyMediaPlayer.stop();
+            moneyMediaPlayer.play();
             try {
                 gameMaster.getShop().Sell(gameMaster.getCurrentPlayer(), currentProduct);
                 loadToko();
@@ -1511,8 +1522,8 @@ public class FieldController implements Initializable {
         });
 
         BuyButton.setOnMouseClicked(event -> {
-            clickMediaPlayer.stop();
-            clickMediaPlayer.play();
+            moneyMediaPlayer.stop();
+            moneyMediaPlayer.play();
             try {
                 gameMaster.getShop().Buy(gameMaster.getCurrentPlayer(), currentProductName);
                 loadToko();
