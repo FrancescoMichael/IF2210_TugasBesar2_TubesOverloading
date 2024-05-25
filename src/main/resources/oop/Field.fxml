@@ -721,12 +721,12 @@
             <Image url="@../assets/OOP%202/OOP%202/button/exitgame.png" />
          </image>
       </ImageView>
-      <MediaView fx:id="mediaView" />
       <ImageView fx:id="clock" fitHeight="52.0" fitWidth="30.0" layoutX="655.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/misc/clock.png" />
          </image>
       </ImageView>
+      <MediaView fx:id="mediaView" />
       <MediaView fx:id="clickMusic" />
       <MediaView fx:id="bearMusic" />
       <MediaView fx:id="placeMusic" />
