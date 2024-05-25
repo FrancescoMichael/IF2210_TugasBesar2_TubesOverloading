@@ -319,7 +319,7 @@ public class GameMaster {
 
             this.bearAttack = true;
             controller.BearMediaPlayerPlay();
-            this.bearAttackTimer(timeLabel, controller);
+            this.bearAttackTimer(timeLabel, controller, clock);
 
         }
 
