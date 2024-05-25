@@ -618,7 +618,7 @@
             <Image url="@../assets/OOP%202/OOP%202/button/jual.png" />
          </image>
       </ImageView>
-      <Label fx:id="AnimalNameToko" layoutX="344.0" layoutY="290.0" prefHeight="17.0" prefWidth="390.0" text="Label" textAlignment="CENTER" textFill="WHITE" visible="false" alignment="CENTER"/>
+      <Label fx:id="AnimalNameToko" alignment="CENTER" layoutX="344.0" layoutY="290.0" prefHeight="17.0" prefWidth="390.0" text="Label" textAlignment="CENTER" textFill="WHITE" visible="false" />
       <ImageView fx:id="ClosePopUpToko" fitHeight="18.0" fitWidth="20.0" layoutX="706.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/misc/close_button.png" />
@@ -629,9 +629,9 @@
             <Image url="@../assets/OOP%202/OOP%202/background/home.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="home_main_title" fitHeight="203.0" fitWidth="814.0" layoutX="132.0" layoutY="154.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="home_main_title" fitHeight="270.0" fitWidth="841.0" layoutX="119.0" layoutY="128.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/OOP%202/OOP%202/title/tubes_overloading.png" />
+            <Image url="@../assets/OOP%202/OOP%202/title/homegif.gif" />
          </image>
       </ImageView>
       <ImageView fx:id="home_start_button" fitHeight="66.0" fitWidth="176.0" layoutX="441.0" layoutY="384.0" pickOnBounds="true" preserveRatio="true">
@@ -649,9 +649,9 @@
             <Image url="@../assets/OOP%202/OOP%202/background/menang.png" />
          </image>
       </ImageView>
-      <Label fx:id="menang_player_info" layoutX="19.0" layoutY="229.0" prefHeight="89.0" prefWidth="1037.0" textAlignment="CENTER" visible="false" textFill="white" alignment="CENTER">
+      <Label fx:id="menang_player_info" alignment="CENTER" layoutX="19.0" layoutY="229.0" prefHeight="89.0" prefWidth="1037.0" textAlignment="CENTER" textFill="white" visible="false">
          <font>
-            <Font size="24.0"/>
+            <Font size="24.0" />
          </font>
       </Label>
       <ImageView fx:id="retrygame" fitHeight="58.0" fitWidth="136.0" layoutX="600.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true" visible="false">

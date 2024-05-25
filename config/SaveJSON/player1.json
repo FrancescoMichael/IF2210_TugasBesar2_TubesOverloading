@@ -1,0 +1,35 @@
+{
+  "JUMLAH_KARTU_LADANG": 2,
+  "KARTU_LADANG": [
+    {
+      "UMUR_BERAT": 5,
+      "KARTU": "DOMBA",
+      "LOKASI_KARTU": "A1",
+      "JUMLAH_ITEM_AKTIF": 2,
+      "ITEMS": [
+        "ACCELERATE",
+        "PROTECT"
+      ]
+    },
+    {
+      "UMUR_BERAT": 0,
+      "KARTU": "AYAM",
+      "LOKASI_KARTU": "B2",
+      "JUMLAH_ITEM_AKTIF": 0,
+      "ITEMS": []
+    }
+  ],
+  "DECK_AKTIF": [
+    {
+      "KARTU": "BERUANG",
+      "LOKASI_KARTU": "A1"
+    },
+    {
+      "KARTU": "BERUANG",
+      "LOKASI_KARTU": "B1"
+    }
+  ],
+  "JUMLAH_GULDEN": 500,
+  "JUMLAH_DECK_AKTIF": 2,
+  "JUMLAH_DECK": 39
+}
