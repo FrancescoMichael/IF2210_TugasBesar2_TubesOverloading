@@ -665,5 +665,8 @@
          </image>
       </ImageView>
       <MediaView fx:id="mediaView"/>
+      <MediaView fx:id="clickMusic"/>
+      <MediaView fx:id="bearMusic"/>
+      <MediaView fx:id="placeMusic"/>
    </children>
 </AnchorPane>

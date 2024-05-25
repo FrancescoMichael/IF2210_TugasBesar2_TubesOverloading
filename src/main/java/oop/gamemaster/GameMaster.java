@@ -315,6 +315,7 @@ public class GameMaster {
         if (Math.random() < 0.25) {
 
             this.bearAttack = true;
+            controller.BearMediaPlayerPlay();
             this.bearAttackTimer(timeLabel, controller);
 
         }

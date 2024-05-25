@@ -87,12 +87,16 @@ public class DraggableMaker {
             // fieldController.glowButtonMaker.setGlow(sourceImageView);
             sourceImageView.setOnMouseClicked(event -> {
                 if (!wasDragged && !fieldController.isInEnemyField()) {
+                    fieldController.clickMediaPlayer.stop();
+                    fieldController.clickMediaPlayer.play();
                     
                     int row = ((int) (event.getSceneY() - 70) / 100) + 1;
                     int col = ((int) (event.getSceneX() - 34.4) / 100) + 1;
 
                     if (gameMaster.getCurrentPlayer().getCardGrid(row - 1, col - 1).isHarvestable()) {
                         fieldController.getPanenBtn().setOnMouseClicked(e -> {
+                            fieldController.clickMediaPlayer.stop();
+                            fieldController.clickMediaPlayer.play();
                             try {
                                 gameMaster.getCurrentFieldPlayer().getCardGrid(row - 1, col - 1).harvestCreature(row - 1, col - 1);
                                 fieldController.loadGridActiveDeck();
@@ -175,32 +179,28 @@ public class DraggableMaker {
 
                         // Check if the target cell is empty
                         Player CurrentPLayer = gameMaster.getCurrentPlayer();
-                        if (true) {
-                            if (sourceImageView.getImage() != null) {
-                                String sourceImageUrl = sourceImageView.getImage().getUrl();
-                                
-                                if (idSourceImage.charAt(0) != 'k') {
-                                    try {
-                                        CurrentPLayer.invokeCard(index, row - 1, col - 1,
-                                        gameMaster.getCurrentFieldPlayer());
-                                        fieldController.loadGridActiveDeck();
-                                        
-                                        makeDraggable(targetImageView, matrix_grid, gameMaster, true);
-                                    } catch (BaseException e) {
-                                        System.out.println(e.getMessage());
-                                    }
-                                } else {
-                                    try {
-                                        CurrentPLayer.moveCardGridtoGrid(rowSource - 1, colSource - 1, row - 1, col - 1, CurrentPLayer);
-                                        fieldController.loadGridActiveDeck();
-                                        makeDraggable(targetImageView, matrix_grid, gameMaster, true);
-                                    } catch (BaseException e) {
-                                        System.out.println(e.getMessage());
-                                    }
-
+                        fieldController.placeMusicOn();
+                        if (sourceImageView.getImage() != null) {
+                            if (idSourceImage.charAt(0) != 'k') {
+                                try {
+                                    CurrentPLayer.invokeCard(index, row - 1, col - 1,
+                                    gameMaster.getCurrentFieldPlayer());
+                                    fieldController.loadGridActiveDeck();
+                                    makeDraggable(targetImageView, matrix_grid, gameMaster, true);
+                                } catch (BaseException e) {
+                                    System.out.println(e.getMessage());
+                                }
+                            } else {
+                                try {
+                                    CurrentPLayer.moveCardGridtoGrid(rowSource - 1, colSource - 1, row - 1, col - 1, CurrentPLayer);
+                                    fieldController.loadGridActiveDeck();
+                                    makeDraggable(targetImageView, matrix_grid, gameMaster, true);
+                                } catch (BaseException e) {
+                                    System.out.println(e.getMessage());
                                 }
 
                             }
+
                         }
                     }
 
@@ -278,6 +278,7 @@ public class DraggableMaker {
     }
 
     public void removeGlowAll(){
+        fieldController.BearMediaPlayerStop();
         for (Pane cell : glowingCells) {
             setRedGlow(cell, false);
         }
