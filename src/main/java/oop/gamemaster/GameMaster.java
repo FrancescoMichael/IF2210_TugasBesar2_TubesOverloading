@@ -312,7 +312,7 @@ public class GameMaster {
 
         // decrementing deck left
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
-        if (false) {
+        if (Math.random() < 0.2) {
 
             this.bearAttack = true;
             this.bearAttackTimer(timeLabel, controller);
@@ -460,12 +460,12 @@ public class GameMaster {
         return new HerbivoreFood(carnivoreFood, info.get(0), "Herbivore", info.get(1));
     }
 
-    public int coordinateToIndex(String coordinate) {
+    public int coordinateToIndex(String coordinate, int length) {
         char letter = coordinate.charAt(0);
         int number = Integer.parseInt(coordinate.substring(1)) - 1;
         int col = letter - 'A';
         int row = number;
-        return row * 5 + col;
+        return row * length + col;
     }
 
     public static String formatItemString(String input) {
@@ -503,7 +503,7 @@ public class GameMaster {
         for (int i = 0; i < activeDeckString.size(); i++) {
             String[] parts = activeDeckString.get(i).split(" ");
             // System.out.println(" INI INDEX " + parts[0] + );
-            int index = coordinateToIndex(parts[0]);
+            int index = coordinateToIndex(parts[0], 6);
             if (index < 6) {
                 Card newCard = allCardMap.get(formatItemString(parts[1])).get();
                 try {
@@ -518,7 +518,7 @@ public class GameMaster {
         playerChange.emptyGrid();
         for (int i = 0; i < gridString.size(); i++) {
             String[] parts = gridString.get(i).split(" ");
-            int index = coordinateToIndex(parts[0]);
+            int index = coordinateToIndex(parts[0], 5);
             if (index <= 19) {
                 Card newCard = allCardMap.get(formatItemString(parts[1])).get();
                 Creature newCreature = (Creature) newCard;
@@ -584,9 +584,9 @@ public class GameMaster {
 
     }
 
-    public String indexToCoordinate(int index) {
-        int row = index / 5;
-        int col = index % 5;
+    public String indexToCoordinate(int index, int length) {
+        int col = index / length;
+        int row = index % length;
         char letter = (char) ('A' + row);
         int number = col + 1;
         return "" + letter + "0" + number;
@@ -615,7 +615,7 @@ public class GameMaster {
         for (Card card : this.getPlayer(0).getActiveDeck()) {
             if (!card.getName().equals("")) {
                 activeDeckString1
-                        .add(indexToCoordinate(this.getPlayer(0).searchActiveCardIndex(card)) + " "
+                        .add(indexToCoordinate(this.getPlayer(0).searchActiveCardIndex(card), 6) + " "
                                 + saveFormatString(card.getName().toUpperCase()));
             }
         }
@@ -630,7 +630,7 @@ public class GameMaster {
                 }
                 String effectNames = effectNamesBuilder.toString().trim();
                 gridString1
-                        .add(indexToCoordinate(this.getPlayer(0).searchGridIndex(creature)) + " "
+                        .add(indexToCoordinate(this.getPlayer(0).searchGridIndex(creature), 5) + " "
                                 + saveFormatString(creature.getName().toUpperCase()) + " " + creature.getWeight() + " "
                                 + numOfEffect
                                 + " "
@@ -644,7 +644,7 @@ public class GameMaster {
         for (Card card : this.getPlayer(1).getActiveDeck()) {
             if (!card.getName().equals("")) {
                 activeDeckString2
-                        .add(indexToCoordinate(this.getPlayer(1).searchActiveCardIndex(card)) + " "
+                        .add(indexToCoordinate(this.getPlayer(1).searchActiveCardIndex(card), 6) + " "
                                 + saveFormatString(card.getName().toUpperCase()));
             }
 
@@ -660,7 +660,7 @@ public class GameMaster {
                 }
                 String effectNames = effectNamesBuilder.toString().trim();
                 gridString2
-                        .add(indexToCoordinate(this.getPlayer(1).searchGridIndex(creature)) + " "
+                        .add(indexToCoordinate(this.getPlayer(1).searchGridIndex(creature), 5) + " "
                                 + saveFormatString(creature.getName().toUpperCase()) + " " + creature.getWeight() + " "
                                 + numOfEffect
                                 + " "
