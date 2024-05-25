@@ -34,8 +34,7 @@ import oop.gamemaster.GameMaster;
 import oop.player.Player;
 import oop.card.product.*;
 
-
-public class FieldController implements Initializable{
+public class FieldController implements Initializable {
 
     @FXML
     private ImageView ActiveDeck1;
@@ -240,7 +239,7 @@ public class FieldController implements Initializable{
 
     @FXML
     private ImageView PanenBtn;
-    
+
     @FXML
     private ImageView AnimalImage;
 
@@ -329,7 +328,7 @@ public class FieldController implements Initializable{
 
     @FXML
     private ImageView CloseBtn;
- 
+
     @FXML
     private ImageView clickableGrid11;
 
@@ -342,16 +341,16 @@ public class FieldController implements Initializable{
     @FXML
     private Label turn;
 
-    @FXML 
+    @FXML
     private ImageView titleplayer1;
 
-    @FXML 
+    @FXML
     private ImageView titleplayer2;
 
-    @FXML 
+    @FXML
     private ImageView titleplayer1turn;
 
-    @FXML 
+    @FXML
     private ImageView titleplayer2turn;
 
     @FXML
@@ -512,7 +511,7 @@ public class FieldController implements Initializable{
 
     @FXML
     private Label AnimalNameToko;
-    
+
     @FXML
     private ImageView ClosePopUpToko;
 
@@ -575,7 +574,22 @@ public class FieldController implements Initializable{
 
     @FXML
     private MediaView mediaView;
-    
+
+    @FXML
+    private MediaView clickMusic;
+
+    @FXML
+    private MediaView bearMusic;
+
+    @FXML
+    private MediaView placeMusic;
+
+    @FXML
+    private MediaView moneyMusic;
+
+    @FXML
+    private ImageView clock;
+
     private Timeline countdownTimeline;
 
     private GameMaster gameMaster = new GameMaster();
@@ -594,7 +608,15 @@ public class FieldController implements Initializable{
 
     String currentProductName;
 
-    public DraggableMaker getDraggableMaker(){
+    MediaPlayer clickMediaPlayer;
+
+    MediaPlayer bearMediaPlayer;
+
+    MediaPlayer placeMediaPlayer;
+
+    MediaPlayer moneyMediaPlayer;
+
+    public DraggableMaker getDraggableMaker() {
         return this.draggableMaker;
     }
 
@@ -613,7 +635,7 @@ public class FieldController implements Initializable{
         okshuffle.setVisible(true);
 
         ImageView[] shuffleCards = {
-            shufflecard1, shufflecard2, shufflecard3, shufflecard4
+                shufflecard1, shufflecard2, shufflecard3, shufflecard4
         };
 
         for (int i = 0; i < cardNames.size() && i < shuffleCards.length; i++) {
@@ -630,18 +652,53 @@ public class FieldController implements Initializable{
 
     private MediaPlayer mainMediaPlayer;
 
+    public void BearMediaPlayerPlay() {
+        mainMediaPlayer.stop();
+        bearMediaPlayer.play();
+    }
+
+    public void BearMediaPlayerStop() {
+        mainMediaPlayer.play();
+        bearMediaPlayer.stop();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        String musicFile = "/assets/OOP 2/OOP 2/music/mainMusic.mp3"; // Ensure this path is correct
+        // music
+        String musicFile = "/assets/OOP 2/OOP 2/music/mainMusic.mp3";
+        String clickPath = "/assets/OOP 2/OOP 2/music/clickButton.mp3";
+        String bearPath = "/assets/OOP 2/OOP 2/music/bearAttack.mp3";
+        String placePath = "/assets/OOP 2/OOP 2/music/placeSound.mp3";
+        String moneyPath = "/assets/OOP 2/OOP 2/music/moneyMusic.mp3";
+        URL clickUrl = getClass().getResource(clickPath);
         URL musicUrl = getClass().getResource(musicFile);
+        URL bearUrl = getClass().getResource(bearPath);
+        URL placeUrl = getClass().getResource(placePath);
+        URL moneyUrl = getClass().getResource(moneyPath);
         if (musicUrl != null) {
             Media media = new Media(musicUrl.toExternalForm());
             mainMediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mainMediaPlayer);
+
+            Media clickMedia = new Media(clickUrl.toExternalForm());
+            clickMediaPlayer = new MediaPlayer(clickMedia);
+            clickMusic.setMediaPlayer(clickMediaPlayer);
+
+            Media bearMedia = new Media(bearUrl.toExternalForm());
+            bearMediaPlayer = new MediaPlayer(bearMedia);
+            bearMusic.setMediaPlayer(bearMediaPlayer);
+
+            Media placeMedia = new Media(placeUrl.toExternalForm());
+            placeMediaPlayer = new MediaPlayer(placeMedia);
+            placeMusic.setMediaPlayer(placeMediaPlayer);
+
+            Media moneyMedia = new Media(moneyUrl.toExternalForm());
+            moneyMediaPlayer = new MediaPlayer(moneyMedia);
+            moneyMusic.setMediaPlayer(moneyMediaPlayer);
         } else {
             System.out.println("Music file not found");
         }
-        mainMediaPlayer.setCycleCount(10);
+        mainMediaPlayer.setCycleCount(-1);
         mainMediaPlayer.setOnPlaying(() -> {
             mainMediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue.toSeconds() >= 78) {
@@ -649,10 +706,22 @@ public class FieldController implements Initializable{
                 }
             });
         });
+        clickMediaPlayer.setOnPlaying(() -> {
+            clickMediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.toMillis() >= 400) {
+                    clickMediaPlayer.stop();
+                }
+            });
+        });
+        bearMediaPlayer.setOnPlaying(() -> {
+            bearMediaPlayer.seek(Duration.seconds(5));
+        });
         mainMediaPlayer.play();
 
         glowButtonMaker.setGlow(home_start_button);
         home_start_button.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             if (!gameStarted) {
                 // mediaPlayer.stop();
                 timerLabel.setVisible(false);
@@ -669,12 +738,15 @@ public class FieldController implements Initializable{
     public void initializeGameComponents() {
         glowButtonMaker.setGlow(retry);
         retry.setOnMouseClicked(event -> {
+            playShuffleMusic();
             gameMaster.shuffle();
             ShuffleVisible(gameMaster.getCurrentShuffle());
         });
 
         glowButtonMaker.setGlow(okshuffle);
         okshuffle.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             shuffleBG.setVisible(false);
             shufflecard1.setVisible(false);
             shufflecard1.setImage(new Image("/assets/OOP 2/OOP 2/misc/empty_cards_deck.png"));
@@ -687,7 +759,7 @@ public class FieldController implements Initializable{
             retry.setVisible(false);
             okshuffle.setVisible(false);
             try {
-                gameMaster.doneShuffling(timerLabel, this);
+                gameMaster.doneShuffling(timerLabel, this, clock);
                 updateDeckLeft();
             } catch (BaseException e) {
                 System.out.println(e.getMessage());
@@ -701,12 +773,14 @@ public class FieldController implements Initializable{
         glowButtonMaker.setGlow(plugin_button);
         glowButtonMaker.setGlow(save_button);
         glowButtonMaker.setGlow(toko_back);
-        
+
         glowButtonMaker.setGlow(SellButton);
         glowButtonMaker.setGlow(BuyButton);
         glowButtonMaker.setGlow(ClosePopUpToko);
 
         close.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             hideAll();
             // reset combobox and label
             saveFormatComboBox.setValue(null);
@@ -717,20 +791,29 @@ public class FieldController implements Initializable{
         });
 
         toko_back.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
+            playTokoMusic();
             hideAll();
             loadGridActiveDeck();
             loadOther();
         });
 
         chooseFilePluginLabel.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             handleFileChoose();
         });
 
         chooseSaveFolderLabel.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             handleSaveFolderChoose();
         });
 
         chooseLoadFolderLabel.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             handleLoadFolderChoose();
         });
 
@@ -738,11 +821,23 @@ public class FieldController implements Initializable{
         loadFormatComboBox.getItems().addAll("txt");
 
         glowButtonMaker.setGlow(save_button);
-        save_button.setOnMouseClicked(event -> handleSave());
+        save_button.setOnMouseClicked(event -> {
+            handleSave();
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
+        });
         glowButtonMaker.setGlow(load_button);
-        load_button.setOnMouseClicked(event -> handleLoad());
+        load_button.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
+            handleLoad();
+        });
         glowButtonMaker.setGlow(plugin_button);
-        plugin_button.setOnMouseClicked(event -> handlePlugin());
+        plugin_button.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
+            handlePlugin();
+        });
 
         titleplayer1turn.setVisible(true);
         titleplayer2turn.setVisible(false);
@@ -756,7 +851,6 @@ public class FieldController implements Initializable{
         gameMaster.setCurrentFieldPlayer(player1);
         gameMaster.shuffle();
         ShuffleVisible(gameMaster.getCurrentShuffle());
-        
 
         // initialize matrixgrid and matrixCardInField
         matrixGrid = new ImageView[][] {
@@ -789,55 +883,66 @@ public class FieldController implements Initializable{
         label3.setText("ITEM AKTIF:");
 
         glowButtonMaker.setGlow(CloseBtn);
-        CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false, true));
-        CloseBtn.setOnMouseClicked(event -> setPanenPageVisibility(false, true));
+        CloseBtn.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
+            setPanenPageVisibility(false, true);
+        });
+        CloseBtn.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
+            setPanenPageVisibility(false, true);
+        });
 
         glowButtonMaker.setGlow(PanenBtn);
 
         glowButtonMaker.setGlow(nextTurnBtn);
         nextTurnBtn.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             // playGif("/assets/OOP 2/OOP 2/gif/bearAttack.gif", grid11);
-            System.out.println("Current Turn: " + gameMaster.getCurrentTurn());
             if (gameMaster.getCurrentTurn() > 18) {
                 setWinningPageVisibility(true);
-            }
-            else {
-            if (!gameMaster.isBearAttack()) {
-                try{
-                    gameMaster.next();
-                    // example of shuffle and done shuffling
-                    
-                    gameMaster.shuffle();
-                    ShuffleVisible(gameMaster.getCurrentShuffle());
-                } catch (BaseException e){
-    
+            } else {
+                if (!gameMaster.isBearAttack()) {
+                    try {
+                        gameMaster.next();
+                        // example of shuffle and done shuffling
+
+                        gameMaster.shuffle();
+                        ShuffleVisible(gameMaster.getCurrentShuffle());
+                    } catch (BaseException e) {
+
+                    }
+
+                    turn.setText(gameMaster.getCurrentTurn() + 1 + "");
+                    gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
+                    loadGridActiveDeck();
+                    toLadangku1.setVisible(true);
+                    toLadangLawan1.setVisible(false);
+                    toToko1.setVisible(false);
+                    SaveState1.setVisible(false);
+                    LoadPlugin1.setVisible(false);
+                    LoadState1.setVisible(false);
+
+                    if (gameMaster.getCurrentTurn() % 2 == 1) {
+                        titleplayer1turn.setVisible(false);
+                        titleplayer2turn.setVisible(true);
+                    } else {
+                        titleplayer1turn.setVisible(true);
+                        titleplayer2turn.setVisible(false);
+                    }
                 }
-    
-                turn.setText(gameMaster.getCurrentTurn() + 1 + "");
-                gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
-                loadGridActiveDeck();
-                toLadangku1.setVisible(true);
-                toLadangLawan1.setVisible(false);
-                toToko1.setVisible(false);
-                SaveState1.setVisible(false);
-                LoadPlugin1.setVisible(false);
-                LoadState1.setVisible(false);
-    
-                if (gameMaster.getCurrentTurn() % 2 == 1) {
-                    titleplayer1turn.setVisible(false);
-                    titleplayer2turn.setVisible(true);
-                } else {
-                    titleplayer1turn.setVisible(true);
-                    titleplayer2turn.setVisible(false);
-                }
-            }
             }
         });
 
         glowButtonMaker.setGlow(toLadangLawan);
         toLadangLawan.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             if (!gameMaster.isBearAttack()) {
-                gameMaster.setCurrentFieldPlayer(gameMaster.getListPlayers().get((gameMaster.getCurrentTurn() + 1) % 2));
+                gameMaster
+                        .setCurrentFieldPlayer(gameMaster.getListPlayers().get((gameMaster.getCurrentTurn() + 1) % 2));
                 loadGridActiveDeck();
                 toLadangLawan1.setVisible(true);
                 toLadangku1.setVisible(false);
@@ -850,6 +955,8 @@ public class FieldController implements Initializable{
         glowButtonMaker.setGlow(toLadangku);
         toLadangku1.setVisible(true);
         toLadangku.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
             loadGridActiveDeck();
             toLadangku1.setVisible(true);
@@ -861,7 +968,12 @@ public class FieldController implements Initializable{
         });
         glowButtonMaker.setGlow(toToko);
         toToko.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             if (!gameMaster.isBearAttack()) {
+                clickMediaPlayer.stop();
+                playTokoMusic();
+                setState("TokoState");
                 toToko1.setVisible(true);
                 toLadangLawan1.setVisible(false);
                 toLadangku1.setVisible(false);
@@ -872,6 +984,8 @@ public class FieldController implements Initializable{
         });
         glowButtonMaker.setGlow(SaveState);
         SaveState.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             if (!gameMaster.isBearAttack()) {
                 SaveState1.setVisible(true);
                 toToko1.setVisible(false);
@@ -883,6 +997,8 @@ public class FieldController implements Initializable{
         });
         glowButtonMaker.setGlow(LoadPlugin);
         LoadPlugin.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             if (!gameMaster.isBearAttack()) {
                 LoadPlugin1.setVisible(true);
                 toToko1.setVisible(false);
@@ -894,6 +1010,8 @@ public class FieldController implements Initializable{
         });
         glowButtonMaker.setGlow(LoadState);
         LoadState.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             if (!gameMaster.isBearAttack()) {
                 LoadState1.setVisible(true);
                 toToko1.setVisible(false);
@@ -917,22 +1035,26 @@ public class FieldController implements Initializable{
         bearAttackButton.setVisible(false);
 
         LoadPlugin.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             setState("LoadPlugin");
         });
 
         LoadState.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             setState("LoadState");
         });
 
         SaveState.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             setState("SaveState");
         });
 
-        toToko.setOnMouseClicked(event -> {
-            setState("TokoState");
-        });
-
         ClosePopUpToko.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             PopUpToko.setVisible(false);
             ImageToko.setVisible(false);
             AnimalNameToko.setVisible(false);
@@ -954,11 +1076,13 @@ public class FieldController implements Initializable{
         Player winner = gameMaster.getWinner();
         // set label menang player info to player name
         if (gameMaster.getPlayer(0).getGulden() == gameMaster.getPlayer(1).getGulden()) {
+            playDrawMusic();
             menang_player_info.setText("Player 1's gulden is the same as Player 2's!");
         } else {
-        menang_player_info.setText(winner.getName() + " has win with " + winner.getGulden() + " !");
+            playVictoryMusic();
+            menang_player_info.setText(winner.getName() + " has win with " + winner.getGulden() + " !");
         }
-        
+
         glowButtonMaker.setGlow(retrygame);
         retrygame.setOnMouseClicked(event -> {
             gameMaster = new GameMaster();
@@ -970,6 +1094,8 @@ public class FieldController implements Initializable{
         });
 
         exitgame.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             System.exit(0);
         });
     }
@@ -1070,12 +1196,14 @@ public class FieldController implements Initializable{
         toko_telur.setVisible(visible);
         toko_labu.setVisible(visible);
         toko_daging_beruang.setVisible(visible);
-        
+
         List<String> deckImageUrls = getActiveDeckImageUrls();
         List<String> deckImageNames = getActiveDeckImageName();
         updateTokoDeckImages(deckImageUrls);
 
         toko_daging_domba.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProductName = "Daging Domba";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_domba.png"));
@@ -1086,6 +1214,7 @@ public class FieldController implements Initializable{
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
+            SellButton.setVisible(false);
             LabelKuantitas.setVisible(visible);
             Kuantitas.setVisible(visible);
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
@@ -1093,8 +1222,11 @@ public class FieldController implements Initializable{
         });
         
         toko_jagung.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProductName = "Jagung";
             PopUpToko.setVisible(visible);
+            SellButton.setVisible(false);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/jagung.png"));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText("Jagung");
@@ -1110,6 +1242,9 @@ public class FieldController implements Initializable{
         });
         
         toko_daging_kuda.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            SellButton.setVisible(false);
+            clickMediaPlayer.play();
             currentProductName = "Daging Kuda";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_kuda.png"));
@@ -1127,6 +1262,9 @@ public class FieldController implements Initializable{
         });
         
         toko_sirip_hiu.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
+            SellButton.setVisible(false);
             currentProductName = "Sirip Hiu";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/sirip_hiu.png"));
@@ -1144,8 +1282,11 @@ public class FieldController implements Initializable{
         });
         
         toko_stroberi.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProductName = "Stroberi";
             PopUpToko.setVisible(visible);
+            SellButton.setVisible(false);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/stroberi.png"));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText("Stroberi");
@@ -1161,6 +1302,9 @@ public class FieldController implements Initializable{
         });
         
         toko_susu.setOnMouseClicked(event -> {
+            SellButton.setVisible(false);
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProductName = "Susu";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/susu.png"));
@@ -1178,12 +1322,15 @@ public class FieldController implements Initializable{
         });
         
         toko_telur.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProductName = "Telur";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/telur.png"));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText("Telur");
             AnimalNameToko.setVisible(visible);
+            SellButton.setVisible(false);
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
@@ -1193,8 +1340,10 @@ public class FieldController implements Initializable{
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_labu.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProductName = "Labu";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/labu.png"));
@@ -1202,6 +1351,7 @@ public class FieldController implements Initializable{
             AnimalNameToko.setText("Labu");
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
+            SellButton.setVisible(false);
             LabelHarga.setVisible(visible);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
@@ -1210,8 +1360,10 @@ public class FieldController implements Initializable{
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_daging_beruang.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProductName = "Daging Beruang";
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image("/assets/OOP 2/OOP 2/icons/daging_beruang.png"));
@@ -1220,6 +1372,7 @@ public class FieldController implements Initializable{
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
+            SellButton.setVisible(false);
             Harga.setVisible(visible);
             BuyButton.setVisible(visible);
             LabelKuantitas.setVisible(visible);
@@ -1227,8 +1380,10 @@ public class FieldController implements Initializable{
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_deck7.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProduct = 0;
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image(deckImageUrls.get(0)));
@@ -1241,19 +1396,21 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         toko_deck8.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProduct = 1;
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image(deckImageUrls.get(1)));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText(deckImageNames.get(1));
-            
+
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
@@ -1261,13 +1418,15 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         toko_deck9.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProduct = 2;
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image(deckImageUrls.get(2)));
@@ -1280,13 +1439,15 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         toko_deck10.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProduct = 3;
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image(deckImageUrls.get(3)));
@@ -1299,13 +1460,15 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         toko_deck11.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProduct = 4;
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image(deckImageUrls.get(4)));
@@ -1318,13 +1481,15 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         toko_deck12.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             currentProduct = 5;
             PopUpToko.setVisible(visible);
             ImageToko.setImage(new Image(deckImageUrls.get(5)));
@@ -1337,13 +1502,15 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         SellButton.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             try {
                 gameMaster.getShop().Sell(gameMaster.getCurrentPlayer(), currentProduct);
                 loadToko();
@@ -1357,12 +1524,17 @@ public class FieldController implements Initializable{
                 LabelHarga.setVisible(false);
                 LabelKuantitas.setVisible(false);
                 Kuantitas.setVisible(false);
+                clickMediaPlayer.stop();
+                moneyMediaPlayer.stop();
+                moneyMediaPlayer.play();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         });
 
         BuyButton.setOnMouseClicked(event -> {
+            clickMediaPlayer.stop();
+            clickMediaPlayer.play();
             try {
                 gameMaster.getShop().Buy(gameMaster.getCurrentPlayer(), currentProductName);
                 loadToko();
@@ -1376,12 +1548,14 @@ public class FieldController implements Initializable{
                 LabelHarga.setVisible(false);
                 LabelKuantitas.setVisible(false);
                 Kuantitas.setVisible(false);
+                clickMediaPlayer.stop();
+                moneyMediaPlayer.stop();
+                moneyMediaPlayer.play();
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
         });
     }
-
 
     private void setLoadPluginVisible(boolean visible) {
         background.setVisible(visible);
@@ -1475,7 +1649,7 @@ public class FieldController implements Initializable{
         try {
             // Load the plugin
             PluginLoader pluginLoader = new PluginLoader();
-            
+
             pluginLoader.loadPlugin(file.getAbsolutePath(), gameMaster.getSaveLoad());
 
             // Update the format combo boxes
@@ -1525,8 +1699,6 @@ public class FieldController implements Initializable{
         // load
         try {
             String foldername = chooseLoadFolderLabel.getText();
-            System.out.println("foldername: "+ foldername);
-            System.out.println("format: "+ format);
             gameMaster.load(foldername, format);
             gameMaster.getCurrentPlayer().printGridActiveDeckTest();
             loadGridActiveDeck();
@@ -1540,8 +1712,8 @@ public class FieldController implements Initializable{
 
     public void updateTokoDeckImages(List<String> imageUrls) {
         ImageView[] tokoDecks = {
-            toko_deck7, toko_deck8, toko_deck9, 
-            toko_deck10, toko_deck11, toko_deck12
+                toko_deck7, toko_deck8, toko_deck9,
+                toko_deck10, toko_deck11, toko_deck12
         };
 
         for (int i = 0; i < imageUrls.size() && i < tokoDecks.length; i++) {
@@ -1566,7 +1738,7 @@ public class FieldController implements Initializable{
                     activeCard.setImage(new Image(imageUrl));
                 }
             }
-    
+
             for (ImageView[] listGrid : matrixCardInField) {
                 for (ImageView grid : listGrid) {
                     String gridId = grid.getId();
@@ -1609,10 +1781,10 @@ public class FieldController implements Initializable{
 
     public void loadToko() {
         int enumerator = 0;
-        List<String> updatedActiveDeck= getActiveDeckImageUrls();
+        List<String> updatedActiveDeck = getActiveDeckImageUrls();
         updateTokoDeckImages(updatedActiveDeck);
     }
-    
+
     public void setAllLabel(int row, int col) {
         try {
             AnimalName.setText(gameMaster.getCurrentPlayer().getCardGrid(row, col).getName());
@@ -1625,16 +1797,16 @@ public class FieldController implements Initializable{
                 label5.setText("");
             }
 
-            List<String> effect = gameMaster.getCurrentPlayer().getAllEffecArrayList(row,col);
+            List<String> effect = gameMaster.getCurrentPlayer().getAllEffecArrayList(row, col);
             if (listItems.size() >= 1) {
                 String temp = "";
-                for (String str : effect){
+                for (String str : effect) {
                     temp += str;
                 }
                 label4.setText(temp);
-    
+
             }
-    
+
         } catch (BaseException e) {
             e.printStackTrace();
             // Handle the exception, e.g., show an error message to the user
@@ -1643,27 +1815,48 @@ public class FieldController implements Initializable{
 
     public ImageView getImageViewById(String id) {
         switch (id) {
-            case "kosong11": return kosong11;
-            case "kosong12": return kosong12;
-            case "kosong13": return kosong13;
-            case "kosong14": return kosong14;
-            case "kosong15": return kosong15;
-            case "kosong21": return kosong21;
-            case "kosong22": return kosong22;
-            case "kosong23": return kosong23;
-            case "kosong24": return kosong24;
-            case "kosong25": return kosong25;
-            case "kosong31": return kosong31;
-            case "kosong32": return kosong32;
-            case "kosong33": return kosong33;
-            case "kosong34": return kosong34;
-            case "kosong35": return kosong35;
-            case "kosong41": return kosong41;
-            case "kosong42": return kosong42;
-            case "kosong43": return kosong43;
-            case "kosong44": return kosong44;
-            case "kosong45": return kosong45;
-            default: return null;
+            case "kosong11":
+                return kosong11;
+            case "kosong12":
+                return kosong12;
+            case "kosong13":
+                return kosong13;
+            case "kosong14":
+                return kosong14;
+            case "kosong15":
+                return kosong15;
+            case "kosong21":
+                return kosong21;
+            case "kosong22":
+                return kosong22;
+            case "kosong23":
+                return kosong23;
+            case "kosong24":
+                return kosong24;
+            case "kosong25":
+                return kosong25;
+            case "kosong31":
+                return kosong31;
+            case "kosong32":
+                return kosong32;
+            case "kosong33":
+                return kosong33;
+            case "kosong34":
+                return kosong34;
+            case "kosong35":
+                return kosong35;
+            case "kosong41":
+                return kosong41;
+            case "kosong42":
+                return kosong42;
+            case "kosong43":
+                return kosong43;
+            case "kosong44":
+                return kosong44;
+            case "kosong45":
+                return kosong45;
+            default:
+                return null;
         }
     }
 
@@ -1676,20 +1869,9 @@ public class FieldController implements Initializable{
                 { plane41, plane42, plane43, plane44, plane45 }
         };
 
-        for (Pane[] row : matrix_pane) {
-            for (Pane pane : row) {
-                if (pane == null) {
-                    System.err.println("Pane is null in matrix_pane");
-                }
-            }
-        }
-
-
-
-
-        // startCountdown();
         return draggableMaker.setRedGlowOnRandomGroup(matrix_pane);
     }
+
     public void setPanenPageVisibility(boolean bool, boolean isHarvestable) {
         label1.setVisible(bool);
         label2.setVisible(bool);
@@ -1706,48 +1888,6 @@ public class FieldController implements Initializable{
             PanenBtn.setVisible(!bool);
         }
 
-        
-    }
-
-    private void startCountdown() {
-        if (countdownTimeline != null) {
-            countdownTimeline.stop();
-        }
-
-        countdownTimeline = new Timeline(
-                new KeyFrame(Duration.seconds(0), event -> timerLabel.setText("Timer: 30")),
-                new KeyFrame(Duration.seconds(1), event -> timerLabel.setText("Timer: 29")),
-                new KeyFrame(Duration.seconds(2), event -> timerLabel.setText("Timer: 28")),
-                new KeyFrame(Duration.seconds(3), event -> timerLabel.setText("Timer: 27")),
-                new KeyFrame(Duration.seconds(4), event -> timerLabel.setText("Timer: 26")),
-                new KeyFrame(Duration.seconds(5), event -> timerLabel.setText("Timer: 25")),
-                new KeyFrame(Duration.seconds(6), event -> timerLabel.setText("Timer: 24")),
-                new KeyFrame(Duration.seconds(7), event -> timerLabel.setText("Timer: 23")),
-                new KeyFrame(Duration.seconds(8), event -> timerLabel.setText("Timer: 22")),
-                new KeyFrame(Duration.seconds(9), event -> timerLabel.setText("Timer: 21")),
-                new KeyFrame(Duration.seconds(10), event -> timerLabel.setText("Timer: 20")),
-                new KeyFrame(Duration.seconds(11), event -> timerLabel.setText("Timer: 19")),
-                new KeyFrame(Duration.seconds(12), event -> timerLabel.setText("Timer: 18")),
-                new KeyFrame(Duration.seconds(13), event -> timerLabel.setText("Timer: 17")),
-                new KeyFrame(Duration.seconds(14), event -> timerLabel.setText("Timer: 16")),
-                new KeyFrame(Duration.seconds(15), event -> timerLabel.setText("Timer: 15")),
-                new KeyFrame(Duration.seconds(16), event -> timerLabel.setText("Timer: 14")),
-                new KeyFrame(Duration.seconds(17), event -> timerLabel.setText("Timer: 13")),
-                new KeyFrame(Duration.seconds(18), event -> timerLabel.setText("Timer: 12")),
-                new KeyFrame(Duration.seconds(19), event -> timerLabel.setText("Timer: 11")),
-                new KeyFrame(Duration.seconds(20), event -> timerLabel.setText("Timer: 10")),
-                new KeyFrame(Duration.seconds(21), event -> timerLabel.setText("Timer: 9")),
-                new KeyFrame(Duration.seconds(22), event -> timerLabel.setText("Timer: 8")),
-                new KeyFrame(Duration.seconds(23), event -> timerLabel.setText("Timer: 7")),
-                new KeyFrame(Duration.seconds(24), event -> timerLabel.setText("Timer: 6")),
-                new KeyFrame(Duration.seconds(25), event -> timerLabel.setText("Timer: 5")),
-                new KeyFrame(Duration.seconds(26), event -> timerLabel.setText("Timer: 4")),
-                new KeyFrame(Duration.seconds(27), event -> timerLabel.setText("Timer: 3")),
-                new KeyFrame(Duration.seconds(28), event -> timerLabel.setText("Timer: 2")),
-                new KeyFrame(Duration.seconds(29), event -> timerLabel.setText("Timer: 1")),
-                new KeyFrame(Duration.seconds(30), event -> timerLabel.setText("Timer: 0")));
-        countdownTimeline.setCycleCount(1);
-        countdownTimeline.play();
     }
 
     public ImageView getAnimalImage() {
@@ -1817,7 +1957,7 @@ public class FieldController implements Initializable{
     }
 
     public void playGif(String pathImage, ImageView grid) {
-        try {
+        try { 
             Image[] frames = loadGifFrames(pathImage);
             int[] frameIndex = {0}; // Use an array to hold the frame index
             ImageView imageView = new ImageView(frames[frameIndex[0]]);
@@ -1837,14 +1977,80 @@ public class FieldController implements Initializable{
             e.printStackTrace();
         }
 
-
-        // // Create an ImageView to display the frames
-        // imageView = new ImageView(frames[frameIndex]);
-
-        // // Create a Timeline to animate the frames
-        // timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-        //     frameIndex = (frameIndex + 1) % frames.length;
-        //     imageView.setImage(frames[frameIndex]);
-        // }));
     }
-}
+ 
+    public void placeMusicOn() {
+        placeMediaPlayer.stop();
+        placeMediaPlayer.play();
+    }
+
+    public void playVictoryMusic() {
+        mainMediaPlayer.stop();
+        String musicFile = "/assets/OOP 2/OOP 2/music/victoryMusic.mp3";
+        URL musicUrl = getClass().getResource(musicFile);
+        if (musicUrl != null) {
+            Media media = new Media(musicUrl.toExternalForm());
+            mainMediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(mainMediaPlayer);
+        } else {
+            System.out.println("Music file not found");
+        }
+        mainMediaPlayer.setOnPlaying(() -> {
+            mainMediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.toSeconds() >= 30) {
+                    mainMediaPlayer.seek(Duration.ZERO);
+                }
+            });
+        });
+        mainMediaPlayer.play();
+    }
+    
+    public void playDrawMusic() {
+        mainMediaPlayer.stop();
+        String musicFile = "/assets/OOP 2/OOP 2/music/drawMusic.mp3";
+        URL musicUrl = getClass().getResource(musicFile);
+        if (musicUrl != null) {
+            Media media = new Media(musicUrl.toExternalForm());
+            mainMediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(mainMediaPlayer);
+        } else {
+            System.out.println("Music file not found");
+        }
+        mainMediaPlayer.setOnPlaying(() -> {
+            mainMediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.toSeconds() >= 5) {
+                    mainMediaPlayer.seek(Duration.ZERO);
+                }
+            });
+        });
+        mainMediaPlayer.play();
+    }
+    
+    public void playShuffleMusic() {
+        MediaPlayer shuffleMediaPlayer;
+        String musicFile = "/assets/OOP 2/OOP 2/music/shuffleMusic.mp3";
+        URL musicUrl = getClass().getResource(musicFile);
+        if (musicUrl != null) {
+            Media media = new Media(musicUrl.toExternalForm());
+            shuffleMediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(shuffleMediaPlayer);
+            shuffleMediaPlayer.play();
+        } else {
+            System.out.println("Music file not found");
+        }
+    }
+    
+    public void playTokoMusic() {
+        MediaPlayer tokoMediaPlayer;
+        String musicFile = "/assets/OOP 2/OOP 2/music/tokoMusic.mp3";
+        URL musicUrl = getClass().getResource(musicFile);
+        if (musicUrl != null) {
+            Media media = new Media(musicUrl.toExternalForm());
+            tokoMediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(tokoMediaPlayer);
+            tokoMediaPlayer.play();
+        } else {
+            System.out.println("Music file not found");
+        }
+    }
+} 

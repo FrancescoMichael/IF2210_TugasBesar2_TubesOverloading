@@ -19,11 +19,11 @@ import oop.card.item.*;;
 
 public class GameMasterTest {
     @Test
-    public void test(){
+    public void test() {
         assertTrue(true);
         GameMaster gameMaster = new GameMaster();
         Player player1 = new Player("Player1");
-        Player player2= new Player("Player2");
+        Player player2 = new Player("Player2");
         List<Player> allPlayer = new ArrayList<>();
         allPlayer.add(player1);
         allPlayer.add(player2);
@@ -32,9 +32,9 @@ public class GameMasterTest {
         service.increaseAgeOfPlants();
         List<Plant> allPlant = service.getSubscribers();
         int currTurn = gameMaster.getCurrentTurn();
-        try{
+        try {
             gameMaster.next();
-        } catch( Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         assertTrue(gameMaster.getCurrentTurn() == currTurn + 1);
@@ -46,15 +46,15 @@ public class GameMasterTest {
         gameMaster.load("src/test/resources", ".txt");
         Food cardCarnivore = gameMaster.generateRandomCarnivoreFood();
         assertTrue(cardCarnivore instanceof CarnivoreFood);
-        Food cardHerbivore =  gameMaster.generateRandomHerbivoreFood();
+        Food cardHerbivore = gameMaster.generateRandomHerbivoreFood();
         assertTrue(cardHerbivore instanceof HerbivoreFood);
         gameMaster.shuffle();
         String tempbefore = "MAKANAN_BERUANG";
         String temp = GameMaster.formatItemString(tempbefore);
         assertTrue(temp.compareTo("Makanan Beruang") == 0);
-        try{
+        try {
             gameMaster.bearAttackProcess(new Integer[10], null, false);
-        }catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e);
         }
         String str = GameMaster.saveFormatString("damnaDSA.txt");
@@ -75,9 +75,9 @@ public class GameMasterTest {
         active.add("ACCELERATE");
         active.add("ACCELERATE");
         try {
-            gameMaster.loadPlayer(currTurn,  temp2, active, grid);
-      
-        } catch( Exception e){
+            gameMaster.loadPlayer(currTurn, temp2, active, grid);
+
+        } catch (Exception e) {
 
         }
         Creature tempRandom = gameMaster.generateRandomHerbivore();
@@ -90,17 +90,17 @@ public class GameMasterTest {
         assertTrue(item instanceof Item);
         Player winner = gameMaster.getWinner();
         assertTrue(winner.getGulden() >= player1.getGulden() && winner.getGulden() >= player2.getGulden());
-        String coor = gameMaster.indexToCoordinate(10 , 5);
+        String coor = gameMaster.indexToCoordinate(10, 5);
         System.err.println(coor);
         Integer f = gameMaster.coordinateToIndex(coor, 5);
         assertTrue(f == 10);
         gameMaster.setCurrentTurn(100);
-        assertTrue(gameMaster.getCurrentTurn()  == 100); 
+        assertTrue(gameMaster.getCurrentTurn() == 100);
         Shop newShow = gameMaster.getShop();
-        try{
-            gameMaster.doneShuffling(null, null);
-        }catch (Exception e){
-            
+        try {
+            gameMaster.doneShuffling(null, null, null);
+        } catch (Exception e) {
+
         }
 
         Player newPlayer = new Player("WINNER");
@@ -110,11 +110,6 @@ public class GameMasterTest {
         Player winner2 = gameMaster.getWinner();
         assertTrue(winner2 == newPlayer);
 
-      
-
-
-
-
     }
-    
+
 }

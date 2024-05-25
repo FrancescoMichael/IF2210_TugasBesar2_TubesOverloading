@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 import static java.util.Map.entry;
 
@@ -186,12 +187,13 @@ public class GameMaster {
 
     }
 
-    public void bearAttackTimer(Label timerLabel, FieldController controller) throws BaseException {
+    public void bearAttackTimer(Label timerLabel, FieldController controller, ImageView clock) throws BaseException {
         Integer[] startEnd = controller.simulateBearAttack(); // Assuming this method is thread-safe
         this.bearAttack = true;
         Platform.runLater(() -> {
             timerLabel.setText("");
             timerLabel.setVisible(true);
+            clock.setVisible(true);
         });
 
         new Thread(() -> {
@@ -220,6 +222,7 @@ public class GameMaster {
                 // Final call to make UI changes and possibly a final bear attack process call
                 Platform.runLater(() -> {
                     timerLabel.setVisible(false);
+                    clock.setVisible(false);
                     if (this.bearAttack) {
                         try {
                             bearAttackProcess(startEnd, controller, true);
@@ -307,7 +310,7 @@ public class GameMaster {
 
     }
 
-    public void doneShuffling(Label timeLabel, FieldController controller) throws BaseException {
+    public void doneShuffling(Label timeLabel, FieldController controller, ImageView clock) throws BaseException {
         Player player = this.getCurrentPlayer();
 
         // decrementing deck left
@@ -315,7 +318,8 @@ public class GameMaster {
         if (Math.random() < 0.2) {
 
             this.bearAttack = true;
-            this.bearAttackTimer(timeLabel, controller);
+            controller.BearMediaPlayerPlay();
+            this.bearAttackTimer(timeLabel, controller, clock);
 
         }
 
@@ -566,7 +570,6 @@ public class GameMaster {
             System.out.println("");
             loadPlayer(0, playerStatus1, activeDeckString1, gridString1);
             loadPlayer(1, playerStatus2, activeDeckString2, gridString2);
-            System.out.println(gridString2);
             this.plantService.getSubscribers().clear();
             List<Plant> plantP1 = this.listPlayers.get(0).getAllPlantsInGrid();
             List<Plant> plantP2 = this.listPlayers.get(1).getAllPlantsInGrid();

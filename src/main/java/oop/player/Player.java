@@ -102,6 +102,7 @@ public class Player {
 
     //
     public void addCardToActiveDeckFirstEmpty(Card card) throws BaseException {
+        System.out.println("ADD TO ACTIVE DECK FIRST");
         if (this.isActiveDeckFull()) {
             throw new ActiveDeckFullException();
         }
@@ -190,7 +191,6 @@ public class Player {
     }
 
     public long getNumberOfCardsInGrid() {
-
         return this.grid.stream().filter(card -> !card.isEmpty()).count();
     }
 
@@ -243,7 +243,7 @@ public class Player {
 
             ((UsableCard) currCard).useCard(targetCard, rowTarget, colTarget);
 
-            // Handle if active full
+            // Handle if active fullx
             if (currCard instanceof Item) {
                 if (((Item) currCard).getEffect() instanceof ConcreteInstantHarvest) {
                     return;

@@ -77,7 +77,6 @@ public class Shop {
         } catch (Exception e) {
             throw new BaseException();
         }
-        System.out.println(indexSelected);
 
         if (selectedCard instanceof Product) {
             // pembelian bisa dilakukan

@@ -6,8 +6,8 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="720.0" prefWidth="1080.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="oop.FieldController">
@@ -246,8 +246,14 @@
       </ImageView>
       
       <Button fx:id="bearAttackButton" layoutX="750.0" layoutY="450.0" text="Bear Attack" />
-      <Label fx:id="timerLabel" layoutX="630.0" layoutY="450.0" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 18px;" text="Timer: 30" textFill="RED" />
-      <Label fx:id="deckLeft" layoutX="610.0" layoutY="614.0" prefHeight="18.0" prefWidth="130.0" text="Label" textFill="WHITE" />
+      <Label fx:id="timerLabel" layoutX="620.0" layoutY="440.0" prefHeight="30.0" prefWidth="200.0" style="-fx-font-size: 18px;" text="Timer: 30" textFill="RED">
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
+      <Label fx:id="deckLeft" layoutX="610.0" layoutY="614.0" prefHeight="18.0" prefWidth="130.0" text="Label" textFill="WHITE">
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
       <ImageView fx:id="toLadangku" fitHeight="52.0" fitWidth="215.0" layoutX="602.0" layoutY="142.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/title/Group%2011.png" />
@@ -329,7 +335,10 @@
          </image>
       </ImageView>
       <ImageView fx:id="AnimalImage" fitHeight="173.0" fitWidth="209.0" layoutX="630.0" layoutY="245.0" pickOnBounds="true" preserveRatio="true" visible="false" />
-      <Label fx:id="AnimalName" layoutX="537.0" layoutY="182.0" text="Label" textFill="WHITE" visible="false" />
+      <Label fx:id="AnimalName" layoutX="537.0" layoutY="182.0" text="Label" textFill="WHITE" visible="false">
+         <font>
+            <Font name="Arcade Normal" size="18.0" />
+         </font></Label>
       <ImageView fx:id="CloseBtn" fitHeight="23.0" fitWidth="28.0" layoutX="852.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/misc/close_button.png" />
@@ -340,14 +349,38 @@
             <Image url="@../assets/OOP%202/OOP%202/button/panen.png" />
          </image>
       </ImageView>
-      <Label fx:id="label1" layoutX="281.0" layoutY="253.0" text="Label" textFill="WHITE" visible="false" />
-      <Label fx:id="label2" layoutX="281.0" layoutY="283.0" text="Label" textFill="WHITE" visible="false" />
-      <Label fx:id="label3" layoutX="281.0" layoutY="323.0" text="Label" textFill="WHITE" visible="false" />
-      <Label fx:id="label4" layoutX="281.0" layoutY="374.0" textFill="WHITE" visible="false" />
-      <Label fx:id="label5" layoutX="281.0" layoutY="397.0" textFill="WHITE" visible="false" />
-      <Label fx:id="firstPlayerMoney" layoutX="900.0" layoutY="50.0" text="Label" textFill="#fafafa" />
-      <Label fx:id="secondPlayerMoney" layoutX="900.0" layoutY="84.0" text="Label" textFill="#fafafa" />
-      <Label fx:id="turn" layoutX="631.0" layoutY="67.0" text="0" textFill="#fafafa" />
+      <Label fx:id="label1" layoutX="281.0" layoutY="253.0" text="Label" textFill="WHITE" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
+      <Label fx:id="label2" layoutX="281.0" layoutY="283.0" text="Label" textFill="WHITE" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
+      <Label fx:id="label3" layoutX="281.0" layoutY="323.0" text="Label" textFill="WHITE" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
+      <Label fx:id="label4" layoutX="281.0" layoutY="374.0" textFill="WHITE" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
+      <Label fx:id="label5" layoutX="281.0" layoutY="397.0" textFill="WHITE" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
+      <Label fx:id="firstPlayerMoney" layoutX="900.0" layoutY="50.0" text="Label" textFill="#FDEF45" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
+      <Label fx:id="secondPlayerMoney" layoutX="900.0" layoutY="84.0" text="Label" textFill="#FDEF45" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
+      <Label fx:id="turn" layoutX="610.0" layoutY="65.0" alignment="CENTER" prefHeight="24.0" prefWidth="50.0" text="0" textFill="#fafafa" textAlignment="CENTER">
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
    <ImageView fx:id="background" fitHeight="761.0" fitWidth="1080.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/background/save-load-plugin.png" />
@@ -438,11 +471,20 @@
             <Image url="@../assets/OOP%202/OOP%202/misc/close_button.png" />
          </image>
       </ImageView>
-      <Label fx:id="chooseFilePluginLabel" layoutX="627.0" layoutY="306.0" style="-fx-font-size: 20px;" text="Click here to choose file!" textFill="white" visible="false" />
+      <Label fx:id="chooseFilePluginLabel" layoutX="627.0" layoutY="306.0" style="-fx-font-size: 20px;" text="Click here to choose file!" textFill="white" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
       <ComboBox fx:id="saveFormatComboBox" layoutX="584.0" layoutY="292.0" prefHeight="33.0" prefWidth="420.0" visible="false" />
-      <Label fx:id="chooseSaveFolderLabel" layoutX="589.0" layoutY="385.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" />
+      <Label fx:id="chooseSaveFolderLabel" layoutX="589.0" layoutY="385.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
       <ComboBox fx:id="loadFormatComboBox" layoutX="584.0" layoutY="282.0" prefHeight="33.0" prefWidth="420.0" visible="false" />
-      <Label fx:id="chooseLoadFolderLabel" layoutX="589.0" layoutY="375.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" />
+      <Label fx:id="chooseLoadFolderLabel" layoutX="589.0" layoutY="375.0" style="-fx-font-size: 20px;" text="Click here to choose folder!" textFill="white" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
       <ImageView fx:id="shuffleBG" fitHeight="558.0" fitWidth="655.0" layoutX="237.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/grid/Rectangle%205.png" />
@@ -604,10 +646,22 @@
          </image>
       </ImageView>
       <ImageView fx:id="ImageToko" fitHeight="93.0" fitWidth="99.0" layoutX="604.0" layoutY="325.0" pickOnBounds="true" preserveRatio="true" visible="false" />
-      <Label fx:id="LabelHarga" layoutX="382.0" layoutY="333.0" text="Harga" textFill="WHITE" visible="false" />
-      <Label fx:id="Harga" layoutX="382.0" layoutY="357.0" text="Label" textFill="WHITE" visible="false" />
-      <Label fx:id="LabelKuantitas" layoutX="382.0" layoutY="388.0" text="Kuantitas" textFill="WHITE" visible="false" />
-      <Label fx:id="Kuantitas" layoutX="382.0" layoutY="408.0" prefHeight="26.0" prefWidth="66.0" textFill="WHITE" visible="false" />
+      <Label fx:id="LabelHarga" layoutX="382.0" layoutY="333.0" text="Harga" textFill="WHITE" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="18.0" />
+         </font></Label>
+      <Label fx:id="Harga" layoutX="382.0" layoutY="357.0" text="Label" textFill="#21EF80" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
+      <Label fx:id="LabelKuantitas" layoutX="382.0" layoutY="388.0" text="Kuantitas" textFill="WHITE" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="18.0" />
+         </font></Label>
+      <Label fx:id="Kuantitas" layoutX="382.0" layoutY="408.0" prefHeight="26.0" prefWidth="66.0" textFill="#21EF80" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="13.0" />
+         </font></Label>
       <ImageView fx:id="BuyButton" fitHeight="38.0" fitWidth="122.0" layoutX="490.0" layoutY="439.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/button/beli.png" />
@@ -618,7 +672,10 @@
             <Image url="@../assets/OOP%202/OOP%202/button/jual.png" />
          </image>
       </ImageView>
-      <Label fx:id="AnimalNameToko" alignment="CENTER" layoutX="344.0" layoutY="290.0" prefHeight="17.0" prefWidth="390.0" text="Label" textAlignment="CENTER" textFill="WHITE" visible="false" />
+      <Label fx:id="AnimalNameToko" alignment="CENTER" layoutX="344.0" layoutY="290.0" prefHeight="17.0" prefWidth="390.0" text="Label" textAlignment="CENTER" textFill="WHITE" visible="false" >
+         <font>
+            <Font name="Arcade Normal" size="18.0" />
+         </font></Label>
       <ImageView fx:id="ClosePopUpToko" fitHeight="18.0" fitWidth="20.0" layoutX="706.0" layoutY="284.0" pickOnBounds="true" preserveRatio="true" visible="false">
          <image>
             <Image url="@../assets/OOP%202/OOP%202/misc/close_button.png" />
@@ -651,7 +708,7 @@
       </ImageView>
       <Label fx:id="menang_player_info" alignment="CENTER" layoutX="19.0" layoutY="229.0" prefHeight="89.0" prefWidth="1037.0" textAlignment="CENTER" textFill="white" visible="false">
          <font>
-            <Font size="24.0" />
+            <Font name="Arcade Normal" size="24.0" />
          </font>
       </Label>
       <ImageView fx:id="retrygame" fitHeight="58.0" fitWidth="136.0" layoutX="600.0" layoutY="396.0" pickOnBounds="true" preserveRatio="true" visible="false">
@@ -664,6 +721,15 @@
             <Image url="@../assets/OOP%202/OOP%202/button/exitgame.png" />
          </image>
       </ImageView>
-      <MediaView fx:id="mediaView"/>
+      <ImageView fx:id="clock" fitHeight="52.0" fitWidth="30.0" layoutX="655.0" layoutY="397.0" pickOnBounds="true" preserveRatio="true" visible="false">
+         <image>
+            <Image url="@../assets/OOP%202/OOP%202/misc/clock.png" />
+         </image>
+      </ImageView>
+      <MediaView fx:id="mediaView" />
+      <MediaView fx:id="clickMusic" />
+      <MediaView fx:id="bearMusic" />
+      <MediaView fx:id="placeMusic" />
+      <MediaView fx:id="moneyMusic" />
    </children>
 </AnchorPane>
