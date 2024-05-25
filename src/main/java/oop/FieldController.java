@@ -793,6 +793,7 @@ public class FieldController implements Initializable {
         toko_back.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
+            playTokoMusic();
             hideAll();
             loadGridActiveDeck();
             loadOther();
@@ -1051,6 +1052,7 @@ public class FieldController implements Initializable {
         toToko.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
+            playTokoMusic();
             setState("TokoState");
         });
 
@@ -2037,6 +2039,20 @@ public class FieldController implements Initializable {
             shuffleMediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(shuffleMediaPlayer);
             shuffleMediaPlayer.play();
+        } else {
+            System.out.println("Music file not found");
+        }
+    }
+    
+    public void playTokoMusic() {
+        MediaPlayer tokoMediaPlayer;
+        String musicFile = "/assets/OOP 2/OOP 2/music/tokoMusic.mp3";
+        URL musicUrl = getClass().getResource(musicFile);
+        if (musicUrl != null) {
+            Media media = new Media(musicUrl.toExternalForm());
+            tokoMediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(tokoMediaPlayer);
+            tokoMediaPlayer.play();
         } else {
             System.out.println("Music file not found");
         }
