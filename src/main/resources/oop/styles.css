@@ -1,12 +1,3 @@
-@font-face {
-    font-family: 'CustomFont';
-    src: url('assets/OOP 2/OOP 2/ARCADE_N.TTF');
-}
-
-.label {
-    -fx-font-family: 'CustomFont';
-}
-
 .combo-box {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
