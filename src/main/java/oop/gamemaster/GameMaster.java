@@ -315,7 +315,7 @@ public class GameMaster {
 
         // decrementing deck left
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
-        if (Math.random() < 0.25) {
+        if (Math.random() < 0.2) {
 
             this.bearAttack = true;
             controller.BearMediaPlayerPlay();
@@ -464,12 +464,12 @@ public class GameMaster {
         return new HerbivoreFood(carnivoreFood, info.get(0), "Herbivore", info.get(1));
     }
 
-    public int coordinateToIndex(String coordinate) {
+    public int coordinateToIndex(String coordinate, int length) {
         char letter = coordinate.charAt(0);
         int number = Integer.parseInt(coordinate.substring(1)) - 1;
-        int row = letter - 'A';
-        int col = number;
-        return row * 5 + col;
+        int col = letter - 'A';
+        int row = number;
+        return row * length + col;
     }
 
     public static String formatItemString(String input) {
@@ -506,7 +506,8 @@ public class GameMaster {
         playerChange.emptyActiveDeck();
         for (int i = 0; i < activeDeckString.size(); i++) {
             String[] parts = activeDeckString.get(i).split(" ");
-            int index = coordinateToIndex(parts[0]);
+            // System.out.println(" INI INDEX " + parts[0] + );
+            int index = coordinateToIndex(parts[0], 6);
             if (index < 6) {
                 Card newCard = allCardMap.get(formatItemString(parts[1])).get();
                 try {
@@ -521,7 +522,7 @@ public class GameMaster {
         playerChange.emptyGrid();
         for (int i = 0; i < gridString.size(); i++) {
             String[] parts = gridString.get(i).split(" ");
-            int index = coordinateToIndex(parts[0]);
+            int index = coordinateToIndex(parts[0], 5);
             if (index <= 19) {
                 Card newCard = allCardMap.get(formatItemString(parts[1])).get();
                 Creature newCreature = (Creature) newCard;
@@ -560,12 +561,13 @@ public class GameMaster {
             this.currentTurn = saveLoad.Load(folderPath, type, currentShopItems,
                     playerStatus1, activeDeckString1, gridString1,
                     playerStatus2, activeDeckString2, gridString2) - 1;
-
+            System.out.println("Hehe");
             this.shop.resetStock();
             for (int i = 0; i < currentShopItems.size(); i++) {
                 String[] parts = currentShopItems.get(i).split(" ");
                 this.shop.getStock().put(formatItemString(parts[0]), Integer.parseInt(parts[1]));
             }
+            System.out.println("");
             loadPlayer(0, playerStatus1, activeDeckString1, gridString1);
             loadPlayer(1, playerStatus2, activeDeckString2, gridString2);
             this.plantService.getSubscribers().clear();
@@ -585,12 +587,12 @@ public class GameMaster {
 
     }
 
-    public String indexToCoordinate(int index) {
-        int row = index / 5;
-        int col = index % 5;
+    public String indexToCoordinate(int index, int length) {
+        int col = index / length;
+        int row = index % length;
         char letter = (char) ('A' + row);
         int number = col + 1;
-        return "" + letter + number;
+        return "" + letter + "0" + number;
     }
 
     public void save(String folderPath, String type) {
@@ -616,7 +618,7 @@ public class GameMaster {
         for (Card card : this.getPlayer(0).getActiveDeck()) {
             if (!card.getName().equals("")) {
                 activeDeckString1
-                        .add(indexToCoordinate(this.getPlayer(0).searchActiveCardIndex(card)) + " "
+                        .add(indexToCoordinate(this.getPlayer(0).searchActiveCardIndex(card), 6) + " "
                                 + saveFormatString(card.getName().toUpperCase()));
             }
         }
@@ -631,7 +633,7 @@ public class GameMaster {
                 }
                 String effectNames = effectNamesBuilder.toString().trim();
                 gridString1
-                        .add(indexToCoordinate(this.getPlayer(0).searchGridIndex(creature)) + " "
+                        .add(indexToCoordinate(this.getPlayer(0).searchGridIndex(creature), 5) + " "
                                 + saveFormatString(creature.getName().toUpperCase()) + " " + creature.getWeight() + " "
                                 + numOfEffect
                                 + " "
@@ -645,7 +647,7 @@ public class GameMaster {
         for (Card card : this.getPlayer(1).getActiveDeck()) {
             if (!card.getName().equals("")) {
                 activeDeckString2
-                        .add(indexToCoordinate(this.getPlayer(1).searchActiveCardIndex(card)) + " "
+                        .add(indexToCoordinate(this.getPlayer(1).searchActiveCardIndex(card), 6) + " "
                                 + saveFormatString(card.getName().toUpperCase()));
             }
 
@@ -661,7 +663,7 @@ public class GameMaster {
                 }
                 String effectNames = effectNamesBuilder.toString().trim();
                 gridString2
-                        .add(indexToCoordinate(this.getPlayer(1).searchGridIndex(creature)) + " "
+                        .add(indexToCoordinate(this.getPlayer(1).searchGridIndex(creature), 5) + " "
                                 + saveFormatString(creature.getName().toUpperCase()) + " " + creature.getWeight() + " "
                                 + numOfEffect
                                 + " "
@@ -670,7 +672,7 @@ public class GameMaster {
             }
         }
         try {
-            saveLoad.Save(folderPath, type, this.currentTurn, currentShopItems, playerStatus1, activeDeckString1,
+            saveLoad.Save(folderPath, type, this.currentTurn + 1, currentShopItems, playerStatus1, activeDeckString1,
                     gridString1,
                     playerStatus2, activeDeckString2, gridString2);
         } catch (Exception e) {

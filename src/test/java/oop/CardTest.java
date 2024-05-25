@@ -15,7 +15,7 @@ import oop.card.product.CarnivoreFood;
 import oop.exceptionkerajaan.BaseException;
 import oop.player.Player;
 
-public class AppTest {
+public class CardTest {
     @Test
     public void test(){
         assertTrue( true );
