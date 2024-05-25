@@ -31,6 +31,7 @@ public class DefaultTest {
             player1.addCardToActiveDeck(new Item("Destroy"), 3);
             player1.addCardToActiveDeck(new Item("Instant Harvest"), 4);
             player1.addCardToActiveDeck(new Item("Accelerate"), 5);
+            assertTrue(player1.isActiveDeckFull());
 
             player2.addCardToActiveDeckFirstEmpty(new Omnivore("Beruang"));
             player2.addCardToActiveDeckFirstEmpty(new Item("Protect"));
@@ -38,7 +39,7 @@ public class DefaultTest {
             player2.addCardToActiveDeckFirstEmpty(new Item("Delay"));
             player2.addCardToActiveDeckFirstEmpty(new Item("Trap"));
             player2.addCardToActiveDeckFirstEmpty(new Plant("Biji Stroberi"));
-
+            assertTrue(player2.isActiveDeckFull());
             player1.printGridActiveDeckTest();
             
 
