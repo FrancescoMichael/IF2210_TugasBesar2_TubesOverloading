@@ -568,7 +568,6 @@ public class GameMaster {
             }
             loadPlayer(0, playerStatus1, activeDeckString1, gridString1);
             loadPlayer(1, playerStatus2, activeDeckString2, gridString2);
-            System.out.println(gridString2);
             this.plantService.getSubscribers().clear();
             List<Plant> plantP1 = this.listPlayers.get(0).getAllPlantsInGrid();
             List<Plant> plantP2 = this.listPlayers.get(1).getAllPlantsInGrid();

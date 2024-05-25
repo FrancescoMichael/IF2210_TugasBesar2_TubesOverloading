@@ -112,10 +112,6 @@ public class DraggableMaker {
 
                     Image currentImage = sourceImageView.getImage();
                     String currentImageUrl = currentImage.getUrl();
-                    // System.out.println(currentImageUrl);
-                    
-                    // String newImageUrl = currentImageUrl.replace("cards", "icons");
-                    // System.out.println(newImageUrl);
 
                     fieldController.getAnimalImage().setImage(new Image(currentImageUrl));
 

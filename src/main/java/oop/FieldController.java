@@ -738,6 +738,7 @@ public class FieldController implements Initializable {
     public void initializeGameComponents() {
         glowButtonMaker.setGlow(retry);
         retry.setOnMouseClicked(event -> {
+            playShuffleMusic();
             gameMaster.shuffle();
             ShuffleVisible(gameMaster.getCurrentShuffle());
         });
@@ -1870,16 +1871,6 @@ public class FieldController implements Initializable {
                 { plane41, plane42, plane43, plane44, plane45 }
         };
 
-        for (Pane[] row : matrix_pane) {
-            for (Pane pane : row) {
-                if (pane == null) {
-                    System.err.println("Pane is null in matrix_pane");
-                }
-            }
-        }
-
-        // clock.setVisible(true);
-        // startCountdown();
         return draggableMaker.setRedGlowOnRandomGroup(matrix_pane);
     }
 
@@ -2036,12 +2027,18 @@ public class FieldController implements Initializable {
         });
         mainMediaPlayer.play();
     }
-}
-// // Create an ImageView to display the frames
-// imageView = new ImageView(frames[frameIndex]);
-
-// // Create a Timeline to animate the frames
-// timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> {
-//     frameIndex = (frameIndex + 1) % frames.length;
-//     imageView.setImage(frames[frameIndex]);
-// }));     
+    
+    public void playShuffleMusic() {
+        MediaPlayer shuffleMediaPlayer;
+        String musicFile = "/assets/OOP 2/OOP 2/music/shuffleMusic.mp3";
+        URL musicUrl = getClass().getResource(musicFile);
+        if (musicUrl != null) {
+            Media media = new Media(musicUrl.toExternalForm());
+            shuffleMediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(shuffleMediaPlayer);
+            shuffleMediaPlayer.play();
+        } else {
+            System.out.println("Music file not found");
+        }
+    }
+} 
