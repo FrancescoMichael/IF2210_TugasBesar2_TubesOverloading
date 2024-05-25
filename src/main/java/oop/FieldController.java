@@ -687,7 +687,7 @@ public class FieldController implements Initializable {
         } else {
             System.out.println("Music file not found");
         }
-        mainMediaPlayer.setCycleCount(10);
+        mainMediaPlayer.setCycleCount(-1);
         mainMediaPlayer.setOnPlaying(() -> {
             mainMediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
                 if (newValue.toSeconds() >= 78) {
@@ -888,7 +888,6 @@ public class FieldController implements Initializable {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
             // playGif("/assets/OOP 2/OOP 2/gif/bearAttack.gif", grid11);
-            System.out.println("Current Turn: " + gameMaster.getCurrentTurn());
             if (gameMaster.getCurrentTurn() > 18) {
                 setWinningPageVisibility(true);
             } else {
@@ -1067,8 +1066,10 @@ public class FieldController implements Initializable {
         Player winner = gameMaster.getWinner();
         // set label menang player info to player name
         if (gameMaster.getPlayer(0).getGulden() == gameMaster.getPlayer(1).getGulden()) {
+            playDrawMusic();
             menang_player_info.setText("Player 1's gulden is the same as Player 2's!");
         } else {
+            playVictoryMusic();
             menang_player_info.setText(winner.getName() + " has win with " + winner.getGulden() + " !");
         }
 
@@ -1673,8 +1674,6 @@ public class FieldController implements Initializable {
         // load
         try {
             String foldername = chooseLoadFolderLabel.getText();
-            System.out.println("foldername: " + foldername);
-            System.out.println("format: " + format);
             gameMaster.load(foldername, format);
             gameMaster.getCurrentPlayer().printGridActiveDeckTest();
             loadGridActiveDeck();
@@ -1969,6 +1968,48 @@ public class FieldController implements Initializable {
         placeMediaPlayer.stop();
         placeMediaPlayer.play();
     }
+
+    public void playVictoryMusic() {
+        mainMediaPlayer.stop();
+        String musicFile = "/assets/OOP 2/OOP 2/music/victoryMusic.mp3";
+        URL musicUrl = getClass().getResource(musicFile);
+        if (musicUrl != null) {
+            Media media = new Media(musicUrl.toExternalForm());
+            mainMediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(mainMediaPlayer);
+        } else {
+            System.out.println("Music file not found");
+        }
+        mainMediaPlayer.setOnPlaying(() -> {
+            mainMediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.toSeconds() >= 30) {
+                    mainMediaPlayer.seek(Duration.ZERO);
+                }
+            });
+        });
+        mainMediaPlayer.play();
+    }
+    
+    public void playDrawMusic() {
+        mainMediaPlayer.stop();
+        String musicFile = "/assets/OOP 2/OOP 2/music/drawMusic.mp3";
+        URL musicUrl = getClass().getResource(musicFile);
+        if (musicUrl != null) {
+            Media media = new Media(musicUrl.toExternalForm());
+            mainMediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(mainMediaPlayer);
+        } else {
+            System.out.println("Music file not found");
+        }
+        mainMediaPlayer.setOnPlaying(() -> {
+            mainMediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.toSeconds() >= 5) {
+                    mainMediaPlayer.seek(Duration.ZERO);
+                }
+            });
+        });
+        mainMediaPlayer.play();
+    }
 }
 // // Create an ImageView to display the frames
 // imageView = new ImageView(frames[frameIndex]);
@@ -1978,7 +2019,3 @@ public class FieldController implements Initializable {
 //     frameIndex = (frameIndex + 1) % frames.length;
 //     imageView.setImage(frames[frameIndex]);
 // }));     
-
-            
-
-              

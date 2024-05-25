@@ -315,7 +315,7 @@ public class GameMaster {
 
         // decrementing deck left
         this.getCurrentPlayer().decrementCardDeckLeft(this.numberOfPickedCards);
-        if (Math.random() < 0.25) {
+        if (false) {
 
             this.bearAttack = true;
             controller.BearMediaPlayerPlay();
