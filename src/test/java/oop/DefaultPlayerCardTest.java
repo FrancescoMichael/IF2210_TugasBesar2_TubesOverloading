@@ -6,12 +6,13 @@ import oop.card.creature.Herbivore;
 import oop.card.creature.Omnivore;
 import oop.card.creature.Plant;
 import oop.card.item.Item;
+import oop.card.product.Product;
 import oop.exceptionkerajaan.BaseException;
 import oop.gamemaster.GameMaster;
 import oop.player.Player;
 
 
-public class DefaultTest {
+public class DefaultPlayerCardTest {
     @Test
     public void test(){
         assertTrue( true );
@@ -68,6 +69,16 @@ public class DefaultTest {
             player1.removeCardAtActiveDeck(3);
             player2.printGridActiveDeckTest();
             // player1.printGridActiveDeckTest();
+
+            player1.addCardToActiveDeck(new Product(), 3);
+            assertTrue(player1.getCardActiveDeck(3) instanceof Product);
+            int i = ((Product)player1.getCardActiveDeck(3)).getAdditionalWeight();
+            assertTrue(i == 0);
+            ((Product)player1.getCardActiveDeck(3)).setAdditionalWeight(10);
+            ((Product)player1.getCardActiveDeck(3)).setType("Carnivore");
+            assertTrue(((Product)player1.getCardActiveDeck(3)).getType().compareTo("Carnivore") == 0);
+            ((Product)player1.getCardActiveDeck(3)).setPrice(100);
+            assertTrue(((Product)player1.getCardActiveDeck(3)).getPrice() == 100);
 
 
 
