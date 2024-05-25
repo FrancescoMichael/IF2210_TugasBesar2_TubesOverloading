@@ -5,7 +5,9 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -14,7 +16,6 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.fxml.Initializable;
@@ -568,6 +569,9 @@ public class FieldController implements Initializable{
 
     @FXML
     private ImageView exitgame;
+
+    @FXML
+    private MediaView mediaView;
     
     private Timeline countdownTimeline;
 
@@ -621,11 +625,33 @@ public class FieldController implements Initializable{
 
     private boolean gameStarted = false;
 
+    private MediaPlayer mainMediaPlayer;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        String musicFile = "/assets/OOP 2/OOP 2/music/mainMusic.mp3"; // Ensure this path is correct
+        URL musicUrl = getClass().getResource(musicFile);
+        if (musicUrl != null) {
+            Media media = new Media(musicUrl.toExternalForm());
+            mainMediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(mainMediaPlayer);
+        } else {
+            System.out.println("Music file not found");
+        }
+        mainMediaPlayer.setCycleCount(10);
+        mainMediaPlayer.setOnPlaying(() -> {
+            mainMediaPlayer.currentTimeProperty().addListener((observable, oldValue, newValue) -> {
+                if (newValue.toSeconds() >= 80) {
+                    mainMediaPlayer.seek(Duration.ZERO);
+                }
+            });
+        });
+        mainMediaPlayer.play();
+
         glowButtonMaker.setGlow(home_start_button);
         home_start_button.setOnMouseClicked(event -> {
             if (!gameStarted) {
+                // mediaPlayer.stop();
                 timerLabel.setVisible(false);
                 initializeGameComponents();
                 home_main_title.setVisible(gameStarted);

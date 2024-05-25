@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.media.MediaView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
@@ -663,5 +664,6 @@
             <Image url="@../assets/OOP%202/OOP%202/button/exitgame.png" />
          </image>
       </ImageView>
+      <MediaView fx:id="mediaView"/>
    </children>
 </AnchorPane>
