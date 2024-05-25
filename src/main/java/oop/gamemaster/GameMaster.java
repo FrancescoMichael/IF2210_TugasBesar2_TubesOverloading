@@ -5,6 +5,7 @@ import java.util.function.Supplier;
 
 import javafx.application.Platform;
 import javafx.scene.control.Label;
+import javafx.scene.image.ImageView;
 
 import static java.util.Map.entry;
 
@@ -186,12 +187,13 @@ public class GameMaster {
 
     }
 
-    public void bearAttackTimer(Label timerLabel, FieldController controller) throws BaseException {
+    public void bearAttackTimer(Label timerLabel, FieldController controller, ImageView clock) throws BaseException {
         Integer[] startEnd = controller.simulateBearAttack(); // Assuming this method is thread-safe
         this.bearAttack = true;
         Platform.runLater(() -> {
             timerLabel.setText("");
             timerLabel.setVisible(true);
+            clock.setVisible(true);
         });
 
         new Thread(() -> {
@@ -220,6 +222,7 @@ public class GameMaster {
                 // Final call to make UI changes and possibly a final bear attack process call
                 Platform.runLater(() -> {
                     timerLabel.setVisible(false);
+                    clock.setVisible(false);
                     if (this.bearAttack) {
                         try {
                             bearAttackProcess(startEnd, controller, true);
@@ -307,7 +310,7 @@ public class GameMaster {
 
     }
 
-    public void doneShuffling(Label timeLabel, FieldController controller) throws BaseException {
+    public void doneShuffling(Label timeLabel, FieldController controller, ImageView clock) throws BaseException {
         Player player = this.getCurrentPlayer();
 
         // decrementing deck left

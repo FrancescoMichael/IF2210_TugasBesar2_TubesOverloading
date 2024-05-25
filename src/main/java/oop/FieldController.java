@@ -34,8 +34,7 @@ import oop.gamemaster.GameMaster;
 import oop.player.Player;
 import oop.card.product.*;
 
-
-public class FieldController implements Initializable{
+public class FieldController implements Initializable {
 
     @FXML
     private ImageView ActiveDeck1;
@@ -240,7 +239,7 @@ public class FieldController implements Initializable{
 
     @FXML
     private ImageView PanenBtn;
-    
+
     @FXML
     private ImageView AnimalImage;
 
@@ -329,7 +328,7 @@ public class FieldController implements Initializable{
 
     @FXML
     private ImageView CloseBtn;
- 
+
     @FXML
     private ImageView clickableGrid11;
 
@@ -342,16 +341,16 @@ public class FieldController implements Initializable{
     @FXML
     private Label turn;
 
-    @FXML 
+    @FXML
     private ImageView titleplayer1;
 
-    @FXML 
+    @FXML
     private ImageView titleplayer2;
 
-    @FXML 
+    @FXML
     private ImageView titleplayer1turn;
 
-    @FXML 
+    @FXML
     private ImageView titleplayer2turn;
 
     @FXML
@@ -512,7 +511,7 @@ public class FieldController implements Initializable{
 
     @FXML
     private Label AnimalNameToko;
-    
+
     @FXML
     private ImageView ClosePopUpToko;
 
@@ -584,7 +583,7 @@ public class FieldController implements Initializable{
 
     @FXML
     private MediaView placeMusic;
-    
+
     private Timeline countdownTimeline;
 
     private GameMaster gameMaster = new GameMaster();
@@ -606,10 +605,10 @@ public class FieldController implements Initializable{
     MediaPlayer clickMediaPlayer;
 
     MediaPlayer bearMediaPlayer;
-    
+
     MediaPlayer placeMediaPlayer;
 
-    public DraggableMaker getDraggableMaker(){
+    public DraggableMaker getDraggableMaker() {
         return this.draggableMaker;
     }
 
@@ -628,7 +627,7 @@ public class FieldController implements Initializable{
         okshuffle.setVisible(true);
 
         ImageView[] shuffleCards = {
-            shufflecard1, shufflecard2, shufflecard3, shufflecard4
+                shufflecard1, shufflecard2, shufflecard3, shufflecard4
         };
 
         for (int i = 0; i < cardNames.size() && i < shuffleCards.length; i++) {
@@ -745,7 +744,7 @@ public class FieldController implements Initializable{
             retry.setVisible(false);
             okshuffle.setVisible(false);
             try {
-                gameMaster.doneShuffling(timerLabel, this);
+                gameMaster.doneShuffling(timerLabel, this, clock);
                 updateDeckLeft();
             } catch (BaseException e) {
                 System.out.println(e.getMessage());
@@ -759,7 +758,7 @@ public class FieldController implements Initializable{
         glowButtonMaker.setGlow(plugin_button);
         glowButtonMaker.setGlow(save_button);
         glowButtonMaker.setGlow(toko_back);
-        
+
         glowButtonMaker.setGlow(SellButton);
         glowButtonMaker.setGlow(BuyButton);
         glowButtonMaker.setGlow(ClosePopUpToko);
@@ -809,7 +808,7 @@ public class FieldController implements Initializable{
         save_button.setOnMouseClicked(event -> {
             handleSave();
             clickMediaPlayer.stop();
-            clickMediaPlayer.play();   
+            clickMediaPlayer.play();
         });
         glowButtonMaker.setGlow(load_button);
         load_button.setOnMouseClicked(event -> {
@@ -836,7 +835,6 @@ public class FieldController implements Initializable{
         gameMaster.setCurrentFieldPlayer(player1);
         gameMaster.shuffle();
         ShuffleVisible(gameMaster.getCurrentShuffle());
-        
 
         // initialize matrixgrid and matrixCardInField
         matrixGrid = new ImageView[][] {
@@ -890,37 +888,36 @@ public class FieldController implements Initializable{
             System.out.println("Current Turn: " + gameMaster.getCurrentTurn());
             if (gameMaster.getCurrentTurn() > 18) {
                 setWinningPageVisibility(true);
-            }
-            else {
-            if (!gameMaster.isBearAttack()) {
-                try{
-                    gameMaster.next();
-                    // example of shuffle and done shuffling
-                    
-                    gameMaster.shuffle();
-                    ShuffleVisible(gameMaster.getCurrentShuffle());
-                } catch (BaseException e){
-    
+            } else {
+                if (!gameMaster.isBearAttack()) {
+                    try {
+                        gameMaster.next();
+                        // example of shuffle and done shuffling
+
+                        gameMaster.shuffle();
+                        ShuffleVisible(gameMaster.getCurrentShuffle());
+                    } catch (BaseException e) {
+
+                    }
+
+                    turn.setText(gameMaster.getCurrentTurn() + 1 + "");
+                    gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
+                    loadGridActiveDeck();
+                    toLadangku1.setVisible(true);
+                    toLadangLawan1.setVisible(false);
+                    toToko1.setVisible(false);
+                    SaveState1.setVisible(false);
+                    LoadPlugin1.setVisible(false);
+                    LoadState1.setVisible(false);
+
+                    if (gameMaster.getCurrentTurn() % 2 == 1) {
+                        titleplayer1turn.setVisible(false);
+                        titleplayer2turn.setVisible(true);
+                    } else {
+                        titleplayer1turn.setVisible(true);
+                        titleplayer2turn.setVisible(false);
+                    }
                 }
-    
-                turn.setText(gameMaster.getCurrentTurn() + 1 + "");
-                gameMaster.setCurrentFieldPlayer(gameMaster.getCurrentPlayer());
-                loadGridActiveDeck();
-                toLadangku1.setVisible(true);
-                toLadangLawan1.setVisible(false);
-                toToko1.setVisible(false);
-                SaveState1.setVisible(false);
-                LoadPlugin1.setVisible(false);
-                LoadState1.setVisible(false);
-    
-                if (gameMaster.getCurrentTurn() % 2 == 1) {
-                    titleplayer1turn.setVisible(false);
-                    titleplayer2turn.setVisible(true);
-                } else {
-                    titleplayer1turn.setVisible(true);
-                    titleplayer2turn.setVisible(false);
-                }
-            }
             }
         });
 
@@ -929,7 +926,8 @@ public class FieldController implements Initializable{
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
             if (!gameMaster.isBearAttack()) {
-                gameMaster.setCurrentFieldPlayer(gameMaster.getListPlayers().get((gameMaster.getCurrentTurn() + 1) % 2));
+                gameMaster
+                        .setCurrentFieldPlayer(gameMaster.getListPlayers().get((gameMaster.getCurrentTurn() + 1) % 2));
                 loadGridActiveDeck();
                 toLadangLawan1.setVisible(true);
                 toLadangku1.setVisible(false);
@@ -1068,9 +1066,9 @@ public class FieldController implements Initializable{
         if (gameMaster.getPlayer(0).getGulden() == gameMaster.getPlayer(1).getGulden()) {
             menang_player_info.setText("Player 1's gulden is the same as Player 2's!");
         } else {
-        menang_player_info.setText(winner.getName() + " has win with " + winner.getGulden() + " !");
+            menang_player_info.setText(winner.getName() + " has win with " + winner.getGulden() + " !");
         }
-        
+
         glowButtonMaker.setGlow(retrygame);
         retrygame.setOnMouseClicked(event -> {
             gameMaster = new GameMaster();
@@ -1184,7 +1182,7 @@ public class FieldController implements Initializable{
         toko_telur.setVisible(visible);
         toko_labu.setVisible(visible);
         toko_daging_beruang.setVisible(visible);
-        
+
         List<String> deckImageUrls = getActiveDeckImageUrls();
         List<String> deckImageNames = getActiveDeckImageName();
         updateTokoDeckImages(deckImageUrls);
@@ -1207,7 +1205,7 @@ public class FieldController implements Initializable{
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_jagung.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1226,7 +1224,7 @@ public class FieldController implements Initializable{
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_daging_kuda.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1245,7 +1243,7 @@ public class FieldController implements Initializable{
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_sirip_hiu.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1264,7 +1262,7 @@ public class FieldController implements Initializable{
             BuyButton.setVisible(visible);
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_stroberi.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1283,7 +1281,7 @@ public class FieldController implements Initializable{
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_susu.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1302,7 +1300,7 @@ public class FieldController implements Initializable{
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_telur.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1321,7 +1319,7 @@ public class FieldController implements Initializable{
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_labu.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1340,7 +1338,7 @@ public class FieldController implements Initializable{
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_daging_beruang.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1359,7 +1357,7 @@ public class FieldController implements Initializable{
             Kuantitas.setText((gameMaster.getShop().getStock().get(currentProductName)) + "");
             Harga.setText(gameMaster.getShop().getProducts().get(currentProductName).getPrice() + "");
         });
-        
+
         toko_deck7.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1375,12 +1373,12 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         toko_deck8.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1389,7 +1387,7 @@ public class FieldController implements Initializable{
             ImageToko.setImage(new Image(deckImageUrls.get(1)));
             ImageToko.setVisible(visible);
             AnimalNameToko.setText(deckImageNames.get(1));
-            
+
             AnimalNameToko.setVisible(visible);
             ClosePopUpToko.setVisible(visible);
             LabelHarga.setVisible(visible);
@@ -1397,12 +1395,12 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         toko_deck9.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1418,12 +1416,12 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         toko_deck10.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1439,12 +1437,12 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         toko_deck11.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1460,12 +1458,12 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         toko_deck12.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1481,12 +1479,12 @@ public class FieldController implements Initializable{
             SellButton.setVisible(visible);
             Card currentCard = gameMaster.getCurrentPlayer().getCardActiveDeck(currentProduct);
             if (currentCard instanceof Product) {
-                Harga.setText( ((Product) currentCard).getPrice() + "");
+                Harga.setText(((Product) currentCard).getPrice() + "");
             } else {
                 Harga.setText("Nan");
             }
         });
-        
+
         SellButton.setOnMouseClicked(event -> {
             clickMediaPlayer.stop();
             clickMediaPlayer.play();
@@ -1529,7 +1527,6 @@ public class FieldController implements Initializable{
             }
         });
     }
-
 
     private void setLoadPluginVisible(boolean visible) {
         background.setVisible(visible);
@@ -1623,7 +1620,7 @@ public class FieldController implements Initializable{
         try {
             // Load the plugin
             PluginLoader pluginLoader = new PluginLoader();
-            
+
             pluginLoader.loadPlugin(file.getAbsolutePath(), gameMaster.getSaveLoad());
 
             // Update the format combo boxes
@@ -1673,8 +1670,8 @@ public class FieldController implements Initializable{
         // load
         try {
             String foldername = chooseLoadFolderLabel.getText();
-            System.out.println("foldername: "+ foldername);
-            System.out.println("format: "+ format);
+            System.out.println("foldername: " + foldername);
+            System.out.println("format: " + format);
             gameMaster.load(foldername, format);
             gameMaster.getCurrentPlayer().printGridActiveDeckTest();
             loadGridActiveDeck();
@@ -1688,8 +1685,8 @@ public class FieldController implements Initializable{
 
     public void updateTokoDeckImages(List<String> imageUrls) {
         ImageView[] tokoDecks = {
-            toko_deck7, toko_deck8, toko_deck9, 
-            toko_deck10, toko_deck11, toko_deck12
+                toko_deck7, toko_deck8, toko_deck9,
+                toko_deck10, toko_deck11, toko_deck12
         };
 
         for (int i = 0; i < imageUrls.size() && i < tokoDecks.length; i++) {
@@ -1714,7 +1711,7 @@ public class FieldController implements Initializable{
                     activeCard.setImage(new Image(imageUrl));
                 }
             }
-    
+
             for (ImageView[] listGrid : matrixCardInField) {
                 for (ImageView grid : listGrid) {
                     String gridId = grid.getId();
@@ -1738,7 +1735,7 @@ public class FieldController implements Initializable{
     public void loadOther() {
         firstPlayerMoney.setText(gameMaster.getPlayer(0).getGulden() + "");
         secondPlayerMoney.setText(gameMaster.getPlayer(1).getGulden() + "");
-        turn.setText((gameMaster.getCurrentTurn() + 1 ) + "");
+        turn.setText((gameMaster.getCurrentTurn() + 1) + "");
         if (gameMaster.getCurrentTurn() % 2 == 1) {
             titleplayer1turn.setVisible(true);
             titleplayer2turn.setVisible(false);
@@ -1757,10 +1754,10 @@ public class FieldController implements Initializable{
 
     public void loadToko() {
         int enumerator = 0;
-        List<String> updatedActiveDeck= getActiveDeckImageUrls();
+        List<String> updatedActiveDeck = getActiveDeckImageUrls();
         updateTokoDeckImages(updatedActiveDeck);
     }
-    
+
     public void setAllLabel(int row, int col) {
         try {
             AnimalName.setText(gameMaster.getCurrentPlayer().getCardGrid(row, col).getName());
@@ -1773,16 +1770,16 @@ public class FieldController implements Initializable{
                 label5.setText("");
             }
 
-            List<String> effect = gameMaster.getCurrentPlayer().getAllEffecArrayList(row,col);
+            List<String> effect = gameMaster.getCurrentPlayer().getAllEffecArrayList(row, col);
             if (listItems.size() >= 1) {
                 String temp = "";
-                for (String str : effect){
+                for (String str : effect) {
                     temp += str;
                 }
                 label4.setText(temp);
-    
+
             }
-    
+
         } catch (BaseException e) {
             e.printStackTrace();
             // Handle the exception, e.g., show an error message to the user
@@ -1791,27 +1788,48 @@ public class FieldController implements Initializable{
 
     public ImageView getImageViewById(String id) {
         switch (id) {
-            case "kosong11": return kosong11;
-            case "kosong12": return kosong12;
-            case "kosong13": return kosong13;
-            case "kosong14": return kosong14;
-            case "kosong15": return kosong15;
-            case "kosong21": return kosong21;
-            case "kosong22": return kosong22;
-            case "kosong23": return kosong23;
-            case "kosong24": return kosong24;
-            case "kosong25": return kosong25;
-            case "kosong31": return kosong31;
-            case "kosong32": return kosong32;
-            case "kosong33": return kosong33;
-            case "kosong34": return kosong34;
-            case "kosong35": return kosong35;
-            case "kosong41": return kosong41;
-            case "kosong42": return kosong42;
-            case "kosong43": return kosong43;
-            case "kosong44": return kosong44;
-            case "kosong45": return kosong45;
-            default: return null;
+            case "kosong11":
+                return kosong11;
+            case "kosong12":
+                return kosong12;
+            case "kosong13":
+                return kosong13;
+            case "kosong14":
+                return kosong14;
+            case "kosong15":
+                return kosong15;
+            case "kosong21":
+                return kosong21;
+            case "kosong22":
+                return kosong22;
+            case "kosong23":
+                return kosong23;
+            case "kosong24":
+                return kosong24;
+            case "kosong25":
+                return kosong25;
+            case "kosong31":
+                return kosong31;
+            case "kosong32":
+                return kosong32;
+            case "kosong33":
+                return kosong33;
+            case "kosong34":
+                return kosong34;
+            case "kosong35":
+                return kosong35;
+            case "kosong41":
+                return kosong41;
+            case "kosong42":
+                return kosong42;
+            case "kosong43":
+                return kosong43;
+            case "kosong44":
+                return kosong44;
+            case "kosong45":
+                return kosong45;
+            default:
+                return null;
         }
     }
 
@@ -1832,12 +1850,11 @@ public class FieldController implements Initializable{
             }
         }
 
-
-
-
+        // clock.setVisible(true);
         // startCountdown();
         return draggableMaker.setRedGlowOnRandomGroup(matrix_pane);
     }
+
     public void setPanenPageVisibility(boolean bool, boolean isHarvestable) {
         label1.setVisible(bool);
         label2.setVisible(bool);
@@ -1854,7 +1871,6 @@ public class FieldController implements Initializable{
             PanenBtn.setVisible(!bool);
         }
 
-        
     }
 
     public ImageView getAnimalImage() {
@@ -1924,7 +1940,7 @@ public class FieldController implements Initializable{
     }
 
     public void playGif(String pathImage, ImageView grid) {
-        try {
+        try { 
             Image[] frames = loadGifFrames(pathImage);
             int[] frameIndex = {0}; // Use an array to hold the frame index
             ImageView imageView = new ImageView(frames[frameIndex[0]]);
@@ -1945,7 +1961,7 @@ public class FieldController implements Initializable{
         }
 
     }
-
+ 
     public void placeMusicOn() {
         placeMediaPlayer.stop();
         placeMediaPlayer.play();
@@ -1958,4 +1974,8 @@ public class FieldController implements Initializable{
 // timeline = new Timeline(new KeyFrame(Duration.millis(100), e -> {
 //     frameIndex = (frameIndex + 1) % frames.length;
 //     imageView.setImage(frames[frameIndex]);
-// }));
+// }));     
+
+            
+
+              
